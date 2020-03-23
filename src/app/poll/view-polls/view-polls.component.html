@@ -1,0 +1,31 @@
+<div class="p-5">
+  <div class="d-flex justify-content-between">
+    <small>{{ polls.length }} polls found.</small>
+  </div>
+
+  <ul class="list-group mt-3" *ngFor="let poll of polls">
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      <a routerLink='../manage' [queryParams]="{id: poll._id}">{{ poll.title }}</a>
+      <div>
+        <span class="badge badge-primary badge-pill">{{poll.questions.length}}
+          question{{ poll.questions.length > 1 ? 's' : ''}}</span>
+        <span class="badge badge-warning badge-pill text-white ml-1" *ngIf="poll.status === constants.statusTypes.terminated">
+          Terminated
+        </span>
+        <button mat-button matTooltip="Delete poll" disableRipple class="p-0" (click)="deletePoll(poll._id)">
+          <mat-icon class="text-danger">delete</mat-icon>
+        </button>
+
+        <button mat-button matTooltip="Terminate poll" class="p-0" (click)="terminatePoll(poll._id)"
+          *ngIf="poll.status !== constants.statusTypes.terminated">
+          <mat-icon class="text-warning">block</mat-icon>
+        </button>
+
+        <button mat-button matTooltip="Restore poll" disableRipple class="p-0" (click)="restorePoll(poll._id)"
+                *ngIf="poll.status === constants.statusTypes.terminated">
+          <mat-icon class="text-success">restore</mat-icon>
+        </button>
+      </div>
+    </li>
+  </ul>
+</div>

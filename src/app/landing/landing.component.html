@@ -1,0 +1,10 @@
+<mat-tab-group mat-align-tabs="center" [selectedIndex]="selectedIndex">
+    <mat-tab label="Login/Register">
+       <app-login *ngIf="activeLink !== '/signup'"></app-login>
+       <app-signup *ngIf="activeLink === '/signup'"></app-signup>
+    </mat-tab>
+    <mat-tab label="Respond">
+        <app-respond *ngIf="!isViewingResponse"></app-respond>
+        <app-view-poll *ngIf="isViewingResponse"></app-view-poll>
+    </mat-tab>
+</mat-tab-group>

@@ -1,0 +1,91 @@
+<div class="p-5 h-100" *ngIf="poll?.questions && poll?.status !== constants.statusTypes.deleted">
+
+  <a [routerLink]="[ '/respond' ]"><small>Back</small></a>
+
+  <div class="mb-5">
+    <small *ngIf="poll.status === constants.statusTypes.terminated">
+      You cannot repond to this poll, since it was terminated.
+    </small>
+  </div>
+
+
+  <h4>{{poll.title}}</h4>
+  <p>{{poll.description}}</p>
+
+  <div>
+    <div *ngFor="let question of (hasResponded ? response.questions : poll.questions); let i = index"
+      class="border my-5 p-3">
+      <h3 class="mb-5 ml-1">Question {{i + 1}}: {{question.text}}</h3>
+
+      <ul class="list-group" *ngFor="let option of getOptions(question); let j = index">
+        <li class="list-group-item mt-2 d-flex justify-content-between align-items-center">
+          <div>
+            {{ hasResponded ? option.option : option }}
+          </div>
+
+          <div *ngIf="question.answerType === constants.answerTypes.binary; else rating">
+            <mat-button-toggle-group #group="matButtonToggleGroup" (change)="onBinaryAnswerChanged($event, i, j)"
+              [value]="hasResponded ? option.answer : ''" [disabled]="shouldDisable">
+              <mat-button-toggle value="yes">
+                Yes
+              </mat-button-toggle>
+              <mat-button-toggle value="no">
+                No
+              </mat-button-toggle>
+            </mat-button-toggle-group>
+          </div>
+
+          <ng-template #rating>
+            <div>
+              <app-star-rating [rating]="hasResponded ? option.answer : rating" [starCount]="starCount"
+                [color]="starColor" (ratingUpdated)="onRatingChanged($event, i, j)" [disabled]="shouldDisable">
+              </app-star-rating>
+            </div>
+          </ng-template>
+        </li>
+      </ul>
+
+      <div *ngIf="!getOptions(question).length">
+        <div *ngIf="question.answerType === constants.answerTypes.binary; else rating">
+          <mat-button-toggle-group #group="matButtonToggleGroup" (change)="onBinaryAnswerChanged($event, i)"
+            [value]="hasResponded ? question.answer : ''" [disabled]="shouldDisable">
+            <mat-button-toggle value="yes">
+              Yes
+            </mat-button-toggle>
+            <mat-button-toggle value="no">
+              No
+            </mat-button-toggle>
+          </mat-button-toggle-group>
+        </div>
+
+        <ng-template #rating>
+          <div>
+            <app-star-rating [rating]="hasResponded ? question.answer : rating" [starCount]="starCount"
+              [color]="starColor" (ratingUpdated)="onRatingChanged($event, i)" [disabled]="shouldDisable">
+            </app-star-rating>
+          </div>
+        </ng-template>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="text-center mt-5" *ngIf="!shouldDisable">
+    <button class="btn btn-success" (click)="vote()" [disabled]="!canVote || !dirty">
+      {{ (hasResponded)
+          ? 'Update' :
+            !(canVote) ? 'Please select all the options' : 'Vote'
+      }}
+    </button>
+  </div>
+</div>
+
+<div class="d-flex justify-content-center align-items-center p-5 flex-column"
+  *ngIf="poll?.status === constants.statusTypes.deleted">
+  <div>
+    This poll was deleted.
+  </div>
+  <div>
+    <a [routerLink]="[ '/respond' ]"><small>Back</small></a>
+  </div>
+</div>

@@ -1,0 +1,90 @@
+<div class="px-5">
+    <div class="d-flex flex-column mt-5">
+        <div class="w-75">
+            <h3>Create a new poll</h3>
+        </div>
+
+        <mat-form-field appearance="outline" class="w-100 mb-2">
+            <mat-label>Title</mat-label>
+            <input matInput placeholder="A poll about food" [(ngModel)]="poll.title">
+            <mat-hint>Type poll title</mat-hint>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-100 mb-2">
+            <mat-label>Description</mat-label>
+            <textarea matInput placeholder="Poll description" [(ngModel)]="poll.description"></textarea>
+            <mat-hint>Type poll description</mat-hint>
+        </mat-form-field>
+    </div>
+
+    <div class="d-flex justify-content-end mb-2">
+        <mat-slide-toggle (change)="rearrangeQuestions = !rearrangeQuestions">
+            Rearrange questions
+        </mat-slide-toggle>
+    </div>
+
+    <div cdkDropList (cdkDropListDropped)="drop($event)">
+        <div *ngFor="let question of poll.questions; let i = index" class="border mb-1 p-3" cdkDrag
+            [class.mb-5]="!rearrangeQuestions" [cdkDragDisabled]="!rearrangeQuestions">
+
+            <div class="d-flex" *ngIf="rearrangeQuestions">
+                <input matInput disabled placeholder="What is your favorite food?"
+                       [(ngModel)]="question.text">
+                <div class="example-handle" cdkDragHandle>
+                    <svg width="24px" fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                            d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z">
+                        </path>
+                        <path d="M0 0h24v24H0z" fill="none"></path>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="w-100 d-flex justify-content-end align-items-center" *ngIf="!rearrangeQuestions">
+                <mat-radio-group aria-label="Select an option" [(ngModel)]="question.answerType" class="mt-1">
+                    <mat-label class="mr-3 font-weight-bold">Answers: </mat-label>
+                    <mat-radio-button [value]="constants.answerTypes.binary" class="mr-3" checked="true">Yes/No
+                    </mat-radio-button>
+                    <mat-radio-button [value]="constants.answerTypes.rating">5 star rating</mat-radio-button>
+                </mat-radio-group>
+            </div>
+
+            <mat-form-field appearance="outline" class="w-100 mb-5" *ngIf="!rearrangeQuestions">
+                <mat-label>Question {{i + 1}}</mat-label>
+                <input matInput placeholder="What is your favorite food?" [(ngModel)]="question.text">
+                <mat-hint>Type question {{i + 1}}</mat-hint>
+            </mat-form-field>
+
+            <div *ngIf="!rearrangeQuestions">
+                <div *ngFor="let option of question.options; let j = index; trackBy: trackByFn">
+
+                    <div class="d-flex align-items-center">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Enter question {{ i + 1 }} option {{ j + 1 }}</mat-label>
+                            <input matInput placeholder="Pizza" [(ngModel)]="question.options[j]">
+                        </mat-form-field>
+                        <button mat-button class="btn btn-danger ml-1" (click)="removeOption(i,j)">
+                            <mat-icon>
+                                delete
+                            </mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="!rearrangeQuestions">
+                <button class="btn btn-primary" (click)="addOption(i)">
+                    Add {{question.options.length ? 'another' : ''}} option
+                </button>
+                <button class="btn btn-danger float-right" *ngIf="i > 0" (click)="removeQuestion(i)">
+                    Remove question
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center mt-5">
+        <button class="btn btn-info mb-5" (click)="addQuestion()">Add another question</button><br>
+        <button class="btn btn-success" type="submit" (click)="createPoll()" [disabled]="!isValid">Create</button>
+    </div>
+</div>

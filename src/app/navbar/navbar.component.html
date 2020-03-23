@@ -1,0 +1,19 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" routerLink=''>
+      <mat-icon style="vertical-align: middle;">poll</mat-icon>
+      <span class="ml-1" style="vertical-align: middle;">Polling</span></a>
+
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" routerLink='all' [routerLinkActive]="['text-white']">My Polls</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink='create' [routerLinkActive]="['text-white']">Create</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link cursor-pointer" (click)="logout()" matTooltip="Logged in as {{user.email}}">
+          Logout
+        </a>
+      </li>
+    </ul>
+  </nav>
