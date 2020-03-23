@@ -67,14 +67,17 @@
 
             <div *ngIf="!rearrangeQuestions">
                 <div *ngFor="let option of question.options; let j = index; trackBy: trackByFn">
-                    <div class="d-flex align-items-center">
-                        <mat-form-field appearance="outline" class="w-100">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <mat-form-field appearance="outline" [ngClass]="responses.length ? 'w-85': 'w-100'">
                             <mat-label>Question {{ i + 1 }} option {{ j + 1 }}</mat-label>
                             <input matInput placeholder="Pizza" [(ngModel)]="question.options[j]" [disabled]="shouldDisable">
                         </mat-form-field>
                         <button class="btn btn-danger ml-1" (click)="removeOption(i,j)"  *ngIf="!shouldDisable">
                             Remove
                         </button>
+                        <div *ngIf="responses.length" class="w-15 text-right">
+                            <span class="font-weight-bold">Response: </span> {{answerMap[i][j].response}} %
+                        </div>
                     </div>
                 </div>
             </div>
@@ -88,9 +91,9 @@
                 </button>
             </div>
 
-            <div *ngIf="responses.length">
+            <div *ngIf="responses.length && !question.options.length">
                 <hr>
-                <mat-label><span class="font-weight-bold">Response: </span> {{getResponseForQuestion(question._id)}} %</mat-label>
+                <mat-label><span class="font-weight-bold">Response: </span> {{answerMap[i][0].response}} %</mat-label>
             </div>
 
         </div>

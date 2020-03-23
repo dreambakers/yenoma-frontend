@@ -23,6 +23,7 @@ export class ManagePollComponent implements OnInit {
   poll;
   pollCopy;
   responses;
+  answerMap:any;
   loading = false;
   submitted = false;
   rearrangeQuestions = false;
@@ -44,6 +45,9 @@ export class ManagePollComponent implements OnInit {
             this.poll = res.poll;
             this.responses = res.responses;
             this.pollCopy = JSON.stringify(this.poll);
+            if (res.responses) {
+              this.getResponseForQuestion1();
+            }
           } else {
             this.utils.openSnackBar('An error occurred while getting the poll');
           }
@@ -111,41 +115,62 @@ export class ManagePollComponent implements OnInit {
     return this.poll.status === constants.statusTypes.terminated || this.responses.length > 0;
   }
 
-  getResponseForQuestion(questionId) {
-    let overallResponse = 0;
-    let totalResponses = 0;
+  getResponseForQuestion1() {
+    this.answerMap = {};
+
+    const insertAnswer = (answerIndex, answer, question) => {
+      if (answerIndex in question && answer in question[answerIndex]) {
+        return question[answerIndex][answer] += 1;
+      }
+      question[answerIndex] = { ...question[answerIndex], [answer]: 1 };
+    }
 
     for (const response of this.responses) {
-      const question = response.questions.find(question => question._id === questionId);
-      if (question) {
-        const getPercentage = this.getPercentageFunctionForQuestion(question.answerType);
-        let questionResponse;
-        if (question.answers.length) {
-          let avgResponse = 0;
-          for (const answerObj of question.answers) {
-            avgResponse += getPercentage(answerObj.answer);
-          }
-          questionResponse = avgResponse / question.answers.length;
-        } else {
-          questionResponse = getPercentage(question.answer);
+      for (let questionIndex = 0; questionIndex < response.questions.length; questionIndex++) {
+        const question = response.questions[questionIndex];  // actual question from response
+        let _question = this.answerMap[questionIndex];  // map entry
+        if (!_question) {
+          this.answerMap[questionIndex] = { type: question.answerType, options: question.answers.length || 1, responses: 0 };
+          _question = this.answerMap[questionIndex];
         }
-        overallResponse += questionResponse;
-        totalResponses += 1;
+        if (question.answers.length) {
+          for (let answerIndex = 0; answerIndex < question.answers.length; answerIndex ++) {
+            const answerObj = question.answers[answerIndex];
+            insertAnswer(answerIndex, answerObj.answer, _question);
+          }
+        } else {
+          const answerIndex = 0;
+          insertAnswer(answerIndex, question.answer, _question);
+        }
+        _question.responses ++;
       }
     }
-    return (overallResponse / totalResponses).toFixed(2);
-  }
 
-  getPercentageFunctionForQuestion(questionType) {
-    switch (questionType) {
-      case constants.answerTypes.binary:
-        return this.getPercentageFromBinary;
-      default:
-        return this.getPercentageFromRating;
+    for (const questionIndex of Object.keys(this.answerMap)) {
+      const question = this.answerMap[questionIndex];
+      for (let optionIndex = 0; optionIndex < question.options; optionIndex ++) {
+        let response = 0;
+        for (const option of Object.keys(question[optionIndex])) {
+          const optionResponses = question[optionIndex][option];
+          const answerPercentage = (optionResponses / question.responses) * 100;
+          const answerWeight = this.getWeightFunctionForAnswer(question.type)(option);
+          response += answerPercentage * answerWeight;
+          question[optionIndex]['response'] = (response / 100).toFixed(2);
+        }
+      }
     }
   }
 
-  getPercentageFromRating(rating) {
+  getWeightFunctionForAnswer(questionType): Function {
+    switch (questionType) {
+      case constants.answerTypes.binary:
+        return this.getWeightForBinary;
+      default:
+        return this.getWeightForRating;
+    }
+  }
+
+  getWeightForRating(rating): Number {
     switch (rating) {
       case '5':
         return 100;
@@ -160,7 +185,7 @@ export class ManagePollComponent implements OnInit {
     }
   }
 
-  getPercentageFromBinary(answer) {
+  getWeightForBinary(answer): Number {
     return answer === 'yes' ? 100 : 0;
   }
 
