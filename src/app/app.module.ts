@@ -17,6 +17,10 @@ import { LoginComponent } from './landing/login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SignupComponent } from './landing/signup/signup.component';
 import { RespondComponent } from './landing/respond/respond.component';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { LandingComponent } from './landing/landing.component';
+import { ManagePollComponent } from './poll/manage-poll/manage-poll.component';
+import { MatSortModule } from '@angular/material/sort';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -30,12 +34,13 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { ManagePollComponent } from './poll/manage-poll/manage-poll.component';
-import { LandingComponent } from './landing/landing.component';
 import { MatTabsModule } from '@angular/material/tabs';
-import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { MatDialogModule } from '@angular/material';
-
+import { MatTableModule } from '@angular/material/table';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -54,6 +59,8 @@ import { MatDialogModule } from '@angular/material';
     ConfirmDialogComponent
   ],
   imports: [
+
+    BrowserAnimationsModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,
@@ -61,7 +68,6 @@ import { MatDialogModule } from '@angular/material';
     HttpClientModule,
     MatInputModule,
     MatFormFieldModule,
-    BrowserAnimationsModule,
     MatListModule,
     MatRadioModule,
     MatButtonToggleModule,
@@ -72,7 +78,13 @@ import { MatDialogModule } from '@angular/material';
     MatSnackBarModule,
     DragDropModule,
     MatTabsModule,
-    MatDialogModule
+    MatDialogModule,
+    MatTableModule,
+    MatSortModule,
+    MatMenuModule,
+    MatSelectModule,
+    MatSliderModule,
+    MatCheckboxModule
   ],
   providers: [
     {

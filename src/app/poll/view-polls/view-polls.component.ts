@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { PollService } from 'src/app/services/poll.service';
 import { UserService } from 'src/app/services/user.service';
 import { UtilService } from 'src/app/services/util.service';
 import { constants } from 'src/app/app.constants';
 
+import * as moment from 'moment';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 @Component({
   selector: 'app-view-polls',
   templateUrl: './view-polls.component.html',
@@ -13,6 +16,9 @@ export class ViewPollsComponent implements OnInit {
 
   polls = [];
   constants = constants;
+  displayedColumns: string[] = ['title', 'createdAt', 'responses', 'action'];
+  dataSource;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   constructor(private pollService: PollService,
     private userService: UserService,
@@ -23,6 +29,8 @@ export class ViewPollsComponent implements OnInit {
       (res: any) => {
         if (res.success) {
           this.polls = res.polls;
+          this.dataSource = new MatTableDataSource(this.polls);
+          this.dataSource.sort = this.sort;
         }
       },
       err => {
@@ -39,6 +47,7 @@ export class ViewPollsComponent implements OnInit {
             (res: any) => {
               if (res.success) {
                 this.polls = this.polls.filter(poll => poll._id !== pollId);
+                this.dataSource.data = this.polls;
                 this.utils.openSnackBar('Poll deleted successfully');
               } else {
                 this.utils.openSnackBar('An error occurred while deleting the poll');
@@ -97,6 +106,14 @@ export class ViewPollsComponent implements OnInit {
         }
       }
     );
+  }
+
+  getParsedDate(date) {
+    if (date) {
+      return moment(date).format('YYYY-MM-DD, HH:MM');
+    } else {
+      return '-';
+    }
   }
 
 }

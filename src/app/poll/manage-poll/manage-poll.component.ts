@@ -46,7 +46,7 @@ export class ManagePollComponent implements OnInit {
             this.responses = res.responses;
             this.pollCopy = JSON.stringify(this.poll);
             if (res.responses) {
-              this.getResponseForQuestion1();
+              this.getResponseForQuestions();
             }
           } else {
             this.utils.openSnackBar('An error occurred while getting the poll');
@@ -115,7 +115,7 @@ export class ManagePollComponent implements OnInit {
     return this.poll.status === constants.statusTypes.terminated || this.responses.length > 0;
   }
 
-  getResponseForQuestion1() {
+  getResponseForQuestions() {
     this.answerMap = {};
 
     const insertAnswer = (answerIndex, answer, question) => {
@@ -163,22 +163,37 @@ export class ManagePollComponent implements OnInit {
 
   getWeightFunctionForAnswer(questionType): Function {
     switch (questionType) {
+
       case constants.answerTypes.binary:
         return this.getWeightForBinary;
+
+      case constants.answerTypes.checkbox:
+      case constants.answerTypes.radioButton:
+        return this.getWeightForCheckboxOrRadio;
+
+      case constants.answerTypes.radioButton:
+        return this.getWeightForCheckboxOrRadio;
+
+      case constants.answerTypes.yesNoMaybe:
+        return this.getWeightForYNM;
+
+      case constants.answerTypes.slider:
+        return this.getWeightForSlider;
+
       default:
         return this.getWeightForRating;
     }
   }
 
   getWeightForRating(rating): Number {
-    switch (rating) {
-      case '5':
+    switch (+rating) {
+      case 5:
         return 100;
-      case '4':
+      case 4:
         return 75;
-      case '3':
+      case 3:
         return 50;
-      case '2':
+      case 2:
         return 25;
       default:
         return 0;
@@ -189,4 +204,15 @@ export class ManagePollComponent implements OnInit {
     return answer === 'yes' ? 100 : 0;
   }
 
+  getWeightForCheckboxOrRadio(checked): Number {
+    return checked === 'true' ? 100: 0;
+  }
+
+  getWeightForSlider(value): Number {
+    return +value;
+  }
+
+  getWeightForYNM(answer): Number {
+    return answer === 'yes' ? 100 : (answer === 'maybe' ? 50 : 0);
+  }
 }

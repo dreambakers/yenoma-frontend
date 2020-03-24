@@ -22,7 +22,7 @@ export class ViewPollComponent implements OnInit {
 
   poll;
 
-  rating: number = 3;
+  rating: number = 0;
   starCount: number = 5;
   starColor: StarRatingColor = StarRatingColor.accent;
   starColorP: StarRatingColor = StarRatingColor.primary;
@@ -50,11 +50,22 @@ export class ViewPollComponent implements OnInit {
                 this.response = this.getResponseFromLocalStorage(this.poll._id);
                 this.hasResponded = true;
               } else {
+                const getDefaultAnswer = (answerType) => {
+                  switch (answerType) {
+                    case constants.answerTypes.checkbox:
+                    case constants.answerTypes.radioButton:
+                      return false;
+                    case constants.answerTypes.slider:
+                      return 0;
+                    default:
+                      return '';
+                  }
+                }
                 this.poll.questions.forEach(question => {
                   this.response.questions.push({
                     _id: question._id,
                     text: question.text,
-                    answers: question.options.map(option => ({ option, answer: '' })),
+                    answers: question.options.map(option => ({ option, answer: getDefaultAnswer(question.answerType) })),
                     answerType: question.answerType
                   });
                 });
@@ -121,7 +132,52 @@ export class ViewPollComponent implements OnInit {
       question.answers[answerIndex].answer = event.value;
     } else {
       question['answer'] = event.value;
+    }
+  }
 
+  onYNMAnswerChanged(event, questionIndex, answerIndex = null) {
+    const question = this.response.questions[questionIndex];
+    question.answerType = constants.answerTypes.yesNoMaybe;
+    if (answerIndex !== null) {
+      question.answers[answerIndex].answer = event.value;
+    } else {
+      question['answer'] = event.value;
+    }
+  }
+
+  onSliderValueChanged(event, questionIndex, answerIndex = null) {
+    const question = this.response.questions[questionIndex];
+    question.answerType = constants.answerTypes.slider;
+    if (answerIndex !== null) {
+      question.answers[answerIndex].answer = event.value;
+    } else {
+      question['answer'] = event.value;
+    }
+  }
+
+  onCheckboxChanged(event, questionIndex, answerIndex = null) {
+    const question = this.response.questions[questionIndex];
+    question.answerType = constants.answerTypes.checkbox;
+    if (answerIndex !== null) {
+      question.answers[answerIndex].answer = event.checked;
+    } else {
+      question['answer'] = event.checked;
+    }
+  }
+
+  onRadioButtonChanged(questionIndex, answerIndex = null) {
+    const question = this.response.questions[questionIndex];
+    question.answerType = constants.answerTypes.radioButton;
+    if (answerIndex !== null) {
+      question.answers.forEach((answerObject, index) => {
+        if (index !== answerIndex) {
+          answerObject.answer = false;
+        } else {
+          answerObject.answer = true;
+        }
+      })
+    } else {
+      question['answer'] = true;
     }
   }
 
@@ -151,18 +207,42 @@ export class ViewPollComponent implements OnInit {
   }
 
   get canVote() {
-    let totalOptions = this.poll.questions.reduce((acc, question) => acc + question.options.length, 0);
-    // count for questions without any options
-    totalOptions += this.poll.questions.filter(question => !question.options.length).length;
-
-    let responsedCount = this.response.questions.reduce((acc, question) => {
-      acc += question.answers.filter(answerObj => answerObj.answer).length;
+    const totalOptions = this.poll.questions.reduce((acc, question) => {
+      if (question.options.length) {
+        // dont count multiple options for checkbox/radio (since a min of 1 must be selected)
+        if ([constants.answerTypes.radioButton, constants.answerTypes.checkbox].includes(question.answerType)) {
+          acc += 1;
+        } else {
+          acc += question.options.length;
+        }
+      } else {
+        acc += 1;
+      }
       return acc;
     }, 0);
 
-    // count responses on questions (not options of questions)
-    responsedCount += this.response.questions.filter(question => question.answer).length;
-    return totalOptions === responsedCount;
+    const respondedCount = this.response.questions.reduce((acc, question) => {
+      if (question.answerType === constants.answerTypes.slider) {
+        acc ++;
+      } else if (question.answers.length) {
+        if ([
+              constants.answerTypes.radioButton,
+              constants.answerTypes.checkbox
+            ].includes(question.answerType)
+            && question.answers.filter(answerObj => answerObj.answer).length) {
+          acc ++;
+        } else {
+          acc += question.answers.filter(answerObj => answerObj.answer).length;
+        }
+      } else {
+        if (question.answer) {
+          acc++;
+        }
+      }
+      return acc;
+    }, 0);
+
+    return totalOptions === respondedCount;
   }
 
   get dirty() {

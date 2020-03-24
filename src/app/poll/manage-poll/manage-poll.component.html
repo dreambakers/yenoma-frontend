@@ -49,14 +49,17 @@
             </div>
 
             <div class="w-100 d-flex justify-content-end align-items-center" *ngIf="!rearrangeQuestions">
-                <mat-radio-group aria-label="Select an option" [(ngModel)]="question.answerType"
-                                 [disabled]="shouldDisable" class="mt-1">
-
-                    <mat-label class="mr-3 font-weight-bold">Answers: </mat-label>
-                    <mat-radio-button [value]="constants.answerTypes.binary" class="mr-3" checked="true">Yes/No
-                    </mat-radio-button>
-                    <mat-radio-button [value]="constants.answerTypes.rating">5 star rating</mat-radio-button>
-                </mat-radio-group>
+                <mat-form-field>
+                    <mat-label>Answers</mat-label>
+                    <mat-select [(value)]="question.answerType">
+                      <mat-option [value]="constants.answerTypes.binary">Yes/No</mat-option>
+                      <mat-option [value]="constants.answerTypes.rating">5 star rating</mat-option>
+                      <mat-option [value]="constants.answerTypes.checkbox">Checkbox</mat-option>
+                      <mat-option [value]="constants.answerTypes.radioButton">Radiobutton</mat-option>
+                      <mat-option [value]="constants.answerTypes.yesNoMaybe">Yes/No/Maybe</mat-option>
+                      <mat-option [value]="constants.answerTypes.slider">Slider</mat-option>
+                    </mat-select>
+                </mat-form-field>
             </div>
 
             <mat-form-field appearance="outline" class="w-100 mb-5" *ngIf="!rearrangeQuestions">
