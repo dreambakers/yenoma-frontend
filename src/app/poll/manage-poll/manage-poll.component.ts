@@ -215,4 +215,17 @@ export class ManagePollComponent implements OnInit {
   getWeightForYNM(answer): Number {
     return answer === 'yes' ? 100 : (answer === 'maybe' ? 50 : 0);
   }
+
+  dropQuestion(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.poll.questions, event.previousIndex, event.currentIndex);
+  }
+
+  dropOption(event: CdkDragDrop<string[]>, question) {
+    moveItemInArray(question.options, event.previousIndex, event.currentIndex);
+  }
+
+  toggleRearrangement() {
+    this.rearrangeQuestions = !this.rearrangeQuestions;
+    this.poll.questions.forEach(question => delete question['rearrangeOptions']);
+  }
 }

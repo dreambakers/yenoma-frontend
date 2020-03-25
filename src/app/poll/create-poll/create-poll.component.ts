@@ -64,9 +64,17 @@ export class CreatePollComponent implements OnInit {
     return this.poll.description && this.poll.title && this.poll.questions.every(question => question.text && question.options.every(option => option.length));
   }
 
-  drop(event: CdkDragDrop<string[]>) {
+  dropQuestion(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.poll.questions, event.previousIndex, event.currentIndex);
   }
 
+  dropOption(event: CdkDragDrop<string[]>, question) {
+    moveItemInArray(question.options, event.previousIndex, event.currentIndex);
+  }
+
+  toggleRearrangement() {
+    this.rearrangeQuestions = !this.rearrangeQuestions;
+    this.poll.questions.forEach(question => delete question['rearrangeOptions']);
+  }
 
 }
