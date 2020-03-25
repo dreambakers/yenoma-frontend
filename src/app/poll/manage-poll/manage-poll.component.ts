@@ -90,7 +90,9 @@ export class ManagePollComponent implements OnInit {
   }
 
   get isValid() {
-    return this.poll.description && this.poll.title && this.poll.questions.every(question => question.text && question.options.every(option => option.length));
+    return this.poll.description && this.poll.title &&
+           this.poll.questions.every(question => question.text && question.options.every(option => option.length)) &&
+           this.poll.questions.filter(question => this.minimumOptionsRequired(question)).every(question => question.options.length >= 2);
   }
 
   get dirty() {
@@ -98,6 +100,7 @@ export class ManagePollComponent implements OnInit {
   }
 
   updatePoll() {
+    this.poll.questions.forEach(question => delete question['rearrangeOptions']);
     this.pollService.updatePoll(this.poll).subscribe(
       (res: any) => {
         if (res.success) {
@@ -227,5 +230,18 @@ export class ManagePollComponent implements OnInit {
   toggleRearrangement() {
     this.rearrangeQuestions = !this.rearrangeQuestions;
     this.poll.questions.forEach(question => delete question['rearrangeOptions']);
+  }
+
+  minimumOptionsRequired(question) {
+    return question.answerType === constants.answerTypes.radioButton ||
+           question.answerType === constants.answerTypes.checkbox;
+  }
+
+  rearrangeOptions(question) {
+    if (question['rearrangeOptions']) {
+      delete question['rearrangeOptions'];
+    } else {
+      question['rearrangeOptions'] = true;
+    }
   }
 }

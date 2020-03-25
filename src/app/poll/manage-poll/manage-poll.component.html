@@ -33,7 +33,8 @@
 
     <div cdkDropList (cdkDropListDropped)="dropQuestion($event)">
         <div *ngFor="let question of poll.questions; let i = index" class="border p-3 mb-1" cdkDrag
-            [class.mb-5]="!rearrangeQuestions" [cdkDragDisabled]="!rearrangeQuestions">
+            [class.mb-5]="!rearrangeQuestions" [cdkDragDisabled]="!rearrangeQuestions"
+            [class.border-danger]="minimumOptionsRequired(question) && question.options.length < 2">
 
             <div class="d-flex" *ngIf="rearrangeQuestions">
                 <input matInput disabled placeholder="What is your favorite food?"
@@ -49,6 +50,13 @@
             </div>
 
             <div class="w-100 d-flex justify-content-end align-items-center" *ngIf="!rearrangeQuestions">
+                <mat-icon
+                    class="mb-3 mr-2 cursor-pointer"
+                    matTooltip="This answer type requires a minimum of 2 options"
+                    matTooltipPosition="above"
+                    *ngIf="minimumOptionsRequired(question)">
+                    info
+                </mat-icon>
                 <mat-form-field>
                     <mat-label>Answers</mat-label>
                     <mat-select [(value)]="question.answerType">
@@ -69,7 +77,7 @@
             </mat-form-field>
 
             <div class="d-flex justify-content-end mb-2" *ngIf="question.options.length && !rearrangeQuestions">
-                <mat-slide-toggle (change)="question.rearrangeOptions = !question.rearrangeOptions">
+                <mat-slide-toggle (change)="rearrangeOptions(question)">
                     Rearrange options
                 </mat-slide-toggle>
             </div>
