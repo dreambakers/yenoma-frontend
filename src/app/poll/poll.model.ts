@@ -8,5 +8,6 @@ export class Poll {
     title: string;
     description: string;
     questions: Question[];
-    status: string
+    status: string;
+    privateNote: string;
 }

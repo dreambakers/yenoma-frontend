@@ -15,6 +15,12 @@
             <textarea matInput placeholder="Poll description" [(ngModel)]="poll.description"></textarea>
             <mat-hint>Type poll description</mat-hint>
         </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-100 mb-2">
+            <mat-label>Private note</mat-label>
+            <textarea matInput placeholder="Private note" [(ngModel)]="poll.privateNote"></textarea>
+            <mat-hint>Type private note (not visible to responders)</mat-hint>
+        </mat-form-field>
     </div>
 
     <div class="d-flex justify-content-end mb-2">
@@ -28,8 +34,7 @@
             [class.mb-5]="!rearrangeQuestions" [cdkDragDisabled]="!rearrangeQuestions">
 
             <div class="d-flex" *ngIf="rearrangeQuestions">
-                <input matInput disabled placeholder="What is your favorite food?"
-                       [(ngModel)]="question.text">
+                <input matInput disabled [(ngModel)]="question.text">
                 <div class="example-handle" cdkDragHandle>
                     <svg width="24px" fill="currentColor" viewBox="0 0 24 24">
                         <path
@@ -96,7 +101,7 @@
                 <button class="btn btn-primary" (click)="addOption(i)">
                     Add {{question.options.length ? 'another' : ''}} option
                 </button>
-                <button class="btn btn-danger float-right" *ngIf="i > 0" (click)="removeQuestion(i)">
+                <button class="btn btn-danger float-right" (click)="removeQuestion(i)">
                     Remove question
                 </button>
             </div>

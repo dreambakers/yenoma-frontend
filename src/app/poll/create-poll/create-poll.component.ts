@@ -22,6 +22,7 @@ export class CreatePollComponent implements OnInit {
     ],
     title: '',
     description: '',
+    privateNote: '',
     status: constants.statusTypes.open
   };
   rearrangeQuestions = false;
@@ -46,6 +47,9 @@ export class CreatePollComponent implements OnInit {
 
   removeQuestion(questionIndex) {
     this.poll.questions.splice(questionIndex, 1);
+    if (!this.poll.questions.length) {
+      this.addQuestion();
+    }
   }
 
   addOption(questionIndex) {

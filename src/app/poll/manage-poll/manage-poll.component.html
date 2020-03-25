@@ -25,6 +25,13 @@
         <mat-hint *ngIf="!shouldDisable">Type poll description</mat-hint>
     </mat-form-field>
 
+    <mat-form-field appearance="outline" class="w-100 mb-2">
+        <mat-label>Private note</mat-label>
+        <textarea matInput placeholder="Private note" [(ngModel)]="poll.privateNote" [disabled]="shouldDisable">
+        </textarea>
+        <mat-hint *ngIf="!shouldDisable">Type private note (not visible to responders)</mat-hint>
+    </mat-form-field>
+
     <div class="d-flex justify-content-end mb-2" *ngIf="!shouldDisable">
         <mat-slide-toggle (change)="toggleRearrangement()">
             Rearrange questions
@@ -37,8 +44,7 @@
             [class.border-danger]="minimumOptionsRequired(question) && question.options.length < 2">
 
             <div class="d-flex" *ngIf="rearrangeQuestions">
-                <input matInput disabled placeholder="What is your favorite food?"
-                       [(ngModel)]="question.text" [disabled]="shouldDisable">
+                <input matInput disabled [(ngModel)]="question.text" [disabled]="shouldDisable">
                 <div class="example-handle" cdkDragHandle>
                     <svg width="24px" fill="currentColor" viewBox="0 0 24 24">
                         <path
@@ -59,7 +65,7 @@
                 </mat-icon>
                 <mat-form-field>
                     <mat-label>Answers</mat-label>
-                    <mat-select [(value)]="question.answerType">
+                    <mat-select [(value)]="question.answerType" [disabled]="shouldDisable">
                       <mat-option [value]="constants.answerTypes.binary">Yes/No</mat-option>
                       <mat-option [value]="constants.answerTypes.rating">5 star rating</mat-option>
                       <mat-option [value]="constants.answerTypes.checkbox">Checkbox</mat-option>
@@ -76,7 +82,7 @@
                 <mat-hint *ngIf="!shouldDisable">Type question {{i + 1}}</mat-hint>
             </mat-form-field>
 
-            <div class="d-flex justify-content-end mb-2" *ngIf="question.options.length && !rearrangeQuestions">
+            <div class="d-flex justify-content-end mb-2" *ngIf="question.options.length && !rearrangeQuestions && !shouldDisable">
                 <mat-slide-toggle (change)="rearrangeOptions(question)">
                     Rearrange options
                 </mat-slide-toggle>
@@ -90,12 +96,18 @@
                             <mat-label>Question {{ i + 1 }} option {{ j + 1 }}</mat-label>
                             <input matInput placeholder="Pizza" [(ngModel)]="question.options[j]" [disabled]="shouldDisable">
                         </mat-form-field>
-                       <button mat-button class="btn btn-danger ml-1 mb-4" (click)="removeOption(i,j)"
-                               *ngIf="!question.rearrangeOptions">
+
+                        <div *ngIf="responses.length" class="w-15 text-right">
+                            <span class="font-weight-bold">Response: </span> {{answerMap[i][j].response}} %
+                        </div>
+
+                        <button mat-button class="btn btn-danger ml-1 mb-4" (click)="removeOption(i,j)"
+                               *ngIf="!question.rearrangeOptions && !shouldDisable">
                             <mat-icon>
                                 delete
                             </mat-icon>
                         </button>
+
                         <div class="example-handle ml-1 mb-4" cdkDragHandle *ngIf="question.rearrangeOptions">
                             <svg width="24px" fill="currentColor" viewBox="0 0 24 24">
                                 <path
@@ -112,7 +124,7 @@
                 <button class="btn btn-primary" (click)="addOption(i)">
                     Add {{question.options.length ? 'another' : ''}} option
                 </button>
-                <button class="btn btn-danger float-right" *ngIf="i > 0" (click)="removeQuestion(i)">
+                <button class="btn btn-danger float-right" (click)="removeQuestion(i)">
                     Remove question
                 </button>
             </div>
