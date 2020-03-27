@@ -69,7 +69,8 @@ export class ViewPollComponent implements OnInit {
                     answerType: question.answerType
                   });
                 });
-
+                this.poll.allowComments && (this.response['comments'] = '');
+                this.poll.allowNames && (this.response['name'] = '');
                 this.response.for = res.poll._id;
               }
               this.responseCopy = JSON.stringify(this.response);

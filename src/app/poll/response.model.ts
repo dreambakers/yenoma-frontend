@@ -14,4 +14,6 @@ interface Question {
 export class Response {
     questions: Question[];
     for: string;
+    name?: string;
+    comments?: string;
 }

@@ -10,4 +10,6 @@ export class Poll {
     questions: Question[];
     status: string;
     privateNote: string;
+    allowNames: boolean;
+    allowComments: boolean;
 }

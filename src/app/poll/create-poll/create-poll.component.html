@@ -17,11 +17,14 @@
                 <mat-hint>Type poll description</mat-hint>
             </mat-form-field>
 
-            <mat-form-field appearance="outline" class="w-100 mb-2">
+            <mat-form-field appearance="outline" class="w-100 mb-3">
                 <mat-label>Private note</mat-label>
                 <textarea matInput placeholder="Private note" [(ngModel)]="poll.privateNote"></textarea>
                 <mat-hint>Type private note (not visible to responders)</mat-hint>
             </mat-form-field>
+
+            <mat-checkbox class="mr-3" [(ngModel)]="poll.allowNames">Allow names</mat-checkbox>
+            <mat-checkbox [(ngModel)]="poll.allowComments">Allow comments</mat-checkbox>
         </mat-card>
 
     </div>

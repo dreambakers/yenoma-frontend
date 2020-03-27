@@ -23,7 +23,9 @@ export class CreatePollComponent implements OnInit {
     title: '',
     description: '',
     privateNote: '',
-    status: constants.statusTypes.open
+    status: constants.statusTypes.open,
+    allowComments: false,
+    allowNames: false
   };
   rearrangeQuestions = false;
 

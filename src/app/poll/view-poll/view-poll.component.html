@@ -140,6 +140,20 @@
     </mat-card>
   </div>
 
+  <mat-card *ngIf="poll?.allowComments || poll?.allowNames">
+    <mat-form-field appearance="outline" class="w-100 mb-2" *ngIf="poll.allowNames">
+      <mat-label>Name</mat-label>
+      <input matInput placeholder="John Doe" [(ngModel)]="response.name">
+      <mat-hint>Enter your name</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100 mb-2" *ngIf="poll.allowComments">
+      <mat-label>Comments</mat-label>
+      <textarea matInput placeholder="The options could've been clearer" [(ngModel)]="response.comments"></textarea>
+      <mat-hint>Enter your comments</mat-hint>
+    </mat-form-field>
+  </mat-card>
+
   <div class="text-center mt-5" *ngIf="!shouldDisable">
     <button class="btn btn-success" (click)="vote()" [disabled]="!canVote || !dirty">
       {{ (hasResponded)

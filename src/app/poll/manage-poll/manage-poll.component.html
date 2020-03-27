@@ -2,7 +2,7 @@
 
     <div class="d-flex flex-column">
         <div class="w-75 mb-3">
-            <h3>Manage Poll</h3>
+            <h3>Manage Poll <span class="font-italic text-muted" *ngIf="shouldDisable">(Read-only)</span></h3>
         </div>
 
         <small *ngIf="poll.status === constants.statusTypes.terminated" class="mb-3">
@@ -38,6 +38,9 @@
                 </textarea>
                 <mat-hint *ngIf="!shouldDisable">Type private note (not visible to responders)</mat-hint>
             </mat-form-field>
+
+            <mat-checkbox class="mr-3" [(ngModel)]="poll.allowNames" [disabled]="shouldDisable">Allow names</mat-checkbox>
+            <mat-checkbox [(ngModel)]="poll.allowComments" [disabled]="shouldDisable">Allow comments</mat-checkbox>
         </mat-card>
     </div>
 
