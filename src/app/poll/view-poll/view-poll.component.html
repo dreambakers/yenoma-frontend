@@ -68,7 +68,8 @@
 
             <div *ngSwitchCase="constants.answerTypes.rating">
               <app-star-rating [rating]="hasResponded ? option.answer : rating" [starCount]="starCount"
-                [color]="starColor" (ratingUpdated)="onRatingChanged($event, i, j)" [disabled]="shouldDisable">
+                [color]="starColor" (ratingUpdated)="onRatingChanged($event, i, j)" [disabled]="shouldDisable"
+                class="text-nowrap">
               </app-star-rating>
             </div>
 
@@ -120,7 +121,8 @@
 
         <div *ngSwitchCase="constants.answerTypes.rating">
           <app-star-rating [rating]="hasResponded ? question.answer : rating" [starCount]="starCount"
-            [color]="starColor" (ratingUpdated)="onRatingChanged($event, i)" [disabled]="shouldDisable">
+            [color]="starColor" (ratingUpdated)="onRatingChanged($event, i)" [disabled]="shouldDisable"
+            class="text-nowrap">
           </app-star-rating>
         </div>
 
