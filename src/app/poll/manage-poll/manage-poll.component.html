@@ -25,14 +25,14 @@
                 <mat-hint *ngIf="!shouldDisable">Type poll title</mat-hint>
             </mat-form-field>
 
-            <mat-form-field appearance="outline" class="w-100 mb-3">
+            <mat-form-field appearance="outline" class="w-100 mb-3" *ngIf="!shouldDisable || poll.description">
                 <mat-label>Description</mat-label>
                 <textarea matInput placeholder="Poll description" [(ngModel)]="poll.description" [disabled]="shouldDisable">
                 </textarea>
                 <mat-hint *ngIf="!shouldDisable">Type poll description</mat-hint>
             </mat-form-field>
 
-            <mat-form-field appearance="outline" class="w-100 mb-3">
+            <mat-form-field appearance="outline" class="w-100 mb-3" *ngIf="!shouldDisable || poll.privateNote">
                 <mat-label>Private note</mat-label>
                 <textarea matInput placeholder="Private note" [(ngModel)]="poll.privateNote" [disabled]="shouldDisable">
                 </textarea>

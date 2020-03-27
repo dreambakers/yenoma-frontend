@@ -67,7 +67,7 @@ export class CreatePollComponent implements OnInit {
   }
 
   get isValid() {
-    return this.poll.description && this.poll.title &&
+    return this.poll.title &&
            this.poll.questions.every(question => question.text && question.options.every(option => option.length)) &&
            this.poll.questions.filter(question => this.minimumOptionsRequired(question)).every(question => question.options.length >= 2);
   }
