@@ -110,7 +110,7 @@ export class ViewPollsComponent implements OnInit {
 
   getParsedDate(date) {
     if (date) {
-      return moment(date).format('YYYY-MM-DD, HH:MM');
+      return moment(date).format('YYYY-MM-DD, HH:mm');
     } else {
       return '-';
     }
