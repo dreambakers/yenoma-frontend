@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background: #F7F7F7; }
 
 .cursor-pointer {
     cursor: pointer !important;
@@ -33,3 +33,17 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif }
 .w-15 {
     width: 15% !important;
 }
+
+.mat-form-field-appearance-outline.mat-form-field-disabled .mat-form-field-outline {
+    color: rgba(108, 117, 125, 0.50);
+}
+
+.mat-form-field-appearance-outline.mat-form-field-disabled .mat-form-field-label {
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.mat-input-element:disabled {
+    color: rgba(0, 0, 0, 0.8);
+}
+
+button.mat-menu-item{ outline:none; }

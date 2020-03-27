@@ -1,50 +1,60 @@
 <div class="p-5" *ngIf="poll?.questions">
 
-    <small *ngIf="poll.status === constants.statusTypes.terminated">
-        You cannot edit this poll because it was terminated.
-    </small>
+    <div class="d-flex flex-column">
+        <div class="w-75 mb-3">
+            <h3>Manage Poll</h3>
+        </div>
 
-    <small *ngIf="poll.status !== constants.statusTypes.terminated && responses && responses.length">
-        You cannot edit this poll because it already has responses.
-    </small>
+        <small *ngIf="poll.status === constants.statusTypes.terminated" class="mb-3">
+            You cannot edit this poll because it was terminated.
+        </small>
 
-    <div class="d-flex justify-content-end mb-5">
-        <span><span class="font-weight-bold">Poll ID: </span>{{poll._id}}</span>
+        <small *ngIf="poll.status !== constants.statusTypes.terminated && responses && responses.length" class="mb-3">
+            You cannot edit this poll because it already has responses.
+        </small>
+
+        <div class="d-flex flex-column justify-content-end mb-5 text-right">
+            <p class="mb-1"><span class="font-weight-bold">Poll ID: </span>{{poll._id}}</p>
+            <p *ngIf="responses.length"><span class="font-weight-bold">Responders: </span>{{responses.length}}</p>
+        </div>
+
+        <mat-card>
+            <mat-form-field appearance="outline" class="w-100 mb-3 mt-3">
+                <mat-label>Title</mat-label>
+                <input matInput placeholder="A poll about food" [(ngModel)]="poll.title" [disabled]="shouldDisable">
+                <mat-hint *ngIf="!shouldDisable">Type poll title</mat-hint>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-100 mb-3">
+                <mat-label>Description</mat-label>
+                <textarea matInput placeholder="Poll description" [(ngModel)]="poll.description" [disabled]="shouldDisable">
+                </textarea>
+                <mat-hint *ngIf="!shouldDisable">Type poll description</mat-hint>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-100 mb-3" *ngIf="!shouldDisable && poll.privateNote">
+                <mat-label>Private note</mat-label>
+                <textarea matInput placeholder="Private note" [(ngModel)]="poll.privateNote" [disabled]="shouldDisable">
+                </textarea>
+                <mat-hint *ngIf="!shouldDisable">Type private note (not visible to responders)</mat-hint>
+            </mat-form-field>
+        </mat-card>
     </div>
 
-    <mat-form-field appearance="outline" class="w-100 mb-5">
-        <mat-label>Title</mat-label>
-        <input matInput placeholder="A poll about food" [(ngModel)]="poll.title" [disabled]="shouldDisable">
-        <mat-hint *ngIf="!shouldDisable">Type poll title</mat-hint>
-    </mat-form-field>
 
-    <mat-form-field appearance="outline" class="w-100 mb-5">
-        <mat-label>Description</mat-label>
-        <textarea matInput placeholder="Poll description" [(ngModel)]="poll.description" [disabled]="shouldDisable">
-        </textarea>
-        <mat-hint *ngIf="!shouldDisable">Type poll description</mat-hint>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" class="w-100 mb-2">
-        <mat-label>Private note</mat-label>
-        <textarea matInput placeholder="Private note" [(ngModel)]="poll.privateNote" [disabled]="shouldDisable">
-        </textarea>
-        <mat-hint *ngIf="!shouldDisable">Type private note (not visible to responders)</mat-hint>
-    </mat-form-field>
-
-    <div class="d-flex justify-content-end mb-2" *ngIf="!shouldDisable">
+    <div class="d-flex justify-content-end my-4" *ngIf="!shouldDisable">
         <mat-slide-toggle (change)="toggleRearrangement()">
             Rearrange questions
         </mat-slide-toggle>
     </div>
 
-    <div cdkDropList (cdkDropListDropped)="dropQuestion($event)">
-        <div *ngFor="let question of poll.questions; let i = index" class="border p-3 mb-1" cdkDrag
+    <div cdkDropList (cdkDropListDropped)="dropQuestion($event)" [class.mt-5]="shouldDisable">
+        <mat-card *ngFor="let question of poll.questions; let i = index" class="border p-3 mb-1" cdkDrag
             [class.mb-5]="!rearrangeQuestions" [cdkDragDisabled]="!rearrangeQuestions"
             [class.border-danger]="minimumOptionsRequired(question) && question.options.length < 2">
 
             <div class="d-flex" *ngIf="rearrangeQuestions">
-                <input matInput disabled [(ngModel)]="question.text" [disabled]="shouldDisable">
+                <input matInput disabled [value]="question.text || 'No question entered'" [class.font-italic]="!question.text">
                 <div class="example-handle" cdkDragHandle>
                     <svg width="24px" fill="currentColor" viewBox="0 0 24 24">
                         <path
@@ -57,7 +67,7 @@
 
             <div class="w-100 d-flex justify-content-end align-items-center" *ngIf="!rearrangeQuestions">
                 <mat-icon
-                    class="mb-3 mr-2 cursor-pointer"
+                    class="mb-3 mr-2 cursor-pointer text-muted"
                     matTooltip="This answer type requires a minimum of 2 options"
                     matTooltipPosition="above"
                     *ngIf="minimumOptionsRequired(question)">
@@ -133,7 +143,7 @@
                 <hr>
                 <mat-label><span class="font-weight-bold">Response: </span> {{answerMap[i][0].response}} %</mat-label>
             </div>
-        </div>
+        </mat-card>
     </div>
 
     <div class="text-center mt-5" *ngIf="!shouldDisable">

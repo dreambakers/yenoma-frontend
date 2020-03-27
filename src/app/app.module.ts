@@ -41,6 +41,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -84,7 +85,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatMenuModule,
     MatSelectModule,
     MatSliderModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatCardModule
   ],
   providers: [
     {

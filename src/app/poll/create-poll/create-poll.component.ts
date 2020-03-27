@@ -65,7 +65,9 @@ export class CreatePollComponent implements OnInit {
   }
 
   get isValid() {
-    return this.poll.description && this.poll.title && this.poll.questions.every(question => question.text && question.options.every(option => option.length));
+    return this.poll.description && this.poll.title &&
+           this.poll.questions.every(question => question.text && question.options.every(option => option.length)) &&
+           this.poll.questions.filter(question => this.minimumOptionsRequired(question)).every(question => question.options.length >= 2);
   }
 
   dropQuestion(event: CdkDragDrop<string[]>) {
@@ -79,6 +81,11 @@ export class CreatePollComponent implements OnInit {
   toggleRearrangement() {
     this.rearrangeQuestions = !this.rearrangeQuestions;
     this.poll.questions.forEach(question => delete question['rearrangeOptions']);
+  }
+
+  minimumOptionsRequired(question) {
+    return question.answerType === constants.answerTypes.radioButton ||
+           question.answerType === constants.answerTypes.checkbox;
   }
 
 }
