@@ -75,6 +75,9 @@ export class ManagePollComponent implements OnInit {
 
   removeQuestion(questionIndex) {
     this.poll.questions.splice(questionIndex, 1);
+    if (!this.poll.questions.length) {
+      this.addQuestion();
+    }
   }
 
   addOption(questionIndex) {
@@ -83,9 +86,6 @@ export class ManagePollComponent implements OnInit {
 
   removeOption(questionIndex, index) {
     this.poll.questions[questionIndex].options.splice(index, 1);
-    if (!this.poll.questions.length) {
-      this.addQuestion();
-    }
   }
 
   trackByFn(index: any, item: any) {
