@@ -75,7 +75,7 @@
 
             <div *ngSwitchCase="constants.answerTypes.slider">
              <mat-slider
-              [(ngModel)]="option.answer"
+              [(ngModel)]="response.questions[i].answers[j].answer"
               [disabled]="shouldDisable"
               [max]="100"
               [min]="0"
@@ -128,7 +128,7 @@
 
         <div *ngSwitchCase="constants.answerTypes.slider">
          <mat-slider
-              [(ngModel)]="question.answer"
+              [(ngModel)]="response.questions[i].answer"
               [disabled]="shouldDisable"
               [max]="100"
               [min]="0"

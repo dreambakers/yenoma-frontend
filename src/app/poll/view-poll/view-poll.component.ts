@@ -209,35 +209,37 @@ export class ViewPollComponent implements OnInit {
 
   get canVote() {
     const totalOptions = this.poll.questions.reduce((acc, question) => {
-      if (question.options.length) {
-        // dont count multiple options for checkbox/radio (since a min of 1 must be selected)
-        if ([constants.answerTypes.radioButton, constants.answerTypes.checkbox].includes(question.answerType)) {
-          acc += 1;
+      if (question.answerType !== constants.answerTypes.slider) {
+        if (question.options.length) {
+          // dont count multiple options for checkbox/radio (since a min of 1 must be selected)
+          if ([constants.answerTypes.radioButton, constants.answerTypes.checkbox].includes(question.answerType)) {
+            acc += 1;
+          } else {
+            acc += question.options.length;
+          }
         } else {
-          acc += question.options.length;
+          acc += 1;
         }
-      } else {
-        acc += 1;
       }
       return acc;
     }, 0);
 
     const respondedCount = this.response.questions.reduce((acc, question) => {
-      if (question.answerType === constants.answerTypes.slider) {
-        acc ++;
-      } else if (question.answers.length) {
-        if ([
-              constants.answerTypes.radioButton,
-              constants.answerTypes.checkbox
-            ].includes(question.answerType)
-            && question.answers.filter(answerObj => answerObj.answer).length) {
-          acc ++;
+      if (question.answerType !== constants.answerTypes.slider) {
+        if (question.answers.length) {
+          if ([
+                constants.answerTypes.radioButton,
+                constants.answerTypes.checkbox
+              ].includes(question.answerType)
+              && question.answers.filter(answerObj => answerObj.answer).length) {
+            acc ++;
+          } else {
+            acc += question.answers.filter(answerObj => answerObj.answer).length;
+          }
         } else {
-          acc += question.answers.filter(answerObj => answerObj.answer).length;
-        }
-      } else {
-        if (question.answer) {
-          acc++;
+          if (question.answer) {
+            acc++;
+          }
         }
       }
       return acc;

@@ -11,6 +11,7 @@ import { UtilService } from '../services/util.service';
 export class NavbarComponent implements OnInit {
 
   user;
+  show = false;
 
   constructor(private auth: AuthenticationService, private userService: UserService, private utils: UtilService) { }
 
