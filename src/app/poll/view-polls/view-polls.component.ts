@@ -31,6 +31,7 @@ export class ViewPollsComponent implements OnInit {
           this.polls = res.polls;
           this.dataSource = new MatTableDataSource(this.polls);
           this.dataSource.sort = this.sort;
+          this.dataSource.sortingDataAccessor = (data, header) => data[header];
         }
       },
       err => {
