@@ -1,5 +1,7 @@
+import { environment } from '../environments/environment';
+
 export const constants = {
-    apiUrl: 'http://localhost:3000',
+    apiUrl: environment.production ? 'https://db-polling.herokuapp.com' : 'http://localhost:3000',
     answerTypes: {
         binary: 'binary',
         rating: 'rating',
