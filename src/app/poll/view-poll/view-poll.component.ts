@@ -55,6 +55,7 @@ export class ViewPollComponent implements OnInit {
                     case constants.answerTypes.checkbox:
                     case constants.answerTypes.radioButton:
                       return false;
+                    case constants.answerTypes.radioButton:
                     case constants.answerTypes.slider:
                       return 0;
                     default:
