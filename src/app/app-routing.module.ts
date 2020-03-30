@@ -10,6 +10,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ManagePollComponent } from './poll/manage-poll/manage-poll.component';
 import { LandingComponent } from './landing/landing.component';
 import { RespondComponent } from './landing/respond/respond.component';
+import { ViewStatsComponent } from './poll/view-stats/view-stats.component';
 
 const routes: Routes = [
 
@@ -37,6 +38,7 @@ const routes: Routes = [
       { path: 'create', component: CreatePollComponent, pathMatch: 'full' },
       { path: 'all', component: ViewPollsComponent },
       { path: 'manage', component: ManagePollComponent },
+      { path: 'stats', component: ViewStatsComponent },
       { path: '**', redirectTo: '/create', pathMatch: 'full' }
     ]
   }

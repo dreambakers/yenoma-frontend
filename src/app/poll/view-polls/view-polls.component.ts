@@ -7,6 +7,7 @@ import { constants } from 'src/app/app.constants';
 import * as moment from 'moment';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-view-polls',
   templateUrl: './view-polls.component.html',
@@ -16,13 +17,15 @@ export class ViewPollsComponent implements OnInit {
 
   polls = [];
   constants = constants;
-  displayedColumns: string[] = ['title', 'createdAt', 'responses', 'action'];
+  displayedColumns: string[] = ['title', 'createdAt', 'responses', 'active', 'action'];
   dataSource;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   constructor(private pollService: PollService,
     private userService: UserService,
-    private utils: UtilService) { }
+    private utils: UtilService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
     this.pollService.getPolls().subscribe(
@@ -117,4 +120,21 @@ export class ViewPollsComponent implements OnInit {
     }
   }
 
+  managePoll(pollId) {
+    this.router.navigate(['/dashboard/manage'], {
+      relativeTo: this.activatedRoute,
+      queryParams: {
+        id: pollId
+      }
+   });
+  }
+
+  viewStats(pollId) {
+    this.router.navigate(['/dashboard/stats'], {
+      relativeTo: this.activatedRoute,
+      queryParams: {
+        id: pollId
+      }
+   });
+  }
 }

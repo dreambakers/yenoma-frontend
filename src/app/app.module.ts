@@ -42,6 +42,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatCardModule } from '@angular/material/card';
+import { ViewStatsComponent } from './poll/view-stats/view-stats.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { MatCardModule } from '@angular/material/card';
     ManagePollComponent,
     LandingComponent,
     RespondComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    ViewStatsComponent
   ],
   imports: [
 
