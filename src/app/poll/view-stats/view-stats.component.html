@@ -46,8 +46,7 @@
                             <th>
                                 <app-star-rating
                                     [rating]="getStarCountFromResponse(answerMap[i][j]['response'])" [starCount]="5"
-                                    [color]="red" (ratingUpdated)="onRatingChanged($event, i, j)" [disabled]="true"
-                                    class="text-nowrap">
+                                    [disabled]="true" class="text-nowrap">
                                 </app-star-rating>
                             </th>
                         </tr>
