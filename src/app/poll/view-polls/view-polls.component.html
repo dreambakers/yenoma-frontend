@@ -47,7 +47,7 @@
           </button>
 
           <button mat-menu-item (click)="restorePoll(poll._id)" *ngIf="poll.status === constants.statusTypes.terminated">
-            <mat-icon class="text-success">restore</mat-icon> Restore
+            <i class="fas fa-history text-success mr-2"></i>  Restore
           </button>
 
           <button mat-menu-item (click)="viewStats(poll._id)" *ngIf="poll.responses">

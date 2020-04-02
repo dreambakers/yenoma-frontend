@@ -15,11 +15,6 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 })
 export class ViewStatsComponent implements OnInit {
 
-  response: Response = {
-    questions: [],
-    for: ''
-  };
-
   poll;
   responses;
   answerMap:any;
@@ -29,7 +24,6 @@ export class ViewStatsComponent implements OnInit {
   constants = constants;
 
   constructor(
-    private router: Router,
     private pollService: PollService,
     private route: ActivatedRoute,
     private utils: UtilService
@@ -181,4 +175,24 @@ export class ViewStatsComponent implements OnInit {
       return '0 (0.0%)'
     }
   }
+
+  getTableValueForYnm(questionIndex, optionIndex, value) {
+    if (this.answerMap[questionIndex][optionIndex][value]) {
+      const valuePercentage = (this.answerMap[questionIndex][optionIndex][value] / this.answerMap[questionIndex]['responses']) * 100;
+      return `${this.answerMap[questionIndex][optionIndex][value]} (${valuePercentage.toFixed(1)}%)`;
+    } else {
+      return '0 (0.0%)'
+    }
+  }
+
+  getYNMFromScore(score) {
+    if (score >= 0 && score < 33.33) {
+      return 'No';
+    } else if (score >= 33.33 && score <= 66.66) {
+      return 'Maybe';
+    } else if (score >= 66.66 && score <= 100) {
+      return 'Yes';
+    }
+  }
+
 }
