@@ -1,11 +1,16 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER, Injector } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import {HttpClient, HttpClientModule} from '@angular/common/http';
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from '../app/interceptors/token.interceptor';
+
+// import ngx-translate and the http loader
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { LOCATION_INITIALIZED } from '@angular/common';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -20,8 +25,9 @@ import { RespondComponent } from './landing/respond/respond.component';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { LandingComponent } from './landing/landing.component';
 import { ManagePollComponent } from './poll/manage-poll/manage-poll.component';
-import { MatSortModule } from '@angular/material/sort';
+import { ViewStatsComponent } from './poll/view-stats/view-stats.component';
 
+import { MatSortModule } from '@angular/material/sort';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
@@ -42,7 +48,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatCardModule } from '@angular/material/card';
-import { ViewStatsComponent } from './poll/view-stats/view-stats.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +67,6 @@ import { ViewStatsComponent } from './poll/view-stats/view-stats.component';
     ViewStatsComponent
   ],
   imports: [
-
     BrowserAnimationsModule,
     BrowserModule,
     AppRoutingModule,
@@ -88,12 +92,25 @@ import { ViewStatsComponent } from './poll/view-stats/view-stats.component';
     MatSelectModule,
     MatSliderModule,
     MatCheckboxModule,
-    MatCardModule
+    MatCardModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
+      multi: true
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: appInitializerFactory,
+      deps: [TranslateService, Injector],
       multi: true
     }
   ],
@@ -101,3 +118,23 @@ import { ViewStatsComponent } from './poll/view-stats/view-stats.component';
   entryComponents: [ConfirmDialogComponent]
 })
 export class AppModule { }
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
+
+export function appInitializerFactory(translate: TranslateService, injector: Injector) {
+  return () => new Promise<any>((resolve: any) => {
+    const locationInitialized = injector.get(LOCATION_INITIALIZED, Promise.resolve(null));
+    locationInitialized.then(() => {
+      const langToSet = 'en'
+      translate.use(langToSet).subscribe(() => {
+        console.info(`Successfully initialized '${langToSet}' language.'`);
+      }, err => {
+        console.error(`Problem with '${langToSet}' language initialization.'`);
+      }, () => {
+        resolve(null);
+      });
+    });
+  });
+}

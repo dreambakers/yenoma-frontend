@@ -95,9 +95,6 @@ export class ViewStatsComponent implements OnInit {
         }
       }
     }
-
-    console.log(this.answerMap)
-
   }
 
   getWeightFunctionForAnswer(questionType): Function {

@@ -1,0 +1,53 @@
+{
+    "labels": {
+        "createNewPoll": "Create a new poll",
+        "title": "Title",
+        "description": "Description",
+        "privateNote": "Private Note",
+        "allowNames": "Allow names",
+        "allowComments": "Allow comments",
+        "rearrangeQuestions": "Rearrange questions",
+        "answers": "Answers",
+        "question": "Question",
+        "rearrangeOptions": "Rearrange options",
+        "enterQuestion": "Enter question",
+        "option": "Option",
+        "add": "Add",
+        "remove": "Remove",
+        "create": "Create",
+        "addAnotherQuestion": "Add another question"
+    },
+
+    "messages": {
+        "pollCreated": "Poll created successfully",
+        "errorCreatingPoll": "An error occurred while creating the poll"
+    },
+
+    "hints": {
+        "pollTitle": "Type poll title",
+        "pollDescription": "Type poll description",
+        "privateNote": "Type private note (not visible to responders)",
+        "typeQuestion": "Type question"
+    },
+
+    "answerTypes": {
+        "binary": "Yes/No",
+        "rating": "5 star rating",
+        "checkbox": "Checkbox",
+        "radioButton": "Radiobutton",
+        "yesNoMaybe": "Yes/No/Maybe",
+        "slider": "Slider"
+    },
+
+    "tooltips": {
+        "minTwoOptions": "This answer type requires a minimum of 2 options"
+    },
+
+    "placeholders": {
+        "title": "A poll about food",
+        "description": "Poll description",
+        "privateNote": "Private note",
+        "question": "What is your favorite food?",
+        "option": "Pizza"
+    }
+}

@@ -1,37 +1,44 @@
 <div class="px-5">
     <div class="d-flex flex-column mt-5">
         <div class="w-75 mb-3">
-            <h3>Create a new poll</h3>
+            <h3>{{ 'labels.createNewPoll' | translate }}</h3>
         </div>
 
         <mat-card>
             <mat-form-field appearance="outline" class="w-100 mb-2">
-                <mat-label>Title</mat-label>
-                <input matInput placeholder="A poll about food" [(ngModel)]="poll.title">
-                <mat-hint>Type poll title</mat-hint>
+                <mat-label>{{ 'labels.title' | translate }}</mat-label>
+                <input matInput placeholder="{{ 'placeholders.title' | translate }}" [(ngModel)]="poll.title">
+                <mat-hint>{{ 'hints.pollTitle' | translate }}</mat-hint>
             </mat-form-field>
 
             <mat-form-field appearance="outline" class="w-100 mb-2">
-                <mat-label>Description</mat-label>
-                <textarea matInput placeholder="Poll description" [(ngModel)]="poll.description"></textarea>
-                <mat-hint>Type poll description</mat-hint>
+                <mat-label>{{ 'labels.description' | translate }}</mat-label>
+                <textarea matInput placeholder="{{ 'placeholders.description' | translate }}"
+                          [(ngModel)]="poll.description"></textarea>
+                <mat-hint>{{ 'hints.pollDescription' | translate }}</mat-hint>
             </mat-form-field>
 
             <mat-form-field appearance="outline" class="w-100 mb-3">
-                <mat-label>Private note</mat-label>
-                <textarea matInput placeholder="Private note" [(ngModel)]="poll.privateNote"></textarea>
-                <mat-hint>Type private note (not visible to responders)</mat-hint>
+                <mat-label>{{ 'labels.privateNote' | translate }}</mat-label>
+                <textarea matInput placeholder="{{ 'placeholders.privateNote' | translate }}"
+                          [(ngModel)]="poll.privateNote"></textarea>
+                <mat-hint>{{ 'hints.privateNote' | translate }}</mat-hint>
             </mat-form-field>
 
-            <mat-checkbox class="mr-3" [(ngModel)]="poll.allowNames">Allow names</mat-checkbox>
-            <mat-checkbox [(ngModel)]="poll.allowComments">Allow comments</mat-checkbox>
+            <mat-checkbox class="mr-3" [(ngModel)]="poll.allowNames">
+                {{ 'labels.allowNames' | translate }}
+            </mat-checkbox>
+
+            <mat-checkbox [(ngModel)]="poll.allowComments">
+                {{ 'labels.allowComments' | translate }}
+            </mat-checkbox>
         </mat-card>
 
     </div>
 
     <div class="d-flex justify-content-end mb-4 mt-4">
         <mat-slide-toggle (change)="toggleRearrangement()">
-            Rearrange questions
+            {{ 'labels.rearrangeQuestions' | translate }}
         </mat-slide-toggle>
     </div>
 
@@ -41,47 +48,55 @@
             [class.border-danger]="minimumOptionsRequired(question) && question.options.length < 2">
 
             <div class="d-flex" *ngIf="rearrangeQuestions">
-                <input matInput disabled [value]="question.text || 'No question entered'" [class.font-italic]="!question.text">
+                <input matInput disabled [value]="question.text || 'No question entered'"
+                       [class.font-italic]="!question.text">
                 <div class="example-handle" cdkDragHandle>
-                    <svg width="24px" fill="currentColor" viewBox="0 0 24 24">
-                        <path
-                            d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z">
-                        </path>
-                        <path d="M0 0h24v24H0z" fill="none"></path>
-                    </svg>
+                    <i class="fas fa-arrows-alt"></i>
                 </div>
             </div>
 
             <div class="w-100 d-flex justify-content-end align-items-center" *ngIf="!rearrangeQuestions">
                 <mat-icon
                     class="mb-3 mr-2 cursor-pointer text-muted"
-                    matTooltip="This answer type requires a minimum of 2 options"
+                    matTooltip="{{ 'tooltips.minTwoOptions' | translate }}"
                     matTooltipPosition="above"
                     *ngIf="minimumOptionsRequired(question)">
                     info
                 </mat-icon>
                 <mat-form-field>
-                    <mat-label>Answers</mat-label>
-                    <mat-select [(value)]="question.answerType">
-                      <mat-option [value]="constants.answerTypes.binary">Yes/No</mat-option>
-                      <mat-option [value]="constants.answerTypes.rating">5 star rating</mat-option>
-                      <mat-option [value]="constants.answerTypes.checkbox">Checkbox</mat-option>
-                      <mat-option [value]="constants.answerTypes.radioButton">Radiobutton</mat-option>
-                      <mat-option [value]="constants.answerTypes.yesNoMaybe">Yes/No/Maybe</mat-option>
-                      <mat-option [value]="constants.answerTypes.slider">Slider</mat-option>
+                    <mat-label>{{ 'labels.answers' | translate }}</mat-label>
+                    <mat-select [(ngModel)]="question.answerType">
+                      <mat-option [value]="constants.answerTypes.binary">
+                        {{ 'answerTypes.binary' | translate }}
+                      </mat-option>
+                      <mat-option [value]="constants.answerTypes.rating">
+                        {{ 'answerTypes.rating' | translate }}
+                      </mat-option>
+                      <mat-option [value]="constants.answerTypes.checkbox">
+                        {{ 'answerTypes.checkbox' | translate }}
+                      </mat-option>
+                      <mat-option [value]="constants.answerTypes.radioButton">
+                        {{ 'answerTypes.radioButton' | translate }}
+                      </mat-option>
+                      <mat-option [value]="constants.answerTypes.yesNoMaybe">
+                        {{ 'answerTypes.yesNoMaybe' | translate }}
+                      </mat-option>
+                      <mat-option [value]="constants.answerTypes.slider">
+                        {{ 'answerTypes.slider' | translate }}
+                      </mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>
 
             <mat-form-field appearance="outline" class="w-100 mb-5" *ngIf="!rearrangeQuestions">
-                <mat-label>Question {{i + 1}}</mat-label>
-                <input matInput placeholder="What is your favorite food?" [(ngModel)]="question.text">
-                <mat-hint>Type question {{i + 1}}</mat-hint>
+                <mat-label>{{ 'labels.question' | translate }} {{i + 1}}</mat-label>
+                <input matInput placeholder="{{ 'placeholders.question' | translate }}" [(ngModel)]="question.text">
+                <mat-hint>{{ 'hints.typeQuestion' | translate }} {{i + 1}}</mat-hint>
             </mat-form-field>
 
             <div class="d-flex justify-content-end mb-2" *ngIf="question.options.length && !rearrangeQuestions">
                 <mat-slide-toggle (change)="question.rearrangeOptions = !question.rearrangeOptions">
-                    Rearrange options
+                    {{ 'labels.rearrangeOptions' | translate }}
                 </mat-slide-toggle>
             </div>
 
@@ -90,8 +105,14 @@
                      [cdkDragDisabled]="!question.rearrangeOptions">
                     <div class="d-flex align-items-center">
                         <mat-form-field appearance="outline" class="w-100">
-                            <mat-label>Enter question {{ i + 1 }} option {{ j + 1 }}</mat-label>
-                            <input matInput placeholder="Pizza" [(ngModel)]="question.options[j]">
+                            <mat-label>
+                                {{ 'labels.enterQuestion' | translate }}
+                                {{ i + 1 }}
+                                {{ 'labels.option' | translate | lowercase }}
+                                {{ j + 1 }}
+                            </mat-label>
+                            <input matInput placeholder="{{ 'placeholders.option' | translate }}"
+                                   [(ngModel)]="question.options[j]">
                         </mat-form-field>
                         <button mat-button class="btn btn-danger ml-1 mb-4" (click)="removeOption(i,j)"
                                 *ngIf="!question.rearrangeOptions">
@@ -100,30 +121,31 @@
                             </mat-icon>
                         </button>
                         <div class="example-handle ml-1 mb-4" cdkDragHandle *ngIf="question.rearrangeOptions">
-                            <svg width="24px" fill="currentColor" viewBox="0 0 24 24">
-                                <path
-                                    d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z">
-                                </path>
-                                <path d="M0 0h24v24H0z" fill="none"></path>
-                            </svg>
+                            <i class="fas fa-arrows-alt"></i>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div *ngIf="!rearrangeQuestions">
-                <button class="btn btn-primary" (click)="addOption(i)">
-                    Add {{question.options.length ? 'another' : ''}} option
+            <div *ngIf="!rearrangeQuestions" class="d-flex flex-column flex-sm-row justify-content-between">
+                <button class="btn btn-primary mb-1" (click)="addOption(i)">
+                    {{ 'labels.add' | translate }}
+                    {{ 'labels.option' | translate | lowercase }}
                 </button>
-                <button class="btn btn-danger float-right" (click)="removeQuestion(i)">
-                    Remove question
+                <button class="btn btn-danger mb-1" (click)="removeQuestion(i)">
+                    {{ 'labels.remove' | translate }} {{ 'labels.question' | translate | lowercase }}
                 </button>
             </div>
         </mat-card>
     </div>
 
     <div class="text-center mt-5">
-        <button class="btn btn-info mb-5" (click)="addQuestion()">Add another question</button><br>
-        <button class="btn btn-success mb-5" type="submit" (click)="createPoll()" [disabled]="!isValid">Create</button>
+        <button class="btn btn-info mb-5" (click)="addQuestion()">
+            {{ 'labels.addAnotherQuestion' | translate }}
+        </button>
+        <br>
+        <button class="btn btn-success mb-5" type="submit" (click)="createPoll()" [disabled]="!isValid">
+            {{ 'labels.create' | translate }}
+        </button>
     </div>
 </div>

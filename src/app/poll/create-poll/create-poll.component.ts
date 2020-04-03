@@ -7,6 +7,7 @@ import { UtilService } from 'src/app/services/util.service';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 import { constants } from 'src/app/app.constants';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-create-poll',
@@ -29,17 +30,20 @@ export class CreatePollComponent implements OnInit {
   };
   rearrangeQuestions = false;
 
-  constructor(private router: Router, private pollService: PollService, private utils: UtilService) { }
+  constructor(private router: Router,
+              private pollService: PollService,
+              private utils: UtilService,
+              private translate: TranslateService) { }
 
   ngOnInit() {
   }
 
   createPoll() {
     this.pollService.addPoll(this.poll).subscribe((res: any) => {
-      this.utils.openSnackBar('Poll created successfully', 'Great!');
+      this.utils.openSnackBar(this.translate.instant('messages.pollCreated'), 'Great!');
       this.router.navigate(['/dashboard/manage'], { queryParams: { id: res.poll._id } });
     }, err => {
-      this.utils.openSnackBar('An error occurred while creating the poll');
+      this.utils.openSnackBar(this.translate.instant('messages.errorCreatingPoll'));
     });
   }
 
