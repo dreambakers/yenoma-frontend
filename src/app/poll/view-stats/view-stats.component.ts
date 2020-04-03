@@ -96,6 +96,8 @@ export class ViewStatsComponent implements OnInit {
       }
     }
 
+    console.log(this.answerMap)
+
   }
 
   getWeightFunctionForAnswer(questionType): Function {
@@ -167,16 +169,7 @@ export class ViewStatsComponent implements OnInit {
     }
   }
 
-  getTableValueForStars(questionIndex, optionIndex, starCount) {
-    if (this.answerMap[questionIndex][optionIndex][starCount]) {
-      const valuePercentage = (this.answerMap[questionIndex][optionIndex][starCount] / this.answerMap[questionIndex]['responses']) * 100;
-      return `${this.answerMap[questionIndex][optionIndex][starCount]} (${valuePercentage.toFixed(1)}%)`;
-    } else {
-      return '0 (0.0%)'
-    }
-  }
-
-  getTableValueForYnm(questionIndex, optionIndex, value) {
+  getTableValue(questionIndex, optionIndex, value) {
     if (this.answerMap[questionIndex][optionIndex][value]) {
       const valuePercentage = (this.answerMap[questionIndex][optionIndex][value] / this.answerMap[questionIndex]['responses']) * 100;
       return `${this.answerMap[questionIndex][optionIndex][value]} (${valuePercentage.toFixed(1)}%)`;

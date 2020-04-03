@@ -35,7 +35,7 @@
 
     <div *ngFor="let question of poll?.questions; let i = index">
 
-        <mat-card>
+        <mat-card class="my-5">
             <div [ngSwitch]="question.answerType">
 
                 <ng-container *ngSwitchCase="constants.answerTypes.binary">
@@ -51,14 +51,14 @@
                 </ng-container>
 
                 <div *ngSwitchCase="constants.answerTypes.rating">
-                    <table class="table table-striped" #fiveStar>
-                        <thead class="thead-dark">
+                    <table class="table table-bordered" #fiveStar>
+                        <thead>
                             <tr>
                                 <th colspan="8">{{question.text}}</th>
                             </tr>
 
                             <tr>
-                                <th>Option</th>
+                                <th *ngIf="question.options.length">Option</th>
                                 <th>1</th>
                                 <th>2</th>
                                 <th>3</th>
@@ -72,11 +72,11 @@
                         <tbody>
                             <tr *ngFor="let option of question.options; let j = index">
                                 <td>{{ option }}</td>
-                                <td>{{ getTableValueForStars(i, j, 1) }}</td>
-                                <td>{{ getTableValueForStars(i, j, 2) }}</td>
-                                <td>{{ getTableValueForStars(i, j, 3) }}</td>
-                                <td>{{ getTableValueForStars(i, j, 4) }}</td>
-                                <td>{{ getTableValueForStars(i, j, 5) }}</td>
+                                <td>{{ getTableValue(i, j, 1) }}</td>
+                                <td>{{ getTableValue(i, j, 2) }}</td>
+                                <td>{{ getTableValue(i, j, 3) }}</td>
+                                <td>{{ getTableValue(i, j, 4) }}</td>
+                                <td>{{ getTableValue(i, j, 5) }}</td>
                                 <td>{{ answerMap[i][j]['response'] }}</td>
                                 <td>
                                     <app-star-rating
@@ -85,20 +85,36 @@
                                     </app-star-rating>
                                 </td>
                             </tr>
+
+                            <tr *ngIf="!question.options.length">
+                                <td>{{ getTableValue(i, 0, 1) }}</td>
+                                <td>{{ getTableValue(i, 0, 2) }}</td>
+                                <td>{{ getTableValue(i, 0, 3) }}</td>
+                                <td>{{ getTableValue(i, 0, 4) }}</td>
+                                <td>{{ getTableValue(i, 0, 5) }}</td>
+                                <td>{{ answerMap[i][0]['response'] }}</td>
+                                <td>
+                                    <app-star-rating
+                                        [rating]="getStarCountFromResponse(answerMap[i][0]['response'])" [starCount]="5"
+                                        [disabled]="true" class="text-nowrap">
+                                    </app-star-rating>
+                                </td>
+                            </tr>
+
                         </tbody>
 
                     </table>
                 </div>
 
                 <div *ngSwitchCase="constants.answerTypes.slider">
-                    <table class="table table-striped" #slider>
-                        <thead class="thead-dark">
+                    <table class="table table-bordered" #slider>
+                        <thead>
                             <tr>
                                 <th colspan="3">{{ question.text }}</th>
                             </tr>
 
                             <tr>
-                                <th>Option</th>
+                                <th *ngIf="question.options.length">Option</th>
                                 <th>Score</th>
                                 <th>Result</th>
                             </tr>
@@ -115,19 +131,28 @@
                                     </div>
                                 </td>
                             </tr>
+
+                            <tr *ngIf="!question.options.length">
+                                <td>{{ answerMap[i][0]['response'] }}</td>
+                                <td>
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" [style.width]="answerMap[i][0]['response'] + '%'"></div>
+                                    </div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
 
                 <div *ngSwitchCase="constants.answerTypes.yesNoMaybe">
-                    <table class="table table-striped" #yesNoMaybe>
-                        <thead class="thead-dark">
+                    <table class="table table-bordered" #yesNoMaybe>
+                        <thead>
                             <tr>
                                 <th colspan="6">{{ question.text }}</th>
                             </tr>
 
                             <tr>
-                                <th>Option</th>
+                                <th *ngIf="question.options.length">Option</th>
                                 <th>No</th>
                                 <th>Maybe</th>
                                 <th>Yes</th>
@@ -140,12 +165,22 @@
                         <tbody>
                             <tr *ngFor="let option of question.options; let j = index">
                                 <td>{{ option }}</td>
-                                <td>{{ getTableValueForYnm(i, j, 'no') }}</td>
-                                <td>{{ getTableValueForYnm(i, j, 'maybe') }}</td>
-                                <td>{{ getTableValueForYnm(i, j, 'yes') }}</td>
+                                <td>{{ getTableValue(i, j, 'no') }}</td>
+                                <td>{{ getTableValue(i, j, 'maybe') }}</td>
+                                <td>{{ getTableValue(i, j, 'yes') }}</td>
                                 <td>{{ answerMap[i][j]['response'] }}</td>
                                 <td>
                                     {{ getYNMFromScore(answerMap[i][j]['response']) }}
+                                </td>
+                            </tr>
+
+                            <tr *ngIf="!question.options.length">
+                                <td>{{ getTableValue(i, 0, 'no') }}</td>
+                                <td>{{ getTableValue(i, 0, 'maybe') }}</td>
+                                <td>{{ getTableValue(i, 0, 'yes') }}</td>
+                                <td>{{ answerMap[i][0]['response'] }}</td>
+                                <td>
+                                    {{ getYNMFromScore(answerMap[i][0]['response']) }}
                                 </td>
                             </tr>
                         </tbody>
@@ -153,14 +188,19 @@
                 </div>
 
                 <ng-template #radioCheckYesNo>
-                    <table class="table table-striped">
-                        <thead class="thead-dark">
+                    <table class="table table-bordered">
+                        <thead>
                             <tr>
-                                <th colspan="4">{{ question.text }}</th>
+                                <th colspan="4">{{ question.text }}
+                                    <span class="float-right font-weight-light text-muted font-italic">
+                                        {{ question.answerType === constants.answerTypes.binary ? 'Yes/No' :
+                                            ( question.answerType === constants.answerTypes.radioButton ? 'Radiobutton' : 'Checkbox' ) }}
+                                    </span>
+                                </th>
                             </tr>
 
                             <tr>
-                                <th>Option</th>
+                                <th *ngIf="question.options.length">Option</th>
                                 <th>Count</th>
                                 <th>Score</th>
                                 <th>Result</th>
@@ -175,6 +215,16 @@
                                 <td>
                                     <div class="progress">
                                         <div class="progress-bar" role="progressbar" [style.width]="answerMap[i][j]['response'] + '%'"></div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr *ngIf="!question.options.length">
+                                <td>{{ answerMap[i][0]['yes'] || 0 }}</td>
+                                <td>{{ answerMap[i][0]['response'] }}</td>
+                                <td>
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" [style.width]="answerMap[i][0]['response'] + '%'"></div>
                                     </div>
                                 </td>
                             </tr>
