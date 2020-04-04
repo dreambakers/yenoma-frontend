@@ -137,4 +137,13 @@ export class ViewPollsComponent implements OnInit {
       }
    });
   }
+
+  previewPoll(pollId) {
+    this.router.navigate(['/dashboard/view'], {
+      relativeTo: this.activatedRoute,
+      queryParams: {
+        id: pollId
+      }
+   });
+  }
 }

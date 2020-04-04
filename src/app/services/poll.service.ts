@@ -18,6 +18,10 @@ export class PollService {
     return this.http.get(`${constants.apiUrl}/poll/getPoll/${pollId}`);
   }
 
+  managePoll(pollId) {
+    return this.http.get(`${constants.apiUrl}/poll/manage/${pollId}`);
+  }
+
   getPolls() {
     return this.http.get(`${constants.apiUrl}/poll/all`);
   }

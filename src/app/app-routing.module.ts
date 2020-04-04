@@ -38,8 +38,9 @@ const routes: Routes = [
       { path: 'create', component: CreatePollComponent, pathMatch: 'full' },
       { path: 'all', component: ViewPollsComponent },
       { path: 'manage', component: ManagePollComponent },
+      { path: 'view', component: ViewPollComponent },
       { path: 'stats', component: ViewStatsComponent },
-      { path: '**', redirectTo: '/create', pathMatch: 'full' }
+      { path: '**', redirectTo: 'all', pathMatch: 'full' }
     ]
   }
 ];

@@ -39,7 +39,7 @@ export class ManagePollComponent implements OnInit {
   ) {
     this.route.queryParams.subscribe(params => {
       const pollId = params['id'];
-      this.pollService.getPoll(pollId).subscribe(
+      this.pollService.managePoll(pollId).subscribe(
         (res: any) => {
           if (res.success) {
             this.poll = res.poll;
@@ -109,6 +109,8 @@ export class ManagePollComponent implements OnInit {
         if (res.success) {
           this.utils.openSnackBar('Poll successfully updated', 'Great!');
           this.pollCopy = JSON.stringify(this.poll);
+        } else {
+          this.utils.openSnackBar('An error occurred while updating the poll');
         }
       },
       err => {

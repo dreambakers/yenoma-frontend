@@ -3,7 +3,7 @@
   <a [routerLink]="[ '/respond' ]"><small>Back</small></a>
 
   <div class="mb-5">
-    <small *ngIf="poll.status === constants.statusTypes.terminated">
+    <small *ngIf="poll.status === constants.statusTypes.terminated && !preview">
       You cannot repond to this poll, since it was terminated.
     </small>
   </div>
@@ -156,7 +156,7 @@
     </mat-form-field>
   </mat-card>
 
-  <div class="text-center mt-5" *ngIf="!shouldDisable">
+  <div class="text-center mt-5" *ngIf="!shouldDisable && !preview">
     <button class="btn btn-success" (click)="vote()" [disabled]="!canVote || !dirty">
       {{ (hasResponded)
           ? 'Update' :

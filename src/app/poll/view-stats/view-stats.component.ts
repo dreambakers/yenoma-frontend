@@ -30,7 +30,7 @@ export class ViewStatsComponent implements OnInit {
   ) {
     this.route.queryParams.subscribe(params => {
       const pollId = params['id'];
-      this.pollService.getPoll(pollId).subscribe(
+      this.pollService.managePoll(pollId).subscribe(
         (res: any) => {
           if (res.success) {
             this.poll = res.poll;
