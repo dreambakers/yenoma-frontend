@@ -156,8 +156,9 @@
     </mat-form-field>
   </mat-card>
 
-  <div class="text-center mt-5" *ngIf="!shouldDisable">
-    <button class="btn btn-success" (click)="vote()" [disabled]="!canVote || !dirty" *ngIf="!preview">
+  <div class="text-center mt-5">
+    <button class="btn btn-success" (click)="vote()" [disabled]="!canVote || !dirty"
+            *ngIf="!shouldDisable && !preview">
       {{ (hasResponded)
           ? 'Update' :
             !(canVote) ? 'Please select all the options' : 'Vote'
