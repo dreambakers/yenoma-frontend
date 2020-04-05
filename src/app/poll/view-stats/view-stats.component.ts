@@ -26,7 +26,8 @@ export class ViewStatsComponent implements OnInit {
   constructor(
     private pollService: PollService,
     private route: ActivatedRoute,
-    private utils: UtilService
+    private utils: UtilService,
+    private router: Router
   ) {
     this.route.queryParams.subscribe(params => {
       const pollId = params['id'];
@@ -185,4 +186,7 @@ export class ViewStatsComponent implements OnInit {
     }
   }
 
+  onBackClicked() {
+    this.router.navigate(['/dashboard/all']);
+  }
 }

@@ -46,8 +46,6 @@ export class ViewPollComponent implements OnInit {
       const pollId = params['id'];
       if (pollId) {
         this.preview = !!this.userService.getLoggedInUser();
-
-        console.log(this.preview)
         const observable = this.preview ? this.pollService.managePoll(pollId) : this.pollService.getPoll(pollId);
         observable.subscribe(
           (res: any) => {
@@ -90,6 +88,8 @@ export class ViewPollComponent implements OnInit {
             this.utils.openSnackBar('An error occurred while getting the poll');
           }
         );
+      } else {
+          this.router.navigate(['']);
       }
     });
   }
@@ -264,4 +264,7 @@ export class ViewPollComponent implements OnInit {
     return this.poll.status === constants.statusTypes.terminated;
   }
 
+  onBackClicked() {
+    this.router.navigate(['/dashboard/all']);
+  }
 }

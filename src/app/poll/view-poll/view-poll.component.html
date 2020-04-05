@@ -1,6 +1,6 @@
 <div class="p-5 h-100" *ngIf="poll?.questions && poll?.status !== constants.statusTypes.deleted">
 
-  <a [routerLink]="[ '/respond' ]"><small>Back</small></a>
+  <a [routerLink]="[ '/respond' ]" *ngIf="!preview"><small>Back</small></a>
 
   <div class="mb-5">
     <small *ngIf="poll.status === constants.statusTypes.terminated && !preview">
@@ -156,12 +156,16 @@
     </mat-form-field>
   </mat-card>
 
-  <div class="text-center mt-5" *ngIf="!shouldDisable && !preview">
-    <button class="btn btn-success" (click)="vote()" [disabled]="!canVote || !dirty">
+  <div class="text-center mt-5" *ngIf="!shouldDisable">
+    <button class="btn btn-success" (click)="vote()" [disabled]="!canVote || !dirty" *ngIf="!preview">
       {{ (hasResponded)
           ? 'Update' :
             !(canVote) ? 'Please select all the options' : 'Vote'
       }}
+    </button>
+
+    <button class="btn btn-primary mb-5" (click)="onBackClicked()" *ngIf="preview">
+      Back
     </button>
   </div>
 </div>

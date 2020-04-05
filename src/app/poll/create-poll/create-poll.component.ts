@@ -94,4 +94,13 @@ export class CreatePollComponent implements OnInit {
            question.answerType === constants.answerTypes.checkbox;
   }
 
+  onCancelClicked(){
+    this.utils.confirmDialog('Are you sure?', 'This will cancel the poll creation process').subscribe(
+      res => {
+        if (res) {
+          this.router.navigate(['/dashboard/all']);
+        }
+      }
+    );
+  }
 }
