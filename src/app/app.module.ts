@@ -120,7 +120,7 @@ import { MatCardModule } from '@angular/material/card';
 export class AppModule { }
 
 export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http);
+  return new TranslateHttpLoader(http, './assets/i18n/');
 }
 
 export function appInitializerFactory(translate: TranslateService, injector: Injector) {
