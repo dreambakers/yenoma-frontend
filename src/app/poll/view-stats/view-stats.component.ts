@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PollService } from 'src/app/services/poll.service';
-import { Response } from '../response.model';
-import { ResponseService } from 'src/app/services/response.service';
 import { UtilService } from 'src/app/services/util.service';
 import { constants } from 'src/app/app.constants';
 
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-view-stats',
@@ -27,7 +25,8 @@ export class ViewStatsComponent implements OnInit {
     private pollService: PollService,
     private route: ActivatedRoute,
     private utils: UtilService,
-    private router: Router
+    private router: Router,
+    private translate: TranslateService
   ) {
     this.route.queryParams.subscribe(params => {
       const pollId = params['id'];
@@ -40,11 +39,11 @@ export class ViewStatsComponent implements OnInit {
               this.getResponseForQuestions();
             }
           } else {
-            this.utils.openSnackBar('An error occurred while getting the poll');
+            this.utils.openSnackBar(this.translate.instant('messages.errorGettingPoll'));
           }
         },
         (err) => {
-          this.utils.openSnackBar('An error occurred while getting the poll');
+          this.utils.openSnackBar(this.translate.instant('messages.errorGettingPoll'));
         }
       )
     });

@@ -7,6 +7,7 @@ import { ResponseService } from 'src/app/services/response.service';
 import { UtilService } from 'src/app/services/util.service';
 import { constants } from 'src/app/app.constants';
 import { UserService } from 'src/app/services/user.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-view-poll',
@@ -40,7 +41,8 @@ export class ViewPollComponent implements OnInit {
     private route: ActivatedRoute,
     private responseService: ResponseService,
     private utils: UtilService,
-    private userService: UserService
+    private userService: UserService,
+    private translate: TranslateService
   ) {
     this.route.queryParams.subscribe(params => {
       const pollId = params['id'];
@@ -81,11 +83,11 @@ export class ViewPollComponent implements OnInit {
               }
               this.responseCopy = JSON.stringify(this.response);
             } else {
-              this.utils.openSnackBar('An error occurred while getting the poll');
+              this.utils.openSnackBar(this.translate.instant('messages.errorGettingPoll'));
             }
           },
           (err) => {
-            this.utils.openSnackBar('An error occurred while getting the poll');
+            this.utils.openSnackBar(this.translate.instant('messages.errorGettingPoll'));
           }
         );
       } else {

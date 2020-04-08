@@ -17,19 +17,39 @@
         "create": "Create",
         "back": "Back",
         "cancel": "Cancel",
-        "addAnotherQuestion": "Add another question"
+        "addAnotherQuestion": "Add another question",
+        "passwordProtected": "Password Protected",
+        "password": "Password",
+        "update": "Update",
+        "managePoll": "Manage Poll",
+        "createPoll": "Create Poll",
+        "readOnly": "Read-only",
+        "pollId": "Poll ID",
+        "responders": "Responders",
+        "noQuestionEntered": "No question entered",
+        "removeOption": "Remove option",
+        "success": "Great!"
     },
 
     "messages": {
         "pollCreated": "Poll created successfully",
-        "errorCreatingPoll": "An error occurred while creating the poll"
+        "pollUpdated": "Poll successfully updated",
+        "errorCreatingPoll": "An error occurred while creating the poll",
+        "areYouSure": "Are you sure?",
+        "cancelPollCreation": "This will cancel the poll creation process",
+        "cancelPollEdit": "This will cancel the poll edit process",
+        "errorUpdatingPoll": "An error occurred while updating the poll",
+        "errorGettingPoll": "An error occurred while getting the poll",
+        "cannotEditPollTerminated": "You cannot edit this poll because it was terminated.",
+        "cannotEditPollHasResponses": "You cannot edit this poll because it already has responses."
     },
 
     "hints": {
         "pollTitle": "Type poll title",
         "pollDescription": "Type poll description",
         "privateNote": "Type private note (not visible to responders)",
-        "typeQuestion": "Type question"
+        "typeQuestion": "Type question",
+        "typePollPassword": "Type poll password"
     },
 
     "answerTypes": {
@@ -50,6 +70,7 @@
         "description": "Poll description",
         "privateNote": "Private note",
         "question": "What is your favorite food?",
-        "option": "Pizza"
+        "option": "Pizza",
+        "pollPassword": "Poll Password"
     }
 }

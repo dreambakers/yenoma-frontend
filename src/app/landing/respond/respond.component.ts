@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { PollService } from '../../services/poll.service';
 import { UtilService } from '../../services/util.service';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-respond',
@@ -17,7 +18,8 @@ export class RespondComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
     private pollService: PollService,
     private utils: UtilService,
-    private router: Router) { }
+    private router: Router,
+    private translate: TranslateService) { }
 
   ngOnInit() {
     this.responseForm = this.formBuilder.group({
@@ -44,7 +46,7 @@ export class RespondComponent implements OnInit {
         }
       },
       errorResponse => {
-        this.utils.openSnackBar('An error occurred while getting the poll', 'Retry');
+        this.utils.openSnackBar(this.translate.instant('messages.errorGettingPoll'));
       }
     );
   }

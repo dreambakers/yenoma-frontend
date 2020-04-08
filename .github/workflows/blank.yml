@@ -1,4 +1,4 @@
-name: Build and Deploy
+name: Polling Deployment
 on:
   push:
     branches:
