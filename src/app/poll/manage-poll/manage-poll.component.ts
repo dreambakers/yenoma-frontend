@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PollService } from 'src/app/services/poll.service';
 import { Response } from '../response.model';
-import { ResponseService } from 'src/app/services/response.service';
 import { UtilService } from 'src/app/services/util.service';
 import { constants } from 'src/app/app.constants';
 import { Poll } from '../poll.model';
@@ -29,6 +28,7 @@ export class ManagePollComponent implements OnInit {
   loading = false;
   isEditing = false;
   submitted = false;
+  showPassword = false;
   rearrangeQuestions = false;
   constants = constants;
 
@@ -36,9 +36,8 @@ export class ManagePollComponent implements OnInit {
     private router: Router,
     private pollService: PollService,
     private route: ActivatedRoute,
-    private responseService: ResponseService,
     private utils: UtilService,
-    private translate: TranslateService
+    public translate: TranslateService
   ) {}
 
   ngOnInit() {

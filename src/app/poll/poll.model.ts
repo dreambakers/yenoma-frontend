@@ -12,4 +12,6 @@ export class Poll {
     privateNote: string;
     allowNames: boolean;
     allowComments: boolean;
+    password?: string;
+    _id?: string;
 }
