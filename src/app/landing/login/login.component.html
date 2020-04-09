@@ -4,44 +4,54 @@
       <div class="card card-signin flex-row my-5">
         <div class="card-img-left d-none d-md-flex flex-column align-items-center justify-content-center">
             <mat-icon style="font-size: 5.5rem; height: 15%;" class="w-100 text-center">poll</mat-icon>
-            <h4>Polling</h4>
+            <h4>
+              {{ 'labels.polling' | translate }}
+            </h4>
         </div>
         <div class="card-body d-flex flex-column align-items-center justify-content-center">
-          <h5 class="card-title text-center mt-5">Login</h5>
+          <h5 class="card-title text-center mt-5">{{ 'labels.login' | translate }}</h5>
 
           <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="d-flex flex-column align-items-center justify-content-center form-signin">
 
             <div class="form-group w-100">
 
-              <label>Email address</label>
+              <label>{{ 'labels.emailAddress' | translate }}</label>
 
               <input type="email" formControlName="email" class="form-control"
                 [ngClass]="{ 'is-invalid': submitted && f.email.errors }" placeholder="Email address" required>
 
               <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-                <div *ngIf="f.email.errors.required">Email is required</div>
-                <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+                <div *ngIf="f.email.errors.required">
+                  {{ 'labels.emailAddress' | translate }}
+                  {{ 'labels.isRequired' | translate }}
+                </div>
+                <div *ngIf="f.email.errors.email">{{ 'labels.emailNotValid' | translate }}</div>
               </div>
 
             </div>
 
             <div class="form-group w-100">
 
-              <label for="inputEmail">Password</label>
+              <label for="inputEmail">{{ 'labels.password' | translate }}</label>
 
               <input type="password" formControlName="password" class="form-control"
                 [ngClass]="{ 'is-invalid': submitted && f.password.errors }" placeholder="Password" required>
 
               <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-                <div *ngIf="f.password.errors.required">Password is required</div>
-                <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+                <div *ngIf="f.password.errors.required">
+                  {{ 'labels.password' | translate }}
+                  {{ 'labels.isRequired' | translate }}
+                </div>
+                <div *ngIf="f.password.errors.minlength">{{ 'messages.passwordRequirement' | translate }}</div>
               </div>
 
             </div>
 
             <hr>
-            <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Login</button>
-            <a class="d-block text-center mt-5 small" [routerLink]="[ '/signup' ]">No account? Sign up here</a>
+            <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">{{ 'labels.login' | translate }}</button>
+            <a class="d-block text-center mt-5 small" [routerLink]="[ '/signup' ]">
+              {{ 'labels.noAccount' | translate }}
+            </a>
           </form>
 
         </div>

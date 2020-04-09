@@ -49,8 +49,8 @@ export class LoginComponent implements OnInit {
       }
 
     }, (errorResponse: any) => {
-      const errorMessage = errorResponse.error.notFound ? 'No user found against the provided credentials.' : 'An error occured while logging in.';
-      this.utils.openSnackBar(errorMessage, 'Retry');
+      const errorMessageKey = errorResponse.error.notFound ? 'noUserFound' : 'errorLoggingIn';
+      this.utils.openSnackBar(`messages.${errorMessageKey}`, 'labels.retry');
     });
   }
 }

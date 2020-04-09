@@ -40,13 +40,13 @@ export class ViewPollsComponent implements OnInit {
         }
       },
       err => {
-        this.utils.openSnackBar(this.translate.instant('messages.errorGettingPoll'));
+        this.utils.openSnackBar('messages.errorGettingPoll');
       }
     );
   }
 
   deletePoll(pollId) {
-    this.utils.confirmDialog('Are you sure?', 'This will delete the selected poll').subscribe(
+    this.utils.confirmDialog('messages.areYouSure', 'messages.pollDeletionConfirmation').subscribe(
       res => {
         if (res) {
           this.pollService.deletePoll(pollId).subscribe(
@@ -54,13 +54,13 @@ export class ViewPollsComponent implements OnInit {
               if (res.success) {
                 this.polls = this.polls.filter(poll => poll._id !== pollId);
                 this.dataSource.data = this.polls;
-                this.utils.openSnackBar('Poll deleted successfully');
+                this.utils.openSnackBar('messages.pollDeletedSuccessfully');
               } else {
-                this.utils.openSnackBar('An error occurred while deleting the poll');
+                this.utils.openSnackBar('messages.errorDeletingPoll');
               }
             },
             err => {
-              this.utils.openSnackBar('An error occurred while deleting the poll');
+              this.utils.openSnackBar('messages.errorDeletingPoll');
             }
           );
         }
@@ -69,7 +69,7 @@ export class ViewPollsComponent implements OnInit {
   }
 
   terminatePoll(pollId) {
-    this.utils.confirmDialog('Are you sure?', 'This will terminate the selected poll').subscribe(
+    this.utils.confirmDialog('messages.areYouSure', 'messages.pollTerminationConfirmation').subscribe(
       res => {
         if (res) {
           this.pollService.terminatePoll(pollId).subscribe(
@@ -77,13 +77,13 @@ export class ViewPollsComponent implements OnInit {
               if (res.success) {
                 const poll = this.polls.find(poll => poll._id === pollId);
                 poll.status = constants.statusTypes.terminated;
-                this.utils.openSnackBar('Poll terminated successfully');
+                this.utils.openSnackBar('messages.pollTerminated');
               } else {
-                this.utils.openSnackBar('An error occurred while terminating the poll');
+                this.utils.openSnackBar('messages.errorTerminatingPoll');
               }
             },
             err => {
-              this.utils.openSnackBar('An error occurred while terminating the poll');
+              this.utils.openSnackBar('messages.errorTerminatingPoll');
             }
           );
         }
@@ -92,7 +92,7 @@ export class ViewPollsComponent implements OnInit {
   }
 
   restorePoll(pollId) {
-    this.utils.confirmDialog('Are you sure?', 'This will restore the selected poll').subscribe(
+    this.utils.confirmDialog('messages.areYouSure', 'messages.pollRestoreConfirmation').subscribe(
       res => {
         if (res) {
           this.pollService.restore(pollId).subscribe(
@@ -100,13 +100,13 @@ export class ViewPollsComponent implements OnInit {
               if (res.success) {
                 const poll = this.polls.find(poll => poll._id === pollId);
                 poll.status = constants.statusTypes.open;
-                this.utils.openSnackBar('Poll restored successfully');
+                this.utils.openSnackBar('messages.pollRestored');
               } else {
-                this.utils.openSnackBar('An error occurred while restoring the poll');
+                this.utils.openSnackBar('messages.errorRestoringPoll');
               }
             },
             err => {
-              this.utils.openSnackBar('An error occurred while restoring the poll');
+              this.utils.openSnackBar('messages.errorRestoringPoll');
             }
           );
         }

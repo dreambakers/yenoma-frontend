@@ -42,11 +42,11 @@ export class RespondComponent implements OnInit {
           this.router.navigate(['view'], { queryParams: { id: this.responseForm.value.pollId } });
 
         } else {
-          this.utils.openSnackBar('No poll found against the provided Poll ID', 'Retry');
+          this.utils.openSnackBar('messages.noPollFoundAgainstId', 'labels.retry');
         }
       },
       errorResponse => {
-        this.utils.openSnackBar(this.translate.instant('messages.errorGettingPoll'));
+        this.utils.openSnackBar('messages.errorGettingPoll');
       }
     );
   }

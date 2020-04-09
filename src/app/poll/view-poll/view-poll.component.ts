@@ -42,7 +42,7 @@ export class ViewPollComponent implements OnInit {
     private responseService: ResponseService,
     private utils: UtilService,
     private userService: UserService,
-    private translate: TranslateService
+    public translate: TranslateService
   ) {
     this.route.queryParams.subscribe(params => {
       const pollId = params['id'];
@@ -53,7 +53,7 @@ export class ViewPollComponent implements OnInit {
           (res: any) => {
             if (res.success) {
               this.poll = res.poll;
-              if (this.getResponseFromLocalStorage(this.poll._id)) {
+              if (!this.preview && this.getResponseFromLocalStorage(this.poll._id)) {
                 this.response = this.getResponseFromLocalStorage(this.poll._id);
                 this.hasResponded = true;
               } else {
@@ -83,11 +83,11 @@ export class ViewPollComponent implements OnInit {
               }
               this.responseCopy = JSON.stringify(this.response);
             } else {
-              this.utils.openSnackBar(this.translate.instant('messages.errorGettingPoll'));
+              this.utils.openSnackBar('messages.errorGettingPoll');
             }
           },
           (err) => {
-            this.utils.openSnackBar(this.translate.instant('messages.errorGettingPoll'));
+            this.utils.openSnackBar('messages.errorGettingPoll');
           }
         );
       } else {
@@ -102,25 +102,25 @@ export class ViewPollComponent implements OnInit {
     if (this.hasResponded) {
       this.responseService.updateResponse(this.response).subscribe((res: any) => {
         if (res.success) {
-          this.utils.openSnackBar('Your response has been updated.', 'Great!');
+          this.utils.openSnackBar('messages.responseUpdated', 'labels.success');
           this.addResponseToLocalStorage(res.response);
           this.responseCopy = JSON.stringify(res.response);
           this.response = res.response;
         }
       }, err => {
-        this.utils.openSnackBar('An error occurred while updating the response');
+        this.utils.openSnackBar('messages.errorUpdatingResponse');
       });
     } else {
       this.responseService.recordResponse(this.response).subscribe((res: any) => {
         if (res.success) {
-          this.utils.openSnackBar('Your response has been recorded.', 'Great!');
+          this.utils.openSnackBar('messages.responseRecorded', 'labels.success');
           this.addResponseToLocalStorage(res.response);
           this.responseCopy = JSON.stringify(res.response);
           this.response = res.response;
           this.hasResponded = true;
         }
       }, err => {
-        this.utils.openSnackBar('An error occurred while recording the response');
+        this.utils.openSnackBar('messages.errorRecordingResponse');
       });
     }
   }

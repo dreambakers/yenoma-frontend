@@ -14,8 +14,8 @@ export class UtilService {
               public dialog: MatDialog,
               private translate: TranslateService) { }
 
-  openSnackBar(message: string, action = null, duration = 5000) {
-    this._snackBar.open(message, action, {
+  openSnackBar(messageKey: string, actionKey = null, duration = 5000) {
+    this._snackBar.open(this.translate.instant(messageKey), actionKey && this.translate.instant(actionKey), {
       duration,
     });
   }

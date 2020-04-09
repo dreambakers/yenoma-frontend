@@ -1,10 +1,11 @@
 <div class="p-5 h-100" *ngIf="poll?.questions && poll?.status !== constants.statusTypes.deleted">
 
-  <a [routerLink]="[ '/respond' ]" *ngIf="!preview"><small>Back</small></a>
+  <a [routerLink]="[ '/respond' ]" *ngIf="!preview">
+    <small>{{ 'labels.back' | translate }}</small>
+  </a>
 
   <div class="mb-5">
     <small *ngIf="poll.status === constants.statusTypes.terminated && !preview">
-      You cannot repond to this poll, since it was terminated.
     </small>
   </div>
 
@@ -14,7 +15,11 @@
   <div>
     <mat-card *ngFor="let question of (hasResponded ? response.questions : poll.questions); let i = index"
       class="border my-5 p-3">
-      <h3 class="mb-5 ml-1">Question {{i + 1}}: {{question.text}}</h3>
+      <h3 class="mb-5 ml-1">
+        {{ 'labels.question' | translate }}
+        {{i + 1}}:
+        {{question.text}}
+      </h3>
 
       <ul class="list-group" *ngFor="let option of getOptions(question); let j = index">
         <li class="list-group-item mt-2 d-flex justify-content-between align-items-center">
@@ -28,10 +33,10 @@
               <mat-button-toggle-group #group="matButtonToggleGroup" (change)="onBinaryAnswerChanged($event, i, j)"
                 [value]="hasResponded ? option.answer : ''" [disabled]="shouldDisable">
                 <mat-button-toggle value="yes">
-                  Yes
+                  {{ 'answers.yes' | translate }}
                 </mat-button-toggle>
                 <mat-button-toggle value="no">
-                  No
+                  {{ 'answers.no' | translate }}
                 </mat-button-toggle>
               </mat-button-toggle-group>
             </div>
@@ -55,13 +60,13 @@
               <mat-button-toggle-group #group="matButtonToggleGroup" (change)="onYNMAnswerChanged($event, i, j)"
                 [value]="hasResponded ? option.answer : ''" [disabled]="shouldDisable">
                 <mat-button-toggle value="yes">
-                  Yes
+                  {{ 'answers.yes' | translate }}
                 </mat-button-toggle>
                 <mat-button-toggle value="no">
-                  No
+                  {{ 'answers.no' | translate }}
                 </mat-button-toggle>
                 <mat-button-toggle value="maybe">
-                  Maybe
+                  {{ 'answers.maybe' | translate }}
                 </mat-button-toggle>
               </mat-button-toggle-group>
             </div>
@@ -91,15 +96,14 @@
       <!-- Question without any options -->
 
       <div *ngIf="!getOptions(question).length" [ngSwitch]="question.answerType">
-
         <div *ngSwitchCase="constants.answerTypes.binary">
           <mat-button-toggle-group #group="matButtonToggleGroup" (change)="onBinaryAnswerChanged($event, i)"
             [value]="hasResponded ? question.answer : ''" [disabled]="shouldDisable">
             <mat-button-toggle value="yes">
-              Yes
+              {{ 'answers.yes' | translate }}
             </mat-button-toggle>
             <mat-button-toggle value="no">
-              No
+              {{ 'answers.no' | translate }}
             </mat-button-toggle>
           </mat-button-toggle-group>
         </div>
@@ -108,13 +112,13 @@
           <mat-button-toggle-group #group="matButtonToggleGroup" (change)="onYNMAnswerChanged($event, i)"
             [value]="hasResponded ? question.answer : ''" [disabled]="shouldDisable">
             <mat-button-toggle value="yes">
-              Yes
+              {{ 'answers.yes' | translate }}
             </mat-button-toggle>
             <mat-button-toggle value="no">
-              No
+              {{ 'answers.no' | translate }}
             </mat-button-toggle>
             <mat-button-toggle value="maybe">
-              Maybe
+              {{ 'answers.maybe' | translate }}
             </mat-button-toggle>
           </mat-button-toggle-group>
         </div>
@@ -137,22 +141,27 @@
               (change)="onSliderValueChanged($event, i)">
           </mat-slider>
         </div>
-
       </div>
     </mat-card>
   </div>
 
   <mat-card *ngIf="poll?.allowComments || poll?.allowNames">
     <mat-form-field appearance="outline" class="w-100 mb-2" *ngIf="poll.allowNames">
-      <mat-label>Name</mat-label>
-      <input matInput placeholder="John Doe" [(ngModel)]="response.name">
-      <mat-hint>Enter your name</mat-hint>
+      <mat-label>
+        {{ 'labels.name' | translate }}
+      </mat-label>
+      <input matInput placeholder="{{ 'placeholders.name' | translate }}" [(ngModel)]="response.name">
+      <mat-hint>
+        {{ 'hints.enterName' | translate }}
+      </mat-hint>
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="w-100 mb-2" *ngIf="poll.allowComments">
-      <mat-label>Comments</mat-label>
-      <textarea matInput placeholder="The options could've been clearer" [(ngModel)]="response.comments"></textarea>
-      <mat-hint>Enter your comments</mat-hint>
+      <mat-label>{{ 'labels.comments' | translate }}</mat-label>
+      <textarea matInput placeholder="{{ 'placeholders.comment' | translate }}"
+                [(ngModel)]="response.comments">
+      </textarea>
+      <mat-hint>{{ 'hints.enterComments' | translate }}</mat-hint>
     </mat-form-field>
   </mat-card>
 
@@ -160,13 +169,13 @@
     <button class="btn btn-success" (click)="vote()" [disabled]="!canVote || !dirty"
             *ngIf="!shouldDisable && !preview">
       {{ (hasResponded)
-          ? 'Update' :
-            !(canVote) ? 'Please select all the options' : 'Vote'
+          ? translate.instant('labels.update') :
+            !(canVote) ? translate.instant('messages.selectAllOptions')  : translate.instant('labels.vote')
       }}
     </button>
 
     <button class="btn btn-primary mb-5" (click)="onBackClicked()" *ngIf="preview">
-      Back
+      {{ 'labels.back' | translate }}
     </button>
   </div>
 </div>
@@ -174,9 +183,11 @@
 <div class="d-flex justify-content-center align-items-center p-5 flex-column"
   *ngIf="poll?.status === constants.statusTypes.deleted">
   <div>
-    This poll was deleted.
+    {{ 'messages.pollDeleted' | translate }}
   </div>
   <div>
-    <a [routerLink]="[ '/respond' ]"><small>Back</small></a>
+    <a [routerLink]="[ '/respond' ]">
+      <small>{{ 'labels.back' | translate }}</small>
+    </a>
   </div>
 </div>

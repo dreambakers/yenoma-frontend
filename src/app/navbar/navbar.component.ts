@@ -20,7 +20,7 @@ export class NavbarComponent implements OnInit {
   }
 
   logout() {
-    this.utils.confirmDialog('Are you sure?', 'You will be logged out').subscribe(
+    this.utils.confirmDialog('messages.areYouSure', 'messages.logout').subscribe(
       res => {
         if (res) {
           this.auth.logout();

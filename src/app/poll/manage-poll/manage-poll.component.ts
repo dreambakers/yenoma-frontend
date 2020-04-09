@@ -52,11 +52,11 @@ export class ManagePollComponent implements OnInit {
               this.responses = res.responses;
               this.pollCopy = JSON.stringify(this.poll);
             } else {
-              this.utils.openSnackBar(this.translate.instant('messages.errorGettingPoll'));
+              this.utils.openSnackBar('messages.errorGettingPoll');
             }
           },
           (err) => {
-            this.utils.openSnackBar(this.translate.instant('messages.errorGettingPoll'));
+            this.utils.openSnackBar('messages.errorGettingPoll');
           }
         )
       });
@@ -111,24 +111,24 @@ export class ManagePollComponent implements OnInit {
     this.pollService.updatePoll(this.poll).subscribe(
       (res: any) => {
         if (res.success) {
-          this.utils.openSnackBar(this.translate.instant('messages.pollUpdated'), this.translate.instant('labels.success'));
+          this.utils.openSnackBar('messages.pollUpdated', 'labels.success');
           this.pollCopy = JSON.stringify(this.poll);
         } else {
-          this.utils.openSnackBar(this.translate.instant('messages.errorUpdatingPoll'));
+          this.utils.openSnackBar('messages.errorUpdatingPoll');
         }
       },
       err => {
-        this.utils.openSnackBar(this.translate.instant('messages.errorUpdatingPoll'));
+        this.utils.openSnackBar('messages.errorUpdatingPoll');
       }
     );
   }
 
   createPoll() {
     this.pollService.addPoll(this.poll).subscribe((res: any) => {
-      this.utils.openSnackBar(this.translate.instant('messages.pollCreated'), this.translate.instant('labels.success'));
+      this.utils.openSnackBar('messages.pollCreated', 'labels.success');
       this.router.navigate(['/dashboard/manage'], { queryParams: { id: res.poll._id } });
     }, err => {
-      this.utils.openSnackBar(this.translate.instant('messages.errorCreatingPoll'));
+      this.utils.openSnackBar('messages.errorCreatingPoll');
     });
   }
 

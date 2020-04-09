@@ -39,11 +39,11 @@ export class ViewStatsComponent implements OnInit {
               this.getResponseForQuestions();
             }
           } else {
-            this.utils.openSnackBar(this.translate.instant('messages.errorGettingPoll'));
+            this.utils.openSnackBar('messages.errorGettingPoll');
           }
         },
         (err) => {
-          this.utils.openSnackBar(this.translate.instant('messages.errorGettingPoll'));
+          this.utils.openSnackBar('messages.errorGettingPoll');
         }
       )
     });

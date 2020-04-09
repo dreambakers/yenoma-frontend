@@ -1,5 +1,6 @@
 {
     "labels": {
+        "polling": "Polling",
         "createNewPoll": "Create a new poll",
         "title": "Title",
         "description": "Description",
@@ -28,7 +29,30 @@
         "responders": "Responders",
         "noQuestionEntered": "No question entered",
         "removeOption": "Remove option",
-        "success": "Great!"
+        "success": "Great!",
+        "name": "Name",
+        "comments": "Comments",
+        "vote": "Vote",
+        "retry": "Retry",
+        "created": "Created",
+        "active": "Active",
+        "actions": "Actions",
+        "emailAddress": "Email address",
+        "isRequired": "is required",
+        "login": "Login",
+        "register": "Register",
+        "noAccount": "No account? Sign up here",
+        "respond": "Respond",
+        "gotToPoll": "Go to Poll",
+        "confirmPassword": "Confirm Password",
+        "alreadyRegistered": "Already registered? Login here",
+        "passwordsDontMatch": "Password don't match",
+        "myPolls": "My Polls",
+        "logout": "Logout",
+        "pollStats": "Poll Statistics",
+        "result": "Result",
+        "score": "Score",
+        "count": "Count"
     },
 
     "messages": {
@@ -41,7 +65,33 @@
         "errorUpdatingPoll": "An error occurred while updating the poll",
         "errorGettingPoll": "An error occurred while getting the poll",
         "cannotEditPollTerminated": "You cannot edit this poll because it was terminated.",
-        "cannotEditPollHasResponses": "You cannot edit this poll because it already has responses."
+        "cannotEditPollHasResponses": "You cannot edit this poll because it already has responses.",
+        "cannotRespondPollTerminated": "You cannot repond to this poll, since it was terminated.",
+        "pollDeleted": "This poll was deleted.",
+        "selectAllOptions": "Please select all the options",
+        "noPollFoundAgainstId": "No poll found against the provided Poll ID",
+        "responseUpdated": "Your response has been updated",
+        "responseRecorded": "Your response has been recorded",
+        "errorRecordingResponse": "An error occurred while recording the response",
+        "errorUpdatingResponse": "An error occurred while updating the response",
+        "pollDeletedSuccessfully": "Poll deleted successfully",
+        "errorDeletingPoll": "An error occurred while deleting the poll",
+        "errorTerminatingPoll": "An error occurred while terminating the poll",
+        "pollTerminated": "Poll terminated successfully",
+        "errorRestoringPoll": "An error occurred while restoring the poll",
+        "pollRestored": "Poll restored successfully",
+        "pollTerminationConfirmation": "This will terminate the selected poll",
+        "pollDeletionConfirmation": "This will delete the selected poll",
+        "pollRestoreConfirmation": "This will restore the selected poll",
+        "userAlreadyExists": "A user with the same email already exists",
+        "errorSigningUp": "An error occured while signing up",
+        "noUserFound": "No user found against the provided crendentials",
+        "errorLoggingIn": "An error occured while logging in",
+        "emailNotValid": "Email must be a valid email address",
+        "passwordRequirement": "Password must be at least 6 characters",
+        "pollIdRequired": "Poll ID is required",
+        "provideValidPollId": "Please provide a valid Poll ID",
+        "logout": "You will be logged out"
     },
 
     "hints": {
@@ -71,6 +121,23 @@
         "privateNote": "Private note",
         "question": "What is your favorite food?",
         "option": "Pizza",
-        "pollPassword": "Poll Password"
+        "pollPassword": "Poll Password",
+        "name": "John Doe",
+        "comment": "The options could've been clearer"
+    },
+
+    "answers": {
+        "yes": "Yes",
+        "no": "No",
+        "maybe": "Maybe"
+    },
+
+    "pollActions": {
+        "delete": "Delete poll",
+        "terminate": "Terminate poll",
+        "restore": "Restore poll",
+        "showStats": "Show poll statistics",
+        "preview": "Preview as responder",
+        "edit": "Edit poll"
     }
 }

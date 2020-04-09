@@ -5,64 +5,80 @@
 
         <div class="card-img-left d-none d-md-flex flex-column align-items-center justify-content-center">
           <mat-icon style="font-size: 5.5rem; height: 15%;" class="w-100 text-center">poll</mat-icon>
-          <h4>Polling</h4>
+          <h4>
+            {{ 'labels.polling' | translate }}
+          </h4>
         </div>
 
         <div class="card-body">
-          <h5 class="card-title text-center">Register</h5>
+          <h5 class="card-title text-center">
+            {{ 'labels.register' | translate }}
+          </h5>
 
           <form class="form-signin" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
 
             <div class="form-group">
 
-              <label>Email address</label>
+              <label>{{ 'labels.emailAddress' | translate }}</label>
 
               <input type="email" formControlName="email" class="form-control"
                 [ngClass]="{ 'is-invalid': submitted && f.email.errors }" placeholder="Email address" required>
 
               <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-                <div *ngIf="f.email.errors.required">Email is required</div>
-                <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+                <div *ngIf="f.email.errors.required">
+                  {{ 'labels.emailAddress' | translate }}
+                  {{ 'labels.isRequired' | translate }}
+                </div>
+                <div *ngIf="f.email.errors.email">{{ 'labels.emailNotValid' | translate }}</div>
               </div>
 
             </div>
 
             <div class="form-group">
 
-              <label>Password</label>
+              <label>{{ 'labels.password' | translate }}</label>
 
               <input type="password" formControlName="password" class="form-control"
                 [ngClass]="{ 'is-invalid': submitted && f.password.errors }" placeholder="Password" required>
 
               <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-                <div *ngIf="f.password.errors.required">Password is required</div>
-                <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+                <div *ngIf="f.password.errors.required">
+                  {{ 'labels.password' | translate }}
+                  {{ 'labels.isRequired' | translate }}
+                </div>
+                <div *ngIf="f.password.errors.minlength">
+                  {{ 'messages.passwordRequirement' | translate }}
+                </div>
               </div>
 
             </div>
 
             <div class="form-group">
 
-              <label>Confirm password</label>
+              <label>{{ 'labels.confirmPassword' | translate }}</label>
 
               <input type="password" formControlName="confirmPassword" class="form-control"
                 [ngClass]="{ 'is-invalid': submitted && f.confirmPassword.errors }" placeholder="Password" required>
 
               <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
-                <div *ngIf="f.confirmPassword.errors.required">Confirm password is required</div>
+                <div *ngIf="f.confirmPassword.errors.required">
+                  {{ 'labels.confirmPassword' | translate }}
+                  {{ 'labels.isRequired' | translate }}
+                </div>
               </div>
 
               <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
-                  <div *ngIf="f.confirmPassword.errors?.MatchPassword">Password don't match</div>
+                  <div *ngIf="f.confirmPassword.errors?.MatchPassword">{{ 'labels.passwordsDontMatch' | translate }}</div>
               </div>
-
             </div>
 
-            <hr>
+            <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">
+              {{ 'labels.register' | translate }}
+            </button>
 
-            <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Register</button>
-
-            <a class="d-block text-center mt-5 small" [routerLink]="[ '/login' ]">Already registered? Login here</a>
+            <a class="d-block text-center mt-5 small" [routerLink]="[ '/login' ]">
+              {{ 'labels.alreadyRegistered' | translate }}
+            </a>
 
           </form>
         </div>
