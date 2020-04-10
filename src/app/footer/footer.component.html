@@ -1,0 +1,11 @@
+<div class="bg-white shadow p-3">
+    <div class="d-flex flex-row justify-content-end align-items-center">
+
+        <div class="d-flex language-list">
+            <div class="text-muted">Language</div>
+            <div [class.active]="selectedLanguage === 'en'" (click)="languageChanged('en')">English</div>
+            <div [class.active]="selectedLanguage === 'fr'" (click)="languageChanged('fr')">French</div>
+            <div [class.active]="selectedLanguage === 'gr'" (click)="languageChanged('gr')">German</div>
+        </div>
+    </div>
+</div>

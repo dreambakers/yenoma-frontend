@@ -14,7 +14,6 @@ import { LOCATION_INITIALIZED } from '@angular/common';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CreatePollComponent } from './poll/create-poll/create-poll.component';
 import { ViewPollComponent } from './poll/view-poll/view-poll.component';
 import { ViewPollsComponent } from './poll/view-polls/view-polls.component';
 import { StarRatingComponent } from './star-rating/star-rating.component';
@@ -26,6 +25,7 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
 import { LandingComponent } from './landing/landing.component';
 import { ManagePollComponent } from './poll/manage-poll/manage-poll.component';
 import { ViewStatsComponent } from './poll/view-stats/view-stats.component';
+import { FooterComponent } from './footer/footer.component';
 
 import { MatSortModule } from '@angular/material/sort';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -52,7 +52,6 @@ import { MatCardModule } from '@angular/material/card';
 @NgModule({
   declarations: [
     AppComponent,
-    CreatePollComponent,
     ViewPollComponent,
     NavbarComponent,
     ViewPollsComponent,
@@ -64,7 +63,8 @@ import { MatCardModule } from '@angular/material/card';
     LandingComponent,
     RespondComponent,
     ConfirmDialogComponent,
-    ViewStatsComponent
+    ViewStatsComponent,
+    FooterComponent
   ],
   imports: [
     BrowserAnimationsModule,
