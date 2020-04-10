@@ -99,7 +99,9 @@
         "pollDescription": "Type poll description",
         "privateNote": "Type private note (not visible to responders)",
         "typeQuestion": "Type question",
-        "typePollPassword": "Type poll password"
+        "typePollPassword": "Type poll password",
+        "enterName": "Enter name",
+        "enterComments": "Enter comments"
     },
 
     "answerTypes": {
