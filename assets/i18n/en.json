@@ -68,7 +68,7 @@
         "errorGettingPoll": "An error occurred while getting the poll",
         "cannotEditPollTerminated": "You cannot edit this poll because it was terminated.",
         "cannotEditPollHasResponses": "You cannot edit this poll because it already has responses.",
-        "cannotRespondPollTerminated": "You cannot repond to this poll, since it was terminated.",
+        "cannotRespondPollTerminated": "You cannot respond to this poll, since it was terminated.",
         "pollDeleted": "This poll was deleted.",
         "selectAllOptions": "Please select all the options",
         "noPollFoundAgainstId": "No poll found against the provided Poll ID",
@@ -97,7 +97,8 @@
         "errorGettingResponses": "An error occurred while getting responses for the poll",
         "errorDeletingResponse": "An error occurred while deleting the response",
         "responseDeleted": "Response deleted successfully",
-        "deleteResponseConfirmation": "This will delete the selected response"
+        "deleteResponseConfirmation": "This will delete the selected response",
+        "errorGettingResponse": "An error occurred while getting the response for the poll"
     },
 
     "hints": {
