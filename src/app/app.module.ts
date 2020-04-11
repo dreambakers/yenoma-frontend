@@ -26,6 +26,7 @@ import { LandingComponent } from './landing/landing.component';
 import { ManagePollComponent } from './poll/manage-poll/manage-poll.component';
 import { ViewStatsComponent } from './poll/view-stats/view-stats.component';
 import { FooterComponent } from './footer/footer.component';
+import { ResponsesComponent } from './poll/responses/responses.component';
 
 import { MatSortModule } from '@angular/material/sort';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -64,7 +65,8 @@ import { MatCardModule } from '@angular/material/card';
     RespondComponent,
     ConfirmDialogComponent,
     ViewStatsComponent,
-    FooterComponent
+    FooterComponent,
+    ResponsesComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -129,7 +131,6 @@ export function appInitializerFactory(translate: TranslateService, injector: Inj
     locationInitialized.then(() => {
       const langToSet = 'en'
       translate.use(langToSet).subscribe(() => {
-        console.info(`Successfully initialized '${langToSet}' language.'`);
       }, err => {
         console.error(`Problem with '${langToSet}' language initialization.'`);
       }, () => {

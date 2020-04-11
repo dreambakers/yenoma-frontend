@@ -148,4 +148,13 @@ export class ViewPollsComponent implements OnInit {
       }
    });
   }
+
+  viewPollResponses(pollId) {
+    this.router.navigate(['/dashboard/responses'], {
+      relativeTo: this.activatedRoute,
+      queryParams: {
+        id: pollId
+      }
+   });
+  }
 }

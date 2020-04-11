@@ -52,7 +52,9 @@
         "pollStats": "Poll Statistics",
         "result": "Result",
         "score": "Score",
-        "count": "Count"
+        "count": "Count",
+        "view": "View",
+        "delete": "Delete"
     },
 
     "messages": {
@@ -91,7 +93,11 @@
         "passwordRequirement": "Password must be at least 6 characters",
         "pollIdRequired": "Poll ID is required",
         "provideValidPollId": "Please provide a valid Poll ID",
-        "logout": "You will be logged out"
+        "logout": "You will be logged out",
+        "errorGettingResponses": "An error occurred while getting responses for the poll",
+        "errorDeletingResponse": "An error occurred while deleting the response",
+        "responseDeleted": "Response deleted successfully",
+        "deleteResponseConfirmation": "This will delete the selected response"
     },
 
     "hints": {
@@ -140,6 +146,7 @@
         "restore": "Restore poll",
         "showStats": "Show poll statistics",
         "preview": "Preview as responder",
-        "edit": "Edit poll"
+        "edit": "Edit poll",
+        "responseDetails": "Response details"
     }
 }
