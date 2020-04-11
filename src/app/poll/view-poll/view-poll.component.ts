@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PollService } from 'src/app/services/poll.service';
 import { StarRatingColor } from 'src/app/star-rating/star-rating.component';
@@ -22,7 +22,8 @@ export class ViewPollComponent implements OnInit {
   };
   responseCopy;
 
-  poll;
+  @Input() poll;
+  @Input() embeddedPreview = false;
 
   rating: number = 0;
   starCount: number = 5;
@@ -30,9 +31,8 @@ export class ViewPollComponent implements OnInit {
   starColorP: StarRatingColor = StarRatingColor.primary;
   starColorW: StarRatingColor = StarRatingColor.warn;
 
-  hasResponded = false;
   preview = false;
-
+  hasResponded = false;
   constants = constants;
 
   constructor(
@@ -43,60 +43,69 @@ export class ViewPollComponent implements OnInit {
     private utils: UtilService,
     private userService: UserService,
     public translate: TranslateService
-  ) {
-    this.route.queryParams.subscribe(params => {
-      const pollId = params['id'];
-      if (pollId) {
-        this.preview = !!this.userService.getLoggedInUser();
-        const observable = this.preview ? this.pollService.managePoll(pollId) : this.pollService.getPoll(pollId);
-        observable.subscribe(
-          (res: any) => {
-            if (res.success) {
-              this.poll = res.poll;
-              if (!this.preview && this.getResponseFromLocalStorage(this.poll._id)) {
-                this.response = this.getResponseFromLocalStorage(this.poll._id);
-                this.hasResponded = true;
-              } else {
-                const getDefaultAnswer = (answerType) => {
-                  switch (answerType) {
-                    case constants.answerTypes.checkbox:
-                    case constants.answerTypes.radioButton:
-                      return false;
-                    case constants.answerTypes.radioButton:
-                    case constants.answerTypes.slider:
-                      return 0;
-                    default:
-                      return '';
-                  }
+  ) { }
+
+  ngOnInit() {
+    if (this.poll) {
+      this.preview = true;
+      this.setAnswers();
+    } else {
+      this.route.queryParams.subscribe(params => {
+        const pollId = params['id'];
+        if (pollId) {
+          this.preview = !!this.userService.getLoggedInUser();
+          const observable = this.preview ? this.pollService.managePoll(pollId) : this.pollService.getPoll(pollId);
+          observable.subscribe(
+            (res: any) => {
+              if (res.success) {
+                this.poll = res.poll;
+                if (!this.preview && this.getResponseFromLocalStorage(this.poll._id)) {
+                  this.response = this.getResponseFromLocalStorage(this.poll._id);
+                  this.hasResponded = true;
+                } else {
+                  this.setAnswers();
+                  this.response.for = res.poll._id;
                 }
-                this.poll.questions.forEach(question => {
-                  this.response.questions.push({
-                    _id: question._id,
-                    text: question.text,
-                    answers: question.options.map(option => ({ option, answer: getDefaultAnswer(question.answerType) })),
-                    answerType: question.answerType
-                  });
-                });
-                this.poll.allowComments && (this.response['comments'] = '');
-                this.poll.allowNames && (this.response['name'] = '');
-                this.response.for = res.poll._id;
+                this.responseCopy = JSON.stringify(this.response);
+              } else {
+                this.utils.openSnackBar('messages.errorGettingPoll');
               }
-              this.responseCopy = JSON.stringify(this.response);
-            } else {
+            },
+            (err) => {
               this.utils.openSnackBar('messages.errorGettingPoll');
             }
-          },
-          (err) => {
-            this.utils.openSnackBar('messages.errorGettingPoll');
-          }
-        );
-      } else {
+          );
+        } else {
           this.router.navigate(['']);
-      }
-    });
+        }
+      });
+    }
   }
 
-  ngOnInit() { }
+  setAnswers(response = null) {
+    const getDefaultAnswer = (answerType) => {
+      switch (answerType) {
+        case constants.answerTypes.checkbox:
+        case constants.answerTypes.radioButton:
+          return false;
+        case constants.answerTypes.radioButton:
+        case constants.answerTypes.slider:
+          return 0;
+        default:
+          return '';
+      }
+    }
+    this.poll.questions.forEach(question => {
+      this.response.questions.push({
+        _id: question._id || null,
+        text: question.text,
+        answers: question.options.map(option => ({ option, answer: getDefaultAnswer(question.answerType) })),
+        answerType: question.answerType
+      });
+    });
+    this.poll.allowComments && (this.response['comments'] = '');
+    this.poll.allowNames && (this.response['name'] = '');
+  }
 
   vote() {
     if (this.hasResponded) {

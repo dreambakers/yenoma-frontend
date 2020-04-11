@@ -25,6 +25,7 @@ export class ManagePollComponent implements OnInit {
   pollCopy;
   responses;
   answerMap: any;
+  preview = false;
   loading = false;
   isEditing = false;
   submitted = false;
