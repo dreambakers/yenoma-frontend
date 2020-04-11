@@ -120,7 +120,8 @@
     },
 
     "tooltips": {
-        "minTwoOptions": "This answer type requires a minimum of 2 options"
+        "minTwoOptions": "This answer type requires a minimum of 2 options",
+        "stopPreviewing": "Stop previewing as responder"
     },
 
     "placeholders": {
