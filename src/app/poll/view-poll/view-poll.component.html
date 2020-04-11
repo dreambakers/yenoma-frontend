@@ -5,146 +5,145 @@
     <small>{{ 'labels.back' | translate }}</small>
   </a>
 
-  <div class="mb-5">
-    <small *ngIf="poll.status === constants.statusTypes.terminated && !preview">
+  <div class="mb-5" *ngIf="poll.status === constants.statusTypes.terminated">
+    <small>
+      {{ 'messages.cannotRespondPollTerminated' | translate }}
     </small>
   </div>
 
   <h4>{{poll.title}}</h4>
   <p>{{poll.description}}</p>
 
-  <div>
-    <mat-card *ngFor="let question of (hasResponded ? response.questions : poll.questions); let i = index"
-      class="border my-5 p-3">
-      <h3 class="mb-5 ml-1">
-        {{ 'labels.question' | translate }}
-        {{i + 1}}:
-        {{question.text}}
-      </h3>
+  <mat-card *ngFor="let question of (hasResponded ? response.questions : poll.questions); let i = index"
+            class="border my-5 p-3">
+    <h3 class="mb-5 ml-1">
+      {{ 'labels.question' | translate }}
+      {{i + 1}}:
+      {{question.text}}
+    </h3>
 
-      <ul class="list-group" *ngFor="let option of getOptions(question); let j = index">
-        <li class="list-group-item mt-2 d-flex justify-content-between align-items-center">
-          <div>
-            {{ hasResponded ? option.option : option }}
+    <ul class="list-group" *ngFor="let option of getOptions(question); let j = index">
+      <li class="list-group-item mt-2 d-flex justify-content-between align-items-center">
+        <div>
+          {{ hasResponded ? option.option : option }}
+        </div>
+
+        <div [ngSwitch]="question.answerType">
+
+          <div *ngSwitchCase="constants.answerTypes.binary">
+            <mat-button-toggle-group #group="matButtonToggleGroup" (change)="onBinaryAnswerChanged($event, i, j)"
+              [value]="hasResponded ? option.answer : ''" [disabled]="shouldDisable">
+              <mat-button-toggle value="yes">
+                {{ 'answers.yes' | translate }}
+              </mat-button-toggle>
+              <mat-button-toggle value="no">
+                {{ 'answers.no' | translate }}
+              </mat-button-toggle>
+            </mat-button-toggle-group>
           </div>
 
-          <div [ngSwitch]="question.answerType">
-
-            <div *ngSwitchCase="constants.answerTypes.binary">
-              <mat-button-toggle-group #group="matButtonToggleGroup" (change)="onBinaryAnswerChanged($event, i, j)"
-                [value]="hasResponded ? option.answer : ''" [disabled]="shouldDisable">
-                <mat-button-toggle value="yes">
-                  {{ 'answers.yes' | translate }}
-                </mat-button-toggle>
-                <mat-button-toggle value="no">
-                  {{ 'answers.no' | translate }}
-                </mat-button-toggle>
-              </mat-button-toggle-group>
-            </div>
-
-            <div *ngSwitchCase="constants.answerTypes.radioButton">
-              <mat-radio-group name="{{i}}" [disabled]="shouldDisable">
-                <mat-radio-button [checked]="response.questions[i].answers[j].answer" value="Hello"
-                (change)="onRadioButtonChanged(i, j)">
-                </mat-radio-button>
-              </mat-radio-group>
-            </div>
-
-            <div *ngSwitchCase="constants.answerTypes.checkbox">
-              <mat-checkbox (change)="onCheckboxChanged($event, i, j)"
-                            [checked]="response.questions[i].answers[j].answer"
-                            [disabled]="shouldDisable">
-              </mat-checkbox>
-            </div>
-
-            <div *ngSwitchCase="constants.answerTypes.yesNoMaybe">
-              <mat-button-toggle-group #group="matButtonToggleGroup" (change)="onYNMAnswerChanged($event, i, j)"
-                [value]="hasResponded ? option.answer : ''" [disabled]="shouldDisable">
-                <mat-button-toggle value="yes">
-                  {{ 'answers.yes' | translate }}
-                </mat-button-toggle>
-                <mat-button-toggle value="no">
-                  {{ 'answers.no' | translate }}
-                </mat-button-toggle>
-                <mat-button-toggle value="maybe">
-                  {{ 'answers.maybe' | translate }}
-                </mat-button-toggle>
-              </mat-button-toggle-group>
-            </div>
-
-            <div *ngSwitchCase="constants.answerTypes.rating">
-              <app-star-rating [rating]="option.answer" [starCount]="starCount"
-                [color]="starColor" (ratingUpdated)="onRatingChanged($event, i, j)" [disabled]="shouldDisable"
-                class="text-nowrap">
-              </app-star-rating>
-            </div>
-
-            <div *ngSwitchCase="constants.answerTypes.slider">
-             <mat-slider
-              [(ngModel)]="response.questions[i].answers[j].answer"
-              [disabled]="shouldDisable"
-              [max]="100"
-              [min]="0"
-              [step]="1"
-              [thumbLabel]="true"
-              (change)="onSliderValueChanged($event, i, j)">
-             </mat-slider>
-            </div>
+          <div *ngSwitchCase="constants.answerTypes.radioButton">
+            <mat-radio-group name="{{i}}" [disabled]="shouldDisable">
+              <mat-radio-button [checked]="response.questions[i].answers[j].answer" value="Hello"
+              (change)="onRadioButtonChanged(i, j)">
+              </mat-radio-button>
+            </mat-radio-group>
           </div>
-        </li>
-      </ul>
 
-      <!-- Question without any options -->
+          <div *ngSwitchCase="constants.answerTypes.checkbox">
+            <mat-checkbox (change)="onCheckboxChanged($event, i, j)"
+                          [checked]="response.questions[i].answers[j].answer"
+                          [disabled]="shouldDisable">
+            </mat-checkbox>
+          </div>
 
-      <div *ngIf="!getOptions(question).length" [ngSwitch]="question.answerType">
-        <div *ngSwitchCase="constants.answerTypes.binary">
-          <mat-button-toggle-group #group="matButtonToggleGroup" (change)="onBinaryAnswerChanged($event, i)"
-            [value]="hasResponded ? question.answer : ''" [disabled]="shouldDisable">
-            <mat-button-toggle value="yes">
-              {{ 'answers.yes' | translate }}
-            </mat-button-toggle>
-            <mat-button-toggle value="no">
-              {{ 'answers.no' | translate }}
-            </mat-button-toggle>
-          </mat-button-toggle-group>
+          <div *ngSwitchCase="constants.answerTypes.yesNoMaybe">
+            <mat-button-toggle-group #group="matButtonToggleGroup" (change)="onYNMAnswerChanged($event, i, j)"
+              [value]="hasResponded ? option.answer : ''" [disabled]="shouldDisable">
+              <mat-button-toggle value="yes">
+                {{ 'answers.yes' | translate }}
+              </mat-button-toggle>
+              <mat-button-toggle value="no">
+                {{ 'answers.no' | translate }}
+              </mat-button-toggle>
+              <mat-button-toggle value="maybe">
+                {{ 'answers.maybe' | translate }}
+              </mat-button-toggle>
+            </mat-button-toggle-group>
+          </div>
+
+          <div *ngSwitchCase="constants.answerTypes.rating">
+            <app-star-rating [rating]="option.answer" [starCount]="starCount"
+              [color]="starColor" (ratingUpdated)="onRatingChanged($event, i, j)" [disabled]="shouldDisable"
+              class="text-nowrap">
+            </app-star-rating>
+          </div>
+
+          <div *ngSwitchCase="constants.answerTypes.slider">
+            <mat-slider
+            [(ngModel)]="response.questions[i].answers[j].answer"
+            [disabled]="shouldDisable"
+            [max]="100"
+            [min]="0"
+            [step]="1"
+            [thumbLabel]="true"
+            (change)="onSliderValueChanged($event, i, j)">
+            </mat-slider>
+          </div>
         </div>
+      </li>
+    </ul>
 
-        <div *ngSwitchCase="constants.answerTypes.yesNoMaybe">
-          <mat-button-toggle-group #group="matButtonToggleGroup" (change)="onYNMAnswerChanged($event, i)"
-            [value]="hasResponded ? question.answer : ''" [disabled]="shouldDisable">
-            <mat-button-toggle value="yes">
-              {{ 'answers.yes' | translate }}
-            </mat-button-toggle>
-            <mat-button-toggle value="no">
-              {{ 'answers.no' | translate }}
-            </mat-button-toggle>
-            <mat-button-toggle value="maybe">
-              {{ 'answers.maybe' | translate }}
-            </mat-button-toggle>
-          </mat-button-toggle-group>
-        </div>
+    <!-- Question without any options -->
 
-        <div *ngSwitchCase="constants.answerTypes.rating">
-          <app-star-rating [rating]="question.answer " [starCount]="starCount"
-            [color]="starColor" (ratingUpdated)="onRatingChanged($event, i)" [disabled]="shouldDisable"
-            class="text-nowrap">
-          </app-star-rating>
-        </div>
-
-        <div *ngSwitchCase="constants.answerTypes.slider">
-         <mat-slider
-              [(ngModel)]="response.questions[i].answer"
-              [disabled]="shouldDisable"
-              [max]="100"
-              [min]="0"
-              [step]="1"
-              [thumbLabel]="true"
-              (change)="onSliderValueChanged($event, i)">
-          </mat-slider>
-        </div>
+    <div *ngIf="!getOptions(question).length" [ngSwitch]="question.answerType">
+      <div *ngSwitchCase="constants.answerTypes.binary">
+        <mat-button-toggle-group #group="matButtonToggleGroup" (change)="onBinaryAnswerChanged($event, i)"
+          [value]="hasResponded ? question.answer : ''" [disabled]="shouldDisable">
+          <mat-button-toggle value="yes">
+            {{ 'answers.yes' | translate }}
+          </mat-button-toggle>
+          <mat-button-toggle value="no">
+            {{ 'answers.no' | translate }}
+          </mat-button-toggle>
+        </mat-button-toggle-group>
       </div>
-    </mat-card>
-  </div>
+
+      <div *ngSwitchCase="constants.answerTypes.yesNoMaybe">
+        <mat-button-toggle-group #group="matButtonToggleGroup" (change)="onYNMAnswerChanged($event, i)"
+          [value]="hasResponded ? question.answer : ''" [disabled]="shouldDisable">
+          <mat-button-toggle value="yes">
+            {{ 'answers.yes' | translate }}
+          </mat-button-toggle>
+          <mat-button-toggle value="no">
+            {{ 'answers.no' | translate }}
+          </mat-button-toggle>
+          <mat-button-toggle value="maybe">
+            {{ 'answers.maybe' | translate }}
+          </mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+
+      <div *ngSwitchCase="constants.answerTypes.rating">
+        <app-star-rating [rating]="question.answer " [starCount]="starCount"
+          [color]="starColor" (ratingUpdated)="onRatingChanged($event, i)" [disabled]="shouldDisable"
+          class="text-nowrap">
+        </app-star-rating>
+      </div>
+
+      <div *ngSwitchCase="constants.answerTypes.slider">
+        <mat-slider
+            [(ngModel)]="response.questions[i].answer"
+            [disabled]="shouldDisable"
+            [max]="100"
+            [min]="0"
+            [step]="1"
+            [thumbLabel]="true"
+            (change)="onSliderValueChanged($event, i)">
+        </mat-slider>
+      </div>
+    </div>
+  </mat-card>
 
   <mat-card *ngIf="poll?.allowComments || poll?.allowNames">
     <mat-form-field appearance="outline" class="w-100 mb-2" *ngIf="poll.allowNames">
@@ -166,17 +165,13 @@
     </mat-form-field>
   </mat-card>
 
-  <div class="text-center mt-5">
+  <div class="text-center mt-5" *ngIf="!preview">
     <button class="btn btn-success" (click)="vote()" [disabled]="!canVote || !dirty"
-            *ngIf="!shouldDisable && !preview">
+            *ngIf="!shouldDisable">
       {{ (hasResponded)
           ? translate.instant('labels.update') :
             !(canVote) ? translate.instant('messages.selectAllOptions')  : translate.instant('labels.vote')
       }}
-    </button>
-
-    <button class="btn btn-primary mb-5" (click)="onBackClicked()" *ngIf="preview && !embeddedPreview">
-      {{ 'labels.back' | translate }}
     </button>
   </div>
 </div>

@@ -16,11 +16,13 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class ViewPollsComponent implements OnInit {
 
-  polls = [];
-  constants = constants;
-  displayedColumns: string[] = ['title', 'createdAt', 'responses', 'active', 'action'];
+  poll;
   dataSource;
+  polls = [];
+  preview = false;
+  constants = constants;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
+  displayedColumns: string[] = ['title', 'createdAt', 'responses', 'active', 'action'];
 
   constructor(private pollService: PollService,
     private userService: UserService,
@@ -140,15 +142,6 @@ export class ViewPollsComponent implements OnInit {
    });
   }
 
-  previewPoll(pollId) {
-    this.router.navigate(['/dashboard/view'], {
-      relativeTo: this.activatedRoute,
-      queryParams: {
-        id: pollId
-      }
-   });
-  }
-
   viewPollResponses(pollId) {
     this.router.navigate(['/dashboard/responses'], {
       relativeTo: this.activatedRoute,
@@ -156,5 +149,10 @@ export class ViewPollsComponent implements OnInit {
         id: pollId
       }
    });
+  }
+
+  previewPoll(poll) {
+    this.poll = poll;
+    this.preview = true;
   }
 }

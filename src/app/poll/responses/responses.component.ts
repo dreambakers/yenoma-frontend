@@ -16,6 +16,9 @@ import { ResponseService } from 'src/app/services/response.service';
 })
 
 export class ResponsesComponent implements OnInit {
+  poll;
+  response;
+  preview = false;
   responses = [];
   constants = constants;
   displayedColumns: string[] = ['name', 'createdAt', 'view', 'delete'];
@@ -36,6 +39,7 @@ export class ResponsesComponent implements OnInit {
       this.responseService.getResponsesForPoll(pollId).subscribe(
         (res: any) => {
           if (res.success) {
+            this.poll = res.responses[0].for;  // poll
             this.responses = res.responses;
             this.dataSource = new MatTableDataSource(this.responses);
             this.dataSource.sort = this.sort;
@@ -95,13 +99,14 @@ export class ResponsesComponent implements OnInit {
     this.responseService.getResponse(response._id).subscribe(
       (res: any) => {
         if (res.success) {
-
+          this.response = res.response;
+          this.preview = true;
         } else {
-          this.utils.openSnackBar('messages.errorDeletingResponse');
+          this.utils.openSnackBar('messages.errorGettingResponse');
         }
       },
       err => {
-        this.utils.openSnackBar('messages.errorDeletingResponse');
+        this.utils.openSnackBar('messages.errorGettingResponse');
       }
     );
   }

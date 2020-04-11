@@ -16,6 +16,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class ViewPollComponent implements OnInit {
 
+  @Input()
   response: Response = {
     questions: [],
     for: ''
@@ -23,6 +24,7 @@ export class ViewPollComponent implements OnInit {
   responseCopy;
 
   @Input() poll;
+  @Input() hasResponded = false;
   @Input() embeddedPreview = false;
 
   rating: number = 0;
@@ -32,7 +34,6 @@ export class ViewPollComponent implements OnInit {
   starColorW: StarRatingColor = StarRatingColor.warn;
 
   preview = false;
-  hasResponded = false;
   constants = constants;
 
   constructor(
@@ -48,18 +49,16 @@ export class ViewPollComponent implements OnInit {
   ngOnInit() {
     if (this.poll) {
       this.preview = true;
-      this.setAnswers();
+      !this.hasResponded && this.setAnswers();
     } else {
       this.route.queryParams.subscribe(params => {
         const pollId = params['id'];
         if (pollId) {
-          this.preview = !!this.userService.getLoggedInUser();
-          const observable = this.preview ? this.pollService.managePoll(pollId) : this.pollService.getPoll(pollId);
-          observable.subscribe(
+          this.pollService.getPoll(pollId).subscribe(
             (res: any) => {
               if (res.success) {
                 this.poll = res.poll;
-                if (!this.preview && this.getResponseFromLocalStorage(this.poll._id)) {
+                if (this.getResponseFromLocalStorage(this.poll._id)) {
                   this.response = this.getResponseFromLocalStorage(this.poll._id);
                   this.hasResponded = true;
                 } else {
@@ -275,7 +274,4 @@ export class ViewPollComponent implements OnInit {
     return this.poll.status === constants.statusTypes.terminated;
   }
 
-  onBackClicked() {
-    this.router.navigate(['/dashboard/all']);
-  }
 }
