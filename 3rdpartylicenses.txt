@@ -103,6 +103,8 @@ THE SOFTWARE.
 
 @angular/material/menu
 
+@angular/material/paginator
+
 @angular/material/radio
 
 @angular/material/select
