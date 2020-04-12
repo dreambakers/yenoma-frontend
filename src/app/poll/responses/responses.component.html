@@ -1,10 +1,10 @@
 <div class="p-5" *ngIf="responses?.length && !preview">
 
-    <h4>{{responses[0].for.title}}</h4>
-    <p>{{responses[0].for.description}}</p>
+  <h4>{{responses[0].for.title}}</h4>
+  <p>{{responses[0].for.description}}</p>
 
-    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 mt-5">
-
+  <div class="mat-elevation-z8 mt-5">
+    <table mat-table [dataSource]="dataSource" matSort>
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-dark"> {{ 'labels.name' | translate }} </th>
         <td mat-cell *matCellDef="let response">
@@ -20,15 +20,15 @@
       </ng-container>
 
       <ng-container matColumnDef="view">
-        <th mat-header-cell *matHeaderCellDef class="text-dark"> {{ 'labels.view' | translate }} </th>
-        <td mat-cell *matCellDef="let response">
+        <th mat-header-cell *matHeaderCellDef class="text-dark text-center"> {{ 'labels.view' | translate }} </th>
+        <td mat-cell *matCellDef="let response" class="text-center">
             <i class="fas fa-tasks cursor-pointer" (click)="viewResponse(response)"></i>
         </td>
       </ng-container>
 
       <ng-container matColumnDef="delete">
-        <th mat-header-cell *matHeaderCellDef class="text-dark"> {{ 'labels.delete' | translate }} </th>
-        <td mat-cell *matCellDef="let response">
+        <th mat-header-cell *matHeaderCellDef class="text-dark text-center"> {{ 'labels.delete' | translate }} </th>
+        <td mat-cell *matCellDef="let response" class="text-center">
           <i class="fas fa-trash-alt cursor-pointer" (click)="deleteResponse(response)"></i>
         </td>
       </ng-container>
@@ -36,6 +36,8 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
+    <mat-paginator [pageSizeOptions]="[10, 15, 20]" showFirstLastButtons></mat-paginator>
+  </div>
 </div>
 
 <div *ngIf="preview">

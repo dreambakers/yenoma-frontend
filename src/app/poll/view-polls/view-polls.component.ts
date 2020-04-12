@@ -7,6 +7,7 @@ import { constants } from 'src/app/app.constants';
 import * as moment from 'moment';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 @Component({
@@ -21,7 +22,8 @@ export class ViewPollsComponent implements OnInit {
   polls = [];
   preview = false;
   constants = constants;
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild(MatSort, {static: false}) sort: MatSort;
+  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   displayedColumns: string[] = ['title', 'createdAt', 'responses', 'active', 'action'];
 
   constructor(private pollService: PollService,
@@ -37,8 +39,11 @@ export class ViewPollsComponent implements OnInit {
         if (res.success) {
           this.polls = res.polls;
           this.dataSource = new MatTableDataSource(this.polls);
-          this.dataSource.sort = this.sort;
-          this.dataSource.sortingDataAccessor = (data, header) => data[header];
+          setTimeout(() => {
+            this.dataSource.sort = this.sort;
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.sortingDataAccessor = (data, header) => data[header];
+          });
         }
       },
       err => {

@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { constants } from '../../app.constants';
 import { MatSort, MatTableDataSource } from '@angular/material';
+import { MatPaginator } from '@angular/material/paginator';
 import { PollService } from 'src/app/services/poll.service';
 import { UserService } from 'src/app/services/user.service';
 import { UtilService } from 'src/app/services/util.service';
@@ -23,7 +24,8 @@ export class ResponsesComponent implements OnInit {
   constants = constants;
   displayedColumns: string[] = ['name', 'createdAt', 'view', 'delete'];
   dataSource;
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild(MatSort, {static: false}) sort: MatSort;
+  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
 
   constructor(private pollService: PollService,
     private userService: UserService,
@@ -42,8 +44,11 @@ export class ResponsesComponent implements OnInit {
             this.poll = res.responses[0].for;  // poll
             this.responses = res.responses;
             this.dataSource = new MatTableDataSource(this.responses);
-            this.dataSource.sort = this.sort;
-            this.dataSource.sortingDataAccessor = (data, header) => data[header];
+            setTimeout(() => {
+              this.dataSource.sort = this.sort;
+              this.dataSource.paginator = this.paginator;
+              this.dataSource.sortingDataAccessor = (data, header) => data[header];
+            });
           } else {
             this.utils.openSnackBar('messages.errorGettingResponses');
           }

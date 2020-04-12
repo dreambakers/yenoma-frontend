@@ -56,3 +56,11 @@ button.mat-menu-item{ outline:none; }
 .mat-snack-bar-container {
     min-width: auto !important;
 }
+
+.mat-header-cell {
+    &.text-center {
+        .mat-sort-header-container {
+            justify-content: center;
+        }
+    }
+}
