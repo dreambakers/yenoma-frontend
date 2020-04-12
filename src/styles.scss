@@ -47,3 +47,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background:
 }
 
 button.mat-menu-item{ outline:none; }
+
+.mat-simple-snackbar span {
+    margin: auto;
+    text-align: center;
+}
+
+.mat-snack-bar-container {
+    min-width: auto !important;
+}

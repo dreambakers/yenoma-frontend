@@ -1,7 +1,10 @@
 <div class="p-5" *ngIf="!preview">
-  <div class="d-flex justify-content-between">
-    <small>{{ polls.length }} polls found.</small>
-  </div>
+
+  <h3>
+    {{ 'labels.myPolls' | translate }}
+  </h3>
+
+  <small>{{ polls.length }} polls found.</small>
 
   <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 mt-5">
 
@@ -29,7 +32,8 @@
     <ng-container matColumnDef="active">
       <th mat-header-cell *matHeaderCellDef class="text-dark"> {{ 'labels.active' | translate }} </th>
       <td mat-cell *matCellDef="let poll">
-        <i class="fas" [ngClass]="poll.status === constants.statusTypes.open ? 'fa-check' : 'fa-times'"></i>
+        <i class="fas" [ngClass]="poll.status === constants.statusTypes.open ? 'fa-check text-success' : 'fa-times text-danger'">
+        </i>
       </td>
     </ng-container>
 
