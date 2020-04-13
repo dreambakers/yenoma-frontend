@@ -98,10 +98,9 @@
                                 <td>{{ getTableValue(i, j, 5) }}</td>
                                 <td>{{ answerMap[i][j]['response'] }}</td>
                                 <td>
-                                    <app-star-rating
-                                        [rating]="getStarCountFromResponse(answerMap[i][j]['response'])" [starCount]="5"
-                                        [disabled]="true" class="text-nowrap">
-                                    </app-star-rating>
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" [style.width]="answerMap[i][j]['response'] + '%'"></div>
+                                    </div>
                                 </td>
                             </tr>
 
@@ -113,10 +112,9 @@
                                 <td>{{ getTableValue(i, 0, 5) }}</td>
                                 <td>{{ answerMap[i][0]['response'] }}</td>
                                 <td>
-                                    <app-star-rating
-                                        [rating]="getStarCountFromResponse(answerMap[i][0]['response'])" [starCount]="5"
-                                        [disabled]="true" class="text-nowrap">
-                                    </app-star-rating>
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" [style.width]="answerMap[i][0]['response'] + '%'"></div>
+                                    </div>
                                 </td>
                             </tr>
 
@@ -199,7 +197,9 @@
                                 <td>{{ getTableValue(i, j, 'yes') }}</td>
                                 <td>{{ answerMap[i][j]['response'] }}</td>
                                 <td>
-                                    {{ getYNMFromScore(answerMap[i][j]['response']) }}
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" [style.width]="answerMap[i][j]['response'] + '%'"></div>
+                                    </div>
                                 </td>
                             </tr>
 
@@ -209,7 +209,9 @@
                                 <td>{{ getTableValue(i, 0, 'yes') }}</td>
                                 <td>{{ answerMap[i][0]['response'] }}</td>
                                 <td>
-                                    {{ getYNMFromScore(answerMap[i][0]['response']) }}
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" [style.width]="answerMap[i][0]['response'] + '%'"></div>
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>

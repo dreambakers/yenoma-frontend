@@ -152,36 +152,12 @@ export class ViewStatsComponent implements OnInit {
     return answer === 'yes' ? 100 : (answer === 'maybe' ? 50 : 0);
   }
 
-  getStarCountFromResponse(response) {
-    if (response >= 0 && response < 20) {
-      return 1;
-    } else if (response >= 20 && response < 40) {
-      return 2;
-    } else if (response >= 40 && response < 60) {
-      return 3;
-    } else if (response >= 60 && response < 80) {
-      return 4;
-    } else {
-      return 5;
-    }
-  }
-
   getTableValue(questionIndex, optionIndex, value) {
     if (this.answerMap[questionIndex][optionIndex][value]) {
       const valuePercentage = (this.answerMap[questionIndex][optionIndex][value] / this.answerMap[questionIndex]['responses']) * 100;
       return `${this.answerMap[questionIndex][optionIndex][value]} (${valuePercentage.toFixed(1)}%)`;
     } else {
       return '0 (0.0%)'
-    }
-  }
-
-  getYNMFromScore(score) {
-    if (score >= 0 && score < 33.33) {
-      return 'No';
-    } else if (score >= 33.33 && score <= 66.66) {
-      return 'Maybe';
-    } else if (score >= 66.66 && score <= 100) {
-      return 'Yes';
     }
   }
 
