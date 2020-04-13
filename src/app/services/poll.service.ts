@@ -14,8 +14,8 @@ export class PollService {
     return this.http.post(`${constants.apiUrl}/poll/`, { poll });
   }
 
-  getPoll(pollId) {
-    return this.http.get(`${constants.apiUrl}/poll/getPoll/${pollId}`);
+  getPoll(pollId, password = null) {
+    return this.http.post(`${constants.apiUrl}/poll/getPoll/${pollId}`, { password });
   }
 
   managePoll(pollId) {

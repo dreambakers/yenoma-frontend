@@ -25,6 +25,7 @@ export class ManagePollComponent implements OnInit {
   pollCopy;
   responses;
   answerMap: any;
+  hide = true;
   preview = false;
   loading = false;
   isEditing = false;
@@ -51,6 +52,7 @@ export class ManagePollComponent implements OnInit {
             if (res.success) {
               this.poll = res.poll;
               this.responses = res.responses;
+              this.showPassword = !!this.poll.password;
               this.pollCopy = JSON.stringify(this.poll);
             } else {
               this.utils.openSnackBar('messages.errorGettingPoll');
@@ -170,8 +172,13 @@ export class ManagePollComponent implements OnInit {
     );
   }
 
+  togglePassword() {
+    this.poll.password = '';
+    this.showPassword = !this.showPassword;
+  }
+
   get isValid() {
-    return this.poll.title &&
+    return this.poll.title && (this.showPassword ? this.poll.password : true) &&
            this.poll.questions.every(question => question.text && question.options.every(option => option.length)) &&
            this.poll.questions.filter(question => this.minimumOptionsRequired(question)).every(question => question.options.length >= 2);
   }

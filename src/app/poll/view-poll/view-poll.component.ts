@@ -9,6 +9,8 @@ import { constants } from 'src/app/app.constants';
 import { UserService } from 'src/app/services/user.service';
 import { TranslateService } from '@ngx-translate/core';
 
+import { take } from 'rxjs/operators'
+
 @Component({
   selector: 'app-view-poll',
   templateUrl: './view-poll.component.html',
@@ -33,7 +35,11 @@ export class ViewPollComponent implements OnInit {
   starColorP: StarRatingColor = StarRatingColor.primary;
   starColorW: StarRatingColor = StarRatingColor.warn;
 
+  pollId;
+  hide = true;
+  password = '';
   preview = false;
+  passwordRequired = false;
   constants = constants;
 
   constructor(
@@ -51,34 +57,45 @@ export class ViewPollComponent implements OnInit {
       this.preview = true;
       !this.hasResponded && this.setAnswers();
     } else {
-      this.route.queryParams.subscribe(params => {
-        const pollId = params['id'];
-        if (pollId) {
-          this.pollService.getPoll(pollId).subscribe(
-            (res: any) => {
-              if (res.success) {
-                this.poll = res.poll;
-                if (this.getResponseFromLocalStorage(this.poll._id)) {
-                  this.response = this.getResponseFromLocalStorage(this.poll._id);
-                  this.hasResponded = true;
-                } else {
-                  this.setAnswers();
-                  this.response.for = res.poll._id;
-                }
-                this.responseCopy = JSON.stringify(this.response);
-              } else {
-                this.utils.openSnackBar('messages.errorGettingPoll');
-              }
-            },
-            (err) => {
-              this.utils.openSnackBar('messages.errorGettingPoll');
-            }
-          );
+      this.route.queryParams.pipe(take(1)).subscribe(params => {
+        this.pollId = params['id'];
+        if (this.pollId) {
+          this.getPoll(this.pollId);
         } else {
           this.router.navigate(['']);
         }
       });
     }
+  }
+
+  getPoll(pollId, password = null) {
+    this.pollService.getPoll(pollId, password).subscribe(
+      (res: any) => {
+        if (res.success) {
+          this.passwordRequired = false;
+          this.poll = res.poll;
+          if (this.getResponseFromLocalStorage(this.poll._id)) {
+            this.response = this.getResponseFromLocalStorage(this.poll._id);
+            this.hasResponded = true;
+          } else {
+            this.setAnswers();
+            this.response.for = res.poll._id;
+          }
+          this.responseCopy = JSON.stringify(this.response);
+        } else {
+          if (res.passwordRequired) {
+            this.passwordRequired = true;
+          } else if (res.incorrectPassword) {
+            this.utils.openSnackBar('messages.incorrectPassword', 'labels.retry');
+          } else {
+            this.utils.openSnackBar('messages.errorGettingPoll');
+          }
+        }
+      },
+      (err) => {
+        this.utils.openSnackBar('messages.errorGettingPoll');
+      }
+    );
   }
 
   setAnswers(response = null) {
@@ -223,6 +240,19 @@ export class ViewPollComponent implements OnInit {
       responses.push(newResponse);
     }
     localStorage.setItem('responses', JSON.stringify(responses));
+  }
+
+  goClicked() {
+    this.getPoll(this.pollId, this.password);
+  }
+
+  navigateToRespond() {
+    this.router.navigate(['/respond'], {
+      relativeTo: this.route,
+      queryParams: {
+        id: this.pollId
+      }
+   });
   }
 
   get canVote() {
