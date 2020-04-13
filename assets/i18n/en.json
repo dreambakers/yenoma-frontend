@@ -43,7 +43,7 @@
         "register": "Register",
         "noAccount": "No account? Sign up here",
         "respond": "Respond",
-        "gotToPoll": "Go to Poll",
+        "goToPoll": "Go to Poll",
         "confirmPassword": "Confirm Password",
         "alreadyRegistered": "Already registered? Login here",
         "passwordsDontMatch": "Password don't match",
@@ -98,7 +98,9 @@
         "errorDeletingResponse": "An error occurred while deleting the response",
         "responseDeleted": "Response deleted successfully",
         "deleteResponseConfirmation": "This will delete the selected response",
-        "errorGettingResponse": "An error occurred while getting the response for the poll"
+        "errorGettingResponse": "An error occurred while getting the response for the poll",
+        "incorrectPassword": "The provided password is not correct",
+        "providePassword": "A password is required to access this poll"
     },
 
     "hints": {
