@@ -113,6 +113,9 @@ export class ViewStatsComponent implements OnInit {
       case constants.answerTypes.yesNoMaybe:
         return this.getWeightForYNM;
 
+      case constants.answerTypes.smiley:
+        return this.getWeightForSmiley;
+
       case constants.answerTypes.slider:
         return this.getWeightForSlider;
 
@@ -150,6 +153,10 @@ export class ViewStatsComponent implements OnInit {
 
   getWeightForYNM(answer): Number {
     return answer === 'yes' ? 100 : (answer === 'maybe' ? 50 : 0);
+  }
+
+  getWeightForSmiley(answer): Number {
+    return answer === 'happy' ? 100 : (answer === 'medium' ? 50 : 0);
   }
 
   getTableValue(questionIndex, optionIndex, value) {
