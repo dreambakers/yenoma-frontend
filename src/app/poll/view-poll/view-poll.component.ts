@@ -151,7 +151,6 @@ export class ViewPollComponent implements OnInit {
   }
 
   onRatingChanged(rating, questionIndex, answerIndex = null) {
-    this.rating = rating;
     const question = this.response.questions[questionIndex];
     question.answerType = constants.answerTypes.rating;
     if (answerIndex !== null) {
@@ -174,6 +173,16 @@ export class ViewPollComponent implements OnInit {
   onYNMAnswerChanged(event, questionIndex, answerIndex = null) {
     const question = this.response.questions[questionIndex];
     question.answerType = constants.answerTypes.yesNoMaybe;
+    if (answerIndex !== null) {
+      question.answers[answerIndex].answer = event.value;
+    } else {
+      question['answer'] = event.value;
+    }
+  }
+
+  onSmileyAnswerChanged(event, questionIndex, answerIndex = null) {
+    const question = this.response.questions[questionIndex];
+    question.answerType = constants.answerTypes.smiley;
     if (answerIndex !== null) {
       question.answers[answerIndex].answer = event.value;
     } else {

@@ -8,7 +8,8 @@ export const constants = {
         checkbox: 'checkbox',
         radioButton: 'radioButton',
         yesNoMaybe: 'yesNoMaybe',
-        slider: 'slider'
+        slider: 'slider',
+        smiley: 'smiley'
     },
     statusTypes: {
         open: 'open',
