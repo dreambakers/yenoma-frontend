@@ -119,7 +119,8 @@
         "checkbox": "Checkbox",
         "radioButton": "Radiobutton",
         "yesNoMaybe": "Yes/No/Maybe",
-        "slider": "Slider"
+        "slider": "Slider",
+        "smiley": "Smiley"
     },
 
     "tooltips": {
