@@ -56,12 +56,12 @@
                     <mat-hint *ngIf="!shouldDisable">{{ 'hints.pollDescription' | translate }}</mat-hint>
                 </mat-form-field>
 
-                <mat-form-field appearance="outline" class="w-100 mb-3" *ngIf="!shouldDisable || poll.privateNote">
+                <mat-form-field appearance="outline" class="w-100 mb-3" *ngIf="showPrivateNote">
                     <mat-label>{{ 'labels.privateNote' | translate }}</mat-label>
                     <textarea matInput placeholder="{{ 'placeholders.privateNote' | translate }}"
-                              [(ngModel)]="poll.privateNote" [disabled]="shouldDisable">
+                              [(ngModel)]="poll.privateNote" [disabled]="poll.status === constants.statusTypes.terminated">
                     </textarea>
-                    <mat-hint *ngIf="!shouldDisable">
+                    <mat-hint>
                         {{ 'hints.privateNote' | translate }}
                     </mat-hint>
                 </mat-form-field>

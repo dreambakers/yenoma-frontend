@@ -177,6 +177,10 @@ export class ManagePollComponent implements OnInit {
     this.showPassword = !this.showPassword;
   }
 
+  get showPrivateNote() {
+    return this.poll.status === constants.statusTypes.open || this.poll.privateNote;
+  }
+
   get isValid() {
     return this.poll.title && (this.showPassword ? this.poll.password : true) &&
            this.poll.questions.every(question => question.text && question.options.every(option => option.length)) &&
