@@ -54,7 +54,11 @@
         "score": "Score",
         "count": "Count",
         "view": "View",
-        "delete": "Delete"
+        "delete": "Delete",
+        "pollsFound": "Polls found.",
+        "yes": "Yes",
+        "no": "No",
+        "language": "Language"
     },
 
     "messages": {
@@ -100,7 +104,8 @@
         "deleteResponseConfirmation": "This will delete the selected response",
         "errorGettingResponse": "An error occurred while getting the response for the poll",
         "incorrectPassword": "The provided password is not correct",
-        "providePassword": "A password is required to access this poll"
+        "providePassword": "A password is required to access this poll",
+        "loggedInAs": "Logged in as"
     },
 
     "hints": {
