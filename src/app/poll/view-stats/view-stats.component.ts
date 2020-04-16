@@ -168,6 +168,26 @@ export class ViewStatsComponent implements OnInit {
     }
   }
 
+  getProgressBarColor(percentage) {
+    if (percentage <= 12.5) {
+      return '#f44336';
+    } else if (percentage > 12.5 && percentage <= 25) {
+      return '#ff5722';
+    } else if (percentage > 25 && percentage <= 37.5) {
+      return '#ff9800';
+    } else if (percentage > 37.5 && percentage <= 50) {
+      return '#ffc107';
+    } else if (percentage > 50 && percentage <= 62.5) {
+      return '#ffeb3b';
+    } else if (percentage > 62.5 && percentage <= 75) {
+      return '#cddc39';
+    } else if (percentage > 75 && percentage <= 87.5) {
+      return '#8bc34a';
+    } else if (percentage > 87.5 && percentage <= 100) {
+      return '#4caf50';
+    }
+  }
+
   onBackClicked() {
     this.router.navigate(['/dashboard/all']);
   }

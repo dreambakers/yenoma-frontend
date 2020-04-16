@@ -32,7 +32,7 @@ export class ResponsesComponent implements OnInit {
     private utils: UtilService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private translate: TranslateService,
+    public translate: TranslateService,
     private responseService: ResponseService) { }
 
   ngOnInit() {
