@@ -4,7 +4,7 @@
     {{ 'labels.myPolls' | translate }}
   </h3>
 
-  <small>{{ polls.length }} polls found.</small>
+  <small>{{ polls.length }} {{ 'labels.pollsFound' | translate }}</small>
 
   <div class="mat-elevation-z8 mt-5">
     <table mat-table [dataSource]="dataSource" matSort>

@@ -15,7 +15,8 @@
           <a class="nav-link" routerLink='create' [routerLinkActive]="['text-white']">{{ 'labels.create' | translate }}</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link cursor-pointer" (click)="logout()" matTooltip="Logged in as {{user.email}}">
+          <a class="nav-link cursor-pointer" (click)="logout()"
+             matTooltip="{{ translate.instant('messages.loggedInAs') }} {{user.email}}">
             {{ 'labels.logout' | translate }}
           </a>
         </li>

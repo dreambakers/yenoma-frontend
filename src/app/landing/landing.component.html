@@ -1,9 +1,9 @@
 <mat-tab-group mat-align-tabs="center" [selectedIndex]="selectedIndex">
-    <mat-tab label="Login/Register">
+    <mat-tab label="{{ translate.instant('labels.login') }}/{{ translate.instant('labels.register') }}">
        <app-login *ngIf="activeLink !== '/signup'"></app-login>
        <app-signup *ngIf="activeLink === '/signup'"></app-signup>
     </mat-tab>
-    <mat-tab label="Respond">
+    <mat-tab label="{{ translate.instant('labels.respond') }}">
         <app-respond *ngIf="!isViewingResponse"></app-respond>
         <app-view-poll *ngIf="isViewingResponse"></app-view-poll>
     </mat-tab>
