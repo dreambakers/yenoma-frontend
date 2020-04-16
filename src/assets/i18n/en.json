@@ -4,7 +4,7 @@
         "createNewPoll": "Create a new poll",
         "title": "Title",
         "description": "Description",
-        "privateNote": "Private Note",
+        "privateNote": "Private note",
         "allowNames": "Allow names",
         "allowComments": "Allow comments",
         "rearrangeQuestions": "Rearrange questions",
@@ -19,7 +19,7 @@
         "back": "Back",
         "cancel": "Cancel",
         "addAnotherQuestion": "Add another question",
-        "passwordProtected": "Password Protected",
+        "passwordProtected": "Password protected",
         "password": "Password",
         "update": "Update",
         "managePoll": "Manage Poll",
@@ -60,7 +60,10 @@
         "no": "No",
         "language": "Language",
         "noName": "no name",
-        "go": "Go"
+        "go": "Go",
+        "activeComment": "Active comment",
+        "inactiveComment": "Inactive comment",
+        "askersComment": "Asker's comment"
     },
 
     "messages": {
@@ -117,7 +120,9 @@
         "typeQuestion": "Type question",
         "typePollPassword": "Type poll password",
         "enterName": "Enter name",
-        "enterComments": "Enter comments"
+        "enterComments": "Enter comments",
+        "activeComment": "Enter active comment (shown when poll is active)",
+        "inactiveComment": "Enter inactive comment (shown when poll is terminated or deleted)"
     },
 
     "answerTypes": {
@@ -143,7 +148,9 @@
         "option": "Pizza",
         "pollPassword": "Poll Password",
         "name": "John Doe",
-        "comment": "The options could've been clearer"
+        "comment": "The options could've been clearer",
+        "activeComment": "Active comment",
+        "inactiveComment": "Inactive comment"
     },
 
     "answers": {

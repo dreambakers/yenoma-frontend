@@ -69,8 +69,6 @@ export class ManagePollComponent implements OnInit {
           { text: '', options: [], answerType: constants.answerTypes.binary }
         ],
         title: '',
-        description: '',
-        privateNote: '',
         status: constants.statusTypes.open,
         allowComments: false,
         allowNames: false
@@ -175,10 +173,6 @@ export class ManagePollComponent implements OnInit {
   togglePassword() {
     this.poll.password = '';
     this.showPassword = !this.showPassword;
-  }
-
-  get showPrivateNote() {
-    return this.poll.status === constants.statusTypes.open || this.poll.privateNote;
   }
 
   get isValid() {

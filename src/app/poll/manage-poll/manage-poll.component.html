@@ -56,13 +56,33 @@
                     <mat-hint *ngIf="!shouldDisable">{{ 'hints.pollDescription' | translate }}</mat-hint>
                 </mat-form-field>
 
-                <mat-form-field appearance="outline" class="w-100 mb-3" *ngIf="showPrivateNote">
+                <mat-form-field appearance="outline" class="w-100 mb-3">
                     <mat-label>{{ 'labels.privateNote' | translate }}</mat-label>
                     <textarea matInput placeholder="{{ 'placeholders.privateNote' | translate }}"
-                              [(ngModel)]="poll.privateNote" [disabled]="poll.status === constants.statusTypes.terminated">
+                              [(ngModel)]="poll.privateNote">
                     </textarea>
                     <mat-hint>
                         {{ 'hints.privateNote' | translate }}
+                    </mat-hint>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="w-100 mb-3">
+                    <mat-label>{{ 'labels.activeComment' | translate }}</mat-label>
+                    <textarea matInput placeholder="{{ 'placeholders.activeComment' | translate }}"
+                              [(ngModel)]="poll.activeComment">
+                    </textarea>
+                    <mat-hint>
+                        {{ 'hints.activeComment' | translate }}
+                    </mat-hint>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="w-100 mb-3">
+                    <mat-label>{{ 'labels.inactiveComment' | translate }}</mat-label>
+                    <textarea matInput placeholder="{{ 'placeholders.inactiveComment' | translate }}"
+                              [(ngModel)]="poll.inactiveComment">
+                    </textarea>
+                    <mat-hint>
+                        {{ 'hints.inactiveComment' | translate }}
                     </mat-hint>
                 </mat-form-field>
 
@@ -150,7 +170,9 @@
                     <mat-label>{{ 'labels.question' | translate }} {{i + 1}}</mat-label>
                     <input matInput placeholder="{{ 'placeholders.question' | translate }}"
                            [(ngModel)]="question.text" [disabled]="shouldDisable">
-                    <mat-hint>{{ 'hints.typeQuestion' | translate }} {{i + 1}}</mat-hint>
+                    <mat-hint *ngIf="poll.status === constants.statusTypes.open">
+                        {{ 'hints.typeQuestion' | translate }} {{i + 1}}
+                    </mat-hint>
                 </mat-form-field>
 
                 <div class="d-flex justify-content-end mb-2"
@@ -166,7 +188,7 @@
                         <div class="d-flex align-items-center justify-content-between">
                             <mat-form-field appearance="outline" class="w-100">
                                 <mat-label>
-                                    {{ 'labels.enterQuestion' | translate }}
+                                    {{ 'labels.question' | translate }}
                                     {{ i + 1 }}
                                     {{ 'labels.option' | translate | lowercase }}
                                     {{ j + 1 }}

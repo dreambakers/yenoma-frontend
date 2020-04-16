@@ -310,7 +310,7 @@ export class ViewPollComponent implements OnInit {
   }
 
   get shouldDisable() {
-    return this.poll.status === constants.statusTypes.terminated;
+    return this.poll.status === constants.statusTypes.terminated || (this.preview && this.hasResponded ? true : false);
   }
 
 }

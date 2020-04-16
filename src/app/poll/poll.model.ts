@@ -6,12 +6,14 @@ interface Question {
 
 export class Poll {
     title: string;
-    description: string;
+    description?: string;
     questions: Question[];
     status: string;
-    privateNote: string;
+    privateNote?: string;
     allowNames: boolean;
     allowComments: boolean;
     password?: string;
     _id?: string;
+    inactiveComment?: string;
+    activeComment?: string;
 }
