@@ -42,6 +42,7 @@ export class ResponsesComponent implements OnInit {
         (res: any) => {
           if (res.success) {
             this.poll = res.responses[0].for;  // poll
+            this.poll.allowComments && this.displayedColumns.splice(1, 0, "comments");
             this.responses = res.responses;
             this.dataSource = new MatTableDataSource(this.responses);
             setTimeout(() => {

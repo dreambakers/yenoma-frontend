@@ -139,7 +139,9 @@
   </mat-card>
 
   <div class="text-center mt-5" *ngIf="!preview">
-    <button class="btn btn-danger mr-2" (click)="navigateToRespond()">Back</button>
+    <button class="btn btn-danger mr-2" (click)="navigateToRespond()">
+      {{ 'labels.back' | translate }}
+    </button>
 
     <button class="btn btn-success" (click)="vote()" [disabled]="!canVote || !dirty"
             *ngIf="!shouldDisable">
@@ -177,8 +179,12 @@
     </mat-form-field>
 
     <div class="d-flex justify-content-center">
-      <button class="btn btn-danger mr-2" (click)="navigateToRespond()">Back</button>
-      <button class="btn btn-primary" (click)="goClicked()" [disabled]="!password">Go</button>
+      <button class="btn btn-danger mr-2" (click)="navigateToRespond()">
+        {{ 'labels.back' | translate }}
+      </button>
+      <button class="btn btn-primary" (click)="goClicked()" [disabled]="!password">
+        {{ 'labels.go' | translate }}
+      </button>
     </div>
   </mat-card>
 </div>

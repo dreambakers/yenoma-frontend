@@ -1,20 +1,29 @@
 <div class="p-5" *ngIf="responses?.length && !preview">
 
-  <h4>{{responses[0].for.title}}</h4>
-  <p>{{responses[0].for.description}}</p>
+  <h4>{{poll.title}}</h4>
+  <p>{{poll.description}}</p>
 
   <div class="mat-elevation-z8 mt-5">
     <table mat-table [dataSource]="dataSource" matSort>
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-dark"> {{ 'labels.name' | translate }} </th>
         <td mat-cell *matCellDef="let response">
-          {{response.name || '[no name]'}}
+          {{response.name || '[' + translate.instant('labels.noName') + ']' }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="comments" *ngIf="poll.allowComments">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-dark text-center">
+          {{ 'labels.comments' | translate }}
+        </th>
+        <td mat-cell *matCellDef="let response" class="text-center">
+          <i class="fas fa-comment" [ngClass]=" response.comments ? 'text-success' : 'text-muted'"></i>
         </td>
       </ng-container>
 
       <ng-container matColumnDef="createdAt">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-dark"> {{ 'labels.created' | translate }} </th>
-        <td mat-cell *matCellDef="let response">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-dark text-center"> {{ 'labels.created' | translate }} </th>
+        <td mat-cell *matCellDef="let response" class="text-center">
           {{getParsedDate(response.createdAt)}}
         </td>
       </ng-container>

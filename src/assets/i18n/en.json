@@ -58,7 +58,9 @@
         "pollsFound": "Polls found.",
         "yes": "Yes",
         "no": "No",
-        "language": "Language"
+        "language": "Language",
+        "noName": "no name",
+        "go": "Go"
     },
 
     "messages": {
