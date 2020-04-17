@@ -111,8 +111,8 @@
           </app-star-rating>
         </div>
 
-        <div *ngSwitchCase="constants.answerTypes.slider">
-          <mat-slider
+        <div *ngSwitchCase="constants.answerTypes.slider" class="d-flex flex-row align-items-center">
+          <mat-slider #slider
           [value]="answerObj.answer"
           [disabled]="shouldDisable"
           [max]="100"
@@ -121,6 +121,7 @@
           [thumbLabel]="true"
           (change)="onSliderValueChanged($event, i, j)">
           </mat-slider>
+          <span class="text-center ml-2 border p-2 slider-box">{{ slider.value }}</span>
         </div>
       </div>
 
