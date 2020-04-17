@@ -41,8 +41,6 @@ export class ResponsesComponent implements OnInit {
       this.responseService.getResponsesForPoll(pollId).subscribe(
         (res: any) => {
           if (res.success) {
-            this.poll = res.responses[0].for;  // poll
-            this.poll.allowComments && this.displayedColumns.splice(1, 0, "comments");
             this.responses = res.responses;
             this.dataSource = new MatTableDataSource(this.responses);
             setTimeout(() => {
@@ -57,7 +55,23 @@ export class ResponsesComponent implements OnInit {
         (err) => {
           this.utils.openSnackBar('messages.errorGettingResponses');
         }
-      )
+      );
+
+      this.pollService.managePoll(pollId).subscribe(
+        (res: any) => {
+          if (res.success) {
+            console.log(res)
+            this.poll = res.poll;  // poll
+            this.poll.allowComments && this.displayedColumns.splice(1, 0, "comments");
+          } else {
+            this.utils.openSnackBar('messages.errorGettingPoll');
+          }
+        },
+        (err) => {
+          this.utils.openSnackBar('messages.errorGettingPoll');
+        }
+      );
+
     });
   }
 
@@ -115,6 +129,10 @@ export class ResponsesComponent implements OnInit {
         this.utils.openSnackBar('messages.errorGettingResponse');
       }
     );
+  }
+
+  backClicked() {
+    this.router.navigate(['dashboard/all']);
   }
 
 }

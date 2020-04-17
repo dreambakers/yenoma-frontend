@@ -1,9 +1,9 @@
-<div class="p-5" *ngIf="responses?.length && !preview">
+<div class="p-5" *ngIf="!preview; else showPreview">
 
-  <h4>{{poll.title}}</h4>
-  <p>{{poll.description}}</p>
+  <h4>{{poll?.title}}</h4>
+  <p>{{poll?.description}}</p>
 
-  <div class="mat-elevation-z8 mt-5">
+  <div class="mat-elevation-z8 mt-5" *ngIf="responses?.length">
     <table mat-table [dataSource]="dataSource" matSort>
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-dark"> {{ 'labels.name' | translate }} </th>
@@ -12,7 +12,7 @@
         </td>
       </ng-container>
 
-      <ng-container matColumnDef="comments" *ngIf="poll.allowComments">
+      <ng-container matColumnDef="comments" *ngIf="poll?.allowComments">
         <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-dark text-center">
           {{ 'labels.comments' | translate }}
         </th>
@@ -47,13 +47,24 @@
     </table>
     <mat-paginator [pageSizeOptions]="[10, 15, 20]" showFirstLastButtons></mat-paginator>
   </div>
+
+  <mat-card *ngIf="!responses?.length">
+    {{ 'messages.noResponses' | translate }}
+  </mat-card>
+
+  <div class="text-center mt-5">
+    <button class="btn btn-primary mr-2" (click)="backClicked()">
+      {{ 'labels.back' | translate }}
+    </button>
+  </div>
+
 </div>
 
-<div *ngIf="preview">
+<ng-template #showPreview>
   <app-view-poll [embeddedPreview]="false" [poll]="poll" [response]="response" [hasResponded]="true">
   </app-view-poll>
 
   <div class="text-center p-5">
     <button (click)="preview = false" class="btn btn-primary">Back</button>
   </div>
-</div>
+</ng-template>
