@@ -60,7 +60,6 @@ export class ResponsesComponent implements OnInit {
       this.pollService.managePoll(pollId).subscribe(
         (res: any) => {
           if (res.success) {
-            console.log(res)
             this.poll = res.poll;  // poll
             this.poll.allowComments && this.displayedColumns.splice(1, 0, "comments");
           } else {
