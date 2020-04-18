@@ -6,7 +6,6 @@ import { Response } from '../response.model';
 import { ResponseService } from 'src/app/services/response.service';
 import { UtilService } from 'src/app/services/util.service';
 import { constants } from 'src/app/app.constants';
-import { UserService } from 'src/app/services/user.service';
 import { TranslateService } from '@ngx-translate/core';
 
 import { take } from 'rxjs/operators'
@@ -48,7 +47,6 @@ export class ViewPollComponent implements OnInit {
     private route: ActivatedRoute,
     private responseService: ResponseService,
     private utils: UtilService,
-    private userService: UserService,
     public translate: TranslateService
   ) { }
 
@@ -98,7 +96,7 @@ export class ViewPollComponent implements OnInit {
     );
   }
 
-  setAnswers(response = null) {
+  setAnswers() {
     const getDefaultAnswer = (answerType) => {
       switch (answerType) {
         case constants.answerTypes.checkbox:
@@ -226,6 +224,16 @@ export class ViewPollComponent implements OnInit {
     }
   }
 
+  onTextAnswerChanged(event, questionIndex, answerIndex = null) {
+    const question = this.response.questions[questionIndex];
+    question.answerType = constants.answerTypes.text;
+    if (answerIndex !== null) {
+      question.answers[answerIndex].answer = event.target.value;
+    } else {
+      question['answer'] = event.target.value;
+    }
+  }
+
   getOptions(question) {
     if (this.hasResponded) {
       return question.answers;
@@ -266,7 +274,7 @@ export class ViewPollComponent implements OnInit {
 
   get canVote() {
     const totalOptions = this.poll.questions.reduce((acc, question) => {
-      if (question.answerType !== constants.answerTypes.slider) {
+      if (![constants.answerTypes.slider, constants.answerTypes.text].includes(question.answerType)) {
         if (question.options.length) {
           // dont count multiple options for checkbox/radio (since a min of 1 must be selected)
           if ([constants.answerTypes.radioButton, constants.answerTypes.checkbox].includes(question.answerType)) {
@@ -282,7 +290,7 @@ export class ViewPollComponent implements OnInit {
     }, 0);
 
     const respondedCount = this.response.questions.reduce((acc, question) => {
-      if (question.answerType !== constants.answerTypes.slider) {
+      if (![constants.answerTypes.slider, constants.answerTypes.text].includes(question.answerType)) {
         if (question.answers.length) {
           if ([
                 constants.answerTypes.radioButton,

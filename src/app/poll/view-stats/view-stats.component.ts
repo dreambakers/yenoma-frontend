@@ -55,10 +55,14 @@ export class ViewStatsComponent implements OnInit {
     this.answerMap = {};
 
     const insertAnswer = (answerIndex, answer, question) => {
-      if (answerIndex in question && answer in question[answerIndex]) {
-        return question[answerIndex][answer] += 1;
+      let key = answer;
+      if (question.type === constants.answerTypes.text) {
+        key = answer ? 'filled' : 'unfilled';
       }
-      question[answerIndex] = { ...question[answerIndex], [answer]: 1 };
+      if (answerIndex in question && key in question[answerIndex]) {
+        return question[answerIndex][key] += 1;
+      }
+      question[answerIndex] = { ...question[answerIndex], [key]: 1 }
     }
 
     for (const response of this.responses) {
