@@ -10,6 +10,12 @@ export class FooterComponent implements OnInit {
 
   selectedLanguage;
 
+  languages = [
+    { display: "English", value: "en" },
+    { display: "German", value: "de" },
+    { display: "French", value: "fr" }
+  ];
+
   constructor(private translate: TranslateService) { }
 
   ngOnInit() {
@@ -17,8 +23,8 @@ export class FooterComponent implements OnInit {
     this.translate.use(this.selectedLanguage);
   }
 
-  languageChanged(language) {
-    this.selectedLanguage = language;
+  languageChanged(event) {
+    this.selectedLanguage = event.value;
     localStorage.setItem('selectedLanguage', this.selectedLanguage);
     this.translate.use(this.selectedLanguage);
   }

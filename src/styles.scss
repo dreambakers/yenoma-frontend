@@ -66,3 +66,15 @@ button.mat-menu-item{ outline:none; }
     font-size: 14px;
     font-weight: bold;
 }
+
+#footer {
+    .mat-form-field-wrapper {
+        padding-bottom: 0 !important;
+    }
+    .mat-form-field-infix {
+        margin-right: 1.2rem;
+        padding: .5em 0;
+        border-top: 0;
+        width: 5rem;
+    }
+}

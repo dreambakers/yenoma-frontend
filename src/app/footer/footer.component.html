@@ -1,6 +1,9 @@
-<div class="d-flex language-list">
-    <div class="text-muted">Language</div>
-    <div [class.active]="selectedLanguage === 'en'" (click)="languageChanged('en')">English</div>
-    <div [class.active]="selectedLanguage === 'fr'" (click)="languageChanged('fr')">French</div>
-    <div [class.active]="selectedLanguage === 'gr'" (click)="languageChanged('gr')">German</div>
+<div class="d-flex language-list" id="footer">
+    <mat-form-field appearance="none">
+        <mat-select [value]="selectedLanguage" (selectionChange)="languageChanged($event)">
+          <mat-option *ngFor="let language of languages" [value]="language.value">
+            {{ language.display }}
+          </mat-option>
+        </mat-select>
+    </mat-form-field>
 </div>
