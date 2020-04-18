@@ -63,7 +63,9 @@
         "go": "Go",
         "activeComment": "Active comment",
         "inactiveComment": "Inactive comment",
-        "askersComment": "Asker's comment"
+        "askersComment": "Asker's comment",
+        "filled": "Filled",
+        "unfilled": "Unfilled"
     },
 
     "messages": {
@@ -111,7 +113,8 @@
         "incorrectPassword": "The provided password is not correct",
         "providePassword": "A password is required to access this poll",
         "loggedInAs": "Logged in as",
-        "noResponses": "No responses recorded against the current poll"
+        "noResponses": "No responses recorded against the current poll",
+        "noAnswer": "No answer provided"
     },
 
     "hints": {
@@ -133,7 +136,8 @@
         "radioButton": "Radiobutton",
         "yesNoMaybe": "Yes/No/Maybe",
         "slider": "Slider",
-        "smiley": "Smiley"
+        "smiley": "Smiley",
+        "text": "Text"
     },
 
     "tooltips": {
@@ -153,7 +157,8 @@
         "activeComment": "Active comment",
         "inactiveComment": "Inactive comment",
         "password": "Password",
-        "email": "Email Address"
+        "email": "Email Address",
+        "textAnswer": "Type your answer here (500 chars max)"
     },
 
     "answers": {
