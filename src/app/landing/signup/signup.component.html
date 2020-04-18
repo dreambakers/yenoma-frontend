@@ -22,14 +22,15 @@
               <label>{{ 'labels.emailAddress' | translate }}</label>
 
               <input type="email" formControlName="email" class="form-control"
-                [ngClass]="{ 'is-invalid': submitted && f.email.errors }" placeholder="Email address" required>
+                [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+                placeholder="{{ 'placeholders.email' | translate }}" required>
 
               <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
                 <div *ngIf="f.email.errors.required">
                   {{ 'labels.emailAddress' | translate }}
                   {{ 'labels.isRequired' | translate }}
                 </div>
-                <div *ngIf="f.email.errors.email">{{ 'labels.emailNotValid' | translate }}</div>
+                <div *ngIf="f.email.errors.email">{{ 'messages.emailNotValid' | translate }}</div>
               </div>
 
             </div>
@@ -39,7 +40,8 @@
               <label>{{ 'labels.password' | translate }}</label>
 
               <input type="password" formControlName="password" class="form-control"
-                [ngClass]="{ 'is-invalid': submitted && f.password.errors }" placeholder="Password" required>
+                [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
+                placeholder="{{ 'placeholders.password' | translate }}" required>
 
               <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
                 <div *ngIf="f.password.errors.required">
@@ -58,7 +60,8 @@
               <label>{{ 'labels.confirmPassword' | translate }}</label>
 
               <input type="password" formControlName="confirmPassword" class="form-control"
-                [ngClass]="{ 'is-invalid': submitted && f.confirmPassword.errors }" placeholder="Password" required>
+                [ngClass]="{ 'is-invalid': submitted && f.confirmPassword.errors }"
+                placeholder="{{ 'placeholders.password' | translate }}" required>
 
               <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
                 <div *ngIf="f.confirmPassword.errors.required">
@@ -68,7 +71,9 @@
               </div>
 
               <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
-                  <div *ngIf="f.confirmPassword.errors?.MatchPassword">{{ 'labels.passwordsDontMatch' | translate }}</div>
+                  <div *ngIf="f.confirmPassword.errors?.MatchPassword">
+                    {{ 'labels.passwordsDontMatch' | translate }}
+                  </div>
               </div>
             </div>
 
