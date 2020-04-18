@@ -151,7 +151,9 @@
         "name": "John Doe",
         "comment": "The options could've been clearer",
         "activeComment": "Active comment",
-        "inactiveComment": "Inactive comment"
+        "inactiveComment": "Inactive comment",
+        "password": "Password",
+        "email": "Email Address"
     },
 
     "answers": {
