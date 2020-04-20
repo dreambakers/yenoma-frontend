@@ -2,9 +2,11 @@
 
     <div class="mb-3 d-flex justify-content-between">
         <h3>
-            {{ (isEditing ? 'labels.managePoll' : 'labels.createPoll') | translate }}
-            <span class="font-italic text-muted" *ngIf="shouldDisable">
-                ({{ 'labels.readOnly' | translate }})
+            <span *ngIf="!preview">
+                {{ (isEditing ? 'labels.managePoll' : 'labels.createPoll') | translate }}
+                <span class="font-italic text-muted" *ngIf="shouldDisable">
+                    ({{ 'labels.readOnly' | translate }})
+                </span>
             </span>
         </h3>
         <div class="d-flex justify-content-end">
