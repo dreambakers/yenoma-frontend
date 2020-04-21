@@ -27,6 +27,7 @@ import { ManagePollComponent } from './poll/manage-poll/manage-poll.component';
 import { ViewStatsComponent } from './poll/view-stats/view-stats.component';
 import { FooterComponent } from './footer/footer.component';
 import { ResponsesComponent } from './poll/responses/responses.component';
+import { ErrorComponent } from './error/error.component';
 
 import { MatSortModule } from '@angular/material/sort';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -67,7 +68,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     ConfirmDialogComponent,
     ViewStatsComponent,
     FooterComponent,
-    ResponsesComponent
+    ResponsesComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserAnimationsModule,

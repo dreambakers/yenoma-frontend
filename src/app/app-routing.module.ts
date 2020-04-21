@@ -11,6 +11,7 @@ import { LandingComponent } from './landing/landing.component';
 import { RespondComponent } from './landing/respond/respond.component';
 import { ViewStatsComponent } from './poll/view-stats/view-stats.component';
 import { ResponsesComponent } from './poll/responses/responses.component';
+import { ErrorComponent } from './error/error.component';
 
 const routes: Routes = [
 
@@ -41,8 +42,10 @@ const routes: Routes = [
       { path: 'view', component: ViewPollComponent },
       { path: 'stats', component: ViewStatsComponent },
       { path: 'responses', component: ResponsesComponent },
-      { path: '**', redirectTo: 'all', pathMatch: 'full' }
     ]
+  },
+  {
+    path: '**', component: ErrorComponent
   }
 ];
 

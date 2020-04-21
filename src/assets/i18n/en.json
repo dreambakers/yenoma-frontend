@@ -113,7 +113,9 @@
         "providePassword": "A password is required to access this poll",
         "loggedInAs": "Logged in as",
         "noResponses": "No responses recorded against the current poll",
-        "noAnswer": "No answer provided"
+        "noAnswer": "No answer provided",
+        "pageNotFound": "The requested page was not found.",
+        "returnHome": "Return home"
     },
 
     "hints": {
