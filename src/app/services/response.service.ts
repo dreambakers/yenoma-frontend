@@ -26,6 +26,10 @@ export class ResponseService {
     return this.http.get(`${constants.apiUrl}/response/${responseId}`);
   }
 
+  verifyResponse(responseId) {
+    return this.http.get(`${constants.apiUrl}/response/verify/${responseId}`);
+  }
+
   deleteResponse(responseId) {
     return this.http.delete(`${constants.apiUrl}/response/${responseId}`);
   }

@@ -115,7 +115,8 @@
         "noResponses": "No responses recorded against the current poll",
         "noAnswer": "No answer provided",
         "pageNotFound": "The requested page was not found.",
-        "returnHome": "Return home"
+        "returnHome": "Return home",
+        "respondedPreviously": "You have responded to this poll on {{date}} at {{time}}"
     },
 
     "hints": {

@@ -7,6 +7,7 @@ import { ResponseService } from 'src/app/services/response.service';
 import { UtilService } from 'src/app/services/util.service';
 import { constants } from 'src/app/app.constants';
 import { TranslateService } from '@ngx-translate/core';
+import * as moment from 'moment';
 
 import { take } from 'rxjs/operators'
 
@@ -38,7 +39,9 @@ export class ViewPollComponent implements OnInit {
   hide = true;
   password = '';
   preview = false;
+  responseValid = false;
   passwordRequired = false;
+  showRespondedBanner = false;
   constants = constants;
 
   constructor(
@@ -74,7 +77,9 @@ export class ViewPollComponent implements OnInit {
           this.poll = res.poll;
           if (this.getResponseFromLocalStorage(this.poll._id)) {
             this.response = this.getResponseFromLocalStorage(this.poll._id);
+            this.verifyResponseValidity();
             this.hasResponded = true;
+            this.showRespondedBanner = true;
           } else {
             this.setAnswers();
             this.response.for = res.poll._id;
@@ -122,7 +127,9 @@ export class ViewPollComponent implements OnInit {
   }
 
   vote() {
-    if (this.hasResponded) {
+    delete this.response['updatedAt'];
+    delete this.response['createdAt'];
+    if (this.hasResponded && this.responseValid) {
       this.responseService.updateResponse(this.response).subscribe((res: any) => {
         if (res.success) {
           this.utils.openSnackBar('messages.responseUpdated', 'labels.success');
@@ -141,6 +148,7 @@ export class ViewPollComponent implements OnInit {
           this.responseCopy = JSON.stringify(res.response);
           this.response = res.response;
           this.hasResponded = true;
+          this.responseValid = true;
         }
       }, err => {
         this.utils.openSnackBar('messages.errorRecordingResponse');
@@ -272,6 +280,31 @@ export class ViewPollComponent implements OnInit {
    });
   }
 
+  verifyResponseValidity() {
+    this.responseService.verifyResponse(this.response['_id']).subscribe(
+      (res: any) => {
+        if (res.success) {
+          this.responseValid = true;
+        }
+        // old response not found (deleted by asker)
+        else {
+          this.responseValid = false;
+        }
+      },
+      err => { this.responseValid = false; }
+    )
+  }
+
+  getParsedDateTime(time = false) {
+    const date = this.response['updatedAt'];
+    if (date) {
+      const format = !time ? 'YYYY-MM-DD' : 'HH:mm';
+      return moment(date).format(format);
+    } else {
+      return '-';
+    }
+  }
+
   get canVote() {
     const totalOptions = this.poll.questions.reduce((acc, question) => {
       if (![constants.answerTypes.slider, constants.answerTypes.text].includes(question.answerType)) {
@@ -314,7 +347,7 @@ export class ViewPollComponent implements OnInit {
   }
 
   get dirty() {
-    return JSON.stringify(this.response) !== this.responseCopy;
+    return !this.responseValid || JSON.stringify(this.response) !== this.responseCopy;
   }
 
   get shouldDisable() {
