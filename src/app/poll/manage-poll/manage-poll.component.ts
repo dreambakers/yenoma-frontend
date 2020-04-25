@@ -66,7 +66,7 @@ export class ManagePollComponent implements OnInit {
     } else {
       this.poll = {
         questions: [
-          { text: '', options: [], answerType: constants.answerTypes.binary }
+          { text: '', options: [], answerType: constants.answerTypes.yesNoMaybe }
         ],
         title: '',
         status: constants.statusTypes.open,
@@ -85,7 +85,7 @@ export class ManagePollComponent implements OnInit {
   }
 
   addQuestion() {
-    this.poll.questions.push({ text: '', options: [], answerType: constants.answerTypes.binary });
+    this.poll.questions.push({ text: '', options: [], answerType: constants.answerTypes.yesNoMaybe });
   }
 
   removeQuestion(questionIndex) {

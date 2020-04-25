@@ -42,4 +42,8 @@ export class PollService {
     return this.http.post(`${constants.apiUrl}/poll/restore/${pollId}`, {});
   }
 
+  duplicate(pollId) {
+    return this.http.post(`${constants.apiUrl}/poll/duplicate/${pollId}`, {});
+  }
+
 }

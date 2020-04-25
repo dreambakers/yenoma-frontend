@@ -156,6 +156,23 @@ export class ViewPollsComponent implements OnInit {
    });
   }
 
+  duplicatePoll(pollId) {
+    this.pollService.duplicate(pollId).subscribe(
+      (res: any) => {
+        if (res.success) {
+          this.polls.push(res.poll);
+          this.dataSource.data = this.polls;
+          this.utils.openSnackBar('messages.pollDuplicated');
+        } else {
+          this.utils.openSnackBar('messages.errorDuplicatingPoll');
+        }
+      },
+      err => {
+        this.utils.openSnackBar('messages.errorDuplicatingPoll');
+      }
+    );
+  }
+
   previewPoll(poll) {
     this.poll = poll;
     this.preview = true;

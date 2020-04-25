@@ -116,7 +116,9 @@
         "noAnswer": "No answer provided",
         "pageNotFound": "The requested page was not found.",
         "returnHome": "Return home",
-        "respondedPreviously": "You have responded to this poll on {{date}} at {{time}}"
+        "respondedPreviously": "You have responded to this poll on {{date}} at {{time}}",
+        "errorDuplicatingPoll": "An error occurred while duplicating the poll",
+        "pollDuplicated": "Poll duplicated successfully"
     },
 
     "hints": {
@@ -177,6 +179,7 @@
         "showStats": "Show poll statistics",
         "preview": "Preview as responder",
         "edit": "Edit poll",
-        "responseDetails": "Response details"
+        "responseDetails": "Response details",
+        "duplicate": "Duplicate poll"
     }
 }
