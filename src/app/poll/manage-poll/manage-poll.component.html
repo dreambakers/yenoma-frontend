@@ -32,7 +32,7 @@
 
             <div class="d-flex flex-column justify-content-end mb-5 text-right" *ngIf="isEditing">
                 <p class="mb-1"><span class="font-weight-bold">
-                    {{ 'labels.pollId' | translate }}: </span>{{poll._id}}
+                    {{ 'labels.pollId' | translate }}: </span>{{poll.shortId || poll._id}}
                 </p>
                 <p *ngIf="responses.length">
                     <span class="font-weight-bold">

@@ -25,7 +25,7 @@ export class RespondComponent implements OnInit {
 
   ngOnInit() {
     this.responseForm = this.formBuilder.group({
-      pollId: ['', [Validators.required, Validators.pattern(/^(?=[a-f\d]{24}$)(\d+[a-f]|[a-f]+\d)/i)]],
+      pollId: ['', [Validators.required, Validators.pattern(/^[1-9a-zA-Z]{8}$/i)]]
     });
 
     this.route.queryParams.pipe(take(1)).subscribe(params => {

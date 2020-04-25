@@ -92,11 +92,13 @@ export class ViewPollComponent implements OnInit {
             this.utils.openSnackBar('messages.incorrectPassword', 'labels.retry');
           } else {
             this.utils.openSnackBar('messages.errorGettingPoll');
+            this.navigateToRespond();
           }
         }
       },
       (err) => {
         this.utils.openSnackBar('messages.errorGettingPoll');
+        this.navigateToRespond();
       }
     );
   }
