@@ -139,7 +139,8 @@
         "yesNoMaybe": "Yes/No/Maybe",
         "slider": "Slider",
         "smiley": "Smiley",
-        "text": "Text"
+        "text": "Text",
+        "dropdown": "Dropdown"
     },
 
     "tooltips": {
