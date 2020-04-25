@@ -14,6 +14,7 @@ export class Poll {
     allowComments: boolean;
     password?: string;
     _id?: string;
+    shortId?: string;
     inactiveComment?: string;
     activeComment?: string;
 }
