@@ -138,6 +138,16 @@
                     [disabled]="shouldDisable" [class.font-italic]="this.preview && !answerObj.answer">
           </textarea>
         </div>
+
+        <div *ngSwitchCase="constants.answerTypes.dropdown">
+          <mat-form-field appearance="outline">
+            <mat-select [value]="answerObj.answer || 0" (selectionChange)="dropdownOptionChanged($event, i, j)">
+              <mat-option *ngFor="let option of constants.dropdownOptions" [value]="option">
+                {{ option }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
       </div>
 
     </ng-template>

@@ -111,6 +111,7 @@ export class ViewPollComponent implements OnInit {
           return false;
         case constants.answerTypes.radioButton:
         case constants.answerTypes.slider:
+        case constants.answerTypes.dropdown:
           return 0;
         default:
           return '';
@@ -244,6 +245,16 @@ export class ViewPollComponent implements OnInit {
     }
   }
 
+  dropdownOptionChanged(event, questionIndex, answerIndex = null) {
+    const question = this.response.questions[questionIndex];
+    question.answerType = constants.answerTypes.dropdown;
+    if (answerIndex !== null) {
+      question.answers[answerIndex].answer = event.value;
+    } else {
+      question['answer'] = event.value;
+    }
+  }
+
   getOptions(question) {
     if (this.hasResponded) {
       return question.answers;
@@ -308,8 +319,15 @@ export class ViewPollComponent implements OnInit {
   }
 
   get canVote() {
+
+    const answerTypesToSkip = [
+      constants.answerTypes.slider,
+      constants.answerTypes.text,
+      constants.answerTypes.dropdown
+    ];
+
     const totalOptions = this.poll.questions.reduce((acc, question) => {
-      if (![constants.answerTypes.slider, constants.answerTypes.text].includes(question.answerType)) {
+      if (!answerTypesToSkip.includes(question.answerType)) {
         if (question.options.length) {
           // dont count multiple options for checkbox/radio (since a min of 1 must be selected)
           if ([constants.answerTypes.radioButton, constants.answerTypes.checkbox].includes(question.answerType)) {
@@ -325,7 +343,7 @@ export class ViewPollComponent implements OnInit {
     }, 0);
 
     const respondedCount = this.response.questions.reduce((acc, question) => {
-      if (![constants.answerTypes.slider, constants.answerTypes.text].includes(question.answerType)) {
+      if (!answerTypesToSkip.includes(question.answerType)) {
         if (question.answers.length) {
           if ([
                 constants.answerTypes.radioButton,

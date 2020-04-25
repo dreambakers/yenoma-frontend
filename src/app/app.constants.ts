@@ -10,11 +10,15 @@ export const constants = {
         yesNoMaybe: 'yesNoMaybe',
         slider: 'slider',
         smiley: 'smiley',
-        text: 'text'
+        text: 'text',
+        dropdown: 'dropdown'
     },
     statusTypes: {
         open: 'open',
         terminated: 'terminated',
         deleted: 'deleted'
-    }
+    },
+    dropdownOptions: [
+        0,1,2,3,4,5,6,7,8,9,10
+    ]
 }
