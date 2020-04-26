@@ -121,7 +121,9 @@
         "returnHome": "Return home",
         "respondedPreviously": "You have responded to this poll on {{DT}} at {{TM}}",
         "errorDuplicatingPoll": "An error occurred while duplicating the poll",
-        "pollDuplicated": "Poll duplicated successfully"
+        "pollDuplicated": "Poll duplicated successfully",
+        "sharePollTitle": "View poll",
+        "sharePoll": "View poll created on Polling application"
     },
 
     "hints": {
@@ -192,6 +194,7 @@
         "preview": "Preview as responder",
         "edit": "Edit poll",
         "responseDetails": "Response details",
-        "duplicate": "Duplicate poll"
+        "duplicate": "Duplicate poll",
+        "share": "Share poll"
     }
 }
