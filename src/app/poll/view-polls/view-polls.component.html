@@ -83,8 +83,8 @@
               <i class="fas fa-clone text-primary mr-2"></i> {{ 'pollActions.duplicate' | translate }}
             </button>
 
-            <button mat-menu-item (click)="sharePoll(poll._id)" *ngIf="_navigator.share">
-              <i class="fas fa-share-alt text-primary mr-2"></i> {{ 'pollActions.share' | translate }}
+            <button mat-menu-item (click)="sharePoll(poll._id)">
+              <i class="fas fa-share-alt text-success mr-2"></i> {{ 'pollActions.share' | translate }}
             </button>
           </mat-menu>
         </td>

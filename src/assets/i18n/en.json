@@ -123,7 +123,8 @@
         "errorDuplicatingPoll": "An error occurred while duplicating the poll",
         "pollDuplicated": "Poll duplicated successfully",
         "sharePollTitle": "View poll",
-        "sharePoll": "View poll created on Polling application"
+        "sharePoll": "View poll created on Polling application",
+        "pollLinkCopied": "Poll link copied to clipboard"
     },
 
     "hints": {

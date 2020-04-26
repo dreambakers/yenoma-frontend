@@ -10,6 +10,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+
+import { NgNavigatorShareService } from 'ng-navigator-share';
 @Component({
   selector: 'app-view-polls',
   templateUrl: './view-polls.component.html',
@@ -22,7 +24,6 @@ export class ViewPollsComponent implements OnInit {
   polls = [];
   preview = false;
   constants = constants;
-  _navigator: any = window.navigator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   displayedColumns: string[] = ['title', 'createdAt', 'responses', 'active', 'action'];
@@ -32,7 +33,9 @@ export class ViewPollsComponent implements OnInit {
     private utils: UtilService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private translate: TranslateService) { }
+    private translate: TranslateService,
+    private ngNavigatorShareService: NgNavigatorShareService
+    ) { }
 
   ngOnInit() {
     this.pollService.getPolls().subscribe(
@@ -175,11 +178,30 @@ export class ViewPollsComponent implements OnInit {
   }
 
   async sharePoll(pollId) {
-    await this._navigator.share({
+    const pollUrl = window.location.origin + `/p?id=${pollId}`;
+    this.ngNavigatorShareService.share({
       title: this.translate.instant('messages.sharePollTitle'),
       text: this.translate.instant('messages.sharePoll'),
-      url: window.location.origin + `p?id=${pollId}`,
+      url: pollUrl,
+    })
+    .catch((error) => {
+      this.copyMessage(pollUrl);
+      this.utils.openSnackBar('messages.pollLinkCopied');
     });
+  }
+
+  copyMessage(val: string){
+    const selBox = document.createElement('textarea');
+    selBox.style.position = 'fixed';
+    selBox.style.left = '0';
+    selBox.style.top = '0';
+    selBox.style.opacity = '0';
+    selBox.value = val;
+    document.body.appendChild(selBox);
+    selBox.focus();
+    selBox.select();
+    document.execCommand('copy');
+    document.body.removeChild(selBox);
   }
 
   previewPoll(poll) {
