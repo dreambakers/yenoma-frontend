@@ -181,8 +181,20 @@
                      *ngIf="question.answerType === constants.answerTypes.value">
                     <mat-form-field appearance="outline" class="mr-2 mb-2">
                         <mat-label>{{ 'labels.decimalPlaces' | translate }}</mat-label>
-                        <input matInput placeholder="{{ 'placeholders.decimalPlaces' | translate }}"
-                               [(ngModel)]="question.decimalPlaces" [disabled]="shouldDisable" digitOnly pattern="^[0-4]$">
+                        <mat-select [(ngModel)]="question.decimalPlaces" [disabled]="shouldDisable">
+                            <mat-option [value]="0">
+                                0
+                            </mat-option>
+                            <mat-option [value]="1">
+                                1
+                            </mat-option>
+                            <mat-option [value]="2">
+                                2
+                            </mat-option>
+                            <mat-option [value]="3">
+                                3
+                            </mat-option>
+                          </mat-select>
                         <mat-hint *ngIf="poll.status === constants.statusTypes.open">
                             {{ 'hints.decimalPlaces' | translate }}
                         </mat-hint>

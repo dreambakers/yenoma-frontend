@@ -118,13 +118,28 @@ export class ViewPollComponent implements OnInit {
       }
     }
     this.poll.questions.forEach(question => {
-      this.response.questions.push({
+      const questionToPush = {
         _id: question._id || null,
         text: question.text,
-        answers: question.options.map(option => ({ option, answer: getDefaultAnswer(question.answerType) })),
-        answerType: question.answerType
-      });
+        answerType: question.answerType,
+        answers: []
+      };
+
+      if (question.options.length) {
+        questionToPush.answers = question.options.map(option => ({ option, answer: getDefaultAnswer(question.answerType) }))
+      } else {
+        questionToPush['answer'] = getDefaultAnswer(question.answerType);
+      }
+
+      if (question.answerType === constants.answerTypes.value) {
+        questionToPush['minValue'] = question.minValue;
+        questionToPush['maxValue'] = question.maxValue;
+        questionToPush['decimalPlaces'] = question.decimalPlaces;
+      }
+
+      this.response.questions.push(questionToPush);
     });
+
     this.poll.allowComments && (this.response['comments'] = '');
     this.poll.allowNames && (this.response['name'] = '');
   }
@@ -250,7 +265,6 @@ export class ViewPollComponent implements OnInit {
     question.answerType = constants.answerTypes.value;
     if (answerIndex !== null) {
       question.answers[answerIndex].answer = event.target.value;
-      question.answers[answerIndex].answer = event.target.value;
     } else {
       question['answer'] = event.target.value;
     }
@@ -267,6 +281,7 @@ export class ViewPollComponent implements OnInit {
   }
 
   getOptions(question) {
+    console.log(this.response)
     if (this.hasResponded) {
       return question.answers;
     } else {
@@ -333,7 +348,7 @@ export class ViewPollComponent implements OnInit {
     return +question.decimalPlaces > 0;
   }
 
-  testRegex(value, question) {
+  testRegexForValueAnswer(value, question) {
     if (this.allowDecimals(question)) {
       return new RegExp(`^-?[0-9]+(?:\\.[0-9]{${+question.decimalPlaces}})$`).test(value);
     } else {
@@ -342,8 +357,32 @@ export class ViewPollComponent implements OnInit {
   }
 
   valueInputValid(value, question) {
-    const regexPassed = this.testRegex(value, question);
-    return +value >= +question.minValue && +value <= +question.maxValue && regexPassed;
+    const regexPassed = this.testRegexForValueAnswer(value, question);
+    const isValid = +value >= +question.minValue && +value <= +question.maxValue && regexPassed;
+    return isValid;
+  }
+
+  valueInputKeydown(currentValue, event, question) {
+
+    const keycodesToBlock = [
+      32
+    ];
+
+    if (keycodesToBlock.includes(event.keyCode)) {
+      return false;
+    }
+
+    const allowMinus = +question.minValue < 0  && !currentValue.includes('-');
+    const allowPeriod = this.allowDecimals(question) && !currentValue.includes('.');
+
+    const keycodesToIgnore = [
+      8, 37, 39, 46, 9
+    ];
+
+    return keycodesToIgnore.includes(event.keyCode)
+            || !isNaN(event.key)
+            || (event.key === '-' && allowMinus)
+            || (event.key === '.' && allowPeriod);
   }
 
   get canVote() {
@@ -391,7 +430,25 @@ export class ViewPollComponent implements OnInit {
       return acc;
     }, 0);
 
-    return totalOptions === respondedCount;
+    return totalOptions === respondedCount && this.valueInputsValid;
+  }
+
+  get valueInputsValid() {
+    return this.response.questions.filter(
+      question => question.answerType === constants.answerTypes.value
+    ).every(
+      question => {
+        if (question.answers.length) {
+          return question.answers.every(
+            answerObj => {
+              return this.valueInputValid(answerObj.answer, question);
+            }
+          );
+        } else {
+          return this.valueInputValid(question.answer, question);
+        }
+      }
+    );
   }
 
   get dirty() {
