@@ -22,7 +22,7 @@ export class ViewPollsComponent implements OnInit {
   polls = [];
   preview = false;
   constants = constants;
-  navigator = Navigator;
+  _navigator: any = window.navigator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   displayedColumns: string[] = ['title', 'createdAt', 'responses', 'active', 'action'];
@@ -175,8 +175,7 @@ export class ViewPollsComponent implements OnInit {
   }
 
   async sharePoll(pollId) {
-    const _nav: any = this.navigator;
-    await _nav.share({
+    await this._navigator.share({
       title: this.translate.instant('messages.sharePollTitle'),
       text: this.translate.instant('messages.sharePoll'),
       url: window.location.origin + `p?id=${pollId}`,
