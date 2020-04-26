@@ -20,7 +20,7 @@ export class LandingComponent implements OnInit {
   }
 
   get isViewingResponse() {
-    return this.activeLink.includes('view');
+    return this.activeLink.includes('/p?');
   }
 
   get selectedIndex() {

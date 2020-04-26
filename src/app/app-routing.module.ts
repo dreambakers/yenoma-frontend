@@ -26,7 +26,10 @@ const routes: Routes = [
         path: 'respond', component: RespondComponent
       },
       {
-        path: 'view', component: ViewPollComponent
+        path: 'view', redirectTo: 'p'
+      },
+      {
+        path: 'p', component: ViewPollComponent
       },
       {
         path: 'login', component: LoginComponent

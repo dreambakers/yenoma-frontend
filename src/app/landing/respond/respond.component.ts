@@ -47,7 +47,7 @@ export class RespondComponent implements OnInit {
     this.pollService.getPoll(this.responseForm.value.pollId).subscribe(
       (response: any) => {
         if (response.poll) {
-          this.router.navigate(['view'], { queryParams: { id: this.responseForm.value.pollId } });
+          this.router.navigate(['p'], { queryParams: { id: this.responseForm.value.pollId } });
         } else {
           this.utils.openSnackBar('messages.noPollFoundAgainstId', 'labels.retry');
         }

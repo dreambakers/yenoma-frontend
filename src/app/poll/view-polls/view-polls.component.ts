@@ -22,6 +22,7 @@ export class ViewPollsComponent implements OnInit {
   polls = [];
   preview = false;
   constants = constants;
+  navigator = Navigator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   displayedColumns: string[] = ['title', 'createdAt', 'responses', 'active', 'action'];
@@ -171,6 +172,15 @@ export class ViewPollsComponent implements OnInit {
         this.utils.openSnackBar('messages.errorDuplicatingPoll');
       }
     );
+  }
+
+  async sharePoll(pollId) {
+    const _nav: any = this.navigator;
+    await _nav.share({
+      title: this.translate.instant('messages.sharePollTitle'),
+      text: this.translate.instant('messages.sharePoll'),
+      url: window.location.origin + `p?id=${pollId}`,
+    });
   }
 
   previewPoll(poll) {
