@@ -24,8 +24,8 @@ export class ResponsesComponent implements OnInit {
   constants = constants;
   displayedColumns: string[] = ['name', 'createdAt', 'view', 'delete'];
   dataSource;
-  @ViewChild(MatSort, {static: false}) sort: MatSort;
-  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private pollService: PollService,
     private userService: UserService,

@@ -22,8 +22,8 @@ export class ViewPollsComponent implements OnInit {
   polls = [];
   preview = false;
   constants = constants;
-  @ViewChild(MatSort, {static: false}) sort: MatSort;
-  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   displayedColumns: string[] = ['title', 'createdAt', 'responses', 'active', 'action'];
 
   constructor(private pollService: PollService,
