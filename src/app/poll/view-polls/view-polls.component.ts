@@ -177,8 +177,8 @@ export class ViewPollsComponent implements OnInit {
     );
   }
 
-  async sharePoll(pollId) {
-    const pollUrl = window.location.origin + `/p?id=${pollId}`;
+  sharePoll(poll) {
+    const pollUrl = window.location.origin + `/p?id=${poll.shortId}`;
     this.ngNavigatorShareService.share({
       title: this.translate.instant('messages.sharePollTitle'),
       text: this.translate.instant('messages.sharePoll'),
