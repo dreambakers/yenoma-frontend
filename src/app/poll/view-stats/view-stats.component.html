@@ -10,7 +10,7 @@
                 <span class="font-weight-bold">
                     {{ 'labels.pollId' | translate }}:
                 </span>
-                {{poll._id}}
+                {{poll.shortId}}
             </p>
             <p *ngIf="responses.length">
                 <span class="font-weight-bold">
@@ -161,6 +161,48 @@
                                 <td *ngFor="let option of constants.dropdownOptions">
                                     {{ getTableValue(i, 0, option) }}
                                 </td>
+                                <td>{{ answerMap[i][0]['response'] }}</td>
+                                <td>
+                                    <div class="progress">
+                                        <div class="progress-bar" [style.backgroundColor]="getProgressBarColor(answerMap[i][0]['response'])"  role="progressbar" [style.width]="answerMap[i][0]['response'] + '%'"></div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div *ngSwitchCase="constants.answerTypes.value">
+                    <table class="table table-bordered" #dropdown>
+                        <thead>
+                            <tr>
+                                <th colspan="14">
+                                    {{question.text}}
+                                    <span class="float-right font-weight-light text-muted font-italic">
+                                        {{ 'answerTypes.value' | translate }}
+                                    </span>
+                                </th>
+                            </tr>
+
+                            <tr>
+                                <th *ngIf="question.options.length">{{ 'labels.option' | translate }}</th>
+                                <th>{{ 'labels.score' | translate }}</th>
+                                <th>{{ 'labels.result' | translate }}</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr *ngFor="let option of question.options; let j = index">
+                                <td>{{ option }}</td>
+                                <td>{{ answerMap[i][j]['response'] }}</td>
+                                <td>
+                                    <div class="progress">
+                                        <div class="progress-bar" [style.backgroundColor]="getProgressBarColor(answerMap[i][j]['response'])"  role="progressbar" [style.width]="answerMap[i][j]['response'] + '%'"></div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr *ngIf="!question.options.length">
                                 <td>{{ answerMap[i][0]['response'] }}</td>
                                 <td>
                                     <div class="progress">

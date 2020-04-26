@@ -2,6 +2,9 @@ interface Question {
     text: string,
     options: string[],
     answerType: string;
+    decimalPlaces?: number;
+    minValue?: number;
+    maxValue?: number;
 }
 
 export class Poll {

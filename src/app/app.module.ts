@@ -29,6 +29,8 @@ import { FooterComponent } from './footer/footer.component';
 import { ResponsesComponent } from './poll/responses/responses.component';
 import { ErrorComponent } from './error/error.component';
 
+import { DigitOnlyModule } from '@uiowa/digit-only';
+
 import { MatSortModule } from '@angular/material/sort';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -106,6 +108,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
         deps: [HttpClient]
       }
     }),
+    DigitOnlyModule
   ],
   providers: [
     {

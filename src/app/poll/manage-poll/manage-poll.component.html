@@ -122,7 +122,7 @@
         <div cdkDropList (cdkDropListDropped)="dropQuestion($event)" [class.mt-5]="shouldDisable">
             <mat-card *ngFor="let question of poll.questions; let i = index" class="border p-3 mb-1" cdkDrag
                 [class.mb-5]="!rearrangeQuestions" [cdkDragDisabled]="!rearrangeQuestions"
-                [class.border-danger]="minimumOptionsRequired(question) && question.options.length < 2">
+                [class.border-danger]="valueFieldsInvalid(question) || (minimumOptionsRequired(question) && question.options.length < 2)">
 
                 <div class="d-flex" *ngIf="rearrangeQuestions">
                     <input matInput disabled [value]="question.text || translate.instant('labels.noQuestionEntered')"
@@ -135,9 +135,9 @@
                 <div class="w-100 d-flex justify-content-end align-items-center" *ngIf="!rearrangeQuestions">
                     <mat-icon
                         class="mb-3 mr-2 cursor-pointer text-muted"
-                        matTooltip="{{ 'tooltips.minTwoOptions' | translate }}"
+                        matTooltip="{{ getInfoTooltip(question) }}"
                         matTooltipPosition="above"
-                        *ngIf="minimumOptionsRequired(question)">
+                        *ngIf="questionInfoRequired(question)">
                         info
                     </mat-icon>
                     <mat-form-field>
@@ -170,7 +170,42 @@
                           <mat-option [value]="constants.answerTypes.dropdown">
                             {{ 'answerTypes.dropdown' | translate }}
                           </mat-option>
+                          <mat-option [value]="constants.answerTypes.value">
+                            {{ 'answerTypes.value' | translate }}
+                          </mat-option>
                         </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <div class="d-flex flex-column flex-md-row justify-content-start mb-5"
+                     *ngIf="question.answerType === constants.answerTypes.value">
+                    <mat-form-field appearance="outline" class="mr-2 mb-2">
+                        <mat-label>{{ 'labels.decimalPlaces' | translate }}</mat-label>
+                        <input matInput placeholder="{{ 'placeholders.decimalPlaces' | translate }}"
+                               [(ngModel)]="question.decimalPlaces" [disabled]="shouldDisable" digitOnly pattern="^[0-4]$">
+                        <mat-hint *ngIf="poll.status === constants.statusTypes.open">
+                            {{ 'hints.decimalPlaces' | translate }}
+                        </mat-hint>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="mr-2 mb-2">
+                        <mat-label>{{ 'labels.minValue' | translate }}</mat-label>
+                        <input matInput placeholder="{{ 'placeholders.minValue' | translate }}"
+                               [(ngModel)]="question.minValue" [disabled]="shouldDisable"
+                               type="text" pattern="^-?[0-9]*$" mask>
+                        <mat-hint *ngIf="poll.status === constants.statusTypes.open">
+                            {{ 'hints.minValue' | translate }}
+                        </mat-hint>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="mb-2">
+                        <mat-label>{{ 'labels.maxValue' | translate }}</mat-label>
+                        <input matInput placeholder="{{ 'placeholders.maxValue' | translate }}"
+                               [(ngModel)]="question.maxValue" [disabled]="shouldDisable"
+                               type="text" pattern="^-?[0-9]*$" mask>
+                        <mat-hint *ngIf="poll.status === constants.statusTypes.open">
+                            {{ 'hints.maxValue' | translate }}
+                        </mat-hint>
                     </mat-form-field>
                 </div>
 
@@ -217,11 +252,11 @@
                 </div>
 
                 <div *ngIf="!rearrangeQuestions && !shouldDisable" class="d-flex flex-column flex-sm-row justify-content-between">
-                    <button class="btn btn-primary" (click)="addOption(i)">
+                    <button class="btn btn-primary mb-1" (click)="addOption(i)">
                         {{ 'labels.add' | translate }}
                         {{ 'labels.option' | translate | lowercase }}
                     </button>
-                    <button class="btn btn-danger float-right" (click)="removeQuestion(i)">
+                    <button class="btn btn-danger mb-1" (click)="removeQuestion(i)">
                         {{ 'labels.remove' | translate }} {{ 'labels.question' | translate | lowercase }}
                     </button>
                 </div>

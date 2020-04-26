@@ -245,6 +245,17 @@ export class ViewPollComponent implements OnInit {
     }
   }
 
+  onValueAnswerChanged(event, questionIndex, answerIndex = null) {
+    const question = this.response.questions[questionIndex];
+    question.answerType = constants.answerTypes.value;
+    if (answerIndex !== null) {
+      question.answers[answerIndex].answer = event.target.value;
+      question.answers[answerIndex].answer = event.target.value;
+    } else {
+      question['answer'] = event.target.value;
+    }
+  }
+
   dropdownOptionChanged(event, questionIndex, answerIndex = null) {
     const question = this.response.questions[questionIndex];
     question.answerType = constants.answerTypes.dropdown;
@@ -316,6 +327,23 @@ export class ViewPollComponent implements OnInit {
     } else {
       return '-';
     }
+  }
+
+  allowDecimals(question) {
+    return +question.decimalPlaces > 0;
+  }
+
+  testRegex(value, question) {
+    if (this.allowDecimals(question)) {
+      return new RegExp(`^-?[0-9]+(?:\\.[0-9]{${+question.decimalPlaces}})$`).test(value);
+    } else {
+      return new RegExp(`^-?[0-9]+$`).test(value);
+    }
+  }
+
+  valueInputValid(value, question) {
+    const regexPassed = this.testRegex(value, question);
+    return +value >= +question.minValue && +value <= +question.maxValue && regexPassed;
   }
 
   get canVote() {

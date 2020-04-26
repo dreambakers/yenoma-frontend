@@ -11,7 +11,8 @@ export const constants = {
         slider: 'slider',
         smiley: 'smiley',
         text: 'text',
-        dropdown: 'dropdown'
+        dropdown: 'dropdown',
+        value: 'value'
     },
     statusTypes: {
         open: 'open',

@@ -175,10 +175,31 @@ export class ManagePollComponent implements OnInit {
     this.showPassword = !this.showPassword;
   }
 
+  valueFieldsInvalid(question) {
+    if (question.answerType === constants.answerTypes.value) {
+      return question.minValue === undefined || question.maxValue === undefined || question.decimalPlaces === undefined
+             || +question.maxValue < +question.minValue;
+    }
+    return false;
+  }
+
+  questionInfoRequired(question) {
+    return this.minimumOptionsRequired(question) || question.answerType === constants.answerTypes.value;
+  }
+
+  getInfoTooltip(question) {
+    if (this.minimumOptionsRequired(question)) {
+      return this.translate.instant('tooltips.minTwoOptions');
+    } else {
+      return this.translate.instant('tooltips.valueInfo');
+    }
+  }
+
   get isValid() {
     return this.poll.title && (this.showPassword ? this.poll.password : true) &&
            this.poll.questions.every(question => question.text && question.options.every(option => option.length)) &&
-           this.poll.questions.filter(question => this.minimumOptionsRequired(question)).every(question => question.options.length >= 2);
+           this.poll.questions.filter(question => this.minimumOptionsRequired(question)).every(question => question.options.length >= 2) &&
+           this.poll.questions.filter(question => question.answerType === constants.answerTypes.value).every(question => !this.valueFieldsInvalid(question));
   }
 
   get dirty() {

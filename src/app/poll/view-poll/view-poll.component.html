@@ -8,7 +8,7 @@
   </div>
 
   <div class="alert alert-info alert-dismissible" role="alert" *ngIf="hasResponded && showRespondedBanner">
-    {{ 'messages.respondedPreviously' | translate:{ 'time': getParsedDateTime(true), 'date': getParsedDateTime() } }}
+    {{ 'messages.respondedPreviously' | translate:{ 'DT': getParsedDateTime(true), 'TM': getParsedDateTime() } }}
     <button type="button" class="close" (click)="showRespondedBanner = false">
       <span>&times;</span>
     </button>
@@ -147,6 +147,23 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
+        </div>
+
+        <div *ngSwitchCase="constants.answerTypes.value" class="mt-3" [class.text-right]="getOptions(question).length">
+          <input matInput class="border p-3 text-left"
+                 [value]="answerObj.answer || ''" #valueInput
+                 [disabled]="shouldDisable" type="number"
+                 [class.invalid]="valueInput.value && !valueInputValid(valueInput.value, poll.questions[i])"
+                 (input)="onValueAnswerChanged($event, i, j)"
+          >
+          <mat-hint class="mt-2" *ngIf="poll.status === constants.statusTypes.open">
+            {{ 'hints.enterValue' | translate: {
+                                            'MAXXV': poll.questions[i].maxValue,
+                                            'MINNV': poll.questions[i].minValue,
+                                            'DP': poll.questions[i].decimalPlaces
+                                          }
+            }}
+          </mat-hint>
         </div>
       </div>
 

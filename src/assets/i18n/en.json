@@ -64,7 +64,10 @@
         "activeComment": "Active comment",
         "inactiveComment": "Inactive comment",
         "filled": "Filled",
-        "unfilled": "Unfilled"
+        "unfilled": "Unfilled",
+        "decimalPlaces": "Decimal places",
+        "minValue": "Minimum value",
+        "maxValue": "Maximum value"
     },
 
     "messages": {
@@ -116,7 +119,7 @@
         "noAnswer": "No answer provided",
         "pageNotFound": "The requested page was not found.",
         "returnHome": "Return home",
-        "respondedPreviously": "You have responded to this poll on {{date}} at {{time}}",
+        "respondedPreviously": "You have responded to this poll on {{DT}} at {{TM}}",
         "errorDuplicatingPoll": "An error occurred while duplicating the poll",
         "pollDuplicated": "Poll duplicated successfully"
     },
@@ -130,7 +133,11 @@
         "enterName": "Enter name",
         "enterComments": "Enter comments",
         "activeComment": "Enter active comment (shown when poll is active)",
-        "inactiveComment": "Enter inactive comment (shown when poll is terminated or deleted)"
+        "inactiveComment": "Enter inactive comment (shown when poll is terminated or deleted)",
+        "decimalPlaces": "Enter decimal places",
+        "minValue": "Enter minimum value",
+        "maxValue": "Enter maximum value",
+        "enterValue": "Enter value between {{MINNV}} and {{MAXXV}} with {{DP}} decimal place(s)."
     },
 
     "answerTypes": {
@@ -142,12 +149,14 @@
         "slider": "Slider",
         "smiley": "Smiley",
         "text": "Text",
-        "dropdown": "Dropdown"
+        "dropdown": "Dropdown",
+        "value": "Value"
     },
 
     "tooltips": {
         "minTwoOptions": "This answer type requires a minimum of 2 options",
-        "stopPreviewing": "Stop previewing as responder"
+        "stopPreviewing": "Stop previewing as responder",
+        "valueInfo": "Decimal places, min and max values are required. The min value should be less than the max value"
     },
 
     "placeholders": {
@@ -163,7 +172,10 @@
         "inactiveComment": "Inactive comment",
         "password": "Password",
         "email": "Email Address",
-        "textAnswer": "Type your answer here (500 chars max)"
+        "textAnswer": "Type your answer here (500 chars max)",
+        "decimalPlaces": "2",
+        "minValue": "1",
+        "maxValue": "5"
     },
 
     "answers": {

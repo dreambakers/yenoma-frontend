@@ -120,10 +120,9 @@ export class ViewStatsComponent implements OnInit {
       case constants.answerTypes.smiley:
         return this.getWeightForSmiley;
 
-      case constants.answerTypes.slider:
-        return this.getWeightFromValue;
-
       case constants.answerTypes.dropdown:
+      case constants.answerTypes.slider:
+      case constants.answerTypes.value:
         return this.getWeightFromValue;
 
       default:
