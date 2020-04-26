@@ -55,8 +55,8 @@
 
       <div [ngSwitch]="question.answerType">
         <div *ngSwitchCase="constants.answerTypes.binary">
-          <mat-button-toggle-group #group="matButtonToggleGroup" (change)="onBinaryAnswerChanged($event, i, j)"
-            [value]="answerObj.answer" [disabled]="shouldDisable">
+          <mat-button-toggle-group #group="matButtonToggleGroup"
+            [(ngModel)]="answerObj.answer" [disabled]="shouldDisable">
             <mat-button-toggle value="yes">
               {{ 'answers.yes' | translate }}
             </mat-button-toggle>
@@ -82,8 +82,8 @@
         </div>
 
         <div *ngSwitchCase="constants.answerTypes.yesNoMaybe">
-          <mat-button-toggle-group #group="matButtonToggleGroup" (change)="onYNMAnswerChanged($event, i, j)"
-            [value]="answerObj.answer" [disabled]="shouldDisable">
+          <mat-button-toggle-group #group="matButtonToggleGroup"
+            [(ngModel)]="answerObj.answer" [disabled]="shouldDisable">
             <mat-button-toggle value="yes">
               {{ 'answers.yes' | translate }}
             </mat-button-toggle>
@@ -97,8 +97,8 @@
         </div>
 
         <div *ngSwitchCase="constants.answerTypes.smiley">
-          <mat-button-toggle-group #group="matButtonToggleGroup" (change)="onSmileyAnswerChanged($event, i, j)"
-            [value]="answerObj.answer" [disabled]="shouldDisable" id="smiley">
+          <mat-button-toggle-group #group="matButtonToggleGroup"
+            [(ngModel)]="answerObj.answer" [disabled]="shouldDisable" id="smiley">
             <mat-button-toggle value="sad">
               <i class="fas fa-frown" style="color: #f44336"></i>
             </mat-button-toggle>
@@ -120,13 +120,13 @@
 
         <div *ngSwitchCase="constants.answerTypes.slider" class="d-flex flex-row align-items-center">
           <mat-slider #slider
-          [value]="answerObj.answer"
+          [(ngModel)]="answerObj.answer"
           [disabled]="shouldDisable"
           [max]="100"
           [min]="0"
           [step]="1"
           [thumbLabel]="true"
-          (change)="onSliderValueChanged($event, i, j)">
+          >
           </mat-slider>
           <span class="text-center ml-2 border p-2 slider-box">{{ slider.value }}</span>
         </div>
@@ -153,10 +153,9 @@
         <div *ngSwitchCase="constants.answerTypes.value" class="mt-3"
              [class.text-right]="question.options.length">
           <input matInput class="border p-3 text-left"
-                 [value]="answerObj.answer" #valueInput
+                 [(ngModel)]="answerObj.answer"
                  [disabled]="shouldDisable"
                  [class.invalid]="answerObj.answer && !valueInputValid(answerObj.answer, question)"
-                 (input)="onValueAnswerChanged($event, i, j)"
                  (keydown)="valueInputKeydown(answerObj.answer, $event, question)"
           >
           <mat-hint class="mt-2" *ngIf="poll.status === constants.statusTypes.open">

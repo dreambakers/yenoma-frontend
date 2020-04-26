@@ -184,46 +184,6 @@ export class ViewPollComponent implements OnInit {
     }
   }
 
-  onBinaryAnswerChanged(event, questionIndex, answerIndex = null) {
-    const question = this.response.questions[questionIndex];
-    question.answerType = constants.answerTypes.binary;
-    if (answerIndex !== null) {
-      question.answers[answerIndex].answer = event.value;
-    } else {
-      question['answer'] = event.value;
-    }
-  }
-
-  onYNMAnswerChanged(event, questionIndex, answerIndex = null) {
-    const question = this.response.questions[questionIndex];
-    question.answerType = constants.answerTypes.yesNoMaybe;
-    if (answerIndex !== null) {
-      question.answers[answerIndex].answer = event.value;
-    } else {
-      question['answer'] = event.value;
-    }
-  }
-
-  onSmileyAnswerChanged(event, questionIndex, answerIndex = null) {
-    const question = this.response.questions[questionIndex];
-    question.answerType = constants.answerTypes.smiley;
-    if (answerIndex !== null) {
-      question.answers[answerIndex].answer = event.value;
-    } else {
-      question['answer'] = event.value;
-    }
-  }
-
-  onSliderValueChanged(event, questionIndex, answerIndex = null) {
-    const question = this.response.questions[questionIndex];
-    question.answerType = constants.answerTypes.slider;
-    if (answerIndex !== null) {
-      question.answers[answerIndex].answer = event.value;
-    } else {
-      question['answer'] = event.value;
-    }
-  }
-
   onCheckboxChanged(event, questionIndex, answerIndex = null) {
     const question = this.response.questions[questionIndex];
     question.answerType = constants.answerTypes.checkbox;
@@ -260,16 +220,6 @@ export class ViewPollComponent implements OnInit {
     }
   }
 
-  onValueAnswerChanged(event, questionIndex, answerIndex = null) {
-    const question = this.response.questions[questionIndex];
-    question.answerType = constants.answerTypes.value;
-    if (answerIndex !== null) {
-      question.answers[answerIndex].answer = event.target.value;
-    } else {
-      question['answer'] = event.target.value;
-    }
-  }
-
   dropdownOptionChanged(event, questionIndex, answerIndex = null) {
     const question = this.response.questions[questionIndex];
     question.answerType = constants.answerTypes.dropdown;
@@ -281,7 +231,6 @@ export class ViewPollComponent implements OnInit {
   }
 
   getOptions(question) {
-    console.log(this.response)
     if (this.hasResponded) {
       return question.answers;
     } else {
