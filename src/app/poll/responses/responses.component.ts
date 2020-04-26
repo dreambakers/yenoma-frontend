@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { constants } from '../../app.constants';
-import { MatSort, MatTableDataSource } from '@angular/material';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { PollService } from 'src/app/services/poll.service';
 import { UserService } from 'src/app/services/user.service';
@@ -24,8 +25,8 @@ export class ResponsesComponent implements OnInit {
   constants = constants;
   displayedColumns: string[] = ['name', 'createdAt', 'view', 'delete'];
   dataSource;
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: false }) sort: MatSort;
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
 
   constructor(private pollService: PollService,
     private userService: UserService,
