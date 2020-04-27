@@ -199,10 +199,9 @@
                             {{ 'hints.decimalPlaces' | translate }}
                         </mat-hint>
                     </mat-form-field>
-
                     <mat-form-field appearance="outline" class="mr-2 mb-2">
                         <mat-label>{{ 'labels.minValue' | translate }}</mat-label>
-                        <input matInput placeholder="{{ 'placeholders.minValue' | translate }}"
+                        <input matInput placeholder="1"
                                [(ngModel)]="question.minValue" [disabled]="shouldDisable"
                                type="text" pattern="^-?[0-9]*$" mask>
                         <mat-hint *ngIf="poll.status === constants.statusTypes.open">
@@ -212,7 +211,7 @@
 
                     <mat-form-field appearance="outline" class="mb-2">
                         <mat-label>{{ 'labels.maxValue' | translate }}</mat-label>
-                        <input matInput placeholder="{{ 'placeholders.maxValue' | translate }}"
+                        <input matInput placeholder="5"
                                [(ngModel)]="question.maxValue" [disabled]="shouldDisable"
                                type="text" pattern="^-?[0-9]*$" mask>
                         <mat-hint *ngIf="poll.status === constants.statusTypes.open">
