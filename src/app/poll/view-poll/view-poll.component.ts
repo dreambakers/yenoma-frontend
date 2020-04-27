@@ -299,7 +299,7 @@ export class ViewPollComponent implements OnInit {
 
   testRegexForValueAnswer(value, question) {
     if (this.allowDecimals(question)) {
-      return new RegExp(`^-?[0-9]+(?:\\.[0-9]{${+question.decimalPlaces}})$`).test(value);
+      return new RegExp(`^-?[0-9]+(?:\\.[0-9]{${+question.decimalPlaces}})?$`).test(value);
     } else {
       return new RegExp(`^-?[0-9]+$`).test(value);
     }
