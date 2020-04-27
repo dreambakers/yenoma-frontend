@@ -140,7 +140,7 @@
         "decimalPlaces": "Enter decimal places",
         "minValue": "Enter minimum value",
         "maxValue": "Enter maximum value",
-        "enterValue": "Enter value between {{MINNV}} and {{MAXXV}} with {{DP}} decimal place(s)."
+        "enterValue": "Enter value between {{MINV}} and {{MAXV}}."
     },
 
     "answerTypes": {
