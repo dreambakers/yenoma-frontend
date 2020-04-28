@@ -78,3 +78,14 @@ button.mat-menu-item{ outline:none; }
         width: 5rem;
     }
 }
+
+.mat-form-field {
+    .mat-form-field-wrapper {
+          .mat-form-field-flex {
+                // MS Edge fix to solve dropdown width issue
+                @supports (-ms-ime-align:auto) {
+                      display: inline;
+                }
+          }
+    }
+}
