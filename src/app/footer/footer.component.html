@@ -1,5 +1,5 @@
 <div class="d-flex language-list" id="footer">
-    <mat-form-field appearance="none">
+    <mat-form-field appearance="none" class="dropdown-container">
         <mat-select [value]="selectedLanguage" (selectionChange)="languageChanged($event)">
           <mat-option *ngFor="let language of languages" [value]="language.value">
             {{ language.display }}

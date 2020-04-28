@@ -79,13 +79,13 @@ button.mat-menu-item{ outline:none; }
     }
 }
 
-.mat-form-field {
+// MS Edge fix to solve dropdown width issue
+.dropdown-container {
     .mat-form-field-wrapper {
-          .mat-form-field-flex {
-                // MS Edge fix to solve dropdown width issue
-                @supports (-ms-ime-align:auto) {
-                      display: inline;
-                }
-          }
+        .mat-form-field-flex {
+            @supports (-ms-ime-align:auto) {
+                display: inline;
+            }
+        }
     }
 }

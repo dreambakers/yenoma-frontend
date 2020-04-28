@@ -140,7 +140,7 @@
                         *ngIf="questionInfoRequired(question)">
                         info
                     </mat-icon>
-                    <mat-form-field>
+                    <mat-form-field class="dropdown-container">
                         <mat-label>{{ 'labels.answers' | translate }}</mat-label>
                         <mat-select [(ngModel)]="question.answerType" [disabled]="shouldDisable">
                           <mat-option [value]="constants.answerTypes.binary">
@@ -179,7 +179,7 @@
 
                 <div class="d-flex flex-column flex-md-row justify-content-start mb-5"
                      *ngIf="question.answerType === constants.answerTypes.value">
-                    <mat-form-field appearance="outline" class="mr-2 mb-2">
+                    <mat-form-field appearance="outline" class="mr-2 mb-2 dropdown-container">
                         <mat-label>{{ 'labels.decimalPlaces' | translate }}</mat-label>
                         <mat-select [(ngModel)]="question.decimalPlaces" [disabled]="shouldDisable">
                             <mat-option [value]="0">
