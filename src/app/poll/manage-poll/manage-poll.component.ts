@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PollService } from 'src/app/services/poll.service';
 import { Response } from '../response.model';
@@ -9,13 +9,17 @@ import { Poll } from '../poll.model';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { TranslateService } from '@ngx-translate/core';
 import { DataService } from 'src/app/services/data.service';
+import { EmitterService } from 'src/app/services/emitter.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { MobileNavbarProps } from 'src/app/footer/footer.component';
 
 @Component({
   selector: 'app-manage-poll',
   templateUrl: './manage-poll.component.html',
   styleUrls: ['./manage-poll.component.scss']
 })
-export class ManagePollComponent implements OnInit {
+export class ManagePollComponent implements OnInit, OnDestroy {
 
   response: Response = {
     questions: [],
@@ -34,14 +38,17 @@ export class ManagePollComponent implements OnInit {
   showPassword = false;
   rearrangeQuestions = false;
   constants = constants;
+  mobileNavbarProps: MobileNavbarProps;
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(
     private router: Router,
     private pollService: PollService,
     private route: ActivatedRoute,
     private utils: UtilService,
-    public translate: TranslateService
-  ) {}
+    public translate: TranslateService,
+    private emitterService: EmitterService,
+  ) { }
 
   ngOnInit() {
     this.isEditing = this.route.snapshot.routeConfig.path === 'manage';
@@ -55,6 +62,7 @@ export class ManagePollComponent implements OnInit {
               this.responses = res.responses;
               this.showPassword = !!this.poll.password;
               this.pollCopy = JSON.stringify(this.poll);
+              this.updateMobileNavbar();
             } else {
               this.utils.openSnackBar('messages.errorGettingPoll');
             }
@@ -74,7 +82,31 @@ export class ManagePollComponent implements OnInit {
         allowComments: false,
         allowNames: false
       }
+      this.updateMobileNavbar();
     }
+    this.emitterService.emittter.pipe(takeUntil(this.destroy$)).subscribe((emitted) => {
+      switch(emitted.event) {
+        case constants.emitterKeys.add:
+          return this.addQuestion();
+        case constants.emitterKeys.cancel:
+          return this.onCancelClicked();
+        case constants.emitterKeys.preview:
+          return this.preview = !this.preview;
+        case constants.emitterKeys.create:
+          return this.createPoll();
+      }
+    });
+  }
+
+  updateMobileNavbar() {
+    this.mobileNavbarProps = {
+      cancel: true ,
+      arrange: false,
+      add: !this.shouldDisable,
+      create: false,
+      preview: true
+    }
+    this.emitterService.emit(constants.emitterKeys.updateNavbarProps, this.mobileNavbarProps);
   }
 
   createNew() {
@@ -196,11 +228,21 @@ export class ManagePollComponent implements OnInit {
     }
   }
 
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
+  }
+
   get isValid() {
-    return this.poll.title && (this.showPassword ? this.poll.password : true) &&
-           this.poll.questions.every(question => question.text && question.options.every(option => option.length)) &&
-           this.poll.questions.filter(question => this.minimumOptionsRequired(question)).every(question => question.options.length >= 2) &&
-           this.poll.questions.filter(question => question.answerType === constants.answerTypes.value).every(question => !this.valueFieldsInvalid(question));
+    const valid = this.poll.title && (this.showPassword ? this.poll.password : true) &&
+                  this.poll.questions.every(question => question.text && question.options.every(option => option.length)) &&
+                  this.poll.questions.filter(question => this.minimumOptionsRequired(question)).every(question => question.options.length >= 2) &&
+                  this.poll.questions.filter(question => question.answerType === constants.answerTypes.value).every(question => !this.valueFieldsInvalid(question));
+    if (this.mobileNavbarProps.create !== valid) {
+      this.mobileNavbarProps.create = valid;
+      this.emitterService.emit(this.constants.emitterKeys.updateNavbarProps, this.mobileNavbarProps);
+    }
+    return valid;
   }
 
   get dirty() {

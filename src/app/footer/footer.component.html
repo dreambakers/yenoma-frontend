@@ -1,4 +1,4 @@
-<div class="d-flex language-list" id="footer">
+<div class="d-flex flex-row justify-content-end align-items-center bg-white shadow language-list" id="footer" *ngIf="!isMobile; else mobileNav">
     <mat-form-field appearance="none" class="dropdown-container">
         <mat-select [value]="selectedLanguage" (selectionChange)="languageChanged($event)">
           <mat-option *ngFor="let language of languages" [value]="language.value">
@@ -7,3 +7,42 @@
         </mat-select>
     </mat-form-field>
 </div>
+
+<ng-template #mobileNav>
+  <div class="container-fluid bg-white mat-elevation-z2" id="mobileNavbar">
+    <div class="row py-2">
+      <div class="col-1"></div>
+      <div class="col-2">
+        <div class="d-flex flex-column align-items-center cursor-pointer" (click)="btnClick('cancel')">
+          <i class="fas fa-window-close" [class.active]="isActive('cancel')"></i>
+          <span>{{ 'labels.cancel' | translate }}</span>
+        </div>
+      </div>
+      <div class="col-2">
+        <div class="d-flex flex-column align-items-center cursor-pointer" (click)="btnClick('arrange')">
+          <i class="fas fa-sort" [class.active]="isActive('arrange')"></i>
+          <span>{{ 'labels.arrange' | translate }}</span>
+        </div>
+      </div>
+      <div class="col-2">
+        <div class="d-flex flex-column align-items-center cursor-pointer" (click)="btnClick('add')">
+          <i class="fas fa-plus-circle" [class.active]="isActive('add')"></i>
+          <span>{{ 'labels.add' | translate }}</span>
+        </div>
+      </div>
+      <div class="col-2">
+        <div class="d-flex flex-column align-items-center cursor-pointer" (click)="btnClick('create')">
+          <i class="fas fa-check-square" [class.active]="isActive('create')"></i>
+          <span>{{ 'labels.create' | translate }}</span>
+        </div>
+      </div>
+      <div class="col-2" >
+        <div class="d-flex flex-column align-items-center cursor-pointer" (click)="btnClick('preview')">
+          <i class="fas fa-eye" [class.active]="isActive('preview')"></i>
+          <span>{{ 'labels.preview' | translate }}</span>
+        </div>
+      </div>
+      <div class="col-1"></div>
+    </div>
+  </div>
+</ng-template>

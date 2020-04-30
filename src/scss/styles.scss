@@ -1,4 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+@import './customize-bootstrap.scss';
+@import '../../node_modules/bootstrap/scss/bootstrap';
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background: #F7F7F7; }
@@ -6,7 +8,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background:
 .cursor-pointer {
     cursor: pointer !important;
 }
-
 
 .mat-tab-group{
     height: 100%;

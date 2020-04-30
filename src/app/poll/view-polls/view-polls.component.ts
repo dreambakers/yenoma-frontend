@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { PollService } from 'src/app/services/poll.service';
 import { UserService } from 'src/app/services/user.service';
 import { UtilService } from 'src/app/services/util.service';
@@ -14,29 +14,35 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
 import { NgNavigatorShareService } from 'ng-navigator-share';
+import { EmitterService } from 'src/app/services/emitter.service';
+import { MobileNavbarProps } from 'src/app/footer/footer.component';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 @Component({
   selector: 'app-view-polls',
   templateUrl: './view-polls.component.html',
   styleUrls: ['./view-polls.component.scss']
 })
-export class ViewPollsComponent implements OnInit {
+export class ViewPollsComponent implements OnInit, OnDestroy {
 
   poll;
   dataSource;
   polls = [];
   preview = false;
   constants = constants;
+  mobileNavbarProps: MobileNavbarProps;
+  destroy$: Subject<boolean> = new Subject<boolean>();
   @ViewChild(MatSort, { static: false }) sort: MatSort;
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   displayedColumns: string[] = ['title', 'description', 'createdAt', 'responses', 'active', 'action'];
 
   constructor(private pollService: PollService,
-    private userService: UserService,
     private utils: UtilService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private translate: TranslateService,
-    private ngNavigatorShareService: NgNavigatorShareService
+    private ngNavigatorShareService: NgNavigatorShareService,
+    private emitterService: EmitterService
     ) { }
 
   ngOnInit() {
@@ -50,12 +56,26 @@ export class ViewPollsComponent implements OnInit {
             this.dataSource.paginator = this.paginator;
             this.dataSource.sortingDataAccessor = (data, header) => data[header];
           });
+          this.mobileNavbarProps = {
+            cancel: false ,
+            arrange: this.polls.length > 0,
+            add: true,
+            create: false,
+            preview: false
+          }
+          this.emitterService.emit(constants.emitterKeys.updateNavbarProps, this.mobileNavbarProps);
         }
       },
       err => {
         this.utils.openSnackBar('messages.errorGettingPoll');
       }
     );
+    this.emitterService.emittter.pipe(takeUntil(this.destroy$)).subscribe((emitted) => {
+      switch(emitted.event) {
+        case constants.emitterKeys.add:
+          return this.addClicked();
+      }
+    });
   }
 
   deletePoll(pollId) {
@@ -209,6 +229,15 @@ export class ViewPollsComponent implements OnInit {
   previewPoll(poll) {
     this.poll = poll;
     this.preview = true;
+  }
+
+  addClicked() {
+    this.router.navigate(['dashboard/create']);
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 
   get isMobile() {
