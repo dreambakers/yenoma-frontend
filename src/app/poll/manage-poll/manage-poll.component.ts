@@ -8,6 +8,7 @@ import { Poll } from '../poll.model';
 
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { TranslateService } from '@ngx-translate/core';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-manage-poll',
@@ -212,5 +213,9 @@ export class ManagePollComponent implements OnInit {
     } else {
       return false;
     }
+  }
+
+  get isMobile() {
+    return DataService.isMobile;
   }
 }

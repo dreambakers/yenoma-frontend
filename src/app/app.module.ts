@@ -53,6 +53,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatCardModule } from '@angular/material/card';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -108,7 +109,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
         deps: [HttpClient]
       }
     }),
-    DigitOnlyModule
+    DigitOnlyModule,
+    MatExpansionModule
   ],
   providers: [
     {

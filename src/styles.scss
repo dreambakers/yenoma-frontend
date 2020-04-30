@@ -90,3 +90,11 @@ button.mat-menu-item{ outline:none; }
     overflow: hidden;
     white-space: nowrap;
 }
+
+#managePoll {
+    .mat-expansion-panel-header {
+        .mat-content {
+          display: none;
+        }
+    }
+}
