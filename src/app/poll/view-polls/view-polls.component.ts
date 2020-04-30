@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { PollService } from 'src/app/services/poll.service';
 import { UserService } from 'src/app/services/user.service';
 import { UtilService } from 'src/app/services/util.service';
+import { DataService } from 'src/app/services/data.service';
+
 import { constants } from 'src/app/app.constants';
 
 import * as moment from 'moment';
@@ -26,7 +28,7 @@ export class ViewPollsComponent implements OnInit {
   constants = constants;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
-  displayedColumns: string[] = ['title', 'createdAt', 'responses', 'active', 'action'];
+  displayedColumns: string[] = ['title', 'description', 'createdAt', 'responses', 'active', 'action'];
 
   constructor(private pollService: PollService,
     private userService: UserService,
@@ -207,5 +209,9 @@ export class ViewPollsComponent implements OnInit {
   previewPoll(poll) {
     this.poll = poll;
     this.preview = true;
+  }
+
+  get isMobile() {
+    return DataService.isMobile;
   }
 }

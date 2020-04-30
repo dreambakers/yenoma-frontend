@@ -53,6 +53,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatCardModule } from '@angular/material/card';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { TestComponent } from './test/test.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +72,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     ViewStatsComponent,
     FooterComponent,
     ResponsesComponent,
-    ErrorComponent
+    ErrorComponent,
+    TestComponent
   ],
   imports: [
     BrowserAnimationsModule,
