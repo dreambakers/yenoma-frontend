@@ -67,7 +67,9 @@
         "unfilled": "Unfilled",
         "decimalPlaces": "Decimal places",
         "minValue": "Minimum value",
-        "maxValue": "Maximum value"
+        "maxValue": "Maximum value",
+        "arrange": "Arrange",
+        "preview": "Preview"
     },
 
     "messages": {
