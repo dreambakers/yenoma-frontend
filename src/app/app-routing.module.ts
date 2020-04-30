@@ -12,6 +12,7 @@ import { RespondComponent } from './landing/respond/respond.component';
 import { ViewStatsComponent } from './poll/view-stats/view-stats.component';
 import { ResponsesComponent } from './poll/responses/responses.component';
 import { ErrorComponent } from './error/error.component';
+import { TestComponent } from './test/test.component';
 
 const routes: Routes = [
 
