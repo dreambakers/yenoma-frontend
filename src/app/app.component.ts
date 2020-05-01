@@ -1,5 +1,9 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { DataService } from './services/data.service';
+import { Subject } from 'rxjs';
+import { EmitterService } from './services/emitter.service';
+import { takeUntil } from 'rxjs/operators';
+import { constants } from './app.constants';
 
 @Component({
   selector: 'app-root',
@@ -8,9 +12,23 @@ import { DataService } from './services/data.service';
 })
 export class AppComponent implements OnInit {
   title = 'Polling';
+  constants = constants;
+  fillerNav = Array.from({length: 50}, (_, i) => `Nav Item ${i + 1}`);
+  @ViewChild('snav') sideNav;
+
+  destroy$: Subject<boolean> = new Subject<boolean>();
+
+  constructor(private emitterService: EmitterService) {}
 
   ngOnInit(): void {
-    DataService.isMobile = document.body.clientWidth <= 960
+    DataService.isMobile = document.body.clientWidth <= 960;
+    this.emitterService.emittter.pipe(takeUntil(this.destroy$)).subscribe((emitted) => {
+      switch(emitted.event) {
+        case constants.emitterKeys.toggleSidebar:
+          this.sideNav.toggle();
+      }
+    });
+
   }
 
   convertLabelsFromTo(fromObj, toLang) {
@@ -24,6 +42,11 @@ export class AppComponent implements OnInit {
   @HostListener('window:resize', ['$event'])
   onResize(event) {
     DataService.isMobile = event.target.innerWidth <= 960;
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 
 }

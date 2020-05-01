@@ -28,6 +28,7 @@ export const constants = {
         add: 'add',
         create: 'create',
         preview: 'preview',
-        updateNavbarProps: 'updateNavbarProps'
+        updateNavbarProps: 'updateNavbarProps',
+        toggleSidebar: 'toggleSidebar',
     }
 }

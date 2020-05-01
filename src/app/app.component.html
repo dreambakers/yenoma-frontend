@@ -1,6 +1,39 @@
-<div class="container-fluid px-0" style="min-height: 95%;">
-  <router-outlet></router-outlet>
-</div>
-<div style="min-height: 5%;">
-  <app-footer></app-footer>
-</div>
+<mat-sidenav-container class="example-sidenav-container">
+
+  <mat-sidenav #snav>
+    <div class="w-100 mb-5 p-3 mt-2 d-flex justify-content-start align-items-center" style="font-size: 1.3rem;">
+      <mat-icon style="vertical-align: middle;">poll</mat-icon>
+      <span class="ml-1" style="vertical-align: middle;">{{ 'labels.polling' | translate }}</span>
+    </div>
+
+    <mat-nav-list>
+      <mat-divider></mat-divider>
+      <a class="nav-link" routerLink='dashboard/all' [routerLinkActive]="['active']">
+        <i class="fas fa-list"></i>
+        {{ 'labels.myPolls' | translate }}
+      </a>
+
+      <mat-divider></mat-divider>
+      <a class="nav-link" routerLink='dashboard/create' [routerLinkActive]="['active']">
+        <i class="fas fa-plus-circle"></i>
+        {{ 'labels.create' | translate }}
+      </a>
+
+      <mat-divider></mat-divider>
+      <a class="nav-link cursor-pointer">
+        <i class="fas fa-sign-out-alt"></i>
+        {{ 'labels.logout' | translate }}
+      </a>
+      <mat-divider></mat-divider>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <div class="container-fluid px-0" id="mainContainer">
+      <router-outlet></router-outlet>
+    </div>
+    <div>
+      <app-footer></app-footer>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

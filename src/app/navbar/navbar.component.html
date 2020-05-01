@@ -1,25 +1,40 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <a class="navbar-brand" routerLink='/dashboard/all'>
-    <mat-icon style="vertical-align: middle;">poll</mat-icon>
-    <span class="ml-1" style="vertical-align: middle;">{{ 'labels.polling' | translate }}</span></a>
-    <button class="navbar-toggler" type="button" (click)="show = !show">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary align-items-center">
 
-    <div class="collapse navbar-collapse" [class.show]="show">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a class="nav-link" routerLink='all' [routerLinkActive]="['text-white']">{{ 'labels.myPolls' | translate }}</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink='create' [routerLinkActive]="['text-white']">{{ 'labels.create' | translate }}</a>
-        </li>
-        <li class="nav-item">
+  <div class="d-flex align-items-center">
+    <i class="fas fa-bars text-white p-2" (click)="toggleSidebar()"></i>
+    <span class="navbar-brand d-lg-none">{{ currentPage }}</span>
+  </div>
+
+  <div class="collapse navbar-collapse justify-content-center" id="navbarToggle">
+
+    <div class="d-flex flex-row justify-content-center w-100 align-items-center">
+
+      <div class="item">
+      </div>
+
+      <a class="d-none d-lg-block item navbar-brand m-0" routerLink='/dashboard/all'>
+        <mat-icon style="vertical-align: middle;">poll</mat-icon>
+        <span class="ml-1" style="vertical-align: middle;">{{ 'labels.polling' | translate }}</span>
+      </a>
+
+      <div class="d-flex flex-inline item justify-content-end">
+        <div>
+          <a class="nav-link" routerLink='all' [routerLinkActive]="['active']">
+            {{ 'labels.myPolls' | translate }}
+          </a>
+        </div>
+        <div>
+          <a class="nav-link" routerLink='create' [routerLinkActive]="['active']">
+            {{ 'labels.create' | translate }}
+          </a>
+        </div>
+        <div>
           <a class="nav-link cursor-pointer" (click)="logout()"
-             matTooltip="{{ translate.instant('messages.loggedInAs') }} {{user.email}}">
+              matTooltip="{{ translate.instant('messages.loggedInAs') }} {{user.email}}">
             {{ 'labels.logout' | translate }}
           </a>
-        </li>
-      </ul>
+        </div>
+      </div>
     </div>
-  </nav>
+  </div>
+</nav>

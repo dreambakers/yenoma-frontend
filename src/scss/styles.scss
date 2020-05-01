@@ -99,3 +99,16 @@ button.mat-menu-item{ outline:none; }
         }
     }
 }
+
+#mainContainer {
+    min-height: 90vh;
+    margin-bottom: calc(5vh + 0.5rem + 0.8rem);
+}
+
+#footer {
+    min-height: 5vh;
+}
+
+#mobileNavbar {
+    min-height: 5vh;
+}
