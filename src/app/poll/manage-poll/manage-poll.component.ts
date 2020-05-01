@@ -93,7 +93,9 @@ export class ManagePollComponent implements OnInit, OnDestroy {
         case constants.emitterKeys.preview:
           return this.preview = !this.preview;
         case constants.emitterKeys.create:
-          return this.createPoll();
+          return this.isEditing ? this.updatePoll() : this.createPoll();
+        case constants.emitterKeys.arrange:
+          return (this.rearrangeQuestions = !this.rearrangeQuestions);
       }
     });
   }
@@ -101,7 +103,7 @@ export class ManagePollComponent implements OnInit, OnDestroy {
   updateMobileNavbar() {
     this.mobileNavbarProps = {
       cancel: true ,
-      arrange: false,
+      arrange: this.poll.questions.length > 1 && this.isMobile && !this.shouldDisable,
       add: !this.shouldDisable,
       create: false,
       preview: true
@@ -119,6 +121,7 @@ export class ManagePollComponent implements OnInit, OnDestroy {
 
   addQuestion() {
     this.poll.questions.push({ text: '', options: [], answerType: constants.answerTypes.yesNoMaybe });
+    this.updateMobileNavbar();
   }
 
   removeQuestion(questionIndex) {
@@ -126,6 +129,7 @@ export class ManagePollComponent implements OnInit, OnDestroy {
     if (!this.poll.questions.length) {
       this.addQuestion();
     }
+    this.updateMobileNavbar();
   }
 
   addOption(questionIndex) {
@@ -238,10 +242,8 @@ export class ManagePollComponent implements OnInit, OnDestroy {
                   this.poll.questions.every(question => question.text && question.options.every(option => option.length)) &&
                   this.poll.questions.filter(question => this.minimumOptionsRequired(question)).every(question => question.options.length >= 2) &&
                   this.poll.questions.filter(question => question.answerType === constants.answerTypes.value).every(question => !this.valueFieldsInvalid(question));
-    if (this.mobileNavbarProps.create !== valid) {
-      this.mobileNavbarProps.create = valid;
-      this.emitterService.emit(this.constants.emitterKeys.updateNavbarProps, this.mobileNavbarProps);
-    }
+    this.mobileNavbarProps.create = this.isEditing ? !this.shouldDisable && valid && this.dirty : valid;
+    this.emitterService.emit(this.constants.emitterKeys.updateNavbarProps, this.mobileNavbarProps);
     return valid;
   }
 

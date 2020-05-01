@@ -5,6 +5,7 @@ import { EmitterService } from '../services/emitter.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { constants } from '../app.constants';
+import { Router } from '@angular/router';
 
 export interface MobileNavbarProps {
   cancel: Boolean;
@@ -35,7 +36,10 @@ export class FooterComponent implements OnInit, OnDestroy {
   ];
   destroy$: Subject<boolean> = new Subject<boolean>();
 
-  constructor(private translate: TranslateService, private emitterService: EmitterService) { }
+  constructor(
+    private translate: TranslateService,
+    private emitterService: EmitterService,
+    private router: Router) { }
 
   ngOnInit() {
     this.selectedLanguage = localStorage.getItem('selectedLanguage') || 'en';
@@ -70,5 +74,9 @@ export class FooterComponent implements OnInit, OnDestroy {
 
   get isMobile() {
     return DataService.isMobile;
+  }
+
+  get showMobileNav() {
+    return this.isMobile && this.router.url.includes('/dashboard');
   }
 }

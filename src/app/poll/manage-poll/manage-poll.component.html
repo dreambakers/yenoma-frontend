@@ -120,23 +120,28 @@
             </div>
         </div>
 
-        <div class="d-flex justify-content-end my-4" *ngIf="!shouldDisable">
-            <mat-slide-toggle (change)="toggleRearrangement()">
+        <div class="d-flex justify-content-end my-4">
+            <mat-slide-toggle (change)="toggleRearrangement()" *ngIf="poll.questions.length > 1 && !isMobile && !shouldDisable">
                 {{ 'labels.rearrangeQuestions' | translate }}
             </mat-slide-toggle>
         </div>
 
         <div cdkDropList (cdkDropListDropped)="dropQuestion($event)" [class.mt-5]="shouldDisable">
-            <mat-card *ngFor="let question of poll.questions; let i = index" class="border p-3 mb-1" cdkDrag
-                [class.mb-5]="!rearrangeQuestions" [cdkDragDisabled]="!rearrangeQuestions"
-                [class.border-danger]="valueFieldsInvalid(question) || (minimumOptionsRequired(question) && question.options.length < 2)">
-
-                <div class="d-flex" *ngIf="rearrangeQuestions">
+            <mat-card *ngFor="let question of poll.questions; let i = index" class="border mb-1" cdkDrag
+                      [cdkDragDisabled]="!rearrangeQuestions"
+                      [ngClass]="{ 'p-0 dragDiv': rearrangeQuestions,
+                                   'mb-5 p-3': !rearrangeQuestions,
+                                   'border-danger': valueFieldsInvalid(question) ||
+                                                    (minimumOptionsRequired(question) &&
+                                                    question.options.length < 2)
+                                }"
+            >
+                <div class="d-flex align-items-center p-3" *ngIf="rearrangeQuestions" cdkDragHandle>
+                    <i class="mr-1 fas fa-sort"></i>
                     <input matInput disabled [value]="question.text || translate.instant('labels.noQuestionEntered')"
-                           [class.font-italic]="!question.text">
-                    <div class="example-handle" cdkDragHandle>
-                        <i class="fas fa-arrows-alt"></i>
-                    </div>
+                           [class.font-italic]="!question.text" class="dragDiv">
+                    <i class="fas fa-minus-circle text-danger cursor-pointer"
+                        (click)="removeQuestion(i)"></i>
                 </div>
 
                 <div class="w-100 d-flex justify-content-end align-items-center" *ngIf="!rearrangeQuestions">
@@ -227,26 +232,32 @@
                     </mat-form-field>
                 </div>
 
-                <mat-form-field appearance="outline" class="w-100 mb-5" *ngIf="!rearrangeQuestions">
-                    <mat-label>{{ 'labels.question' | translate }} {{i + 1}}</mat-label>
-                    <input matInput placeholder="{{ 'placeholders.question' | translate }}"
-                           [(ngModel)]="question.text" [disabled]="shouldDisable">
-                    <mat-hint *ngIf="poll.status === constants.statusTypes.open">
-                        {{ 'hints.typeQuestion' | translate }} {{i + 1}}
-                    </mat-hint>
-                </mat-form-field>
+                <div class="d-flex align-items-center justify-content-between">
+                    <mat-form-field appearance="outline" class="w-100" *ngIf="!rearrangeQuestions">
+                        <mat-label>{{ 'labels.question' | translate }} {{i + 1}}</mat-label>
+                        <input matInput placeholder="{{ 'placeholders.question' | translate }}"
+                               [(ngModel)]="question.text" [disabled]="shouldDisable">
+                        <mat-hint *ngIf="poll.status === constants.statusTypes.open">
+                            {{ 'hints.typeQuestion' | translate }} {{i + 1}}
+                        </mat-hint>
+                    </mat-form-field>
+                    <i class="fas fa-minus-circle text-danger pb-4 pl-2 cursor-pointer"
+                        (click)="removeQuestion(i)" *ngIf="!rearrangeQuestions && !shouldDisable"></i>
+                </div>
 
-                <div class="d-flex justify-content-end mb-2"
+                <!-- <div class="d-flex justify-content-end mb-2"
                      *ngIf="question.options.length && !rearrangeQuestions && !shouldDisable">
                      <mat-slide-toggle (change)="question.rearrangeOptions = !question.rearrangeOptions">
                         {{ 'labels.rearrangeOptions' | translate }}
                     </mat-slide-toggle>
-                </div>
+                </div> -->
 
-                <div *ngIf="!rearrangeQuestions" cdkDropList (cdkDropListDropped)="dropOption($event, question)">
-                    <div *ngFor="let option of question.options; let j = index; trackBy: trackByFn" cdkDrag
-                         [cdkDragDisabled]="!question.rearrangeOptions">
+                <div *ngIf="!rearrangeQuestions" cdkDropList (cdkDropListDropped)="dropOption($event, question)" class="mt-5">
+                    <div *ngFor="let option of question.options; let j = index; trackBy: trackByFn" cdkDrag>
                         <div class="d-flex align-items-center justify-content-between">
+                            <div class="example-handle pr-1 pb-4 cursor-pointer" cdkDragHandle *ngIf="question.options.length > 1 && !shouldDisable">
+                                <i class="fas fa-sort"></i>
+                            </div>
                             <mat-form-field appearance="outline" class="w-100">
                                 <mat-label>
                                     {{ 'labels.question' | translate }}
@@ -259,24 +270,22 @@
                             </mat-form-field>
 
                             <i class="fas fa-minus-circle text-danger pb-4 pl-2 cursor-pointer" (click)="removeOption(i,j)"
-                                *ngIf="!question.rearrangeOptions && !shouldDisable"
+                                *ngIf="!shouldDisable"
                                 matTooltip="{{ 'labels.removeOption' | translate }}" matTooltipPosition="above"></i>
-
-                            <div class="example-handle ml-1 mb-4" cdkDragHandle *ngIf="question.rearrangeOptions">
-                                <i class="fas fa-arrows-alt"></i>
-                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div *ngIf="!rearrangeQuestions && !shouldDisable" class="d-flex flex-column flex-sm-row justify-content-between">
-                    <button class="btn btn-primary mb-1" (click)="addOption(i)">
+                <div *ngIf="!rearrangeQuestions && !shouldDisable" class="text-center">
+                    <i class="fas fa-plus-circle text-primary p-4 cursor-pointer" (click)="addOption(i)"></i>
+
+                    <!-- <button class="btn btn-primary mb-1" (click)="addOption(i)">
                         {{ 'labels.add' | translate }}
                         {{ 'labels.option' | translate | lowercase }}
                     </button>
                     <button class="btn btn-danger mb-1" (click)="removeQuestion(i)">
                         {{ 'labels.remove' | translate }} {{ 'labels.question' | translate | lowercase }}
-                    </button>
+                    </button>  -->
                 </div>
 
             </mat-card>

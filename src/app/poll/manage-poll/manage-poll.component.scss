@@ -42,3 +42,11 @@
 .border-danger {
   border-color: #DC3545 !important;
 }
+
+.dragDiv {
+  cursor: grab;
+}
+
+.dragDiv:active {
+  cursor: grabbing;
+}

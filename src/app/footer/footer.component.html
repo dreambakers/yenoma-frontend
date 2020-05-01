@@ -1,4 +1,5 @@
-<div class="d-flex flex-row justify-content-end align-items-center bg-white shadow language-list" id="footer" *ngIf="!isMobile; else mobileNav">
+<div class="d-flex flex-row justify-content-end align-items-center bg-white shadow language-list" id="footer"
+     *ngIf="!showMobileNav; else mobileNav">
     <mat-form-field appearance="none" class="dropdown-container">
         <mat-select [value]="selectedLanguage" (selectionChange)="languageChanged($event)">
           <mat-option *ngFor="let language of languages" [value]="language.value">
