@@ -34,7 +34,7 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
   @ViewChild(MatSort, { static: false }) sort: MatSort;
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
-  displayedColumns: string[] = ['title', 'description', 'createdAt', 'responses', 'active', 'action'];
+  displayedColumns: string[] = ['title', 'privateNote', 'createdAt', 'responses', 'active', 'action'];
 
   constructor(private pollService: PollService,
     private utils: UtilService,
@@ -64,6 +64,7 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
             preview: false
           }
           this.emitterService.emit(constants.emitterKeys.updateNavbarProps, this.mobileNavbarProps);
+          this.updateNavTitle();
         }
       },
       err => {
@@ -78,6 +79,11 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
     });
   }
 
+  updateNavTitle(message = null) {
+    const navTitleToSet = message || this.translate.instant('labels.myPolls') + ` (${this.polls.length})`;
+    this.emitterService.emit(constants.emitterKeys.changeNavbarTitle, navTitleToSet);
+  }
+
   deletePoll(pollId) {
     this.utils.confirmDialog('messages.areYouSure', 'messages.pollDeletionConfirmation').subscribe(
       res => {
@@ -88,6 +94,7 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
                 this.polls = this.polls.filter(poll => poll._id !== pollId);
                 this.dataSource.data = this.polls;
                 this.utils.openSnackBar('messages.pollDeletedSuccessfully');
+                this.updateNavTitle();
               } else {
                 this.utils.openSnackBar('messages.errorDeletingPoll');
               }
@@ -189,6 +196,7 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
           this.polls.push(res.poll);
           this.dataSource.data = this.polls;
           this.utils.openSnackBar('messages.pollDuplicated');
+          this.updateNavTitle();
         } else {
           this.utils.openSnackBar('messages.errorDuplicatingPoll');
         }
@@ -226,7 +234,12 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
     document.body.removeChild(selBox);
   }
 
-  previewPoll(poll) {
+  togglePreview(poll = null) {
+    if (this.preview) {
+      this.updateNavTitle();
+      return this.preview = false;
+    }
+    this.updateNavTitle(this.translate.instant('labels.poll') + ' ' + this.translate.instant('labels.preview'));
     this.poll = poll;
     this.preview = true;
   }

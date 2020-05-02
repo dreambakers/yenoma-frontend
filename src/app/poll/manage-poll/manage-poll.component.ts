@@ -98,6 +98,8 @@ export class ManagePollComponent implements OnInit, OnDestroy {
           return (this.rearrangeQuestions = !this.rearrangeQuestions);
       }
     });
+    const navTitleToSet = this.translate.instant(this.isEditing ? 'labels.managePoll' : 'labels.createPoll');
+    this.emitterService.emit(constants.emitterKeys.changeNavbarTitle, navTitleToSet);
   }
 
   updateMobileNavbar() {
@@ -242,7 +244,7 @@ export class ManagePollComponent implements OnInit, OnDestroy {
                   this.poll.questions.every(question => question.text && question.options.every(option => option.length)) &&
                   this.poll.questions.filter(question => this.minimumOptionsRequired(question)).every(question => question.options.length >= 2) &&
                   this.poll.questions.filter(question => question.answerType === constants.answerTypes.value).every(question => !this.valueFieldsInvalid(question));
-    this.mobileNavbarProps.create = this.isEditing ? !this.shouldDisable && valid && this.dirty : valid;
+    this.mobileNavbarProps.create = this.isEditing ? valid && this.dirty : valid;
     this.emitterService.emit(this.constants.emitterKeys.updateNavbarProps, this.mobileNavbarProps);
     return valid;
   }

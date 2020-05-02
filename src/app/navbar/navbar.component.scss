@@ -4,6 +4,9 @@
     &.active {
         color: white;
     }
+    &:hover{
+        color: hsla(0,0%,100%,.5);
+    }
 }
 
 .item {

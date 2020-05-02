@@ -30,5 +30,7 @@ export const constants = {
         preview: 'preview',
         updateNavbarProps: 'updateNavbarProps',
         toggleSidebar: 'toggleSidebar',
+        logoutClicked: 'logoutClicked',
+        changeNavbarTitle: 'changeNavbarTitle'
     }
 }

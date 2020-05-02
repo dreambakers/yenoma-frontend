@@ -44,6 +44,10 @@ export class AppComponent implements OnInit {
     DataService.isMobile = event.target.innerWidth <= 960;
   }
 
+  logout() {
+    this.emitterService.emit(this.constants.emitterKeys.logoutClicked);
+  }
+
   ngOnDestroy(): void {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();

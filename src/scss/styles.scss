@@ -101,9 +101,8 @@ button.mat-menu-item{ outline:none; }
 }
 
 #mainContainer {
-    padding-top: 65px;
     min-height: 90vh;
-    margin-bottom: calc(5vh + 0.5rem + 0.8rem);
+    margin-bottom: 2.9375rem;
 }
 
 #footer {
@@ -112,4 +111,12 @@ button.mat-menu-item{ outline:none; }
 
 #mobileNavbar {
     min-height: 5vh;
+}
+
+.nav-link {
+    outline: none;
+}
+
+#dashboard {
+    padding-top: 65px;
 }

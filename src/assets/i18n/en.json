@@ -69,7 +69,8 @@
         "minValue": "Minimum value",
         "maxValue": "Maximum value",
         "arrange": "Arrange",
-        "preview": "Preview"
+        "preview": "Preview",
+        "poll": "Poll"
     },
 
     "messages": {

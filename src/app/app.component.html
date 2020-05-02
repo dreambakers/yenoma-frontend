@@ -1,4 +1,4 @@
-<mat-sidenav-container class="example-sidenav-container">
+<mat-sidenav-container>
 
   <mat-sidenav #snav fixedInViewport="true">
     <div class="w-100 mb-5 p-3 mt-2 d-flex justify-content-start align-items-center" style="font-size: 1.3rem;">
@@ -9,19 +9,19 @@
     <mat-nav-list>
       <mat-divider></mat-divider>
       <a class="nav-link" routerLink='dashboard/all' [routerLinkActive]="['active']">
-        <i class="fas fa-list"></i>
+        <i class="fas fa-list mr-2"></i>
         {{ 'labels.myPolls' | translate }}
       </a>
 
       <mat-divider></mat-divider>
       <a class="nav-link" routerLink='dashboard/create' [routerLinkActive]="['active']">
-        <i class="fas fa-plus-circle"></i>
+        <i class="fas fa-plus-circle mr-2"></i>
         {{ 'labels.create' | translate }}
       </a>
 
       <mat-divider></mat-divider>
-      <a class="nav-link cursor-pointer">
-        <i class="fas fa-sign-out-alt"></i>
+      <a class="nav-link cursor-pointer" (click)="logout()">
+        <i class="fas fa-sign-out-alt mr-2"></i>
         {{ 'labels.logout' | translate }}
       </a>
       <mat-divider></mat-divider>

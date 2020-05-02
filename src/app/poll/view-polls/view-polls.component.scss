@@ -2,12 +2,6 @@ table {
   width: 100%;
 }
 
-.test {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
 .mat-row {
   &:hover {
     background-color: #e9f3ff;
@@ -59,7 +53,7 @@ table {
 
     .mat-cell {
       display: block;
-      width: 100%;
+      width: 80%;
       min-height: auto;
 
       padding: 0 16px;
