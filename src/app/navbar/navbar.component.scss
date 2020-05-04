@@ -2,7 +2,7 @@
     padding: 0.5rem;
     color: hsla(0,0%,100%,.5);
     &.active {
-        color: white;
+        color: white !important;
     }
     &:hover{
         color: hsla(0,0%,100%,.5);

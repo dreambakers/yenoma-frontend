@@ -254,8 +254,8 @@
 
                 <div *ngIf="!rearrangeQuestions" cdkDropList (cdkDropListDropped)="dropOption($event, question)" class="mt-5">
                     <div *ngFor="let option of question.options; let j = index; trackBy: trackByFn" cdkDrag>
-                        <div class="d-flex align-items-center justify-content-between">
-                            <div class="example-handle pr-1 pb-4 cursor-pointer" cdkDragHandle *ngIf="question.options.length > 1 && !shouldDisable">
+                        <div class="d-flex align-items-center justify-content-between dragDiv" cdkDragHandle>
+                            <div class="example-handle pr-1 pb-4"  *ngIf="question.options.length > 1 && !shouldDisable">
                                 <i class="fas fa-sort"></i>
                             </div>
                             <mat-form-field appearance="outline" class="w-100">

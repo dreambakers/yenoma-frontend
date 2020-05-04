@@ -4,6 +4,7 @@ import { ConfirmDialogModel, ConfirmDialogComponent } from '../confirm-dialog/co
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
+import { DataService } from './data.service';
 
 @Injectable({
   providedIn: 'root'
@@ -23,8 +24,7 @@ export class UtilService {
   confirmDialog(title, message): Observable<any> {
     const dialogData = new ConfirmDialogModel(this.translate.instant(title), this.translate.instant(message));
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      minWidth: "400px",
-      // maxWidth: "400px",
+      minWidth: !DataService.isMobile ? "400px" : "280px",
       data: dialogData
     });
     return dialogRef.afterClosed();
