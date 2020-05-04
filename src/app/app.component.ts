@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 import { EmitterService } from './services/emitter.service';
 import { takeUntil } from 'rxjs/operators';
 import { constants } from './app.constants';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +19,7 @@ export class AppComponent implements OnInit {
 
   destroy$: Subject<boolean> = new Subject<boolean>();
 
-  constructor(private emitterService: EmitterService) {}
+  constructor(private emitterService: EmitterService, private router: Router) {}
 
   ngOnInit(): void {
     DataService.isMobile = document.body.clientWidth <= 960;
@@ -45,12 +46,17 @@ export class AppComponent implements OnInit {
   }
 
   logout() {
+    this.toggleSidebar();
     this.emitterService.emit(this.constants.emitterKeys.logoutClicked);
   }
 
   ngOnDestroy(): void {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
+  }
+
+  toggleSidebar() {
+    this.sideNav.toggle();
   }
 
 }
