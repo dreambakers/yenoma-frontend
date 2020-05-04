@@ -4,12 +4,13 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { PollService } from 'src/app/services/poll.service';
-import { UserService } from 'src/app/services/user.service';
 import { UtilService } from 'src/app/services/util.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { ResponseService } from 'src/app/services/response.service';
+import { DataService } from 'src/app/services/data.service';
+import { EmitterService } from 'src/app/services/emitter.service';
 
 @Component({
   selector: 'app-responses',
@@ -29,7 +30,7 @@ export class ResponsesComponent implements OnInit {
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
 
   constructor(private pollService: PollService,
-    private userService: UserService,
+    private emitterService: EmitterService,
     private utils: UtilService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -44,6 +45,7 @@ export class ResponsesComponent implements OnInit {
           if (res.success) {
             this.responses = res.responses;
             this.dataSource = new MatTableDataSource(this.responses);
+            this.changeNavbarTitle();
             setTimeout(() => {
               this.dataSource.sort = this.sort;
               this.dataSource.paginator = this.paginator;
@@ -75,6 +77,11 @@ export class ResponsesComponent implements OnInit {
     });
   }
 
+  changeNavbarTitle() {
+    const titleToSet = this.translate.instant('pollActions.responseDetails') + ` (${this.responses.length})`;
+    this.emitterService.emit(this.constants.emitterKeys.changeNavbarTitle, titleToSet);
+  }
+
   getParsedDate(date) {
     if (date) {
       return moment(date).format('YYYY-MM-DD, HH:mm');
@@ -101,6 +108,7 @@ export class ResponsesComponent implements OnInit {
               if (res.success) {
                 this.responses = this.responses.filter(_response => response._id !== _response._id);
                 this.dataSource.data = this.responses;
+                this.changeNavbarTitle();
                 this.utils.openSnackBar('messages.responseDeleted');
               } else {
                 this.utils.openSnackBar('messages.errorDeletingResponse');
@@ -133,6 +141,10 @@ export class ResponsesComponent implements OnInit {
 
   backClicked() {
     this.router.navigate(['dashboard/all']);
+  }
+
+  get isMobile() {
+    return DataService.isMobile;
   }
 
 }
