@@ -21,7 +21,7 @@ import { LoginComponent } from './landing/login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SignupComponent } from './landing/signup/signup.component';
 import { RespondComponent } from './landing/respond/respond.component';
-import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogComponent } from './dialogs/confirm-dialog/confirm-dialog.component';
 import { LandingComponent } from './landing/landing.component';
 import { ManagePollComponent } from './poll/manage-poll/manage-poll.component';
 import { ViewStatsComponent } from './poll/view-stats/view-stats.component';
@@ -55,6 +55,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { SortDialogComponent } from './dialogs/sort/sort-dialog.component';
 
 @NgModule({
   declarations: [
@@ -74,6 +75,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     FooterComponent,
     ResponsesComponent,
     ErrorComponent,
+    SortDialogComponent,
   ],
   imports: [
     BrowserAnimationsModule,

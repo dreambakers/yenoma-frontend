@@ -70,7 +70,11 @@
         "maxValue": "Maximum value",
         "arrange": "Arrange",
         "preview": "Preview",
-        "poll": "Poll"
+        "poll": "Poll",
+        "done": "Done",
+        "sort": "Sort",
+        "asc": "Asc",
+        "desc": "Desc"
     },
 
     "messages": {

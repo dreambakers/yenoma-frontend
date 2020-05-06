@@ -7,7 +7,7 @@ import { DataService } from 'src/app/services/data.service';
 import { constants } from 'src/app/app.constants';
 
 import * as moment from 'moment';
-import { MatSort } from '@angular/material/sort';
+import { MatSort, MatSortable } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -34,7 +34,12 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
   @ViewChild(MatSort, { static: false }) sort: MatSort;
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
-  displayedColumns: string[] = ['title', 'privateNote', 'createdAt', 'responses', 'active', 'action'];
+  displayedColumns: string[] = ['title', 'privateNote', 'createdAt', 'responses', 'status', 'action'];
+  currentSort: MatSortable = {
+    id: 'createdAt',
+    start: 'asc',
+    disableClear: true
+  }
 
   constructor(private pollService: PollService,
     private utils: UtilService,
@@ -53,6 +58,7 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
           this.dataSource = new MatTableDataSource(this.polls);
           setTimeout(() => {
             this.dataSource.sort = this.sort;
+            this.sort.sort(this.currentSort);
             this.dataSource.paginator = this.paginator;
             this.dataSource.sortingDataAccessor = (data, header) => data[header];
           });
@@ -75,6 +81,8 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
       switch(emitted.event) {
         case constants.emitterKeys.add:
           return this.addClicked();
+        case constants.emitterKeys.arrange:
+          return this.openSortDialog();
       }
     });
   }
@@ -246,6 +254,25 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
 
   addClicked() {
     this.router.navigate(['dashboard/create']);
+  }
+
+  openSortDialog() {
+    this.utils.sortDialog(
+      [
+        'title',
+        'createdAt',
+        'responses'
+      ],
+      this.currentSort
+    ).subscribe(
+      result => {
+        if (result) {
+          this.currentSort = result;
+          console.log(this.currentSort)
+          this.sort.sort(this.currentSort);
+        }
+      }
+    );
   }
 
   ngOnDestroy(): void {

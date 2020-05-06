@@ -46,8 +46,8 @@
         </mat-cell>
       </ng-container>
 
-      <ng-container matColumnDef="active">
-        <mat-header-cell *matHeaderCellDef class="text-dark justify-content-center">
+      <ng-container matColumnDef="status">
+        <mat-header-cell *matHeaderCellDef class="text-dark justify-content-center" mat-sort-header>
           {{ 'labels.active' | translate }}
         </mat-header-cell>
         <mat-cell *matCellDef="let poll" class="justify-content-center">

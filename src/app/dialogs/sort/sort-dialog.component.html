@@ -1,0 +1,35 @@
+<h1 mat-dialog-title>
+    {{ 'labels.sort' | translate }}
+</h1>
+
+<div mat-dialog-content>
+    <div *ngFor="let key of keys; let i = index" class="d-flex justify-content-between align-items-center border p-2 mb-2">
+        <!-- <mat-radio-group name="{{i}}">
+            <mat-radio-button [checked]="isSelected(key)" value="" (change)="onSortChanged(key)">
+                {{ getKeyLabel(key) }}
+            </mat-radio-button>
+        </mat-radio-group> -->
+
+        {{ getKeyLabel(key) }}
+
+        <mat-button-toggle-group
+            value="{{isSelected(key) && currentSort.start}}"
+            (change)="onSortChanged(key, $event)">
+            <mat-button-toggle value="asc">
+                {{ 'labels.asc' | translate }}
+            </mat-button-toggle>
+            <mat-button-toggle value="desc">
+                {{ 'labels.desc' | translate }}
+            </mat-button-toggle>
+        </mat-button-toggle-group>
+    </div>
+</div>
+
+<div mat-dialog-actions>
+    <button mat-button (click)="onDismiss()">
+        {{ 'labels.cancel' | translate }}
+    </button>
+    <button mat-raised-button color="primary" (click)="onConfirm()">
+        {{ 'labels.done' | translate }}
+    </button>
+</div>
