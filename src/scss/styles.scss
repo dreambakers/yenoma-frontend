@@ -31,6 +31,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background:
     width: 85% !important;
 }
 
+.w-20 {
+    width: 20% !important;
+}
+
 .w-15 {
     width: 15% !important;
 }
@@ -127,3 +131,10 @@ button.mat-menu-item{ outline:none; }
         border: none;
     }
 }
+
+.mat-field-no-margin {
+    .mat-form-field-wrapper {
+      padding: 0;
+      margin: 0;
+    }
+  }

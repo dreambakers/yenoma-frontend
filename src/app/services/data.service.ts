@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 export class DataService {
 
   public static isMobile;
+  public static mobileBreakpoint = 991;
 
   constructor() { }
 }

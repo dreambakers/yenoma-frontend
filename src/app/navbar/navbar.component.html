@@ -1,39 +1,32 @@
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary align-items-center" #navbar>
 
   <div class="d-flex align-items-center">
-    <i class="fas fa-bars text-white p-2 mr-3" (click)="toggleSidebar()"></i>
+    <i class="fas fa-bars text-white p-2 mr-3" *ngIf="isMobile" (click)="toggleSidebar()"></i>
     <span class="navbar-brand d-lg-none">{{ currentPage }}</span>
   </div>
 
-  <div class="collapse navbar-collapse justify-content-center" id="navbarToggle">
+  <div class="collapse navbar-collapse" id="navbarToggle">
+    <a class="d-none d-lg-block item navbar-brand m-0" routerLink='/dashboard/all'>
+      <mat-icon style="vertical-align: middle;">poll</mat-icon>
+      <span class="ml-1" style="vertical-align: middle;">{{ 'labels.polling' | translate }}</span>
+    </a>
 
-    <div class="d-flex flex-row justify-content-center w-100 align-items-center">
-
-      <div class="item">
+    <div class="d-flex flex-inline item justify-content-end">
+      <div>
+        <a class="nav-link" routerLink='all' [routerLinkActive]="['active']">
+          {{ 'labels.myPolls' | translate }}
+        </a>
       </div>
-
-      <a class="d-none d-lg-block item navbar-brand m-0" routerLink='/dashboard/all'>
-        <mat-icon style="vertical-align: middle;">poll</mat-icon>
-        <span class="ml-1" style="vertical-align: middle;">{{ 'labels.polling' | translate }}</span>
-      </a>
-
-      <div class="d-flex flex-inline item justify-content-end">
-        <div>
-          <a class="nav-link" routerLink='all' [routerLinkActive]="['active']">
-            {{ 'labels.myPolls' | translate }}
-          </a>
-        </div>
-        <div>
-          <a class="nav-link" routerLink='create' [routerLinkActive]="['active']">
-            {{ 'labels.create' | translate }}
-          </a>
-        </div>
-        <div>
-          <a class="nav-link cursor-pointer" (click)="logout()"
-              matTooltip="{{ translate.instant('messages.loggedInAs') }} {{user.email}}">
-            {{ 'labels.logout' | translate }}
-          </a>
-        </div>
+      <div>
+        <a class="nav-link" routerLink='create' [routerLinkActive]="['active']">
+          {{ 'labels.create' | translate }}
+        </a>
+      </div>
+      <div>
+        <a class="nav-link cursor-pointer" (click)="logout()"
+            matTooltip="{{ translate.instant('messages.loggedInAs') }} {{user.email}}">
+          {{ 'labels.logout' | translate }}
+        </a>
       </div>
     </div>
   </div>

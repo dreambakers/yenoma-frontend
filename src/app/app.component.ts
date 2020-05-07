@@ -22,7 +22,7 @@ export class AppComponent implements OnInit {
   constructor(private emitterService: EmitterService, private router: Router) {}
 
   ngOnInit(): void {
-    DataService.isMobile = document.body.clientWidth <= 960;
+    DataService.isMobile = document.body.clientWidth <= DataService.mobileBreakpoint;
     this.emitterService.emittter.pipe(takeUntil(this.destroy$)).subscribe((emitted) => {
       switch(emitted.event) {
         case constants.emitterKeys.toggleSidebar:
@@ -42,7 +42,7 @@ export class AppComponent implements OnInit {
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
-    DataService.isMobile = event.target.innerWidth <= 960;
+    DataService.isMobile = event.target.innerWidth <= DataService.mobileBreakpoint;
   }
 
   logout() {

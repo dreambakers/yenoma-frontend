@@ -254,11 +254,11 @@
 
                 <div *ngIf="!rearrangeQuestions" cdkDropList (cdkDropListDropped)="dropOption($event, question)" class="mt-5">
                     <div *ngFor="let option of question.options; let j = index; trackBy: trackByFn" cdkDrag>
-                        <div class="d-flex align-items-center justify-content-between dragDiv" cdkDragHandle>
-                            <div class="example-handle pr-1 pb-4"  *ngIf="question.options.length > 1 && !shouldDisable">
+                        <div class="d-flex align-items-center justify-content-between dragDiv">
+                            <div class="example-handle mr-2" cdkDragHandle *ngIf="question.options.length > 1 && !shouldDisable">
                                 <i class="fas fa-sort"></i>
                             </div>
-                            <mat-form-field appearance="outline" class="w-100">
+                            <mat-form-field appearance="outline" class="w-100 mat-field-no-margin">
                                 <mat-label>
                                     {{ 'labels.question' | translate }}
                                     {{ i + 1 }}
@@ -269,7 +269,7 @@
                                        [(ngModel)]="question.options[j]" [disabled]="shouldDisable">
                             </mat-form-field>
 
-                            <i class="fas fa-minus-circle text-danger pb-4 pl-2 cursor-pointer" (click)="removeOption(i,j)"
+                            <i class="fas fa-minus-circle text-danger cursor-pointer ml-2" (click)="removeOption(i,j)"
                                 *ngIf="!shouldDisable"
                                 matTooltip="{{ 'labels.removeOption' | translate }}" matTooltipPosition="above"></i>
                         </div>
