@@ -1,31 +1,32 @@
 <mat-sidenav-container>
 
   <mat-sidenav #snav fixedInViewport="true">
-    <div class="w-100 mb-5 p-3 mt-2 d-flex justify-content-start align-items-center" style="font-size: 1.3rem;">
-      <mat-icon style="vertical-align: middle;">poll</mat-icon>
-      <span class="ml-1" style="vertical-align: middle;">{{ 'labels.polling' | translate }}</span>
+    <div class="w-100 px-3 d-flex justify-content-start align-items-center" style="font-size: 1.3rem; padding: 12px 0">
+      <mat-icon style="vertical-align: middle;" class="mr-2">poll</mat-icon>
+      <span style="vertical-align: middle;">{{ 'labels.polling' | translate }}</span>
     </div>
 
+    <mat-divider></mat-divider>
+
     <mat-nav-list>
-      <mat-divider></mat-divider>
       <a class="nav-link" routerLink='dashboard/all' (click)="toggleSidebar()" [routerLinkActive]="['active']">
         <i class="fas fa-list mr-2"></i>
         {{ 'labels.myPolls' | translate }}
       </a>
 
-      <mat-divider></mat-divider>
       <a class="nav-link" routerLink='dashboard/create' (click)="toggleSidebar()" [routerLinkActive]="['active']">
         <i class="fas fa-plus-circle mr-2"></i>
         {{ 'labels.create' | translate }}
       </a>
 
       <mat-divider></mat-divider>
+
       <a class="nav-link cursor-pointer" (click)="logout()">
         <i class="fas fa-sign-out-alt mr-2"></i>
         {{ 'labels.logout' | translate }}
       </a>
-      <mat-divider></mat-divider>
     </mat-nav-list>
+
   </mat-sidenav>
 
   <mat-sidenav-content>
