@@ -74,7 +74,8 @@
         "done": "Done",
         "sort": "Sort",
         "asc": "Asc",
-        "desc": "Desc"
+        "desc": "Desc",
+        "sortBy": "Sort by"
     },
 
     "messages": {
