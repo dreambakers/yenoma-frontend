@@ -199,6 +199,9 @@ export class ManagePollComponent implements OnInit, OnDestroy {
   }
 
   onCancelClicked(){
+    if (this.isEditing && !this.dirty) {  // don't show confirmation in case poll wasn't udpated
+      return this.router.navigate(['/dashboard/all']);
+    }
     const key = this.isEditing ? 'cancelPollEdit' : 'cancelPollCreation';
     this.utils.confirmDialog('messages.areYouSure', `messages.${key}`).subscribe(
       res => {

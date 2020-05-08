@@ -32,5 +32,10 @@ export const constants = {
         toggleSidebar: 'toggleSidebar',
         logoutClicked: 'logoutClicked',
         changeNavbarTitle: 'changeNavbarTitle'
-    }
+    },
+    languages: [
+        { display: "English", value: "en" },
+        { display: "German", value: "de" },
+        { display: "French", value: "fr" }
+    ]
 }

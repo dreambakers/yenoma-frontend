@@ -8,11 +8,11 @@ import { constants } from '../app.constants';
 import { Router } from '@angular/router';
 
 export interface MobileNavbarProps {
-  cancel: Boolean;
-  arrange: Boolean;
-  add: Boolean;
-  create: Boolean;
-  preview: Boolean;
+  cancel?: Boolean;
+  arrange?: Boolean;
+  add?: Boolean;
+  create?: Boolean;
+  preview?: Boolean;
 }
 
 @Component({
@@ -21,6 +21,7 @@ export interface MobileNavbarProps {
   styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent implements OnInit, OnDestroy {
+  contants = constants;
   navbarProps: MobileNavbarProps = {
     cancel: false,
     arrange: false,
@@ -29,11 +30,7 @@ export class FooterComponent implements OnInit, OnDestroy {
     preview: false
   }
   selectedLanguage;
-  languages = [
-    { display: "English", value: "en" },
-    { display: "German", value: "de" },
-    { display: "French", value: "fr" }
-  ];
+  languages = this.contants.languages;
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(
@@ -46,7 +43,7 @@ export class FooterComponent implements OnInit, OnDestroy {
     this.translate.use(this.selectedLanguage);
     this.emitterService.emittter.pipe(takeUntil(this.destroy$)).subscribe((emitted) => {
       if (emitted.event === constants.emitterKeys.updateNavbarProps) {
-        this.navbarProps = emitted.data;
+        this.navbarProps = { ...this.navbarProps, ...emitted.data };
       }
     });
   }

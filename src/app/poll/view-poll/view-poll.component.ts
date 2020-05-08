@@ -10,6 +10,7 @@ import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 
 import { take } from 'rxjs/operators'
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-view-poll',
@@ -408,4 +409,7 @@ export class ViewPollComponent implements OnInit {
     return this.poll.status === constants.statusTypes.terminated || (this.preview && this.hasResponded ? true : false);
   }
 
+  get isMobile() {
+    return DataService.isMobile;
+  }
 }

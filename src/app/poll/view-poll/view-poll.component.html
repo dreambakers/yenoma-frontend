@@ -1,4 +1,4 @@
-<div class="h-100" [class.p-5]="!embeddedPreview"
+<div class="h-100" [ngClass]="!embeddedPreview && (isMobile ? 'p-2' : 'p-5')"
      *ngIf="poll?.questions && poll?.status !== constants.statusTypes.deleted">
 
   <div class="mb-5" *ngIf="poll.status === constants.statusTypes.terminated">

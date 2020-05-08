@@ -30,7 +30,6 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
   polls = [];
   preview = false;
   constants = constants;
-  mobileNavbarProps: MobileNavbarProps;
   destroy$: Subject<boolean> = new Subject<boolean>();
   @ViewChild(MatSort, { static: false }) sort: MatSort;
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
@@ -62,14 +61,7 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
             this.dataSource.paginator = this.paginator;
             this.dataSource.sortingDataAccessor = (data, header) => data[header];
           });
-          this.mobileNavbarProps = {
-            cancel: false ,
-            arrange: this.polls.length > 0,
-            add: true,
-            create: false,
-            preview: false
-          }
-          this.emitterService.emit(constants.emitterKeys.updateNavbarProps, this.mobileNavbarProps);
+          this.updateNavbarProps();
           this.updateNavTitle();
         }
       },
@@ -83,8 +75,26 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
           return this.addClicked();
         case constants.emitterKeys.arrange:
           return this.openSortDialog();
+        case constants.emitterKeys.cancel:
+          if (this.preview) {
+            this.togglePreview();
+          }
       }
     });
+  }
+
+  updateNavbarProps(updatedProps: MobileNavbarProps = null) {
+    // populate default props incase props not provided
+    if (!updatedProps) {
+      updatedProps = {
+        cancel: false,
+        arrange: this.polls.length > 0,
+        add: true,
+        create: false,
+        preview: false
+      }
+    }
+    this.emitterService.emit(constants.emitterKeys.updateNavbarProps, updatedProps);
   }
 
   updateNavTitle(message = null) {
@@ -245,9 +255,11 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
   togglePreview(poll = null) {
     if (this.preview) {
       this.updateNavTitle();
+      this.updateNavbarProps();
       return this.preview = false;
     }
     this.updateNavTitle(this.translate.instant('labels.poll') + ' ' + this.translate.instant('labels.preview'));
+    this.updateNavbarProps({ cancel: true, arrange: false, add: false });
     this.poll = poll;
     this.preview = true;
   }

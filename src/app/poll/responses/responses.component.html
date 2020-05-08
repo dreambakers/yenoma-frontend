@@ -41,8 +41,8 @@
         <mat-header-cell *matHeaderCellDef class="text-dark justify-content-center" mat-sort-header>
           {{ 'labels.view' | translate }}
         </mat-header-cell>
-        <mat-cell *matCellDef="let response" class="justify-content-center text-ellipsis">
-          <i class="fas fa-tasks cursor-pointer" (click)="viewResponse(response)"></i>
+        <mat-cell *matCellDef="let response" class="justify-content-center text-ellipsis right-side-item item1">
+          <i class="fas fa-tasks cursor-pointer" (click)="toggleViewResponse(response)"></i>
         </mat-cell>
       </ng-container>
 
@@ -50,7 +50,7 @@
         <mat-header-cell *matHeaderCellDef class="text-dark justify-content-center" mat-sort-header>
           {{ 'labels.delete' | translate }}
         </mat-header-cell>
-        <mat-cell *matCellDef="let response" class="justify-content-center text-ellipsis">
+        <mat-cell *matCellDef="let response" class="justify-content-center text-ellipsis right-side-item item2">
           <i class="fas fa-trash-alt cursor-pointer text-danger" (click)="deleteResponse(response)"></i>
         </mat-cell>
       </ng-container>
@@ -66,7 +66,7 @@
     {{ 'messages.noResponses' | translate }}
   </mat-card>
 
-  <div class="text-center mt-5">
+  <div class="text-center mt-5" *ngIf="!isMobile">
     <button class="btn btn-primary mr-2" (click)="backClicked()">
       {{ 'labels.back' | translate }}
     </button>
@@ -78,8 +78,8 @@
   <app-view-poll [embeddedPreview]="false" [poll]="poll" [response]="response" [hasResponded]="true">
   </app-view-poll>
 
-  <div class="text-center p-5">
-    <button (click)="preview = false" class="btn btn-primary">
+  <div class="text-center p-5" *ngIf="!isMobile">
+    <button (click)="toggleViewResponse()" class="btn btn-primary">
       {{ 'labels.back' | translate }}
     </button>
   </div>

@@ -75,7 +75,8 @@
         "sort": "Sort",
         "asc": "Asc",
         "desc": "Desc",
-        "sortBy": "Sort by"
+        "sortBy": "Sort by",
+        "response": "Response"
     },
 
     "messages": {

@@ -50,7 +50,7 @@
         <mat-header-cell *matHeaderCellDef class="text-dark justify-content-center" mat-sort-header>
           {{ 'labels.active' | translate }}
         </mat-header-cell>
-        <mat-cell *matCellDef="let poll" class="justify-content-center">
+        <mat-cell *matCellDef="let poll" class="justify-content-center right-side-item item1">
           <i class="fas" [ngClass]="poll.status === constants.statusTypes.open ? 'fa-check text-success' : 'fa-times text-danger'">
           </i>
         </mat-cell>
@@ -60,7 +60,7 @@
         <mat-header-cell *matHeaderCellDef class="text-dark justify-content-center">
           {{ 'labels.actions' | translate }}
         </mat-header-cell>
-        <mat-cell *matCellDef="let poll" class="justify-content-center">
+        <mat-cell *matCellDef="let poll" class="justify-content-center right-side-item item2">
 
           <button mat-icon-button [matMenuTriggerFor]="menu">
             <mat-icon *ngIf="isMobile">more_vert</mat-icon>
@@ -118,7 +118,7 @@
   <app-view-poll [embeddedPreview]="false" [poll]="poll">
   </app-view-poll>
 
-  <div class="text-center p-5">
+  <div class="text-center p-5" *ngIf="!isMobile">
     <button (click)="togglePreview()" class="btn btn-primary">
         {{ 'labels.back' | translate }}
     </button>
