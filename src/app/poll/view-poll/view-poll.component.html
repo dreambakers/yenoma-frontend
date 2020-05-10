@@ -143,7 +143,7 @@
           <mat-form-field appearance="outline" class="dropdown-container">
             <mat-select [value]="answerObj.answer" (selectionChange)="dropdownOptionChanged($event, i, j)"                  [disabled]="shouldDisable"
                         [disabled]="shouldDisable">
-              <mat-option *ngFor="let option of constants.dropdownOptions" [value]="option">
+              <mat-option *ngFor="let option of constants.options.dropdown" [value]="option">
                 {{ option }}
               </mat-option>
             </mat-select>

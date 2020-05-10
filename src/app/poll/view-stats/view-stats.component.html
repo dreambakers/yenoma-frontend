@@ -1,17 +1,11 @@
-<div class="p-5" *ngIf="poll?.questions">
+<div [ngClass]="isMobile ? 'p-2' : 'p-5'" *ngIf="poll?.questions">
 
     <div class="d-flex flex-column mb-5">
-        <div class="w-75 mb-3">
+        <div class="w-75 mb-3" *ngIf="!isMobile">
             <h3>{{ 'labels.pollStats' | translate }}</h3>
         </div>
 
-        <div class="d-flex flex-column justify-content-end mb-5 text-right">
-            <p class="mb-1">
-                <span class="font-weight-bold">
-                    {{ 'labels.pollId' | translate }}:
-                </span>
-                {{poll.shortId}}
-            </p>
+        <div class="d-flex flex-column justify-content-end mb-5 text-right" *ngIf="!isMobile">
             <p *ngIf="responses.length">
                 <span class="font-weight-bold">
                     {{ 'labels.responders' | translate }}:
@@ -49,8 +43,8 @@
 
     <div *ngFor="let question of poll?.questions; let i = index">
 
-        <mat-card class="my-5">
-            <div [ngSwitch]="question.answerType">
+        <mat-card class="my-5" [class.p-0]="isMobile">
+            <div [ngSwitch]="question.answerType" *ngIf="!isMobile; else mobileLayout">
 
                 <ng-container *ngSwitchCase="constants.answerTypes.binary">
                     <ng-container *ngTemplateOutlet="radioCheckYesNo"></ng-container>
@@ -77,12 +71,8 @@
                             </tr>
 
                             <tr>
-                                <th *ngIf="question.options.length">{{ 'labels.option' | translate }}</th>
-                                <th>1</th>
-                                <th>2</th>
-                                <th>3</th>
-                                <th>4</th>
-                                <th>5</th>
+                                <th *ngIf="question.hasOptions">{{ 'labels.option' | translate }}</th>
+                                <th *ngFor="let option of getOptions(question)">{{ option }}</th>
                                 <th>{{ 'labels.score' | translate }}</th>
                                 <th>{{ 'labels.result' | translate }}</th>
                             </tr>
@@ -90,34 +80,15 @@
 
                         <tbody>
                             <tr *ngFor="let option of question.options; let j = index">
-                                <td>{{ option }}</td>
-                                <td>{{ getTableValue(i, j, 1) }}</td>
-                                <td>{{ getTableValue(i, j, 2) }}</td>
-                                <td>{{ getTableValue(i, j, 3) }}</td>
-                                <td>{{ getTableValue(i, j, 4) }}</td>
-                                <td>{{ getTableValue(i, j, 5) }}</td>
+                                <td *ngIf="question.hasOptions">{{ option }}</td>
+                                <td *ngFor="let option of getOptions(question)">{{ getTableValue(i, j, option) }}</td>
                                 <td>{{ answerMap[i][j]['response'] }}</td>
                                 <td>
                                     <div class="progress">
-                                        <div class="progress-bar" [style.backgroundColor]="getProgressBarColor(answerMap[i][j]['response'])"  role="progressbar" [style.width]="answerMap[i][j]['response'] + '%'"></div>
+                                        <div class="progress-bar" [style.backgroundColor]="getProgressBarColor(answerMap[i][j]['response'])"  [style.width]="answerMap[i][j]['response'] + '%'"></div>
                                     </div>
                                 </td>
                             </tr>
-
-                            <tr *ngIf="!question.options.length">
-                                <td>{{ getTableValue(i, 0, 1) }}</td>
-                                <td>{{ getTableValue(i, 0, 2) }}</td>
-                                <td>{{ getTableValue(i, 0, 3) }}</td>
-                                <td>{{ getTableValue(i, 0, 4) }}</td>
-                                <td>{{ getTableValue(i, 0, 5) }}</td>
-                                <td>{{ answerMap[i][0]['response'] }}</td>
-                                <td>
-                                    <div class="progress">
-                                        <div class="progress-bar" [style.backgroundColor]="getProgressBarColor(answerMap[i][0]['response'])"  role="progressbar" [style.width]="answerMap[i][0]['response'] + '%'"></div>
-                                    </div>
-                                </td>
-                            </tr>
-
                         </tbody>
 
                     </table>
@@ -136,8 +107,8 @@
                             </tr>
 
                             <tr>
-                                <th *ngIf="question.options.length">{{ 'labels.option' | translate }}</th>
-                                <th *ngFor="let option of constants.dropdownOptions">{{ option }}</th>
+                                <th *ngIf="question.hasOptions">{{ 'labels.option' | translate }}</th>
+                                <th *ngFor="let option of getOptions(question)">{{ option }}</th>
                                 <th>{{ 'labels.score' | translate }}</th>
                                 <th>{{ 'labels.result' | translate }}</th>
                             </tr>
@@ -145,26 +116,14 @@
 
                         <tbody>
                             <tr *ngFor="let option of question.options; let j = index">
-                                <td>{{ option }}</td>
-                                <td *ngFor="let option of constants.dropdownOptions">
+                                <td *ngIf="question.hasOptions">{{ option }}</td>
+                                <td *ngFor="let option of getOptions(question)">
                                     {{ getTableValue(i, j, option) }}
                                 </td>
                                 <td>{{ answerMap[i][j]['response'] }}</td>
                                 <td>
                                     <div class="progress">
-                                        <div class="progress-bar" [style.backgroundColor]="getProgressBarColor(answerMap[i][j]['response'])"  role="progressbar" [style.width]="answerMap[i][j]['response'] + '%'"></div>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr *ngIf="!question.options.length">
-                                <td *ngFor="let option of constants.dropdownOptions">
-                                    {{ getTableValue(i, 0, option) }}
-                                </td>
-                                <td>{{ answerMap[i][0]['response'] }}</td>
-                                <td>
-                                    <div class="progress">
-                                        <div class="progress-bar" [style.backgroundColor]="getProgressBarColor(answerMap[i][0]['response'])"  role="progressbar" [style.width]="answerMap[i][0]['response'] + '%'"></div>
+                                        <div class="progress-bar" [style.backgroundColor]="getProgressBarColor(answerMap[i][j]['response'])"  [style.width]="answerMap[i][j]['response'] + '%'"></div>
                                     </div>
                                 </td>
                             </tr>
@@ -185,19 +144,15 @@
                             </tr>
 
                             <tr>
-                                <th *ngIf="question.options.length">{{ 'labels.option' | translate }}</th>
+                                <th *ngIf="question.hasOptions">{{ 'labels.option' | translate }}</th>
                                 <th>{{ 'labels.score' | translate }}</th>
                             </tr>
                         </thead>
 
                         <tbody>
                             <tr *ngFor="let option of question.options; let j = index">
-                                <td>{{ option }}</td>
+                                <td *ngIf="question.hasOptions">{{ option }}</td>
                                 <td>{{ answerMap[i][j]['response'] }}</td>
-                            </tr>
-
-                            <tr *ngIf="!question.options.length">
-                                <td>{{ answerMap[i][0]['response'] }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -216,7 +171,7 @@
                             </tr>
 
                             <tr>
-                                <th *ngIf="question.options.length">{{ 'labels.option' | translate }}</th>
+                                <th *ngIf="question.hasOptions">{{ 'labels.option' | translate }}</th>
                                 <th>{{ 'labels.score' | translate }}</th>
                                 <th>{{ 'labels.result' | translate }}</th>
                             </tr>
@@ -225,20 +180,11 @@
 
                         <tbody>
                             <tr *ngFor="let option of question.options; let j = index">
-                                <td>{{ option }}</td>
+                                <td *ngIf="question.hasOptions">{{ option }}</td>
                                 <td>{{ answerMap[i][j]['response'] }}</td>
                                 <td>
                                     <div class="progress">
-                                        <div class="progress-bar" [style.backgroundColor]="getProgressBarColor(answerMap[i][j]['response'])"  role="progressbar" [style.width]="answerMap[i][j]['response'] + '%'"></div>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr *ngIf="!question.options.length">
-                                <td>{{ answerMap[i][0]['response'] }}</td>
-                                <td>
-                                    <div class="progress">
-                                        <div class="progress-bar" [style.backgroundColor]="getProgressBarColor(answerMap[i][0]['response'])"  role="progressbar" [style.width]="answerMap[i][0]['response'] + '%'"></div>
+                                        <div class="progress-bar" [style.backgroundColor]="getProgressBarColor(answerMap[i][j]['response'])"  [style.width]="answerMap[i][j]['response'] + '%'"></div>
                                     </div>
                                 </td>
                             </tr>
@@ -259,7 +205,7 @@
                             </tr>
 
                             <tr>
-                                <th *ngIf="question.options.length">{{ 'labels.option' | translate }}</th>
+                                <th *ngIf="question.hasOptions">{{ 'labels.option' | translate }}</th>
                                 <th>{{ 'answers.no' | translate }}</th>
                                 <th>{{ 'answers.maybe' | translate }}</th>
                                 <th>{{ 'answers.yes' | translate }}</th>
@@ -271,26 +217,14 @@
 
                         <tbody>
                             <tr *ngFor="let option of question.options; let j = index">
-                                <td>{{ option }}</td>
+                                <td *ngIf="question.hasOptions">{{ option }}</td>
                                 <td>{{ getTableValue(i, j, 'no') }}</td>
                                 <td>{{ getTableValue(i, j, 'maybe') }}</td>
                                 <td>{{ getTableValue(i, j, 'yes') }}</td>
                                 <td>{{ answerMap[i][j]['response'] }}</td>
                                 <td>
                                     <div class="progress">
-                                        <div class="progress-bar" [style.backgroundColor]="getProgressBarColor(answerMap[i][j]['response'])"  role="progressbar" [style.width]="answerMap[i][j]['response'] + '%'"></div>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr *ngIf="!question.options.length">
-                                <td>{{ getTableValue(i, 0, 'no') }}</td>
-                                <td>{{ getTableValue(i, 0, 'maybe') }}</td>
-                                <td>{{ getTableValue(i, 0, 'yes') }}</td>
-                                <td>{{ answerMap[i][0]['response'] }}</td>
-                                <td>
-                                    <div class="progress">
-                                        <div class="progress-bar" [style.backgroundColor]="getProgressBarColor(answerMap[i][0]['response'])"  role="progressbar" [style.width]="answerMap[i][0]['response'] + '%'"></div>
+                                        <div class="progress-bar" [style.backgroundColor]="getProgressBarColor(answerMap[i][j]['response'])"  [style.width]="answerMap[i][j]['response'] + '%'"></div>
                                     </div>
                                 </td>
                             </tr>
@@ -311,7 +245,7 @@
                             </tr>
 
                             <tr>
-                                <th *ngIf="question.options.length">{{ 'labels.option' | translate }}</th>
+                                <th *ngIf="question.hasOptions">{{ 'labels.option' | translate }}</th>
                                 <th>
                                     <i class="fas fa-frown"></i>
                                 </th>
@@ -329,26 +263,12 @@
 
                         <tbody>
                             <tr *ngFor="let option of question.options; let j = index">
-                                <td>{{ option }}</td>
-                                <td>{{ getTableValue(i, j, 'sad') }}</td>
-                                <td>{{ getTableValue(i, j, 'medium') }}</td>
-                                <td>{{ getTableValue(i, j, 'happy') }}</td>
+                                <td *ngIf="question.hasOptions">{{ option }}</td>
+                                <td *ngFor="let option of getOptions(question)">{{ getTableValue(i, j, option) }}</td>
                                 <td>{{ answerMap[i][j]['response'] }}</td>
                                 <td>
                                     <div class="progress">
-                                        <div class="progress-bar" [style.backgroundColor]="getProgressBarColor(answerMap[i][j]['response'])"  role="progressbar" [style.width]="answerMap[i][j]['response'] + '%'"></div>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr *ngIf="!question.options.length">
-                                <td>{{ getTableValue(i, 0, 'sad') }}</td>
-                                <td>{{ getTableValue(i, 0, 'medium') }}</td>
-                                <td>{{ getTableValue(i, 0, 'happy') }}</td>
-                                <td>{{ answerMap[i][0]['response'] }}</td>
-                                <td>
-                                    <div class="progress">
-                                        <div class="progress-bar" [style.backgroundColor]="getProgressBarColor(answerMap[i][0]['response'])"  role="progressbar" [style.width]="answerMap[i][0]['response'] + '%'"></div>
+                                        <div class="progress-bar" [style.backgroundColor]="getProgressBarColor(answerMap[i][j]['response'])"  [style.width]="answerMap[i][j]['response'] + '%'"></div>
                                     </div>
                                 </td>
                             </tr>
@@ -369,7 +289,7 @@
                             </tr>
 
                             <tr>
-                                <th *ngIf="question.options.length">{{ 'labels.option' | translate }}</th>
+                                <th *ngIf="question.hasOptions">{{ 'labels.option' | translate }}</th>
                                 <th>{{ 'labels.unfilled' | translate }}</th>
                                 <th>{{ 'labels.filled' | translate }}</th>
                             </tr>
@@ -377,14 +297,8 @@
 
                         <tbody>
                             <tr *ngFor="let option of question.options; let j = index">
-                                <td>{{ option }}</td>
-                                <td>{{ answerMap[i][j]['unfilled'] || 0 }}</td>
-                                <td>{{ answerMap[i][j]['filled'] || 0 }}</td>
-                            </tr>
-
-                            <tr *ngIf="!question.options.length">
-                                <td>{{ answerMap[i][0]['unfilled'] || 0 }}</td>
-                                <td>{{ answerMap[i][0]['filled'] || 0 }}</td>
+                                <td *ngIf="question.hasOptions">{{ option }}</td>
+                                <td *ngFor="let option of getOptions(question)">{{ answerMap[i][j][option] || 0 }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -404,7 +318,7 @@
                             </tr>
 
                             <tr>
-                                <th *ngIf="question.options.length">{{ 'labels.option' | translate }}</th>
+                                <th *ngIf="question.hasOptions">{{ 'labels.option' | translate }}</th>
                                 <th>{{ 'labels.count' | translate }}</th>
                                 <th>{{ 'labels.score' | translate }}</th>
                                 <th>{{ 'labels.result' | translate }}</th>
@@ -413,22 +327,12 @@
 
                         <tbody>
                             <tr *ngFor="let option of question.options; let j = index">
-                                <td>{{ option }}</td>
+                                <td *ngIf="question.hasOptions">{{ option }}</td>
                                 <td>{{ answerMap[i][j]['yes'] || answerMap[i][j]['true'] || 0 }}</td>
                                 <td>{{ answerMap[i][j]['response'] }}</td>
                                 <td>
                                     <div class="progress">
-                                        <div class="progress-bar" [style.backgroundColor]="getProgressBarColor(answerMap[i][j]['response'])"  role="progressbar" [style.width]="answerMap[i][j]['response'] + '%'"></div>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr *ngIf="!question.options.length">
-                                <td>{{ answerMap[i][0]['yes'] || 0 }}</td>
-                                <td>{{ answerMap[i][0]['response'] }}</td>
-                                <td>
-                                    <div class="progress">
-                                        <div class="progress-bar" [style.backgroundColor]="getProgressBarColor(answerMap[i][0]['response'])"  role="progressbar" [style.width]="answerMap[i][0]['response'] + '%'"></div>
+                                        <div class="progress-bar" [style.backgroundColor]="getProgressBarColor(answerMap[i][j]['response'])"  [style.width]="answerMap[i][j]['response'] + '%'"></div>
                                     </div>
                                 </td>
                             </tr>
@@ -436,6 +340,95 @@
                     </table>
                 </ng-template>
             </div>
+
+           <ng-template #mobileLayout>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th colspan="4">
+                            {{ question.text }}
+                            <span class="float-right font-weight-light text-muted font-italic">
+                                {{ getAnswerTypeLabel(question) | translate }}
+                            </span>
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <ng-container *ngFor="let option of question.options; let j = index">
+                            <tr>
+                                <td colspan="2">
+                                    <span class="overflow-elipses">{{ option }}</span>
+                                    <span class="float-right" *ngIf="canExpand(question)">
+                                        <i class="fas fa-chevron-down" (click)="toggleDetails(question, i, j)"></i>
+                                    </span>
+                                </td>
+                                <td>
+                                    {{ getResponseValue(i, j) }}
+                                </td>
+                                <td class="w-50" *ngIf="question.answerType !== constants.answerTypes.value">
+                                    <div class="progress">
+                                        <div class="progress-bar" [style.backgroundColor]="getProgressBarColor(getResponseValue(i, j))" [style.width]="getResponseValue(i, j) + '%'"></div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <ng-container *ngIf="question.expanded && question.expanded[i][j]">
+                                <tr *ngFor="let key of getOptions(question)">
+                                    <td>
+                                        <div [ngSwitch]="question.answerType">
+
+                                            <ng-container *ngSwitchCase="constants.answerTypes.checkbox">
+                                                <ng-container *ngTemplateOutlet="radioCheckBox"></ng-container>
+                                            </ng-container>
+
+                                            <ng-container *ngSwitchCase="constants.answerTypes.radioButton">
+                                                <ng-container *ngTemplateOutlet="radioCheckBox"></ng-container>
+                                            </ng-container>
+
+                                            <ng-template #radioCheckBox>
+                                                <div [ngSwitch]="key">
+                                                    <div *ngSwitchCase="'true'">
+                                                        Checked
+                                                    </div>
+
+                                                    <div *ngSwitchCase="'false'">
+                                                        Unchecked
+                                                    </div>
+                                                </div>
+                                            </ng-template>
+
+                                            <div *ngSwitchCase="constants.answerTypes.smiley">
+                                                <div [ngSwitch]="key">
+                                                    <div *ngSwitchCase="'sad'">
+                                                        <i class="fas fa-frown"></i>
+                                                    </div>
+
+                                                    <div *ngSwitchCase="'medium'">
+                                                        <i class="fas fa-meh"></i>
+                                                    </div>
+
+                                                    <div *ngSwitchCase="'happy'">
+                                                        <i class="fas fa-smile"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div *ngSwitchDefault class="text-capitalize">{{key}}</div>
+                                        </div>
+                                    </td>
+                                    <td>{{ getResponseCount(key, i, j) }}</td>
+                                    <td>{{ getResponsePercentage(key, i, j) }}</td>
+                                    <td>
+                                        <div class="progress">
+                                            <div class="progress-bar" [style.backgroundColor]="getProgressBarColor(getResponsePercentage(key, i, j))" [style.width]="getResponsePercentage(key, i, j) + '%'"></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </ng-container>
+                        </ng-container>
+                    </tbody>
+                </table>
+           </ng-template>
         </mat-card>
     </div>
 
@@ -446,4 +439,3 @@
     </div>
 
 </div>
-

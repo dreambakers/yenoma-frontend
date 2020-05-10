@@ -5,6 +5,7 @@ import { UtilService } from 'src/app/services/util.service';
 import { constants } from 'src/app/app.constants';
 
 import { TranslateService } from '@ngx-translate/core';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-view-stats',
@@ -37,6 +38,15 @@ export class ViewStatsComponent implements OnInit {
             this.responses = res.responses;
             if (res.responses) {
               this.getResponseForQuestions();
+              this.poll.questions.forEach(question => {
+                if (!question.options.length) {
+                  question.options.push('');
+                  question['hasOptions'] = false;
+                } else {
+                  question['hasOptions'] = true;
+                }
+              });
+              console.log(this.answerMap)
             }
           } else {
             this.utils.openSnackBar('messages.errorGettingPoll');
@@ -200,7 +210,53 @@ export class ViewStatsComponent implements OnInit {
     }
   }
 
+  getResponsePercentage(answer, i, j = 0) {
+    if (this.answerMap[i][j][answer]) {
+      const valuePercentage = (this.answerMap[i][j][answer] / this.answerMap[i]['responses']) * 100;
+      return valuePercentage.toFixed(1);
+    } else {
+      return 0;
+    }
+  }
+
+  getResponseCount(answer, i, j = 0) {
+    return this.answerMap[i][j][answer] || 0
+  }
+
+  getResponseValue(i, j = 0) {
+    if (this.answerMap[i].type !== constants.answerTypes.text) {
+      return this.answerMap[i][j]['response'];
+    } else {
+      return this.getResponsePercentage('filled', i, j);
+    }
+  }
+
   onBackClicked() {
     this.router.navigate(['/dashboard/all']);
+  }
+
+  getOptions(question) {
+    return this.constants.options[question.answerType];
+  }
+
+  getAnswerTypeLabel(question) {
+    return this.translate.instant(`answerTypes.${question.answerType}`);
+  }
+
+  canExpand(question) {
+    return ![constants.answerTypes.slider, constants.answerTypes.value].includes(question.answerType);
+  }
+
+  toggleDetails(question, i, j) {
+    if (question.expanded) {
+      question['expanded'][i][j] = !question['expanded'][i][j];
+    }
+    else {
+      question['expanded'] = { [i]: { [j]: true } };
+    }
+  }
+
+  get isMobile() {
+    return DataService.isMobile;
   }
 }

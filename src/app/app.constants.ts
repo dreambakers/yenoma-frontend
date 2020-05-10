@@ -19,9 +19,6 @@ export const constants = {
         terminated: 'terminated',
         deleted: 'deleted'
     },
-    dropdownOptions: [
-        0,1,2,3,4,5,6,7,8,9,10
-    ],
     emitterKeys: {
         cancel: 'cancel',
         arrange: 'arrange',
@@ -39,5 +36,17 @@ export const constants = {
         { display: "English", value: "en" },
         { display: "German", value: "de" },
         { display: "French", value: "fr" }
-    ]
+    ],
+
+    options: {
+        binary: ['yes', 'no'],
+        yesNoMaybe: ['yes', 'no', 'maybe'],
+        rating: [1,2,3,4,5],
+        dropdown: [0,1,2,3,4,5,6,7,8,9,10],
+        smiley: ['sad', 'medium', 'happy'],
+        text: ['unfilled', 'filled'],
+        radioButton: ['true', 'false'],
+        checkbox: ['true', 'false']
+    }
+
 }
