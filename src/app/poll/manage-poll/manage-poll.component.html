@@ -32,7 +32,7 @@
             <div class="alert alert-danger alert-dismissible"
                  *ngIf="poll.status !== constants.statusTypes.terminated && responses && responses.length && showPollHasResponsesBanner">
                  {{ 'messages.cannotEditPollHasResponses' | translate }}
-                <button type="button" class="close" (click)="showTerminatedBanner = false">
+                <button type="button" class="close" (click)="showPollHasResponsesBanner = false">
                   <span>&times;</span>
                 </button>
             </div>
