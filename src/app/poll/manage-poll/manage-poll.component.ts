@@ -31,6 +31,7 @@ export class ManagePollComponent implements OnInit, OnDestroy {
   responses;
   answerMap: any;
   hide = true;
+  navTitle = '';
   preview = false;
   loading = false;
   isEditing = false;
@@ -39,6 +40,8 @@ export class ManagePollComponent implements OnInit, OnDestroy {
   showBasicHints = false;
   showQuestionHints = false;
   rearrangeQuestions = false;
+  showTerminatedBanner = true;
+  showPollHasResponsesBanner = true;
   constants = constants;
   mobileNavbarProps: MobileNavbarProps;
   destroy$: Subject<boolean> = new Subject<boolean>();
@@ -65,6 +68,10 @@ export class ManagePollComponent implements OnInit, OnDestroy {
               this.showPassword = !!this.poll.password;
               this.pollCopy = JSON.stringify(this.poll);
               this.updateMobileNavbar();
+              if (this.responses.length) {
+                this.navTitle += ` (${this.responses.length})`;
+                this.emitterService.emit(constants.emitterKeys.changeNavbarTitle, this.navTitle);
+              }
             } else {
               this.utils.openSnackBar('messages.errorGettingPoll');
             }
@@ -93,24 +100,26 @@ export class ManagePollComponent implements OnInit, OnDestroy {
         case constants.emitterKeys.cancel:
           return this.onCancelClicked();
         case constants.emitterKeys.preview:
-          return this.preview = !this.preview;
+          return this.togglePreview();
         case constants.emitterKeys.create:
           return this.isEditing ? this.updatePoll() : this.createPoll();
         case constants.emitterKeys.arrange:
           return this.toggleRearrangement();
       }
     });
-    const navTitleToSet = this.translate.instant(this.isEditing ? 'labels.managePoll' : 'labels.createPoll');
-    this.emitterService.emit(constants.emitterKeys.changeNavbarTitle, navTitleToSet);
+    this.navTitle = this.translate.instant(this.isEditing ? 'labels.managePoll' : 'labels.createPoll');
+    this.emitterService.emit(constants.emitterKeys.changeNavbarTitle, this.navTitle);
   }
 
   updateMobileNavbar() {
     this.mobileNavbarProps = {
       cancel: true ,
-      arrange: this.rearrangeQuestions || (this.poll.questions.length > 1 && this.isMobile && !this.shouldDisable),
-      add: !this.shouldDisable,
+      arrange: !this.preview &&
+                (this.rearrangeQuestions
+                  || (this.poll.questions.length > 1 && this.isMobile && !this.shouldDisable)),
+      add: !this.preview && !this.shouldDisable,
       create: false,
-      preview: true
+      preview: !this.rearrangeQuestions && true
     }
     this.emitterService.emit(constants.emitterKeys.updateNavbarProps, this.mobileNavbarProps);
   }
@@ -232,6 +241,11 @@ export class ManagePollComponent implements OnInit, OnDestroy {
     } else {
       return this.translate.instant('tooltips.valueInfo');
     }
+  }
+
+  togglePreview() {
+    this.preview = !this.preview;
+    this.updateMobileNavbar();
   }
 
   ngOnDestroy(): void {

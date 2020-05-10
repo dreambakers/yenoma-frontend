@@ -21,20 +21,24 @@
 
     <div *ngIf="!preview">
         <div>
-            <small *ngIf="poll.status === constants.statusTypes.terminated" class="mb-3">
+            <div class="alert alert-danger alert-dismissible"
+                 *ngIf="poll.status === constants.statusTypes.terminated && showTerminatedBanner">
                 {{ 'messages.cannotEditPollTerminated' | translate }}
-            </small>
+                <button type="button" class="close" (click)="showTerminatedBanner = false">
+                  <span>&times;</span>
+                </button>
+            </div>
 
-            <small *ngIf="poll.status !== constants.statusTypes.terminated && responses && responses.length"
-                   class="mb-3">
-                {{ 'messages.cannotEditPollHasResponses' | translate }}
-            </small>
+            <div class="alert alert-danger alert-dismissible"
+                 *ngIf="poll.status !== constants.statusTypes.terminated && responses && responses.length && showPollHasResponsesBanner">
+                 {{ 'messages.cannotEditPollHasResponses' | translate }}
+                <button type="button" class="close" (click)="showTerminatedBanner = false">
+                  <span>&times;</span>
+                </button>
+            </div>
 
-            <div class="d-flex flex-column justify-content-end mb-5 text-right" *ngIf="isEditing">
-                <p class="mb-1"><span class="font-weight-bold">
-                    {{ 'labels.pollId' | translate }}: </span>{{poll.shortId || poll._id}}
-                </p>
-                <p *ngIf="responses.length">
+            <div class="d-flex justify-content-end mb-5 text-right" *ngIf="isEditing && responses.length && !isMobile">
+                <p>
                     <span class="font-weight-bold">
                         {{ 'labels.responders' | translate }}:
                     </span>
