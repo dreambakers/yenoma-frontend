@@ -288,6 +288,7 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.emitterService.emit(this.constants.emitterKeys.resetNavbar);
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
   }

@@ -209,6 +209,7 @@ export class ResponsesComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
+    this.emitterService.emit(this.constants.emitterKeys.resetNavbar);
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
   }

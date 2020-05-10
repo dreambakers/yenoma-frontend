@@ -31,7 +31,8 @@ export const constants = {
         updateNavbarProps: 'updateNavbarProps',
         toggleSidebar: 'toggleSidebar',
         logoutClicked: 'logoutClicked',
-        changeNavbarTitle: 'changeNavbarTitle'
+        changeNavbarTitle: 'changeNavbarTitle',
+        resetNavbar: 'resetNavbar'
     },
     languages: [
         { display: "English", value: "en" },

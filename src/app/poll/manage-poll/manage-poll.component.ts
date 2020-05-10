@@ -97,7 +97,7 @@ export class ManagePollComponent implements OnInit, OnDestroy {
         case constants.emitterKeys.create:
           return this.isEditing ? this.updatePoll() : this.createPoll();
         case constants.emitterKeys.arrange:
-          return (this.rearrangeQuestions = !this.rearrangeQuestions);
+          return this.toggleRearrangement();
       }
     });
     const navTitleToSet = this.translate.instant(this.isEditing ? 'labels.managePoll' : 'labels.createPoll');
@@ -107,7 +107,7 @@ export class ManagePollComponent implements OnInit, OnDestroy {
   updateMobileNavbar() {
     this.mobileNavbarProps = {
       cancel: true ,
-      arrange: this.poll.questions.length > 1 && this.isMobile && !this.shouldDisable,
+      arrange: this.rearrangeQuestions || (this.poll.questions.length > 1 && this.isMobile && !this.shouldDisable),
       add: !this.shouldDisable,
       create: false,
       preview: true
@@ -187,20 +187,12 @@ export class ManagePollComponent implements OnInit, OnDestroy {
 
   toggleRearrangement() {
     this.rearrangeQuestions = !this.rearrangeQuestions;
-    this.poll.questions.forEach(question => delete question['rearrangeOptions']);
+    this.updateMobileNavbar();
   }
 
   minimumOptionsRequired(question) {
     return question.answerType === constants.answerTypes.radioButton ||
            question.answerType === constants.answerTypes.checkbox;
-  }
-
-  rearrangeOptions(question) {
-    if (question['rearrangeOptions']) {
-      delete question['rearrangeOptions'];
-    } else {
-      question['rearrangeOptions'] = true;
-    }
   }
 
   onCancelClicked(){
@@ -243,6 +235,7 @@ export class ManagePollComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.emitterService.emit(this.constants.emitterKeys.resetNavbar);
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
   }

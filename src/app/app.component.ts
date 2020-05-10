@@ -29,7 +29,6 @@ export class AppComponent implements OnInit {
           this.sideNav.toggle();
       }
     });
-
   }
 
   convertLabelsFromTo(fromObj, toLang) {
