@@ -63,6 +63,7 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
           });
           this.updateNavbarProps();
           this.updateNavTitle();
+          this.emitterService.emit(this.constants.emitterKeys.updateNavbarLabels, { arrange: 'labels.sort' });
         }
       },
       err => {

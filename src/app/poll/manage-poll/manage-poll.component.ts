@@ -58,6 +58,7 @@ export class ManagePollComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.isEditing = this.route.snapshot.routeConfig.path === 'manage';
     if (this.isEditing) {
+      this.emitterService.emit(this.constants.emitterKeys.updateNavbarLabels, { create: 'labels.update' });
       this.route.queryParams.subscribe(params => {
         const pollId = params['id'];
         this.pollService.managePoll(pollId).subscribe(

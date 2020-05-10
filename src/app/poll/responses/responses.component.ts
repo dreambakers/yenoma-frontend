@@ -56,6 +56,7 @@ export class ResponsesComponent implements OnInit {
             this.dataSource = new MatTableDataSource(this.responses);
             this.updateNavbarProps();
             this.updateNavTitle();
+            this.emitterService.emit(this.constants.emitterKeys.updateNavbarLabels, { arrange: 'labels.sort' });
             setTimeout(() => {
               this.dataSource.sort = this.sort;
               this.sort.sort(this.currentSort);

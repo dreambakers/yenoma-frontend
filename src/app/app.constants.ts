@@ -32,7 +32,8 @@ export const constants = {
         toggleSidebar: 'toggleSidebar',
         logoutClicked: 'logoutClicked',
         changeNavbarTitle: 'changeNavbarTitle',
-        resetNavbar: 'resetNavbar'
+        resetNavbar: 'resetNavbar',
+        updateNavbarLabels: 'updateNavbarLabels'
     },
     languages: [
         { display: "English", value: "en" },

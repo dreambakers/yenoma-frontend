@@ -28,7 +28,15 @@ export class FooterComponent implements OnInit, OnDestroy {
     add: false,
     create: false,
     preview: false
-  }
+  };
+  labels = {
+    cancel: 'labels.cancel',
+    arrange: 'labels.arrange',
+    add: 'labels.add',
+    create: 'labels.create',
+    preview: 'labels.preview'
+  };
+  labelsCopy = JSON.stringify(this.labels);
   keysToHighlight = {};
   selectedLanguage;
   languages = this.contants.languages;
@@ -48,11 +56,14 @@ export class FooterComponent implements OnInit, OnDestroy {
           return this.navbarProps = { ...this.navbarProps, ...emitted.data };
         case constants.emitterKeys.resetNavbar:
           return this.reset();
+        case constants.emitterKeys.updateNavbarLabels:
+          return this.labels = { ...this.labels, ...emitted.data };
       }
     });
   }
 
   reset() {
+    this.labels = JSON.parse(this.labelsCopy);
     this.keysToHighlight = {};
     Object.keys(this.navbarProps).forEach(key => {
       this.navbarProps[key] = false;
