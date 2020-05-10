@@ -133,6 +133,13 @@ button.mat-menu-item{ outline:none; }
     }
 }
 
+button {
+    &:focus {
+        outline: none;
+        border: none;
+    }
+}
+
 .mat-field-no-margin {
     .mat-form-field-wrapper {
       padding: 0;

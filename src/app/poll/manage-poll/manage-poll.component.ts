@@ -36,6 +36,8 @@ export class ManagePollComponent implements OnInit, OnDestroy {
   isEditing = false;
   submitted = false;
   showPassword = false;
+  showBasicHints = false;
+  showQuestionHints = false;
   rearrangeQuestions = false;
   constants = constants;
   mobileNavbarProps: MobileNavbarProps;

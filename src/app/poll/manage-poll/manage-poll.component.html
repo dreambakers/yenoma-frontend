@@ -44,11 +44,16 @@
 
             <div class="mat-elevation-z1">
                 <mat-card class="mat-elevation-z0 pb-0">
+                    <div class="text-right">
+                        <i class="fas fa-question-circle text-muted p-2 cursor-pointer"
+                           (click)="showBasicHints = !showBasicHints">
+                        </i>
+                    </div>
                     <mat-form-field appearance="outline" class="w-100 mt-3">
                         <mat-label>{{ 'labels.title' | translate }}</mat-label>
                         <input matInput placeholder="{{ 'placeholders.title' | translate }}"
                                [(ngModel)]="poll.title" [disabled]="shouldDisable">
-                        <mat-hint *ngIf="!shouldDisable">{{ 'hints.pollTitle' | translate }}</mat-hint>
+                        <mat-hint *ngIf="!shouldDisable && showBasicHints">{{ 'hints.pollTitle' | translate }}</mat-hint>
                     </mat-form-field>
                 </mat-card>
                 <mat-accordion>
@@ -61,7 +66,9 @@
                         <textarea matInput placeholder="{{ 'placeholders.description' | translate }}"
                                   [(ngModel)]="poll.description" [disabled]="shouldDisable">
                         </textarea>
-                        <mat-hint *ngIf="!shouldDisable">{{ 'hints.pollDescription' | translate }}</mat-hint>
+                        <mat-hint *ngIf="!shouldDisable && showBasicHints">
+                            {{ 'hints.pollDescription' | translate }}
+                        </mat-hint>
                     </mat-form-field>
 
                     <mat-form-field appearance="outline" class="w-100 mb-3">
@@ -69,7 +76,7 @@
                         <textarea matInput placeholder="{{ 'placeholders.privateNote' | translate }}"
                                   [(ngModel)]="poll.privateNote">
                         </textarea>
-                        <mat-hint>
+                        <mat-hint *ngIf="showBasicHints">
                             {{ 'hints.privateNote' | translate }}
                         </mat-hint>
                     </mat-form-field>
@@ -79,7 +86,7 @@
                         <textarea matInput placeholder="{{ 'placeholders.activeComment' | translate }}"
                                   [(ngModel)]="poll.activeComment">
                         </textarea>
-                        <mat-hint>
+                        <mat-hint *ngIf="showBasicHints">
                             {{ 'hints.activeComment' | translate }}
                         </mat-hint>
                     </mat-form-field>
@@ -89,7 +96,7 @@
                         <textarea matInput placeholder="{{ 'placeholders.inactiveComment' | translate }}"
                                   [(ngModel)]="poll.inactiveComment">
                         </textarea>
-                        <mat-hint>
+                        <mat-hint *ngIf="showBasicHints">
                             {{ 'hints.inactiveComment' | translate }}
                         </mat-hint>
                     </mat-form-field>
@@ -113,7 +120,9 @@
                         <mat-icon matSuffix (click)="hide = !hide" class="cursor-pointer">
                             {{hide ? 'visibility_off' : 'visibility'}}
                         </mat-icon>
-                        <mat-hint>{{ 'hints.typePollPassword' | translate }}</mat-hint>
+                        <mat-hint *ngIf="showBasicHints">
+                            {{ 'hints.typePollPassword' | translate }}
+                        </mat-hint>
                     </mat-form-field>
                     </mat-expansion-panel>
                 </mat-accordion>
@@ -155,7 +164,9 @@
                         info
                     </mat-icon>
                     <mat-form-field class="dropdown-container">
-                        <mat-label>{{ 'labels.answers' | translate }}</mat-label>
+                        <mat-label [hidden]="!question.showQuestionHints">
+                            {{ 'labels.answers' | translate }}
+                        </mat-label>
                         <mat-select [(ngModel)]="question.answerType" [disabled]="shouldDisable">
                           <mat-option [value]="constants.answerTypes.binary">
                             {{ 'answerTypes.binary' | translate }}
@@ -189,6 +200,9 @@
                           </mat-option>
                         </mat-select>
                     </mat-form-field>
+                    <i class="ml-2 fas fa-question-circle text-muted py-2 pl-2 cursor-pointer"
+                        (click)="question.showQuestionHints = !question.showQuestionHints">
+                    </i>
                 </div>
 
                 <div class="d-flex flex-column flex-md-row justify-content-start mb-5"
@@ -209,7 +223,7 @@
                                 3
                             </mat-option>
                           </mat-select>
-                        <mat-hint *ngIf="poll.status === constants.statusTypes.open">
+                        <mat-hint *ngIf="poll.status === constants.statusTypes.open && question.showQuestionHints">
                             {{ 'hints.decimalPlaces' | translate }}
                         </mat-hint>
                     </mat-form-field>
@@ -218,7 +232,7 @@
                         <input matInput placeholder="1"
                                [(ngModel)]="question.minValue" [disabled]="shouldDisable"
                                type="text" pattern="^-?[0-9]*$" mask>
-                        <mat-hint *ngIf="poll.status === constants.statusTypes.open">
+                        <mat-hint *ngIf="poll.status === constants.statusTypes.open && question.showQuestionHints">
                             {{ 'hints.minValue' | translate }}
                         </mat-hint>
                     </mat-form-field>
@@ -228,7 +242,7 @@
                         <input matInput placeholder="5"
                                [(ngModel)]="question.maxValue" [disabled]="shouldDisable"
                                type="text" pattern="^-?[0-9]*$" mask>
-                        <mat-hint *ngIf="poll.status === constants.statusTypes.open">
+                        <mat-hint *ngIf="poll.status === constants.statusTypes.open && question.showQuestionHints">
                             {{ 'hints.maxValue' | translate }}
                         </mat-hint>
                     </mat-form-field>
@@ -239,7 +253,7 @@
                         <mat-label>{{ 'labels.question' | translate }} {{i + 1}}</mat-label>
                         <input matInput placeholder="{{ 'placeholders.question' | translate }}"
                                [(ngModel)]="question.text" [disabled]="shouldDisable">
-                        <mat-hint *ngIf="poll.status === constants.statusTypes.open">
+                        <mat-hint *ngIf="poll.status === constants.statusTypes.open && question.showQuestionHints">
                             {{ 'hints.typeQuestion' | translate }} {{i + 1}}
                         </mat-hint>
                     </mat-form-field>
