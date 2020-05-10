@@ -124,6 +124,9 @@ export class ManagePollComponent implements OnInit, OnDestroy {
   addQuestion() {
     this.poll.questions.push({ text: '', options: [], answerType: constants.answerTypes.yesNoMaybe });
     this.updateMobileNavbar();
+    setTimeout(() => {
+      document.querySelector(`#question${this.poll.questions.length - 1}`).scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 0);
   }
 
   removeQuestion(questionIndex) {

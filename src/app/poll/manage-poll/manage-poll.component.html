@@ -135,7 +135,9 @@
                                                     (minimumOptionsRequired(question) &&
                                                     question.options.length < 2)
                                 }"
-            >
+
+                      id="question{{i}}"
+                >
                 <div class="d-flex align-items-center p-3" *ngIf="rearrangeQuestions" cdkDragHandle>
                     <i class="mr-1 fas fa-sort"></i>
                     <input matInput disabled [value]="question.text || translate.instant('labels.noQuestionEntered')"
