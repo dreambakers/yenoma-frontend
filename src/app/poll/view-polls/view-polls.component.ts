@@ -280,7 +280,6 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
       result => {
         if (result) {
           this.currentSort = result;
-          console.log(this.currentSort)
           this.sort.sort(this.currentSort);
         }
       }

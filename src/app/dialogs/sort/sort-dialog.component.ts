@@ -11,6 +11,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class SortDialogComponent implements OnInit {
   keys: string[];
   currentSort;
+  currentSortCopy;
 
   constructor(
     public dialogRef: MatDialogRef<ConfirmDialogComponent>,
@@ -18,13 +19,16 @@ export class SortDialogComponent implements OnInit {
     private translate: TranslateService) {
       this.keys = data.keys;
       this.currentSort = data.currentSort;
+      this.currentSortCopy = data.currentSort;
   }
 
   ngOnInit() {
   }
 
   onConfirm(): void {
-    // Close the dialog, return true
+    if (JSON.stringify(this.currentSortCopy) === JSON.stringify(this.currentSort)) {
+      return this.onDismiss();
+    }
     this.dialogRef.close(this.currentSort);
   }
 
