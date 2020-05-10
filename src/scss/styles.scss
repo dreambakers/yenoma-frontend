@@ -154,46 +154,48 @@ button {
 }
 
 @media screen and (max-width: $mobile-breakpoint) {
-    .mat-header-row {
-        display: none;
-    }
-
-    tbody {
-        display: block;
-        width: 100%;
-    }
-
-    .mat-table {
-        .mat-row {
-            display: block;
-            height: 137px;
-            position: relative;
-            background-color: #fff;
-            padding: 20px 0;
+    .mat-table-container {
+        .mat-header-row {
+            display: none;
         }
 
-        .mat-cell {
+        tbody {
             display: block;
-            width: 80%;
-            min-height: auto;
-            padding: 0 16px;
-            &:first-child {
-                font-size: 20px;
-            }
+            width: 100%;
         }
 
-        .right-side-item {
-            width: auto;
-            padding: 8px 0 0 !important;
-            margin: 0;
-            position: absolute;
-            &.item1 {
-                top: 16px;
-                right: 45px;
+        .mat-table {
+            .mat-row {
+                display: block;
+                height: 125px;
+                position: relative;
+                background-color: #fff;
+                padding: 15px 0;
             }
-            &.item2 {
-                top: 5px;
-                right: 0;
+
+            .mat-cell {
+                display: block;
+                width: 80%;
+                min-height: auto;
+                padding: 0 16px;
+                &:first-child {
+                    font-size: 20px;
+                }
+            }
+
+            .right-side-item {
+                width: auto;
+                padding: 8px 0 0 !important;
+                margin: 0;
+                position: absolute;
+                &.item1 {
+                    top: 16px;
+                    right: 45px;
+                }
+                &.item2 {
+                    top: 5px;
+                    right: 0;
+                }
             }
         }
     }
