@@ -117,19 +117,18 @@
                             <mat-checkbox (change)="togglePassword()" [disabled]="shouldDisable" [checked]="showPassword || poll.password">
                                 {{ 'labels.passwordProtected' | translate }}
                             </mat-checkbox>
-
-                            <mat-form-field appearance="outline" class="w-100 mb-2" *ngIf="showPassword || poll.password">
-                                <mat-label>{{ 'labels.password' | translate }}</mat-label>
-                                <input matInput placeholder="{{ 'placeholders.pollPassword' | translate }}"
-                                    [disabled]="shouldDisable" [(ngModel)]="poll.password" [type]="hide ? 'password' : 'text'">
-                                <mat-icon matSuffix (click)="hide = !hide" class="cursor-pointer">
-                                    {{hide ? 'visibility_off' : 'visibility'}}
-                                </mat-icon>
-                                <mat-hint *ngIf="showBasicHints">
-                                    {{ 'hints.typePollPassword' | translate }}
-                                </mat-hint>
-                            </mat-form-field>
                         </div>
+                        <mat-form-field appearance="outline" class="w-100 mb-2" *ngIf="showPassword || poll.password">
+                            <mat-label>{{ 'labels.password' | translate }}</mat-label>
+                            <input matInput placeholder="{{ 'placeholders.pollPassword' | translate }}"
+                                [disabled]="shouldDisable" [(ngModel)]="poll.password" [type]="hide ? 'password' : 'text'">
+                            <mat-icon matSuffix (click)="hide = !hide" class="cursor-pointer">
+                                {{hide ? 'visibility_off' : 'visibility'}}
+                            </mat-icon>
+                            <mat-hint *ngIf="showBasicHints">
+                                {{ 'hints.typePollPassword' | translate }}
+                            </mat-hint>
+                        </mat-form-field>
                     </mat-expansion-panel>
                 </mat-accordion>
             </div>
