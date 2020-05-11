@@ -32,6 +32,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background:
     width: 85% !important;
 }
 
+.w-45 {
+    width: 45% !important;
+}
+
 .w-20 {
     width: 20% !important;
 }
@@ -40,6 +44,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background:
     width: 15% !important;
 }
 
+.w-5 {
+    width: 5% !important;
+}
 .mat-form-field-appearance-outline.mat-form-field-disabled .mat-form-field-outline {
     color: rgba(108, 117, 125, 0.50);
 }

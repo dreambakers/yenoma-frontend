@@ -40,11 +40,11 @@ export const constants = {
 
     options: {
         binary: ['yes', 'no'],
-        yesNoMaybe: ['yes', 'no', 'maybe'],
-        rating: [1,2,3,4,5],
-        dropdown: [0,1,2,3,4,5,6,7,8,9,10],
-        smiley: ['sad', 'medium', 'happy'],
-        text: ['unfilled', 'filled'],
+        yesNoMaybe: ['yes', 'maybe', 'no'],
+        rating: [5,4,3,2,1],
+        dropdown: [10,9,8,7,6,5,4,3,2,1,0],
+        smiley: ['happy','medium', 'sad',],
+        text: ['filled', 'unfilled'],
         radioButton: ['true', 'false'],
         checkbox: ['true', 'false']
     }

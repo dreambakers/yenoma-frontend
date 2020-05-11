@@ -191,7 +191,11 @@
     "answers": {
         "yes": "Yes",
         "no": "No",
-        "maybe": "Maybe"
+        "maybe": "Maybe",
+        "filled": "Filled",
+        "unfilled": "Unfilled",
+        "true": "Checked",
+        "false": "Unchecked"
     },
 
     "pollActions": {

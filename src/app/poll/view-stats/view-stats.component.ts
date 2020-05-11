@@ -105,7 +105,7 @@ export class ViewStatsComponent implements OnInit {
           const answerPercentage = (optionResponses / question.responses) * 100;
           const answerWeight = this.getWeightFunctionForAnswer(question.type)(option);
           response += answerPercentage * answerWeight;
-          question[optionIndex]['response'] = (response / 100).toFixed(2);
+          question[optionIndex]['response'] = (response / 100).toFixed(1);
         }
       }
     }
@@ -215,7 +215,7 @@ export class ViewStatsComponent implements OnInit {
       const valuePercentage = (this.answerMap[i][j][answer] / this.answerMap[i]['responses']) * 100;
       return valuePercentage.toFixed(1);
     } else {
-      return 0;
+      return '0.0';
     }
   }
 
@@ -241,6 +241,11 @@ export class ViewStatsComponent implements OnInit {
 
   getAnswerTypeLabel(question) {
     return this.translate.instant(`answerTypes.${question.answerType}`);
+  }
+
+  getAnswerLabel(answerKey) {
+    const label = this.translate.instant(`answers.${answerKey}`);
+    return label.includes('answers.') ? answerKey : label;
   }
 
   canExpand(question) {

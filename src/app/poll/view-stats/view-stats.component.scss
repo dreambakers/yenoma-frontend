@@ -9,3 +9,23 @@ table {
 mat-icon {
     font-size: 1.2rem;
 }
+
+.option {
+    min-width: 40%;
+    max-width: 40%;
+}
+
+.score {
+    min-width: 60px;
+    max-width: 60px;
+}
+
+.expanded-row {
+    background-color: #E8EAF6;
+    .progress {
+        background-color: #B3B9E1 !important;
+    }
+    .progress-bar {
+        background-color: #394AAF !important;
+    }
+}
