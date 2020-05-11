@@ -6,6 +6,9 @@ import { constants } from 'src/app/app.constants';
 
 import { TranslateService } from '@ngx-translate/core';
 import { DataService } from 'src/app/services/data.service';
+import { Subject } from 'rxjs';
+import { EmitterService } from 'src/app/services/emitter.service';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-view-stats',
@@ -22,13 +25,19 @@ export class ViewStatsComponent implements OnInit {
 
   constants = constants;
 
+  destroy$: Subject<boolean> = new Subject<boolean>();
+
   constructor(
     private pollService: PollService,
     private route: ActivatedRoute,
     private utils: UtilService,
     private router: Router,
-    private translate: TranslateService
-  ) {
+    private translate: TranslateService,
+    private emitterService: EmitterService
+  ) { }
+
+  ngOnInit() {
+
     this.route.queryParams.subscribe(params => {
       const pollId = params['id'];
       this.pollService.managePoll(pollId).subscribe(
@@ -46,8 +55,10 @@ export class ViewStatsComponent implements OnInit {
                   question['hasOptions'] = true;
                 }
               });
-              console.log(this.answerMap)
             }
+            const navTitle = this.translate.instant('labels.pollStats') + ` (${this.responses.length})`;
+            this.emitterService.emit(constants.emitterKeys.changeNavbarTitle, navTitle);
+            this.emitterService.emit(constants.emitterKeys.updateNavbarProps, { cancel: true });
           } else {
             this.utils.openSnackBar('messages.errorGettingPoll');
           }
@@ -57,9 +68,14 @@ export class ViewStatsComponent implements OnInit {
         }
       )
     });
-  }
 
-  ngOnInit() { }
+    this.emitterService.emittter.pipe(takeUntil(this.destroy$)).subscribe((emitted) => {
+      switch(emitted.event) {
+        case constants.emitterKeys.cancel:
+          return this.onBackClicked();
+      }
+    });
+  }
 
   getResponseForQuestions() {
     this.answerMap = {};
@@ -259,6 +275,12 @@ export class ViewStatsComponent implements OnInit {
     else {
       question['expanded'] = { [i]: { [j]: true } };
     }
+  }
+
+  ngOnDestroy(): void {
+    this.emitterService.emit(this.constants.emitterKeys.resetNavbar);
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 
   get isMobile() {
