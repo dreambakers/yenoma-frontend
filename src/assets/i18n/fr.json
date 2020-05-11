@@ -4,7 +4,7 @@
     "createNewPoll": "Create a new poll_fr",
     "title": "Title_fr",
     "description": "Description_fr",
-    "privateNote": "Private Note_fr",
+    "privateNote": "Private note_fr",
     "allowNames": "Allow names_fr",
     "allowComments": "Allow comments_fr",
     "rearrangeQuestions": "Rearrange questions_fr",
@@ -19,7 +19,7 @@
     "back": "Back_fr",
     "cancel": "Cancel_fr",
     "addAnotherQuestion": "Add another question_fr",
-    "passwordProtected": "Password Protected_fr",
+    "passwordProtected": "Password protected_fr",
     "password": "Password_fr",
     "update": "Update_fr",
     "managePoll": "Manage Poll_fr",
@@ -54,7 +54,30 @@
     "score": "Score_fr",
     "count": "Count_fr",
     "view": "View_fr",
-    "delete": "Delete_fr"
+    "delete": "Delete_fr",
+    "pollsFound": "Polls found._fr",
+    "yes": "Yes_fr",
+    "no": "No_fr",
+    "language": "Language_fr",
+    "noName": "no name_fr",
+    "go": "Go_fr",
+    "activeComment": "Active comment_fr",
+    "inactiveComment": "Inactive comment_fr",
+    "filled": "Filled_fr",
+    "unfilled": "Unfilled_fr",
+    "decimalPlaces": "Decimal places_fr",
+    "minValue": "Minimum value_fr",
+    "maxValue": "Maximum value_fr",
+    "arrange": "Arrange_fr",
+    "preview": "Preview_fr",
+    "poll": "Poll_fr",
+    "done": "Done_fr",
+    "sort": "Sort_fr",
+    "asc": "Asc_fr",
+    "desc": "Desc_fr",
+    "sortBy": "Sort by_fr",
+    "response": "Response_fr",
+    "dismiss": "Dismiss_fr"
   },
   "messages": {
     "pollCreated": "Poll created successfully_fr",
@@ -99,7 +122,18 @@
     "deleteResponseConfirmation": "This will delete the selected response_fr",
     "errorGettingResponse": "An error occurred while getting the response for the poll_fr",
     "incorrectPassword": "The provided password is not correct_fr",
-    "providePassword": "A password is required to access this poll_fr"
+    "providePassword": "A password is required to access this poll_fr",
+    "loggedInAs": "Logged in as_fr",
+    "noResponses": "No responses recorded against the current poll_fr",
+    "noAnswer": "No answer provided_fr",
+    "pageNotFound": "The requested page was not found._fr",
+    "returnHome": "Return home_fr",
+    "respondedPreviously": "You have responded to this poll on {{DT}} at {{TM}}_fr",
+    "errorDuplicatingPoll": "An error occurred while duplicating the poll_fr",
+    "pollDuplicated": "Poll duplicated successfully_fr",
+    "sharePollTitle": "View poll_fr",
+    "sharePoll": "View poll created on Polling application_fr",
+    "pollLinkCopied": "Poll link copied to clipboard_fr"
   },
   "hints": {
     "pollTitle": "Type poll title_fr",
@@ -108,7 +142,13 @@
     "typeQuestion": "Type question_fr",
     "typePollPassword": "Type poll password_fr",
     "enterName": "Enter name_fr",
-    "enterComments": "Enter comments_fr"
+    "enterComments": "Enter comments_fr",
+    "activeComment": "Enter active comment (shown when poll is active)_fr",
+    "inactiveComment": "Enter inactive comment (shown when poll is terminated or deleted)_fr",
+    "decimalPlaces": "Enter decimal places_fr",
+    "minValue": "Enter minimum value_fr",
+    "maxValue": "Enter maximum value_fr",
+    "enterValue": "Enter value between {{MINV}} and {{MAXV}}._fr"
   },
   "answerTypes": {
     "binary": "Yes/No_fr",
@@ -117,11 +157,15 @@
     "radioButton": "Radiobutton_fr",
     "yesNoMaybe": "Yes/No/Maybe_fr",
     "slider": "Slider_fr",
-    "smiley": "Smiley_fr"
+    "smiley": "Smiley_fr",
+    "text": "Text_fr",
+    "dropdown": "Dropdown_fr",
+    "value": "Value_fr"
   },
   "tooltips": {
     "minTwoOptions": "This answer type requires a minimum of 2 options_fr",
-    "stopPreviewing": "Stop previewing as responder_fr"
+    "stopPreviewing": "Stop previewing as responder_fr",
+    "valueInfo": "Decimal places, min and max values are required. The min value should be less than the max value_fr"
   },
   "placeholders": {
     "title": "A poll about food_fr",
@@ -131,7 +175,12 @@
     "option": "Pizza_fr",
     "pollPassword": "Poll Password_fr",
     "name": "John Doe_fr",
-    "comment": "The options could've been clearer_fr"
+    "comment": "The options could've been clearer_fr",
+    "activeComment": "Active comment_fr",
+    "inactiveComment": "Inactive comment_fr",
+    "password": "Password_fr",
+    "email": "Email Address_fr",
+    "textAnswer": "Type your answer here (500 chars max)_fr"
   },
   "answers": {
     "yes": "Yes_fr",
@@ -145,6 +194,8 @@
     "showStats": "Show poll statistics_fr",
     "preview": "Preview as responder_fr",
     "edit": "Edit poll_fr",
-    "responseDetails": "Response details_fr"
+    "responseDetails": "Response details_fr",
+    "duplicate": "Duplicate poll_fr",
+    "share": "Share poll_fr"
   }
 }
