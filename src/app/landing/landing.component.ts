@@ -24,7 +24,8 @@ export class LandingComponent implements OnInit {
   }
 
   get selectedIndex() {
-    return ['/login', '/signup'].includes(this.router.url) ? 0 : 1;
+    const isLoginSignup = this.router.url.includes('login') || this.router.url.includes('signup');
+    return isLoginSignup ? 0 : 1;
   }
 
 }

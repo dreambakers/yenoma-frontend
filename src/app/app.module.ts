@@ -5,7 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { TokenInterceptor } from '../app/interceptors/token.interceptor';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 // import ngx-translate and the http loader
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -119,7 +119,7 @@ import { SortDialogComponent } from './dialogs/sort/sort-dialog.component';
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptor,
+      useClass: AuthInterceptor,
       multi: true
     },
     {

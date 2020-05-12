@@ -134,7 +134,8 @@
         "pollDuplicated": "Poll duplicated successfully",
         "sharePollTitle": "View poll",
         "sharePoll": "View poll created on Polling application",
-        "pollLinkCopied": "Poll link copied to clipboard"
+        "pollLinkCopied": "Poll link copied to clipboard",
+        "sessionExpired": "The session has expired, please login again to continue"
     },
 
     "hints": {
