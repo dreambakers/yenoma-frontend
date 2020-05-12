@@ -77,7 +77,8 @@
         "desc": "Desc",
         "sortBy": "Sort by",
         "response": "Response",
-        "dismiss": "Dismiss"
+        "dismiss": "Dismiss",
+        "stayLoggedIn": "Stay logged in"
     },
 
     "messages": {

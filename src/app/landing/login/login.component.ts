@@ -31,7 +31,8 @@ export class LoginComponent implements OnInit {
     }
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      rememberLogin: [ false ]
     });
 
     this.route.queryParams.pipe(take(1)).subscribe(params => {
@@ -49,7 +50,7 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.invalid) {
       return;
     }
-    this.auth.authenticateUser(this.loginForm.value.email, this.loginForm.value.password).subscribe((response: any) => {
+    this.auth.authenticateUser(this.loginForm.value.email, this.loginForm.value.password, false, this.loginForm.value.rememberLogin).subscribe((response: any) => {
       if (response.headers.get('x-auth')) {
         const user = { ...response.body, authToken: response.headers.get('x-auth') };
         this.userService.setLoggedInUser(user);

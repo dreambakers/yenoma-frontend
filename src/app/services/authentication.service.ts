@@ -11,7 +11,7 @@ export class AuthenticationService {
 
   constructor(private http: HttpClient, private router: Router, private userService: UserService) { }
 
-  authenticateUser(email: string, password: string, signUp = false) {
+  authenticateUser(email: string, password: string, signUp = false, remember = false) {
     let requestUrl = `${constants.apiUrl}/user`;
 
     if (signUp) {
@@ -21,7 +21,7 @@ export class AuthenticationService {
       requestUrl += '/login'
     }
 
-    return this.http.post(requestUrl, { email, password }, {observe: 'response'});
+    return this.http.post(requestUrl, { email, password, remember }, {observe: 'response'});
   }
 
   logout() {

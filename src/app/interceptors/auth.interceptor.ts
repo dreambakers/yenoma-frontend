@@ -34,7 +34,7 @@ export class AuthInterceptor implements HttpInterceptor {
           queryParams: {
             sessionExpired: true
           },
-          skipLocationChange: true
+          // skipLocationChange: true
         });
       }
     }));
