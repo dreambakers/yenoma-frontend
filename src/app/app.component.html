@@ -21,6 +21,13 @@
 
       <mat-divider></mat-divider>
 
+      <a class="nav-link" (click)="changePassword()">
+        <i class="fas fa-key mr-2"></i>
+        {{ 'labels.changePassword' | translate }}
+      </a>
+
+      <mat-divider></mat-divider>
+
       <a class="nav-link cursor-pointer" (click)="logout()">
         <i class="fas fa-sign-out-alt mr-2"></i>
         {{ 'labels.logout' | translate }}

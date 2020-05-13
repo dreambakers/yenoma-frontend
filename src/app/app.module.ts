@@ -56,6 +56,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { SortDialogComponent } from './dialogs/sort/sort-dialog.component';
+import { ChangePasswordComponent } from './dialogs/change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -76,6 +77,7 @@ import { SortDialogComponent } from './dialogs/sort/sort-dialog.component';
     ResponsesComponent,
     ErrorComponent,
     SortDialogComponent,
+    ChangePasswordComponent,
   ],
   imports: [
     BrowserAnimationsModule,

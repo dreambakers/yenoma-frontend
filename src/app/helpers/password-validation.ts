@@ -11,4 +11,14 @@ export class PasswordValidation {
             return null
         }
     }
+
+    static MatchNewPassword(AC: AbstractControl) {
+        let password = AC.get('newPassword').value;
+        let confirmPassword = AC.get('newPasswordConfirmation').value;
+        if (password != confirmPassword) {
+            AC.get('newPasswordConfirmation').setErrors({ MatchPassword: true })
+        } else {
+            return null
+        }
+    }
 }

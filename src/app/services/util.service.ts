@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import { DataService } from './data.service';
 import { SortDialogComponent, SortDialogModel } from '../dialogs/sort/sort-dialog.component';
+import { ChangePasswordComponent } from '../dialogs/change-password/change-password.component';
 
 @Injectable({
   providedIn: 'root'
@@ -36,6 +37,13 @@ export class UtilService {
     const dialogRef = this.dialog.open(SortDialogComponent, {
       minWidth: !DataService.isMobile ? "400px" : "280px",
       data: dialogData
+    });
+    return dialogRef.afterClosed();
+  }
+
+  openChangePasswordDialog(): Observable<any> {
+    const dialogRef = this.dialog.open(ChangePasswordComponent, {
+      minWidth: !DataService.isMobile ? "400px" : "280px",
     });
     return dialogRef.afterClosed();
   }
