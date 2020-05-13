@@ -1,12 +1,6 @@
 <div class="h-100" [ngClass]="!embeddedPreview && (isMobile ? 'p-2' : 'p-5')"
      *ngIf="poll?.questions && poll?.status === constants.statusTypes.open">
 
-  <div class="mb-5" *ngIf="poll.status === constants.statusTypes.terminated">
-    <small>
-      {{ 'messages.cannotRespondPollTerminated' | translate }}
-    </small>
-  </div>
-
   <div class="alert alert-info alert-dismissible" role="alert" *ngIf="hasResponded && showRespondedBanner">
     {{ 'messages.respondedPreviously' | translate:{ 'DT': getParsedDateTime(true), 'TM': getParsedDateTime() } }}
     <button type="button" class="close" (click)="showRespondedBanner = false">
@@ -14,16 +8,17 @@
     </button>
   </div>
 
-  <h4>{{poll.title}}</h4>
-  <p>{{poll.description}}</p>
+  <mat-card>
+    <h4>{{poll.title}}</h4>
+    <p>{{poll.description}}</p>
 
-  <p class="font-italic" *ngIf="poll.activeComment && (poll.status === constants.statusTypes.open)">
-    {{ poll.activeComment }}
-  </p>
-
-  <p class="font-italic" *ngIf="poll.inactiveComment && (poll.status !== constants.statusTypes.open)">
-    {{ poll.inactiveComment }}
-  </p>
+    <div class="alert alert-info font-italic" *ngIf="poll.activeComment && showActiveComment">
+      {{ poll.activeComment }}
+      <button type="button" class="close" (click)="showActiveComment = false">
+        <span>&times;</span>
+      </button>
+    </div>
+  </mat-card>
 
   <mat-card *ngFor="let question of poll.questions; let i = index"
             class="border my-5 p-3">
@@ -158,7 +153,7 @@
                  [class.invalid]="answerObj.answer && !valueInputValid(answerObj.answer, question)"
                  (keydown)="valueInputKeydown(answerObj.answer, $event, question)"
           >
-          <mat-hint class="mt-2" *ngIf="poll.status === constants.statusTypes.open">
+          <mat-hint class="mt-2">
             {{ 'hints.enterValue' | translate: {
                                       'MAXV': question.maxValue,
                                       'MINV': question.minValue,
@@ -210,11 +205,11 @@
 </div>
 
 <div class="d-flex justify-content-center align-items-center flex-column h-100" [ngClass]="!isMobile ? 'p-5' : 'p-2'"
-     *ngIf="poll?.status !== constants.statusTypes.open">
+     *ngIf="poll?.status === constants.statusTypes.deleted || poll?.status === constants.statusTypes.terminated">
   <mat-card class="d-flex flex-column justify-content-center text-center poll-inactive-card">
     <h4>
       {{ poll?.status === constants.statusTypes.deleted ? 'messages.pollDeleted' : 'messages.cannotRespondPollTerminated' | translate }}</h4>
-    <div class="alert alert-danger mt-3" *ngIf="poll.inactiveComment">
+    <div class="alert alert-danger mt-3" *ngIf="poll?.inactiveComment">
       {{ poll.inactiveComment }}
     </div>
     <div>

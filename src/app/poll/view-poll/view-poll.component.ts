@@ -42,6 +42,7 @@ export class ViewPollComponent implements OnInit {
   preview = false;
   responseValid = false;
   passwordRequired = false;
+  showActiveComment = true;
   showRespondedBanner = false;
   constants = constants;
 
@@ -324,13 +325,14 @@ export class ViewPollComponent implements OnInit {
 
     const allowMinus = +question.minValue < 0  && !currentValue.includes('-');
     const allowPeriod = this.allowDecimals(question) && !currentValue.includes('.');
+    const maxDecimalsEntered = currentValue.includes('.') && currentValue.split('.')[1].length === question.decimalPlaces;
 
     const keycodesToIgnore = [
       8, 37, 39, 46, 9
     ];
 
     return keycodesToIgnore.includes(event.keyCode)
-            || !isNaN(event.key)
+            || (!maxDecimalsEntered && !isNaN(event.key))
             || (event.key === '-' && allowMinus)
             || (event.key === '.' && allowPeriod);
   }
