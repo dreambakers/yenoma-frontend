@@ -18,6 +18,7 @@ import { EmitterService } from 'src/app/services/emitter.service';
 import { MobileNavbarProps } from 'src/app/footer/footer.component';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { DialogService } from 'src/app/services/dialog.service';
 @Component({
   selector: 'app-view-polls',
   templateUrl: './view-polls.component.html',
@@ -46,7 +47,8 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private translate: TranslateService,
     private ngNavigatorShareService: NgNavigatorShareService,
-    private emitterService: EmitterService
+    private emitterService: EmitterService,
+    private dialogService: DialogService
     ) { }
 
   ngOnInit() {
@@ -104,7 +106,7 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
   }
 
   deletePoll(pollId) {
-    this.utils.confirmDialog('messages.areYouSure', 'messages.pollDeletionConfirmation').subscribe(
+    this.dialogService.confirm('messages.areYouSure', 'messages.pollDeletionConfirmation').subscribe(
       res => {
         if (res) {
           this.pollService.deletePoll(pollId).subscribe(
@@ -128,7 +130,7 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
   }
 
   terminatePoll(pollId) {
-    this.utils.confirmDialog('messages.areYouSure', 'messages.pollTerminationConfirmation').subscribe(
+    this.dialogService.confirm('messages.areYouSure', 'messages.pollTerminationConfirmation').subscribe(
       res => {
         if (res) {
           this.pollService.terminatePoll(pollId).subscribe(
@@ -151,7 +153,7 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
   }
 
   restorePoll(pollId) {
-    this.utils.confirmDialog('messages.areYouSure', 'messages.pollRestoreConfirmation').subscribe(
+    this.dialogService.confirm('messages.areYouSure', 'messages.pollRestoreConfirmation').subscribe(
       res => {
         if (res) {
           this.pollService.restore(pollId).subscribe(
@@ -270,7 +272,7 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
   }
 
   openSortDialog() {
-    this.utils.sortDialog(
+    this.dialogService.sort(
       [
         'title',
         'createdAt',

@@ -5,6 +5,7 @@ import { EmitterService } from './services/emitter.service';
 import { takeUntil } from 'rxjs/operators';
 import { constants } from './app.constants';
 import { UtilService } from './services/util.service';
+import { DialogService } from './services/dialog.service';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +20,11 @@ export class AppComponent implements OnInit {
 
   destroy$: Subject<boolean> = new Subject<boolean>();
 
-  constructor(private emitterService: EmitterService, private utils: UtilService) {}
+  constructor(
+    private emitterService: EmitterService,
+    private utils: UtilService,
+    private dialogService: DialogService
+    ) {}
 
   ngOnInit(): void {
     DataService.isMobile = document.body.clientWidth <= DataService.mobileBreakpoint;
@@ -51,7 +56,7 @@ export class AppComponent implements OnInit {
 
   changePassword() {
     this.toggleSidebar();
-    this.utils.openChangePasswordDialog();
+    this.dialogService.changePassword();
   }
 
   ngOnDestroy(): void {

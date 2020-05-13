@@ -14,6 +14,7 @@ import { EmitterService } from 'src/app/services/emitter.service';
 import { MobileNavbarProps } from 'src/app/footer/footer.component';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { DialogService } from 'src/app/services/dialog.service';
 
 @Component({
   selector: 'app-responses',
@@ -44,7 +45,9 @@ export class ResponsesComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     public translate: TranslateService,
-    private responseService: ResponseService) { }
+    private responseService: ResponseService,
+    private dialogService: DialogService
+  ) { }
 
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe(params => {
@@ -125,7 +128,7 @@ export class ResponsesComponent implements OnInit {
   }
 
   deleteResponse(response) {
-    this.utils.confirmDialog('messages.areYouSure', 'messages.deleteResponseConfirmation').subscribe(
+    this.dialogService.confirm('messages.areYouSure', 'messages.deleteResponseConfirmation').subscribe(
       res => {
         if (res) {
           this.responseService.deleteResponse(response._id).subscribe(
@@ -193,7 +196,7 @@ export class ResponsesComponent implements OnInit {
   }
 
   openSortDialog() {
-    this.utils.sortDialog(
+    this.dialogService.sort(
       [
         'name',
         'createdAt',

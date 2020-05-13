@@ -3,6 +3,7 @@ import { Validators, FormGroup, FormBuilder, NgForm } from '@angular/forms';
 import { PasswordValidation } from 'src/app/helpers/password-validation';
 import { MatDialogRef } from '@angular/material/dialog';
 import { UserService } from 'src/app/services/user.service';
+import { UtilService } from 'src/app/services/util.service';
 
 @Component({
   selector: 'app-change-password',
@@ -22,6 +23,7 @@ export class ChangePasswordComponent implements OnInit {
     private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<ChangePasswordComponent>,
     private userService: UserService,
+    private utils: UtilService
   ) { }
 
   ngOnInit(): void {
@@ -50,17 +52,17 @@ export class ChangePasswordComponent implements OnInit {
     ).subscribe(
       (res: any) => {
         if (res.success) {
-          // this.injector.get(UtilService).openSnackBar('messages.passwordChanged');
+          this.utils.openSnackBar('messages.passwordChanged');
           this.onDismiss();
         } else {
-          // this.injector.get(UtilService).openSnackBar('messages.errorChangingPassword', 'labels.retry');
+          this.utils.openSnackBar('messages.errorChangingPassword', 'labels.retry');
         }
       },
       err => {
         if (err.error.incorrectPassword) {
           this.changePasswordForm.controls['password'].setErrors({'currentPasswordNotCorrect': true});
         } else {
-          // this.injector.get(UtilService).openSnackBar('messages.errorChangingPassword', 'labels.retry');
+          this.utils.openSnackBar('messages.errorChangingPassword', 'labels.retry');
         }
       }
     );

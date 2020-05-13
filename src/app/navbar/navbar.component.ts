@@ -8,6 +8,7 @@ import { constants } from '../app.constants';
 import { DataService } from '../services/data.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { DialogService } from '../services/dialog.service';
 
 @Component({
   selector: 'app-navbar',
@@ -25,7 +26,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
               private userService: UserService,
               private utils: UtilService,
               public translate: TranslateService,
-              private emitterService: EmitterService) { }
+              private emitterService: EmitterService,
+              private dialogService: DialogService) { }
 
   ngOnInit() {
     this.user = this.userService.getLoggedInUser();
@@ -42,7 +44,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   logout() {
-    this.utils.confirmDialog('messages.areYouSure', 'messages.logout').subscribe(
+    this.dialogService.confirm('messages.areYouSure', 'messages.logout').subscribe(
       res => {
         if (res) {
           this.auth.logout();

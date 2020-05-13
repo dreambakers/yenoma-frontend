@@ -13,6 +13,7 @@ import { EmitterService } from 'src/app/services/emitter.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { MobileNavbarProps } from 'src/app/footer/footer.component';
+import { DialogService } from 'src/app/services/dialog.service';
 
 @Component({
   selector: 'app-manage-poll',
@@ -53,6 +54,7 @@ export class ManagePollComponent implements OnInit, OnDestroy {
     private utils: UtilService,
     public translate: TranslateService,
     private emitterService: EmitterService,
+    private dialogService: DialogService
   ) { }
 
   ngOnInit() {
@@ -210,7 +212,7 @@ export class ManagePollComponent implements OnInit, OnDestroy {
       return this.router.navigate(['/dashboard/all']);
     }
     const key = this.isEditing ? 'cancelPollEdit' : 'cancelPollCreation';
-    this.utils.confirmDialog('messages.areYouSure', `messages.${key}`).subscribe(
+    this.dialogService.confirm('messages.areYouSure', `messages.${key}`).subscribe(
       res => {
         if (res) {
           this.router.navigate(['/dashboard/all']);
