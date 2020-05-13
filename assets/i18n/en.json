@@ -46,7 +46,7 @@
         "goToPoll": "Go to Poll",
         "confirmPassword": "Confirm Password",
         "alreadyRegistered": "Already registered? Login here",
-        "passwordsDontMatch": "Password don't match",
+        "passwordsDontMatch": "Passwords don't match",
         "myPolls": "My Polls",
         "logout": "Logout",
         "pollStats": "Poll Statistics",
@@ -78,7 +78,11 @@
         "sortBy": "Sort by",
         "response": "Response",
         "dismiss": "Dismiss",
-        "stayLoggedIn": "Stay logged in"
+        "stayLoggedIn": "Stay logged in",
+        "changePassword": "Change password",
+        "newPasswordConfirmation": "Confirm new password",
+        "newPassword": "New password",
+        "currentPassword": "Current password"
     },
 
     "messages": {
@@ -136,7 +140,10 @@
         "sharePollTitle": "View poll",
         "sharePoll": "View poll created on Polling application",
         "pollLinkCopied": "Poll link copied to clipboard",
-        "sessionExpired": "The session has expired, please login again to continue"
+        "sessionExpired": "The session has expired, please login again to continue",
+        "currentPasswordNotCorrect": "The current password is not correct",
+        "errorChangingPassword": "An error occurred while changing the password",
+        "passwordChanged": "Password changed successfully"
     },
 
     "hints": {
