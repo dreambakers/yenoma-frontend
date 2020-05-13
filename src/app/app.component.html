@@ -30,10 +30,10 @@
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <div class="container-fluid px-0" id="mainContainer">
-      <router-outlet></router-outlet>
-    </div>
-    <div>
+    <div id="wrapper">
+      <div class="container-fluid px-0" id="content">
+        <router-outlet></router-outlet>
+      </div>
       <app-footer></app-footer>
     </div>
   </mat-sidenav-content>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { take } from 'rxjs/operators';
 
 
 @Component({
@@ -10,9 +11,19 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class LandingComponent implements OnInit {
 
-  constructor(private router: Router, public translate: TranslateService) { }
+  showSessionExpiredBanner = false;
+
+  constructor(private router: Router,
+              public translate: TranslateService,
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.route.queryParams.pipe(take(1)).subscribe(params => {
+      const sessionExpired = params['sessionExpired'];
+      if (sessionExpired && sessionExpired === 'true') {
+        this.showSessionExpiredBanner = true;
+      }
+    });
   }
 
   get activeLink() {

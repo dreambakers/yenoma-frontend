@@ -4,18 +4,16 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UtilService } from '../../services/util.service';
 import { UserService } from '../../services/user.service';
-import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
   submitted = false;
-  showSessionExpiredBanner = false;
 
   constructor(
     private auth: AuthenticationService,
@@ -33,13 +31,6 @@ export class LoginComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       rememberLogin: [ false ]
-    });
-
-    this.route.queryParams.pipe(take(1)).subscribe(params => {
-      const sessionExpired = params['sessionExpired'];
-      if (sessionExpired && sessionExpired === 'true') {
-        this.showSessionExpiredBanner = true;
-      }
     });
   }
 

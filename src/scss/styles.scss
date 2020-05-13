@@ -2,8 +2,14 @@
 @import './customize-bootstrap.scss';
 @import '../../node_modules/bootstrap/scss/bootstrap';
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background: #F7F7F7; }
+html { height:100% }
+
+body {
+    min-height: 100%;
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    background: #F7F7F7;
+}
 
 .cursor-pointer {
     cursor: pointer !important;
@@ -26,6 +32,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background:
     display: flex;
     flex-direction: column;
     flex-grow: 1;
+    justify-content: center;
 }
 
 .w-85 {
@@ -75,18 +82,6 @@ button.mat-menu-item{ outline:none; }
     font-weight: bold;
 }
 
-#footer {
-    .mat-form-field-wrapper {
-        padding-bottom: 0 !important;
-    }
-    .mat-form-field-infix {
-        margin-right: 1.2rem;
-        padding: .5em 0;
-        border-top: 0;
-        width: 5rem;
-    }
-}
-
 // MS Edge fix to solve dropdown width issue
 .dropdown-container {
     .mat-form-field-wrapper {
@@ -112,25 +107,8 @@ button.mat-menu-item{ outline:none; }
     }
 }
 
-#mainContainer {
-    min-height: 90vh;
-    margin-bottom: 2.9375rem;
-}
-
-#footer {
-    min-height: 5vh;
-}
-
-#mobileNavbar {
-    min-height: 5vh;
-}
-
 .nav-link {
     outline: none;
-}
-
-#dashboard {
-    padding-top: 56px;
 }
 
 .mat-button-toggle-button {
@@ -205,5 +183,41 @@ button {
                 }
             }
         }
+    }
+}
+
+#dashboard {
+    padding-top: 56px;
+}
+
+#wrapper {
+    min-height: 100vh;
+    position: relative;
+}
+
+#content {
+    min-height: calc(100vh - 50px);
+    padding-bottom: 50px;
+    /* Height of the footer element */
+}
+
+#mobileNavbar {
+    height: 50px;
+}
+
+#footer {
+    width: 100%;
+    height: 50px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    .mat-form-field-wrapper {
+        padding-bottom: 0 !important;
+    }
+    .mat-form-field-infix {
+        margin-right: 1.2rem;
+        padding: .5em 0;
+        border-top: 0;
+        width: 5rem;
     }
 }

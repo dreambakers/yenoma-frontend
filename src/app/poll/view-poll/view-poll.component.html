@@ -1,5 +1,5 @@
 <div class="h-100" [ngClass]="!embeddedPreview && (isMobile ? 'p-2' : 'p-5')"
-     *ngIf="poll?.questions && poll?.status !== constants.statusTypes.deleted">
+     *ngIf="poll?.questions && poll?.status === constants.statusTypes.open">
 
   <div class="mb-5" *ngIf="poll.status === constants.statusTypes.terminated">
     <small>
@@ -209,15 +209,16 @@
   </div>
 </div>
 
-<div class="d-flex justify-content-center align-items-center p-5 flex-column"
-  *ngIf="poll?.status === constants.statusTypes.deleted">
-  <mat-card class="d-flex flex-column justify-content-center text-center m-5 p-5 w-75">
-    <h4>{{ 'messages.pollDeleted' | translate }}</h4>
-    <small class="font-italic my-3" *ngIf="poll.inactiveComment">
+<div class="d-flex justify-content-center align-items-center flex-column h-100" [ngClass]="!isMobile ? 'p-5' : 'p-2'"
+     *ngIf="poll?.status !== constants.statusTypes.open">
+  <mat-card class="d-flex flex-column justify-content-center text-center poll-inactive-card">
+    <h4>
+      {{ poll?.status === constants.statusTypes.deleted ? 'messages.pollDeleted' : 'messages.cannotRespondPollTerminated' | translate }}</h4>
+    <div class="alert alert-danger mt-3" *ngIf="poll.inactiveComment">
       {{ poll.inactiveComment }}
-    </small>
+    </div>
     <div>
-      <button class="btn btn-danger mr-2" (click)="navigateToRespond()">
+      <button class="btn btn-danger mt-3 mr-2" (click)="navigateToRespond()">
         {{ 'labels.back' | translate }}
       </button>
     </div>
