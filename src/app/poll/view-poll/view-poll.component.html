@@ -10,8 +10,9 @@
 
   <mat-card>
     <h4>{{poll.title}}</h4>
-    <p>{{poll.description}}</p>
-
+    <div class="alert alert-secondary mt-3" *ngIf="poll.description">
+      {{poll.description}}
+    </div>
     <div class="alert alert-info font-italic" *ngIf="poll.activeComment && showActiveComment">
       {{ poll.activeComment }}
       <button type="button" class="close" (click)="showActiveComment = false">
