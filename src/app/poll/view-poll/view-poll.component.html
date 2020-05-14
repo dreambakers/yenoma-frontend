@@ -8,29 +8,38 @@
     </button>
   </div>
 
-  <mat-card>
-    <h4>{{poll.title}}</h4>
-    <div class="alert alert-secondary mt-3" *ngIf="poll.description">
-      {{poll.description}}
+  <mat-card class="p-0">
+    <div class="border-bottom">
+      <h4 class="p-3 m-0">{{poll.title}}</h4>
     </div>
-    <div class="alert alert-info font-italic" *ngIf="poll.activeComment && showActiveComment">
-      {{ poll.activeComment }}
-      <button type="button" class="close" (click)="showActiveComment = false">
-        <span>&times;</span>
-      </button>
+    <div class="p-3">
+      <p *ngIf="poll.description">
+        {{poll.description}}
+      </p>
+      <div class="alert alert-info font-italic" *ngIf="poll.activeComment && showActiveComment">
+        {{ poll.activeComment }}
+        <button type="button" class="close" (click)="showActiveComment = false">
+          <span>&times;</span>
+        </button>
+      </div>
     </div>
   </mat-card>
 
   <mat-card *ngFor="let question of poll.questions; let i = index"
-            class="border my-5 p-3">
-    <h3 class="mb-5 ml-1">
-      {{ 'labels.question' | translate }}
-      {{i + 1}}:
-      {{question.text}}
-    </h3>
+            class="my-5 p-0">
+    <div class="d-flex flex-row align-items-center p-3 border-bottom">
+      <div class="d-flex justify-content-center align-items-center mr-2 rounded text-white question-number">
+        <span class="font-weight-bold">
+          {{ i + 1 }}
+        </span>
+      </div>
+      <h4 class="m-0">
+        {{question.text}}
+      </h4>
+    </div>
 
     <ul class="list-group" *ngFor="let option of question.options; let j = index">
-      <li class="list-group-item mt-2"
+      <li class="list-group-item mt-2 border-0"
           [ngClass]="(question.answerType !== constants.answerTypes.text) &&
                       'd-flex justify-content-between align-items-center'">
         <div class="font-weight-bold">
@@ -49,7 +58,7 @@
 
     <ng-template #questions let-question='question' let-i="i" let-j="j" let-answerObj="answerObj">
 
-      <div [ngSwitch]="question.answerType">
+      <div [ngSwitch]="question.answerType" [class.p-3]="!question.options.length">
         <div *ngSwitchCase="constants.answerTypes.binary">
           <mat-button-toggle-group #group="matButtonToggleGroup"
             [(ngModel)]="answerObj.answer" [disabled]="shouldDisable">

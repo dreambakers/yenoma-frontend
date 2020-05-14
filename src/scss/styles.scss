@@ -35,6 +35,10 @@ body {
     justify-content: center;
 }
 
+.w-90 {
+    width: 90% !important;
+}
+
 .w-85 {
     width: 85% !important;
 }
@@ -49,6 +53,10 @@ body {
 
 .w-15 {
     width: 15% !important;
+}
+
+.w-10 {
+    width: 10% !important;
 }
 
 .w-5 {
@@ -224,4 +232,13 @@ button {
 
 .mat-dialog-actions {
     justify-content: flex-end;
+}
+
+.alert {
+    margin: 0;
+    &.alert-info {
+        background-color: $color-primary-light;
+        color: $color-primary;
+        border-color: $color-primary-light;
+    }
 }
