@@ -38,8 +38,10 @@
 
   <mat-sidenav-content>
     <div id="wrapper">
-      <div class="container-fluid px-0" id="content">
-        <router-outlet></router-outlet>
+      <div class="d-flex w-100 h-100">
+        <div class="flex-fill" id="content">
+          <router-outlet></router-outlet>
+        </div>
       </div>
       <app-footer></app-footer>
     </div>
