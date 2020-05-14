@@ -6,6 +6,7 @@ import { SortDialogModel, SortDialogComponent } from '../dialogs/sort/sort-dialo
 import { ChangePasswordComponent } from '../dialogs/change-password/change-password.component';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
+import { AboutComponent } from '../dialogs/about/about.component';
 
 @Injectable({
   providedIn: 'root'
@@ -37,6 +38,13 @@ export class DialogService {
 
   changePassword(): Observable<any> {
     const dialogRef = this.dialog.open(ChangePasswordComponent, {
+      minWidth: !DataService.isMobile ? "400px" : "280px",
+    });
+    return dialogRef.afterClosed();
+  }
+
+  about(): Observable<any> {
+    const dialogRef = this.dialog.open(AboutComponent, {
       minWidth: !DataService.isMobile ? "400px" : "280px",
     });
     return dialogRef.afterClosed();

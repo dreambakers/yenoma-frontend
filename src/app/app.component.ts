@@ -59,6 +59,11 @@ export class AppComponent implements OnInit {
     this.dialogService.changePassword();
   }
 
+  about() {
+    this.toggleSidebar();
+    this.dialogService.about();
+  }
+
   ngOnDestroy(): void {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();

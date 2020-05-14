@@ -28,6 +28,11 @@
 
       <mat-divider></mat-divider>
 
+      <a class="nav-link" (click)="about()">
+        <i class="fas fa-info-circle mr-2"></i>
+        {{ 'labels.about' | translate }}
+      </a>
+
       <a class="nav-link cursor-pointer" (click)="logout()">
         <i class="fas fa-sign-out-alt mr-2"></i>
         {{ 'labels.logout' | translate }}

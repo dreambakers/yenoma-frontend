@@ -1,4 +1,13 @@
 {
+    "metadata": {
+        "creationDate": "2020-05-11T14:38:25Z",
+        "generator": "Excel Macro",
+        "generatorVersion": "2020-04-30",
+        "twoletterCode": "en",
+        "nativeLanguageName": "English",
+        "translator": "Original"
+    },
+
     "labels": {
         "polling": "Polling",
         "createNewPoll": "Create a new poll",
@@ -82,7 +91,14 @@
         "changePassword": "Change password",
         "newPasswordConfirmation": "Confirm new password",
         "newPassword": "New password",
-        "currentPassword": "Current password"
+        "currentPassword": "Current password",
+        "about": "About",
+        "creationDate": "Creation date",
+        "generator": "Generator",
+        "generatorVersion": "Generator version",
+        "nativeLanguageName": "Native language",
+        "translator": "Translator",
+        "twoletterCode": "Two letter code"
     },
 
     "messages": {
