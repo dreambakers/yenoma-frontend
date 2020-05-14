@@ -1,9 +1,18 @@
-<div class="h-100" [ngClass]="!embeddedPreview && (isMobile ? 'p-2' : 'p-5')"
-     *ngIf="poll?.questions && poll?.status === constants.statusTypes.open">
+<div class="h-100" [ngClass]="!embeddedPreview && (isMobile ? 'p-2' : 'p-5')" *ngIf="poll?.questions">
 
   <div class="alert alert-info alert-dismissible" role="alert" *ngIf="hasResponded && showRespondedBanner">
     {{ 'messages.respondedPreviously' | translate:{ 'DT': getParsedDateTime(true), 'TM': getParsedDateTime() } }}
     <button type="button" class="close" (click)="showRespondedBanner = false">
+      <span>&times;</span>
+    </button>
+  </div>
+
+  <div class="alert alert-danger mb-3" *ngIf="!isOpen && showCannotRespondBanner">
+    {{ poll?.status === constants.statusTypes.deleted ?
+                        'messages.pollDeleted' :
+                        'messages.cannotRespondPollTerminated' | translate
+     }}
+    <button type="button" class="close" (click)="showCannotRespondBanner = false">
       <span>&times;</span>
     </button>
   </div>
@@ -16,218 +25,193 @@
       <p *ngIf="poll.description">
         {{poll.description}}
       </p>
-      <div class="alert alert-info font-italic" *ngIf="poll.activeComment && showActiveComment">
+      <div class="alert alert-info font-italic" *ngIf="isOpen && poll.activeComment && showActiveComment">
         {{ poll.activeComment }}
         <button type="button" class="close" (click)="showActiveComment = false">
           <span>&times;</span>
         </button>
       </div>
+      <div class="alert alert-danger mt-3" *ngIf="!isOpen && poll?.inactiveComment">
+        {{ poll.inactiveComment }}
+      </div>
     </div>
   </mat-card>
 
-  <mat-card *ngFor="let question of poll.questions; let i = index"
-            class="my-5 p-0">
-    <div class="d-flex flex-row align-items-center p-3 border-bottom">
-      <div class="d-flex justify-content-center align-items-center mr-2 rounded text-white question-number">
-        <span class="font-weight-bold">
-          {{ i + 1 }}
-        </span>
+  <div *ngIf="isOpen">
+    <mat-card *ngFor="let question of poll.questions; let i = index" class="my-5 p-0">
+      <div class="d-flex flex-row align-items-center p-3 border-bottom">
+        <div class="d-flex justify-content-center align-items-center mr-2 rounded text-white question-number">
+          <span class="font-weight-bold">
+            {{ i + 1 }}
+          </span>
+        </div>
+        <h4 class="m-0">
+          {{question.text}}
+        </h4>
       </div>
-      <h4 class="m-0">
-        {{question.text}}
-      </h4>
-    </div>
 
-    <ul class="list-group" *ngFor="let option of question.options; let j = index">
-      <li class="list-group-item mt-2 border-0"
-          [ngClass]="(question.answerType !== constants.answerTypes.text) &&
+      <ul class="list-group" *ngFor="let option of question.options; let j = index">
+        <li class="list-group-item mt-2 border-0" [ngClass]="(question.answerType !== constants.answerTypes.text) &&
                       'd-flex justify-content-between align-items-center'">
-        <div class="font-weight-bold">
-          {{ option }}
-        </div>
-        <ng-container *ngTemplateOutlet="questions; context: { question: question, i: i, j: j, answerObj: response.questions[i].answers[j] }">
+          <div class="font-weight-bold">
+            {{ option }}
+          </div>
+          <ng-container
+            *ngTemplateOutlet="questions; context: { question: question, i: i, j: j, answerObj: response.questions[i].answers[j] }">
+          </ng-container>
+        </li>
+      </ul>
+
+      <!-- Question without any options -->
+      <div *ngIf="!question.options.length" [ngSwitch]="question.answerType">
+        <ng-container
+          *ngTemplateOutlet="questions; context: { question: question, i: i, j: null, answerObj: response.questions[i] }">
         </ng-container>
-      </li>
-    </ul>
+      </div>
 
-    <!-- Question without any options -->
-    <div *ngIf="!question.options.length" [ngSwitch]="question.answerType">
-      <ng-container *ngTemplateOutlet="questions; context: { question: question, i: i, j: null, answerObj: response.questions[i] }">
-      </ng-container>
-    </div>
+      <ng-template #questions let-question='question' let-i="i" let-j="j" let-answerObj="answerObj">
 
-    <ng-template #questions let-question='question' let-i="i" let-j="j" let-answerObj="answerObj">
+        <div [ngSwitch]="question.answerType" [class.p-3]="!question.options.length">
+          <div *ngSwitchCase="constants.answerTypes.binary">
+            <mat-button-toggle-group #group="matButtonToggleGroup" [(ngModel)]="answerObj.answer"
+              [disabled]="shouldDisable">
+              <mat-button-toggle value="yes">
+                {{ 'answers.yes' | translate }}
+              </mat-button-toggle>
+              <mat-button-toggle value="no">
+                {{ 'answers.no' | translate }}
+              </mat-button-toggle>
+            </mat-button-toggle-group>
+          </div>
 
-      <div [ngSwitch]="question.answerType" [class.p-3]="!question.options.length">
-        <div *ngSwitchCase="constants.answerTypes.binary">
-          <mat-button-toggle-group #group="matButtonToggleGroup"
-            [(ngModel)]="answerObj.answer" [disabled]="shouldDisable">
-            <mat-button-toggle value="yes">
-              {{ 'answers.yes' | translate }}
-            </mat-button-toggle>
-            <mat-button-toggle value="no">
-              {{ 'answers.no' | translate }}
-            </mat-button-toggle>
-          </mat-button-toggle-group>
-        </div>
+          <div *ngSwitchCase="constants.answerTypes.radioButton">
+            <mat-radio-group name="{{i}}" [disabled]="shouldDisable">
+              <mat-radio-button [checked]="answerObj.answer" value="" (change)="onRadioButtonChanged(i, j)">
+              </mat-radio-button>
+            </mat-radio-group>
+          </div>
 
-        <div *ngSwitchCase="constants.answerTypes.radioButton">
-          <mat-radio-group name="{{i}}" [disabled]="shouldDisable">
-            <mat-radio-button [checked]="answerObj.answer" value=""
-            (change)="onRadioButtonChanged(i, j)">
-            </mat-radio-button>
-          </mat-radio-group>
-        </div>
+          <div *ngSwitchCase="constants.answerTypes.checkbox">
+            <mat-checkbox (change)="onCheckboxChanged($event, i, j)" [checked]="answerObj.answer"
+              [disabled]="shouldDisable">
+            </mat-checkbox>
+          </div>
 
-        <div *ngSwitchCase="constants.answerTypes.checkbox">
-          <mat-checkbox (change)="onCheckboxChanged($event, i, j)"
-                        [checked]="answerObj.answer"
-                        [disabled]="shouldDisable">
-          </mat-checkbox>
-        </div>
+          <div *ngSwitchCase="constants.answerTypes.yesNoMaybe">
+            <mat-button-toggle-group #group="matButtonToggleGroup" [(ngModel)]="answerObj.answer"
+              [disabled]="shouldDisable">
+              <mat-button-toggle value="yes">
+                {{ 'answers.yes' | translate }}
+              </mat-button-toggle>
+              <mat-button-toggle value="no">
+                {{ 'answers.no' | translate }}
+              </mat-button-toggle>
+              <mat-button-toggle value="maybe">
+                {{ 'answers.maybe' | translate }}
+              </mat-button-toggle>
+            </mat-button-toggle-group>
+          </div>
 
-        <div *ngSwitchCase="constants.answerTypes.yesNoMaybe">
-          <mat-button-toggle-group #group="matButtonToggleGroup"
-            [(ngModel)]="answerObj.answer" [disabled]="shouldDisable">
-            <mat-button-toggle value="yes">
-              {{ 'answers.yes' | translate }}
-            </mat-button-toggle>
-            <mat-button-toggle value="no">
-              {{ 'answers.no' | translate }}
-            </mat-button-toggle>
-            <mat-button-toggle value="maybe">
-              {{ 'answers.maybe' | translate }}
-            </mat-button-toggle>
-          </mat-button-toggle-group>
-        </div>
+          <div *ngSwitchCase="constants.answerTypes.smiley">
+            <mat-button-toggle-group #group="matButtonToggleGroup" [(ngModel)]="answerObj.answer"
+              [disabled]="shouldDisable" id="smiley">
+              <mat-button-toggle value="sad">
+                <i class="fas fa-frown" style="color: #f44336"></i>
+              </mat-button-toggle>
+              <mat-button-toggle value="medium">
+                <i class="fas fa-meh" style="color: #ffc107"></i>
+              </mat-button-toggle>
+              <mat-button-toggle value="happy">
+                <i class="fas fa-smile" style="color: #4caf50"></i>
+              </mat-button-toggle>
+            </mat-button-toggle-group>
+          </div>
 
-        <div *ngSwitchCase="constants.answerTypes.smiley">
-          <mat-button-toggle-group #group="matButtonToggleGroup"
-            [(ngModel)]="answerObj.answer" [disabled]="shouldDisable" id="smiley">
-            <mat-button-toggle value="sad">
-              <i class="fas fa-frown" style="color: #f44336"></i>
-            </mat-button-toggle>
-            <mat-button-toggle value="medium">
-              <i class="fas fa-meh" style="color: #ffc107"></i>
-            </mat-button-toggle>
-            <mat-button-toggle value="happy">
-              <i class="fas fa-smile" style="color: #4caf50"></i>
-            </mat-button-toggle>
-          </mat-button-toggle-group>
-        </div>
+          <div *ngSwitchCase="constants.answerTypes.rating">
+            <app-star-rating [rating]="answerObj.answer" [starCount]="starCount" [color]="starColor"
+              (ratingUpdated)="onRatingChanged($event, i, j)" [disabled]="shouldDisable" class="text-nowrap">
+            </app-star-rating>
+          </div>
 
-        <div *ngSwitchCase="constants.answerTypes.rating">
-          <app-star-rating [rating]="answerObj.answer" [starCount]="starCount"
-            [color]="starColor" (ratingUpdated)="onRatingChanged($event, i, j)" [disabled]="shouldDisable"
-            class="text-nowrap">
-          </app-star-rating>
-        </div>
+          <div *ngSwitchCase="constants.answerTypes.slider" class="d-flex flex-row align-items-center">
+            <mat-slider #slider [(ngModel)]="answerObj.answer" [disabled]="shouldDisable" [max]="100" [min]="0"
+              [step]="1" [thumbLabel]="true">
+            </mat-slider>
+            <span class="text-center ml-2 border p-2 slider-box">{{ slider.value }}</span>
+          </div>
 
-        <div *ngSwitchCase="constants.answerTypes.slider" class="d-flex flex-row align-items-center">
-          <mat-slider #slider
-          [(ngModel)]="answerObj.answer"
-          [disabled]="shouldDisable"
-          [max]="100"
-          [min]="0"
-          [step]="1"
-          [thumbLabel]="true"
-          >
-          </mat-slider>
-          <span class="text-center ml-2 border p-2 slider-box">{{ slider.value }}</span>
-        </div>
-
-        <div *ngSwitchCase="constants.answerTypes.text" class="mt-3">
-          <textarea matInput placeholder="{{ 'placeholders.textAnswer' | translate }}"
-                    (input)="onTextAnswerChanged($event, i, j)" maxlength="500" rows="4"
-                    [value]="answerObj.answer || (hasResponded ? translate.instant('messages.noAnswer') : '')"
-                    [disabled]="shouldDisable" [class.font-italic]="this.preview && !answerObj.answer">
+          <div *ngSwitchCase="constants.answerTypes.text" class="mt-3">
+            <textarea matInput placeholder="{{ 'placeholders.textAnswer' | translate }}"
+              (input)="onTextAnswerChanged($event, i, j)" maxlength="500" rows="4"
+              [value]="answerObj.answer || (hasResponded ? translate.instant('messages.noAnswer') : '')"
+              [disabled]="shouldDisable" [class.font-italic]="this.preview && !answerObj.answer">
           </textarea>
-        </div>
+          </div>
 
-        <div *ngSwitchCase="constants.answerTypes.dropdown">
-          <mat-form-field appearance="outline" class="dropdown-container">
-            <mat-select [value]="answerObj.answer" (selectionChange)="dropdownOptionChanged($event, i, j)"                  [disabled]="shouldDisable"
-                        [disabled]="shouldDisable">
-              <mat-option *ngFor="let option of constants.options.dropdown" [value]="option">
-                {{ option }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
+          <div *ngSwitchCase="constants.answerTypes.dropdown">
+            <mat-form-field appearance="outline" class="dropdown-container">
+              <mat-select [value]="answerObj.answer" (selectionChange)="dropdownOptionChanged($event, i, j)"
+                [disabled]="shouldDisable" [disabled]="shouldDisable">
+                <mat-option *ngFor="let option of constants.options.dropdown" [value]="option">
+                  {{ option }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
 
-        <div *ngSwitchCase="constants.answerTypes.value" class="mt-3"
-             [class.text-right]="question.options.length">
-          <input matInput class="border p-3 text-left"
-                 [(ngModel)]="answerObj.answer"
-                 [disabled]="shouldDisable"
-                 [class.invalid]="answerObj.answer && !valueInputValid(answerObj.answer, question)"
-                 (keydown)="valueInputKeydown(answerObj.answer, $event, question)"
-          >
-          <mat-hint class="mt-2">
-            {{ 'hints.enterValue' | translate: {
+          <div *ngSwitchCase="constants.answerTypes.value" class="mt-3" [class.text-right]="question.options.length">
+            <input matInput class="border p-3 text-left" [(ngModel)]="answerObj.answer" [disabled]="shouldDisable"
+              [class.invalid]="answerObj.answer && !valueInputValid(answerObj.answer, question)"
+              (keydown)="valueInputKeydown(answerObj.answer, $event, question)">
+            <mat-hint class="mt-2">
+              {{ 'hints.enterValue' | translate: {
                                       'MAXV': question.maxValue,
                                       'MINV': question.minValue,
                                       'DP': question.decimalPlaces
                                     }
             }}
-          </mat-hint>
+            </mat-hint>
+          </div>
         </div>
-      </div>
 
-    </ng-template>
+      </ng-template>
 
-  </mat-card>
+    </mat-card>
 
-  <mat-card *ngIf="poll?.allowComments || poll?.allowNames">
-    <mat-form-field appearance="outline" class="w-100 mb-2" *ngIf="poll.allowNames">
-      <mat-label>
-        {{ 'labels.name' | translate }}
-      </mat-label>
-      <input matInput placeholder="{{ 'placeholders.name' | translate }}" [(ngModel)]="response.name"
-             [disabled]="shouldDisable">
-      <mat-hint *ngIf="!shouldDisable">
-        {{ 'hints.enterName' | translate }}
-      </mat-hint>
-    </mat-form-field>
+    <mat-card *ngIf="poll?.allowComments || poll?.allowNames">
+      <mat-form-field appearance="outline" class="w-100 mb-2" *ngIf="poll.allowNames">
+        <mat-label>
+          {{ 'labels.name' | translate }}
+        </mat-label>
+        <input matInput placeholder="{{ 'placeholders.name' | translate }}" [(ngModel)]="response.name"
+          [disabled]="shouldDisable">
+        <mat-hint *ngIf="!shouldDisable">
+          {{ 'hints.enterName' | translate }}
+        </mat-hint>
+      </mat-form-field>
 
-    <mat-form-field appearance="outline" class="w-100 mb-2" *ngIf="poll.allowComments">
-      <mat-label>{{ 'labels.comments' | translate }}</mat-label>
-      <textarea matInput placeholder="{{ 'placeholders.comment' | translate }}"
-                [(ngModel)]="response.comments" [disabled]="shouldDisable">
+      <mat-form-field appearance="outline" class="w-100 mb-2" *ngIf="poll.allowComments">
+        <mat-label>{{ 'labels.comments' | translate }}</mat-label>
+        <textarea matInput placeholder="{{ 'placeholders.comment' | translate }}" [(ngModel)]="response.comments"
+          [disabled]="shouldDisable">
       </textarea>
-      <mat-hint *ngIf="!shouldDisable">{{ 'hints.enterComments' | translate }}</mat-hint>
-    </mat-form-field>
-  </mat-card>
+        <mat-hint *ngIf="!shouldDisable">{{ 'hints.enterComments' | translate }}</mat-hint>
+      </mat-form-field>
+    </mat-card>
 
-  <div class="text-center mt-5" *ngIf="!preview">
-    <button class="btn btn-danger mr-2" (click)="navigateToRespond()">
-      {{ 'labels.back' | translate }}
-    </button>
+    <div class="text-center mt-5" *ngIf="!preview">
+      <button class="btn btn-danger mr-2" (click)="navigateToRespond()">
+        {{ 'labels.back' | translate }}
+      </button>
 
-    <button class="btn btn-success" (click)="vote()" [disabled]="!canVote || !dirty"
-            *ngIf="!shouldDisable">
-      {{ (hasResponded && responseValid)
+      <button class="btn btn-success" (click)="vote()" [disabled]="!canVote || !dirty" *ngIf="!shouldDisable">
+        {{ (hasResponded && responseValid)
           ? translate.instant('labels.update') :
             !(canVote) ? translate.instant('messages.selectAllOptions')  : translate.instant('labels.vote')
       }}
-    </button>
-  </div>
-</div>
-
-<div class="d-flex justify-content-center align-items-center flex-column h-100" [ngClass]="!isMobile ? 'p-5' : 'p-2'"
-     *ngIf="poll?.status === constants.statusTypes.deleted || poll?.status === constants.statusTypes.terminated">
-  <mat-card class="d-flex flex-column justify-content-center text-center poll-inactive-card">
-    <h4>
-      {{ poll?.status === constants.statusTypes.deleted ? 'messages.pollDeleted' : 'messages.cannotRespondPollTerminated' | translate }}</h4>
-    <div class="alert alert-danger mt-3" *ngIf="poll?.inactiveComment">
-      {{ poll.inactiveComment }}
-    </div>
-    <div>
-      <button class="btn btn-danger mt-3 mr-2" (click)="navigateToRespond()">
-        {{ 'labels.back' | translate }}
       </button>
     </div>
-  </mat-card>
+  </div>
 </div>
 
 <div *ngIf="passwordRequired" class="d-flex justify-content-center">
@@ -237,9 +221,9 @@
     <mat-form-field appearance="outline" class=" mt-5">
       <mat-label>{{ 'labels.password' | translate }}</mat-label>
       <input matInput placeholder="{{ 'placeholders.pollPassword' | translate }}" [(ngModel)]="password"
-             [type]="hide ? 'password' : 'text'" (keyup.enter)="goClicked()">
+        [type]="hide ? 'password' : 'text'" (keyup.enter)="goClicked()">
       <mat-icon matSuffix (click)="hide = !hide" class="cursor-pointer">
-          {{hide ? 'visibility_off' : 'visibility'}}
+        {{hide ? 'visibility_off' : 'visibility'}}
       </mat-icon>
     </mat-form-field>
 

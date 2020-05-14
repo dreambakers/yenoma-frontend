@@ -44,6 +44,7 @@ export class ViewPollComponent implements OnInit {
   passwordRequired = false;
   showActiveComment = true;
   showRespondedBanner = false;
+  showCannotRespondBanner = true;
   constants = constants;
 
   constructor(
@@ -409,6 +410,10 @@ export class ViewPollComponent implements OnInit {
 
   get shouldDisable() {
     return this.poll.status === constants.statusTypes.terminated || (this.preview && this.hasResponded ? true : false);
+  }
+
+  get isOpen() {
+    return this.poll.status === constants.statusTypes.open;
   }
 
   get isMobile() {

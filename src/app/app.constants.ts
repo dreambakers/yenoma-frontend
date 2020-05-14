@@ -30,7 +30,8 @@ export const constants = {
         logoutClicked: 'logoutClicked',
         changeNavbarTitle: 'changeNavbarTitle',
         resetNavbar: 'resetNavbar',
-        updateNavbarLabels: 'updateNavbarLabels'
+        updateNavbarLabels: 'updateNavbarLabels',
+        highlightKeys: "highlightKeys"
     },
     languages: [
         { display: "English", value: "en" },
