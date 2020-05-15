@@ -41,7 +41,6 @@ export class ManagePollComponent implements OnInit, OnDestroy {
   showBasicHints = false;
   showQuestionHints = false;
   rearrangeQuestions = false;
-  showTerminatedBanner = true;
   showPollHasResponsesBanner = true;
   constants = constants;
   mobileNavbarProps: MobileNavbarProps;
@@ -273,7 +272,7 @@ export class ManagePollComponent implements OnInit, OnDestroy {
 
   get shouldDisable() {
     if (this.isEditing) {
-      return this.poll.status === constants.statusTypes.terminated || this.responses.length > 0;
+      return this.responses.length > 0;
     } else {
       return false;
     }

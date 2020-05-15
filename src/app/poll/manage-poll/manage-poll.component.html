@@ -22,15 +22,7 @@
     <div *ngIf="!preview">
         <div>
             <div class="alert alert-danger alert-dismissible"
-                 *ngIf="poll.status === constants.statusTypes.terminated && showTerminatedBanner">
-                {{ 'messages.cannotEditPollTerminated' | translate }}
-                <button type="button" class="close" (click)="showTerminatedBanner = false">
-                  <span>&times;</span>
-                </button>
-            </div>
-
-            <div class="alert alert-danger alert-dismissible"
-                 *ngIf="poll.status !== constants.statusTypes.terminated && responses && responses.length && showPollHasResponsesBanner">
+                 *ngIf="responses && responses.length && showPollHasResponsesBanner">
                  {{ 'messages.cannotEditPollHasResponses' | translate }}
                 <button type="button" class="close" (click)="showPollHasResponsesBanner = false">
                   <span>&times;</span>

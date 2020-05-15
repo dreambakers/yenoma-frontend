@@ -57,12 +57,7 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
         if (res.success) {
           this.polls = res.polls;
           this.dataSource = new MatTableDataSource(this.polls);
-          setTimeout(() => {
-            this.dataSource.sort = this.sort;
-            this.sort.sort(this.currentSort);
-            this.dataSource.paginator = this.paginator;
-            this.dataSource.sortingDataAccessor = (data, header) => data[header];
-          });
+          this.setTableAttributes();
           this.updateNavbarProps();
           this.updateNavTitle();
           this.emitterService.emit(this.constants.emitterKeys.updateNavbarLabels, { arrange: 'labels.sort' });
@@ -81,6 +76,15 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
         case constants.emitterKeys.preview:
           return this.togglePreview();
       }
+    });
+  }
+
+  setTableAttributes() {
+    setTimeout(() => {
+      this.dataSource.sort = this.sort;
+      this.sort.sort(this.currentSort);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sortingDataAccessor = (data, header) => data[header];
     });
   }
 
@@ -258,6 +262,7 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
       this.updateNavTitle();
       this.updateNavbarProps();
       this.emitterService.emit(this.constants.emitterKeys.highlightKeys, { preview: false });
+      this.setTableAttributes();
       return this.preview = false;
     }
     this.updateNavTitle(this.translate.instant('labels.poll') + ' ' + this.translate.instant('labels.preview'));

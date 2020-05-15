@@ -60,12 +60,7 @@ export class ResponsesComponent implements OnInit {
             this.updateNavbarProps();
             this.updateNavTitle();
             this.emitterService.emit(this.constants.emitterKeys.updateNavbarLabels, { arrange: 'labels.sort' });
-            setTimeout(() => {
-              this.dataSource.sort = this.sort;
-              this.sort.sort(this.currentSort);
-              this.dataSource.paginator = this.paginator;
-              this.dataSource.sortingDataAccessor = (data, header) => data[header];
-            });
+            this.setTableAttributes();
           } else {
             this.utils.openSnackBar('messages.errorGettingResponses');
           }
@@ -97,6 +92,15 @@ export class ResponsesComponent implements OnInit {
             return this.openSortDialog();
         }
       });
+    });
+  }
+
+  setTableAttributes() {
+    setTimeout(() => {
+      this.dataSource.sort = this.sort;
+      this.sort.sort(this.currentSort);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sortingDataAccessor = (data, header) => data[header];
     });
   }
 
@@ -175,6 +179,7 @@ export class ResponsesComponent implements OnInit {
     if (this.preview) {
       this.updateNavTitle();
       this.updateNavbarProps();
+      this.setTableAttributes();
       this.preview = false;
     } else {
       this.responseService.getResponse(response._id).subscribe(

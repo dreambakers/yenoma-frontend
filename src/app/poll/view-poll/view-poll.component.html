@@ -45,7 +45,7 @@
             {{ i + 1 }}
           </span>
         </div>
-        <h4 class="m-0">
+        <h4 class="m-0 text-break">
           {{question.text}}
         </h4>
       </div>
@@ -53,8 +53,8 @@
       <ul class="list-group" *ngFor="let option of question.options; let j = index">
         <li class="list-group-item mt-2 border-0" [ngClass]="(question.answerType !== constants.answerTypes.text) &&
                       'd-flex justify-content-between align-items-center'">
-          <div class="font-weight-bold">
-            {{ option }}
+          <div class="font-weight-bold text-break">
+            <p>{{option}}</p>
           </div>
           <ng-container
             *ngTemplateOutlet="questions; context: { question: question, i: i, j: j, answerObj: response.questions[i].answers[j] }">
