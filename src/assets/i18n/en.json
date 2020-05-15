@@ -98,7 +98,8 @@
         "generatorVersion": "Generator version",
         "nativeLanguageName": "Native language",
         "translator": "Translator",
-        "twoletterCode": "Two letter code"
+        "twoletterCode": "Two letter code",
+        "changeLanguage": "Change language"
     },
 
     "messages": {

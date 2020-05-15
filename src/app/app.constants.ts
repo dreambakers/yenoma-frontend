@@ -32,7 +32,8 @@ export const constants = {
         changeNavbarTitle: 'changeNavbarTitle',
         resetNavbar: 'resetNavbar',
         updateNavbarLabels: 'updateNavbarLabels',
-        highlightKeys: "highlightKeys"
+        highlightKeys: "highlightKeys",
+        languageChanged: "languageChanged"
     },
     languages: [
         { display: "English", value: "en" },

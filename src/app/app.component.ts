@@ -64,6 +64,11 @@ export class AppComponent implements OnInit {
     this.dialogService.about();
   }
 
+  language() {
+    this.toggleSidebar();
+    this.dialogService.language();
+  }
+
   ngOnDestroy(): void {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();

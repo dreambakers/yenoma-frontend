@@ -7,6 +7,7 @@ import { ChangePasswordComponent } from '../dialogs/change-password/change-passw
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { AboutComponent } from '../dialogs/about/about.component';
+import { LanguageComponent } from '../dialogs/language/language.component';
 
 @Injectable({
   providedIn: 'root'
@@ -45,6 +46,13 @@ export class DialogService {
 
   about(): Observable<any> {
     const dialogRef = this.dialog.open(AboutComponent, {
+      minWidth: !DataService.isMobile ? "400px" : "280px",
+    });
+    return dialogRef.afterClosed();
+  }
+
+  language(): Observable<any> {
+    const dialogRef = this.dialog.open(LanguageComponent, {
       minWidth: !DataService.isMobile ? "400px" : "280px",
     });
     return dialogRef.afterClosed();

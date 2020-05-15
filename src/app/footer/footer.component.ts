@@ -60,6 +60,8 @@ export class FooterComponent implements OnInit, OnDestroy {
           return this.labels = { ...this.labels, ...emitted.data };
         case constants.emitterKeys.highlightKeys:
           return this.keysToHighlight = { ...this.keysToHighlight, ...emitted.data };
+        case constants.emitterKeys.languageChanged:
+          return this.languageChanged(emitted.data);
       }
     });
   }

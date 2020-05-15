@@ -58,6 +58,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { LanguageComponent } from './dialogs/language/language.component';
 
 @NgModule({
   declarations: [
@@ -80,6 +81,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     SortDialogComponent,
     ChangePasswordComponent,
     AboutComponent,
+    LanguageComponent,
   ],
   imports: [
     BrowserAnimationsModule,
