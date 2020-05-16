@@ -99,7 +99,10 @@
         "nativeLanguageName": "Native language",
         "translator": "Translator",
         "twoletterCode": "Two letter code",
-        "changeLanguage": "Change language"
+        "changeLanguage": "Change language",
+        "thankYou": "Thank you!",
+        "backToPoll": "Back to poll",
+        "shareWithFriends": "Share with friends"
     },
 
     "messages": {
