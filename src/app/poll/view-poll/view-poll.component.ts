@@ -150,10 +150,10 @@ export class ViewPollComponent implements OnInit {
     if (this.hasResponded && this.responseValid) {
       this.responseService.updateResponse(this.response).subscribe((res: any) => {
         if (res.success) {
-          this.utils.openSnackBar('messages.responseUpdated', 'labels.success');
           this.addResponseToLocalStorage(res.response);
           this.responseCopy = JSON.stringify(res.response);
           this.response = res.response;
+          this.navigateToRespond({ action: 'updated', responded: true });
         }
       }, err => {
         this.utils.openSnackBar('messages.errorUpdatingResponse');
@@ -161,12 +161,12 @@ export class ViewPollComponent implements OnInit {
     } else {
       this.responseService.recordResponse(this.response).subscribe((res: any) => {
         if (res.success) {
-          this.utils.openSnackBar('messages.responseRecorded', 'labels.success');
           this.addResponseToLocalStorage(res.response);
           this.responseCopy = JSON.stringify(res.response);
           this.response = res.response;
           this.hasResponded = true;
           this.responseValid = true;
+          this.navigateToRespond({ action: 'recorded', responded: true });
         }
       }, err => {
         this.utils.openSnackBar('messages.errorRecordingResponse');
@@ -259,11 +259,12 @@ export class ViewPollComponent implements OnInit {
     this.getPoll(this.pollId, this.password);
   }
 
-  navigateToRespond() {
+  navigateToRespond(additionalParams = {}) {
     this.router.navigate(['/respond'], {
       relativeTo: this.route,
       queryParams: {
-        id: this.pollId
+        id: this.pollId,
+        ...additionalParams
       }
    });
   }

@@ -15,6 +15,8 @@ export class RespondComponent implements OnInit {
 
   responseForm;
   submitted = false;
+  responded = false;
+  action;
 
   constructor(private formBuilder: FormBuilder,
     private pollService: PollService,
@@ -31,11 +33,19 @@ export class RespondComponent implements OnInit {
     this.route.queryParams.pipe(take(1)).subscribe(params => {
       if (params['id']) {
         this.responseForm.controls['pollId'].setValue(params['id']);
+        if (params['responded'] && params['action']) {
+          this.responded = true;
+          this.action = params['action'];
+        }
       }
     });
   }
 
   get f() { return this.responseForm.controls; }
+
+  getMessageKey() {
+    return this.action === 'recorded' ? 'messages.responseRecorded' : 'messages.responseUpdated';
+  }
 
   onSubmit() {
     this.submitted = true;

@@ -60,6 +60,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { RecordedComponent } from './landing/respond/recorded/recorded.component';
 
 @NgModule({
   declarations: [
@@ -84,6 +85,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     AboutComponent,
     LanguageComponent,
     AlertComponent,
+    RecordedComponent,
   ],
   imports: [
     BrowserAnimationsModule,
