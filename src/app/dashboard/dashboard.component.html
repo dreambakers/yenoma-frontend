@@ -1,4 +1,9 @@
 <div id="dashboard">
     <app-navbar></app-navbar>
+    <app-alert
+        *ngIf="getGlobalMessage()"
+        messageKey="globalMessages.questionerWarning"
+        type="danger">
+    </app-alert>
     <router-outlet></router-outlet>
 </div>

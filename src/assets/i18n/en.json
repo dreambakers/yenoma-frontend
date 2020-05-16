@@ -236,10 +236,10 @@
         "share": "Share poll"
     },
 
-    "globalMessage": {
-        "questionerWarning": "Warning: This is app ist still in beta phase. Your entries may be lost!",
+    "globalMessages": {
+        "questionerWarning": "Warning: This is app is still in beta phase. Your entries may be lost!",
         "questionerHint": "",
-        "responderWarning": "",
+        "responderWarning": "This is a global responder warning.",
         "responderHint": ""
     }
 }

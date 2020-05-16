@@ -1,6 +1,13 @@
 <div class="h-100" [ngClass]="!embeddedPreview && (isMobile ? 'p-2' : 'p-5')" *ngIf="poll?.questions">
 
   <app-alert
+    *ngIf="getGlobalMessage()"
+    messageKey="globalMessages.responderWarning"
+    class="mb-3"
+    type="danger">
+  </app-alert>
+
+  <app-alert
     [message]="getRespondedMessage()"
     type="info"
     *ngIf="hasResponded"

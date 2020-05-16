@@ -345,6 +345,11 @@ export class ViewPollComponent implements OnInit {
     );
   }
 
+  getGlobalMessage() {
+    const message = this.translate.instant('globalMessages.responderWarning');
+    return message && message !== 'globalMessages.responderWarning';
+  }
+
   get canVote() {
 
     const answerTypesToSkip = [
