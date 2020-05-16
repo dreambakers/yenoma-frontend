@@ -38,7 +38,8 @@ export const constants = {
     languages: [
         { display: "English", value: "en" },
         { display: "German", value: "de" },
-        { display: "French", value: "fr" }
+        { display: "French", value: "fr" },
+        { display: "اردو", value: "ur", rtl: true }
     ],
 
     options: {
