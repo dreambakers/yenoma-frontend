@@ -42,9 +42,7 @@ export class ViewPollComponent implements OnInit {
   preview = false;
   responseValid = false;
   passwordRequired = false;
-  showActiveComment = true;
-  showRespondedBanner = false;
-  showCannotRespondBanner = true;
+  commentDismissed = false;
   constants = constants;
 
   constructor(
@@ -82,7 +80,6 @@ export class ViewPollComponent implements OnInit {
             this.response = this.getResponseFromLocalStorage(this.poll._id);
             this.verifyResponseValidity();
             this.hasResponded = true;
-            this.showRespondedBanner = true;
           } else {
             this.setAnswers();
             this.response.for = res.poll._id;
@@ -336,6 +333,16 @@ export class ViewPollComponent implements OnInit {
             || (!maxDecimalsEntered && !isNaN(event.key))
             || (event.key === '-' && allowMinus)
             || (event.key === '.' && allowPeriod);
+  }
+
+  getRespondedMessage() {
+    return this.translate.instant(
+      'messages.respondedPreviously',
+      {
+        'DT': this.getParsedDateTime(true),
+        'TM': this.getParsedDateTime()
+      }
+    );
   }
 
   get canVote() {

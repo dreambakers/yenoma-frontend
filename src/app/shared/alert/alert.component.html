@@ -1,0 +1,13 @@
+<div class="alert alert-{{type}} alert-dismissible mat-elevation-z1 {{class}}"  *ngIf="!dismissed">
+    <span *ngIf="messageKey; else showMessage">
+        {{ messageKey | translate }}
+    </span>
+
+    <ng-template #showMessage>
+        {{ message }}
+    </ng-template>
+
+    <button type="button" class="close" (click)="dismiss()" *ngIf="dismissible">
+        <span>&times;</span>
+    </button>
+</div>

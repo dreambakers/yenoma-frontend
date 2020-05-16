@@ -1,39 +1,43 @@
 <div class="h-100" [ngClass]="!embeddedPreview && (isMobile ? 'p-2' : 'p-5')" *ngIf="poll?.questions">
 
-  <div class="alert alert-info alert-dismissible mb-3" role="alert" *ngIf="hasResponded && showRespondedBanner">
-    {{ 'messages.respondedPreviously' | translate:{ 'DT': getParsedDateTime(true), 'TM': getParsedDateTime() } }}
-    <button type="button" class="close" (click)="showRespondedBanner = false">
-      <span>&times;</span>
-    </button>
-  </div>
+  <app-alert
+    [message]="getRespondedMessage()"
+    type="info"
+    *ngIf="hasResponded"
+    class="mb-3">
+  </app-alert>
 
-  <div class="alert alert-danger mb-3" *ngIf="!isOpen && showCannotRespondBanner">
-    {{ poll?.status === constants.statusTypes.deleted ?
-                        'messages.pollDeleted' :
-                        'messages.cannotRespondPollTerminated' | translate
-     }}
-    <button type="button" class="close" (click)="showCannotRespondBanner = false">
-      <span>&times;</span>
-    </button>
-  </div>
+  <app-alert
+    messageKey="{{ poll.status === constants.statusTypes.deleted ? 'messages.pollDeleted' : 'messages.cannotRespondPollTerminated'}}"
+    type="danger"
+    *ngIf="!isOpen"
+    class="mb-3">
+  </app-alert>
 
   <mat-card class="p-0">
     <div class="border-bottom">
       <h4 class="p-3 m-0">{{poll.title}}</h4>
     </div>
-    <div class="p-3" *ngIf="poll.description || (isOpen && poll.activeComment && showActiveComment) || (!isOpen && poll?.inactiveComment)">
-      <p *ngIf="poll.description">
+
+    <div *ngIf="poll.description" class="p-3">
+      <p>
         {{poll.description}}
       </p>
-      <div class="alert alert-info font-italic" *ngIf="isOpen && poll.activeComment && showActiveComment">
-        {{ poll.activeComment }}
-        <button type="button" class="close" (click)="showActiveComment = false">
-          <span>&times;</span>
-        </button>
-      </div>
-      <div class="alert alert-danger mt-3" *ngIf="!isOpen && poll?.inactiveComment">
-        {{ poll.inactiveComment }}
-      </div>
+    </div>
+
+    <div *ngIf="isOpen && poll.activeComment && !commentDismissed" class="p-3">
+      <app-alert
+        [message]="poll.activeComment"
+        class="font-italic"
+        (onDismiss)="commentDismissed = true">
+      </app-alert>
+    </div>
+
+    <div *ngIf="!isOpen && poll.inactiveComment && !commentDismissed" class="p-3">
+      <app-alert
+        [message]="poll.inactiveComment"
+        (onDismiss)="commentDismissed = true">
+      </app-alert>
     </div>
   </mat-card>
 

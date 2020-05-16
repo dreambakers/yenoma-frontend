@@ -21,13 +21,11 @@
 
     <div *ngIf="!preview">
         <div>
-            <div class="alert alert-danger alert-dismissible"
-                 *ngIf="responses && responses.length && showPollHasResponsesBanner">
-                 {{ 'messages.cannotEditPollHasResponses' | translate }}
-                <button type="button" class="close" (click)="showPollHasResponsesBanner = false">
-                  <span>&times;</span>
-                </button>
-            </div>
+            <app-alert messageKey="messages.cannotEditPollHasResponses"
+                       type="danger"
+                       *ngIf="responses && responses.length"
+                       class="mb-2">
+            </app-alert>
 
             <div class="d-flex justify-content-end mb-5 text-right" *ngIf="isEditing && responses.length && !isMobile">
                 <p>

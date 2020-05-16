@@ -41,7 +41,6 @@ export class ManagePollComponent implements OnInit, OnDestroy {
   showBasicHints = false;
   showQuestionHints = false;
   rearrangeQuestions = false;
-  showPollHasResponsesBanner = true;
   constants = constants;
   mobileNavbarProps: MobileNavbarProps;
   destroy$: Subject<boolean> = new Subject<boolean>();

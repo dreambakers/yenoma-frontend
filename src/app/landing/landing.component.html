@@ -1,11 +1,6 @@
 <mat-tab-group mat-align-tabs="center" [selectedIndex]="selectedIndex">
     <mat-tab label="{{ translate.instant('labels.login') }}/{{ translate.instant('labels.register') }}">
-        <div class="alert alert-danger alert-dismissible" *ngIf="showSessionExpiredBanner">
-            {{ 'messages.sessionExpired' | translate }}
-            <button type="button" class="close" (click)="showSessionExpiredBanner = false">
-                <span>&times;</span>
-            </button>
-        </div>
+        <app-alert messageKey="messages.sessionExpired" type="danger" *ngIf="showSessionExpiredBanner"></app-alert>
         <app-login *ngIf="activeLink !== '/signup'"></app-login>
         <app-signup *ngIf="activeLink === '/signup'"></app-signup>
     </mat-tab>

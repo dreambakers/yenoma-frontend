@@ -31,6 +31,8 @@ import { ErrorComponent } from './error/error.component';
 import { SortDialogComponent } from './dialogs/sort/sort-dialog.component';
 import { ChangePasswordComponent } from './dialogs/change-password/change-password.component';
 import { AboutComponent } from './dialogs/about/about.component';
+import { LanguageComponent } from './dialogs/language/language.component';
+import { AlertComponent } from './shared/alert/alert.component';
 
 import { DigitOnlyModule } from '@uiowa/digit-only';
 
@@ -58,7 +60,6 @@ import { MatCardModule } from '@angular/material/card';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { LanguageComponent } from './dialogs/language/language.component';
 
 @NgModule({
   declarations: [
@@ -82,6 +83,7 @@ import { LanguageComponent } from './dialogs/language/language.component';
     ChangePasswordComponent,
     AboutComponent,
     LanguageComponent,
+    AlertComponent,
   ],
   imports: [
     BrowserAnimationsModule,
