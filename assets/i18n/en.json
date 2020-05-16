@@ -234,5 +234,12 @@
         "responseDetails": "Response details",
         "duplicate": "Duplicate poll",
         "share": "Share poll"
+    },
+
+    "globalMessage": {
+        "questionerWarning": "Warning: This is app ist still in beta phase. Your entries may be lost!",
+        "questionerHint": "",
+        "responderWarning": "",
+        "responderHint": ""
     }
 }
