@@ -346,9 +346,9 @@ export class ViewPollComponent implements OnInit {
     );
   }
 
-  getGlobalMessage() {
-    const message = this.translate.instant('globalMessages.responderWarning');
-    return message && message !== 'globalMessages.responderWarning';
+  hasGlobalMessage(messageKey) {
+    const message = this.translate.instant(`globalMessages.${messageKey}`);
+    return message && message !== `globalMessages.${messageKey}`;
   }
 
   get canVote() {

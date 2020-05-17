@@ -1,9 +1,14 @@
 <div id="dashboard">
     <app-navbar></app-navbar>
     <app-alert
-        *ngIf="getGlobalMessage()"
+        *ngIf="hasGlobalMessage('questionerWarning')"
         messageKey="globalMessages.questionerWarning"
         type="danger">
+    </app-alert>
+    <app-alert
+        *ngIf="hasGlobalMessage('questionerHint')"
+        messageKey="globalMessages.questionerHint"
+        type="info">
     </app-alert>
     <router-outlet></router-outlet>
 </div>

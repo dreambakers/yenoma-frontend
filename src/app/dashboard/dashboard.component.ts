@@ -15,8 +15,8 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
   }
 
-  getGlobalMessage() {
-    const message = this.translate.instant('globalMessages.questionerWarning');
-    return message && message !== 'globalMessages.questionerWarning';
+  hasGlobalMessage(messageKey) {
+    const message = this.translate.instant(`globalMessages.${messageKey}`);
+    return message && message !== `globalMessages.${messageKey}`;
   }
 }
