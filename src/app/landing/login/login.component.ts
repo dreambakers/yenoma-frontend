@@ -49,8 +49,8 @@ export class LoginComponent implements OnInit {
       }
 
     }, (errorResponse: any) => {
-      const errorMessageKey = errorResponse.error.notFound ? 'noUserFound' : 'errorLoggingIn';
-      this.utils.openSnackBar(`messages.${errorMessageKey}`, 'labels.retry');
+      const errorMessageKey = errorResponse.error.notFound ? 'messages.noUserFound' : 'errors.e010_loggingIn';
+      this.utils.openSnackBar(errorMessageKey, 'labels.retry');
     });
   }
 }

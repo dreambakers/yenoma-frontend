@@ -60,11 +60,11 @@ export class ViewStatsComponent implements OnInit {
             this.emitterService.emit(constants.emitterKeys.changeNavbarTitle, navTitle);
             this.emitterService.emit(constants.emitterKeys.updateNavbarProps, { cancel: true });
           } else {
-            this.utils.openSnackBar('messages.errorGettingPoll');
+            this.utils.openSnackBar('errors.e003_gettingPoll');
           }
         },
         (err) => {
-          this.utils.openSnackBar('messages.errorGettingPoll');
+          this.utils.openSnackBar('errors.e003_gettingPoll');
         }
       )
     });

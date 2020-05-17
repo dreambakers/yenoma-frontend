@@ -63,7 +63,7 @@ export class RespondComponent implements OnInit {
         }
       },
       errorResponse => {
-        this.utils.openSnackBar('messages.errorGettingPoll');
+        this.utils.openSnackBar('errors.e003_gettingPoll');
       }
     );
   }

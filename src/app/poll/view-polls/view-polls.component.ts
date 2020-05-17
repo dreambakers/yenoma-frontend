@@ -64,7 +64,7 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
         }
       },
       err => {
-        this.utils.openSnackBar('messages.errorGettingPoll');
+        this.utils.openSnackBar('errors.e003_gettingPoll');
       }
     );
     this.emitterService.emittter.pipe(takeUntil(this.destroy$)).subscribe((emitted) => {
@@ -119,11 +119,11 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
                 this.utils.openSnackBar('messages.pollDeletedSuccessfully');
                 this.updateNavTitle();
               } else {
-                this.utils.openSnackBar('messages.errorDeletingPoll');
+                this.utils.openSnackBar('errors.e006_deletingPoll');
               }
             },
             err => {
-              this.utils.openSnackBar('messages.errorDeletingPoll');
+              this.utils.openSnackBar('errors.e006_deletingPoll');
             }
           );
         }
@@ -142,11 +142,11 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
                 poll.status = constants.statusTypes.terminated;
                 this.utils.openSnackBar('messages.pollTerminated');
               } else {
-                this.utils.openSnackBar('messages.errorTerminatingPoll');
+                this.utils.openSnackBar('errors.e007_terminatingPoll');
               }
             },
             err => {
-              this.utils.openSnackBar('messages.errorTerminatingPoll');
+              this.utils.openSnackBar('errors.e007_terminatingPoll');
             }
           );
         }
@@ -165,11 +165,11 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
                 poll.status = constants.statusTypes.open;
                 this.utils.openSnackBar('messages.pollRestored');
               } else {
-                this.utils.openSnackBar('messages.errorRestoringPoll');
+                this.utils.openSnackBar('errors.e008_restoringPoll');
               }
             },
             err => {
-              this.utils.openSnackBar('messages.errorRestoringPoll');
+              this.utils.openSnackBar('errors.e008_restoringPoll');
             }
           );
         }
@@ -221,11 +221,11 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
           this.utils.openSnackBar('messages.pollDuplicated');
           this.updateNavTitle();
         } else {
-          this.utils.openSnackBar('messages.errorDuplicatingPoll');
+          this.utils.openSnackBar('errors.e014_duplicatingPoll');
         }
       },
       err => {
-        this.utils.openSnackBar('messages.errorDuplicatingPoll');
+        this.utils.openSnackBar('errors.e014_duplicatingPoll');
       }
     );
   }

@@ -91,13 +91,13 @@ export class ViewPollComponent implements OnInit {
           } else if (res.incorrectPassword) {
             this.utils.openSnackBar('messages.incorrectPassword', 'labels.retry');
           } else {
-            this.utils.openSnackBar('messages.errorGettingPoll');
+            this.utils.openSnackBar('errors.e003_gettingPoll');
             this.navigateToRespond();
           }
         }
       },
       (err) => {
-        this.utils.openSnackBar('messages.errorGettingPoll');
+        this.utils.openSnackBar('errors.e003_gettingPoll');
         this.navigateToRespond();
       }
     );
@@ -156,7 +156,7 @@ export class ViewPollComponent implements OnInit {
           this.navigateToRespond({ action: 'updated', responded: true });
         }
       }, err => {
-        this.utils.openSnackBar('messages.errorUpdatingResponse');
+        this.utils.openSnackBar('errors.e005_updatingResponse');
       });
     } else {
       this.responseService.recordResponse(this.response).subscribe((res: any) => {
@@ -169,7 +169,7 @@ export class ViewPollComponent implements OnInit {
           this.navigateToRespond({ action: 'recorded', responded: true });
         }
       }, err => {
-        this.utils.openSnackBar('messages.errorRecordingResponse');
+        this.utils.openSnackBar('errors.e004_recordingResponse');
       });
     }
   }

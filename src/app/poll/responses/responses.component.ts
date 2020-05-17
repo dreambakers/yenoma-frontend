@@ -62,11 +62,11 @@ export class ResponsesComponent implements OnInit {
             this.emitterService.emit(this.constants.emitterKeys.updateNavbarLabels, { arrange: 'labels.sort' });
             this.setTableAttributes();
           } else {
-            this.utils.openSnackBar('messages.errorGettingResponses');
+            this.utils.openSnackBar('errors.e011_gettingResponses');
           }
         },
         (err) => {
-          this.utils.openSnackBar('messages.errorGettingResponses');
+          this.utils.openSnackBar('errors.e011_gettingResponses');
         }
       );
 
@@ -76,11 +76,11 @@ export class ResponsesComponent implements OnInit {
             this.poll = res.poll;  // poll
             this.poll.allowComments && this.displayedColumns.splice(1, 0, "comments");
           } else {
-            this.utils.openSnackBar('messages.errorGettingPoll');
+            this.utils.openSnackBar('errors.e003_gettingPoll');
           }
         },
         (err) => {
-          this.utils.openSnackBar('messages.errorGettingPoll');
+          this.utils.openSnackBar('errors.e003_gettingPoll');
         }
       );
 
@@ -143,11 +143,11 @@ export class ResponsesComponent implements OnInit {
                 this.updateNavTitle();
                 this.utils.openSnackBar('messages.responseDeleted');
               } else {
-                this.utils.openSnackBar('messages.errorDeletingResponse');
+                this.utils.openSnackBar('errors.e012_deletingResponse');
               }
             },
             err => {
-              this.utils.openSnackBar('messages.errorDeletingResponse');
+              this.utils.openSnackBar('errors.e012_deletingResponse');
             }
           );
         }
@@ -162,11 +162,11 @@ export class ResponsesComponent implements OnInit {
           this.response = res.response;
           this.preview = true;
         } else {
-          this.utils.openSnackBar('messages.errorGettingResponse');
+          this.utils.openSnackBar('errors.e013_gettingResponse');
         }
       },
       err => {
-        this.utils.openSnackBar('messages.errorGettingResponse');
+        this.utils.openSnackBar('errors.e013_gettingResponse');
       }
     );
   }
@@ -190,11 +190,11 @@ export class ResponsesComponent implements OnInit {
             this.updateNavbarProps({ arrange: false });
             this.updateNavTitle(this.translate.instant('labels.response'));
           } else {
-            this.utils.openSnackBar('messages.errorGettingResponse');
+            this.utils.openSnackBar('errors.e013_gettingResponse');
           }
         },
         err => {
-          this.utils.openSnackBar('messages.errorGettingResponse');
+          this.utils.openSnackBar('errors.e013_gettingResponse');
         }
       );
     }

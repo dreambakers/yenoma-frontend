@@ -52,8 +52,8 @@ export class SignupComponent implements OnInit {
         }
       },
       errorResponse => {
-        const errorMessageKey = errorResponse.error.alreadyExists ? 'userAlreadyExists' : 'errorSigningUp';
-        this.utils.openSnackBar(`messages.${errorMessageKey}`, 'labels.retry');
+        const errorMessageKey = errorResponse.error.alreadyExists ? 'messages.userAlreadyExists' : 'errors.e009_signingUp';
+        this.utils.openSnackBar(errorMessageKey, 'labels.retry');
       }
     );
   }

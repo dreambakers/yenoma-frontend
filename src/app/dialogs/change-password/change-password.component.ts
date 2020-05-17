@@ -55,14 +55,14 @@ export class ChangePasswordComponent implements OnInit {
           this.utils.openSnackBar('messages.passwordChanged');
           this.onDismiss();
         } else {
-          this.utils.openSnackBar('messages.errorChangingPassword', 'labels.retry');
+          this.utils.openSnackBar('errors.e015_changingPassword', 'labels.retry');
         }
       },
       err => {
         if (err.error.incorrectPassword) {
           this.changePasswordForm.controls['password'].setErrors({'currentPasswordNotCorrect': true});
         } else {
-          this.utils.openSnackBar('messages.errorChangingPassword', 'labels.retry');
+          this.utils.openSnackBar('errors.e015_changingPassword', 'labels.retry');
         }
       }
     );

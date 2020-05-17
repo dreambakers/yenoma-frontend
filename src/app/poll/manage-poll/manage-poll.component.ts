@@ -74,11 +74,11 @@ export class ManagePollComponent implements OnInit, OnDestroy {
                 this.emitterService.emit(constants.emitterKeys.changeNavbarTitle, this.navTitle);
               }
             } else {
-              this.utils.openSnackBar('messages.errorGettingPoll');
+              this.utils.openSnackBar('errors.e003_gettingPoll');
             }
           },
           (err) => {
-            this.utils.openSnackBar('messages.errorGettingPoll');
+            this.utils.openSnackBar('errors.e003_gettingPoll');
           }
         )
       });
@@ -169,11 +169,11 @@ export class ManagePollComponent implements OnInit, OnDestroy {
           this.utils.openSnackBar('messages.pollUpdated', 'labels.success');
           this.pollCopy = JSON.stringify(this.poll);
         } else {
-          this.utils.openSnackBar('messages.errorUpdatingPoll');
+          this.utils.openSnackBar('errors.e002_updatingPoll');
         }
       },
       err => {
-        this.utils.openSnackBar('messages.errorUpdatingPoll');
+        this.utils.openSnackBar('errors.e002_updatingPoll');
       }
     );
   }
@@ -183,7 +183,7 @@ export class ManagePollComponent implements OnInit, OnDestroy {
       this.utils.openSnackBar('messages.pollCreated', 'labels.success');
       this.router.navigate(['/dashboard/manage'], { queryParams: { id: res.poll._id } });
     }, err => {
-      this.utils.openSnackBar('messages.errorCreatingPoll');
+      this.utils.openSnackBar('errors.e001_creatingPoll');
     });
   }
 
