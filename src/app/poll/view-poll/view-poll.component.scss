@@ -1,3 +1,5 @@
+@import '../../../scss/variables.scss';
+
   .cdk-drag-preview {
     box-sizing: border-box;
     border-radius: 4px;
@@ -41,7 +43,8 @@
 }
 
 .question-number {
-  background: #6C757D;
+  background: $color-primary-light;
+  color: $color-primary !important;
   min-width: 30px;
   padding: 3px;
 }

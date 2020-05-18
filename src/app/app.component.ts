@@ -47,6 +47,7 @@ export class AppComponent implements OnInit {
   @HostListener('window:resize', ['$event'])
   onResize(event) {
     DataService.isMobile = event.target.innerWidth <= DataService.mobileBreakpoint;
+    this.emitterService.emit(this.constants.emitterKeys.screeenSizeChanged, event.target.innerWidth);
   }
 
   logout() {

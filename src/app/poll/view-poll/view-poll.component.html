@@ -58,7 +58,7 @@
   <div *ngIf="isOpen">
     <mat-card *ngFor="let question of poll.questions; let i = index" class="my-5 p-0">
       <div class="d-flex flex-row align-items-center p-3 border-bottom">
-        <div class="d-flex justify-content-center align-items-center mr-2 rounded text-white question-number">
+        <div class="d-flex justify-content-center align-items-center mr-3 rounded text-white question-number">
           <span class="font-weight-bold">
             {{ i + 1 }}
           </span>
@@ -71,7 +71,7 @@
       <ul class="list-group" *ngFor="let option of question.options; let j = index">
         <li class="list-group-item mt-2 border-0" [ngClass]="(question.answerType !== constants.answerTypes.text) &&
                       'd-flex justify-content-between align-items-center'">
-          <div class="font-weight-bold text-break">
+          <div class="text-break">
             <p>{{option}}</p>
           </div>
           <ng-container

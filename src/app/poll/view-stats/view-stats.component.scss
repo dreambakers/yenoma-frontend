@@ -1,3 +1,5 @@
+@import '../../../scss/variables.scss';
+
 .mat-button {
     min-width: 30px;
 }
@@ -21,11 +23,11 @@ mat-icon {
 }
 
 .expanded-row {
-    background-color: #E8EAF6;
+    background-color: $color-primary-very-light;
     .progress {
-        background-color: #B3B9E1 !important;
+        background-color: $color-primary-light !important;
     }
     .progress-bar {
-        background-color: #394AAF !important;
+        background-color: $color-primary !important;
     }
 }

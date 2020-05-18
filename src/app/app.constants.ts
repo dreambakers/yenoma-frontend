@@ -33,13 +33,13 @@ export const constants = {
         resetNavbar: 'resetNavbar',
         updateNavbarLabels: 'updateNavbarLabels',
         highlightKeys: "highlightKeys",
-        languageChanged: "languageChanged"
+        languageChanged: "languageChanged",
+        screeenSizeChanged: "screeenSizeChanged"
     },
     languages: [
         { display: "English", value: "en" },
         { display: "German", value: "de" },
         { display: "French", value: "fr" },
-        { display: "اردو", value: "ur", rtl: true }
     ],
 
     options: {

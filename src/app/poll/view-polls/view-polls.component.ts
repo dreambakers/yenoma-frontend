@@ -75,15 +75,21 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
           return this.openSortDialog();
         case constants.emitterKeys.preview:
           return this.togglePreview();
+        case constants.emitterKeys.screeenSizeChanged:
+          this.setPaginator();
       }
     });
+  }
+
+  setPaginator() {
+    this.dataSource.paginator = !this.isMobile ? this.paginator : null;
   }
 
   setTableAttributes() {
     setTimeout(() => {
       this.dataSource.sort = this.sort;
       this.sort.sort(this.currentSort);
-      this.dataSource.paginator = this.paginator;
+      this.setPaginator()
       this.dataSource.sortingDataAccessor = (data, header) => data[header];
     });
   }
