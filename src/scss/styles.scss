@@ -232,6 +232,11 @@ button {
     }
 }
 
+
+.mat-snack-bar-container {
+    margin-bottom: 60px !important;
+}
+
 .mat-dialog-actions {
     justify-content: flex-end;
 }
@@ -250,13 +255,16 @@ button {
     background-color: $color-primary !important;
 }
 
+.mat-button-ripple .mat-ripple-element, .mat-button-checked.mat-accent .mat-button-background {
+    background-color: $color-primary !important;
+}
+
 .mat-checkbox-checked.mat-primary .mat-checkbox-background, .mat-checkbox-indeterminate.mat-primary .mat-checkbox-background{
     background-color: $color-primary-light !important;
 }
 
 .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle{
-    border-color:$color-primary-light;
-
+    border-color: $color-primary;
 }
 
 .mat-radio-button.mat-accent .mat-radio-inner-circle{
@@ -265,8 +273,8 @@ button {
 }
 
 .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
-    color: $color-primary-light !important;
-    background-color: $color-primary-light !important;
+    color: $color-primary !important;
+    background-color: $color-primary !important;
 }
 
 .mat-slider-track-fill {
