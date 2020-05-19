@@ -33,6 +33,7 @@ import { ChangePasswordComponent } from './dialogs/change-password/change-passwo
 import { AboutComponent } from './dialogs/about/about.component';
 import { LanguageComponent } from './dialogs/language/language.component';
 import { AlertComponent } from './shared/alert/alert.component';
+import { RecordedComponent } from './landing/respond/recorded/recorded.component';
 
 import { DigitOnlyModule } from '@uiowa/digit-only';
 
@@ -60,7 +61,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { RecordedComponent } from './landing/respond/recorded/recorded.component';
+import { MatRippleModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -124,7 +125,8 @@ import { RecordedComponent } from './landing/respond/recorded/recorded.component
     }),
     DigitOnlyModule,
     MatExpansionModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatRippleModule
   ],
   providers: [
     {
