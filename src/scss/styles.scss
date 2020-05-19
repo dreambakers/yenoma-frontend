@@ -256,7 +256,7 @@ button {
 }
 
 .mat-button-ripple .mat-ripple-element, .mat-button-checked.mat-accent .mat-button-background {
-    background-color: $color-primary !important;
+    background-color: rgba($color-primary-light, 0.2) !important;
 }
 
 .mat-checkbox-checked.mat-primary .mat-checkbox-background, .mat-checkbox-indeterminate.mat-primary .mat-checkbox-background{

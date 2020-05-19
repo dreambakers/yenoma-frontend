@@ -23,6 +23,19 @@
         </mat-header-cell>
         <mat-cell *matCellDef="let poll" class="justify-content-center text-ellipsis" [class.text-muted]="isMobile">
           {{getParsedDate(poll.createdAt)}}
+          {{ (isMobile && poll.terminatedAt) ?
+              ( translate.instant('labels.to') + ' ' + getParsedDate(poll.terminatedAt) )
+               : ''
+          }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="terminatedAt">
+        <mat-header-cell *matHeaderCellDef class="text-dark justify-content-center" mat-sort-header [hidden]="isMobile">
+          {{ 'labels.terminated' | translate }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let poll" class="justify-content-center text-ellipsis" [hidden]="isMobile">
+          {{ getParsedDate(poll.terminatedAt) || '-' }}
         </mat-cell>
       </ng-container>
 
@@ -39,7 +52,7 @@
           {{ 'labels.responders' | translate }}
         </mat-header-cell>
         <mat-cell *matCellDef="let poll" class="justify-content-center text-ellipsis" [class.text-muted]="isMobile">
-          {{poll.responses}}
+          {{ poll.responses || 0 }}
           <span *ngIf="isMobile">
             {{ 'labels.responders' | translate | lowercase }}
           </span>

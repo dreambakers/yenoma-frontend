@@ -102,7 +102,9 @@
     "changeLanguage": "Change language",
     "thankYou": "Thank you!",
     "backToPoll": "Back to poll",
-    "shareWithFriends": "Share with friends"
+    "shareWithFriends": "Share with friends",
+    "terminated": "Terminated",
+    "to": "to"
   },
 
   "messages": {

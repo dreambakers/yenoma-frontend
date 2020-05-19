@@ -19,6 +19,7 @@ import { MobileNavbarProps } from 'src/app/footer/footer.component';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { DialogService } from 'src/app/services/dialog.service';
+import { Poll } from '../poll.model';
 @Component({
   selector: 'app-view-polls',
   templateUrl: './view-polls.component.html',
@@ -28,13 +29,14 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
 
   poll;
   dataSource;
-  polls = [];
+  polls: Poll[] = [];
   preview = false;
   constants = constants;
+  containsTerminated = false;
   destroy$: Subject<boolean> = new Subject<boolean>();
   @ViewChild(MatSort, { static: false }) sort: MatSort;
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
-  displayedColumns: string[] = ['title', 'privateNote', 'createdAt', 'responses', 'status', 'action'];
+  displayedColumns: string[] = ['title', 'privateNote', 'createdAt', 'terminatedAt', 'responses', 'status', 'action'];
   currentSort: MatSortable = {
     id: 'createdAt',
     start: 'asc',
@@ -45,7 +47,7 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
     private utils: UtilService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private translate: TranslateService,
+    public translate: TranslateService,
     private ngNavigatorShareService: NgNavigatorShareService,
     private emitterService: EmitterService,
     private dialogService: DialogService
@@ -144,8 +146,10 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
           this.pollService.terminatePoll(pollId).subscribe(
             (res: any) => {
               if (res.success) {
-                const poll = this.polls.find(poll => poll._id === pollId);
-                poll.status = constants.statusTypes.terminated;
+                console.log(res)
+                let pollIndex = this.polls.findIndex(poll => poll._id === pollId);
+                this.polls[pollIndex] = JSON.parse(JSON.stringify(res.poll));
+                this.dataSource.data = this.polls;
                 this.utils.openSnackBar('messages.pollTerminated');
               } else {
                 this.utils.openSnackBar('errors.e007_terminatingPoll');
@@ -167,8 +171,9 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
           this.pollService.restore(pollId).subscribe(
             (res: any) => {
               if (res.success) {
-                const poll = this.polls.find(poll => poll._id === pollId);
-                poll.status = constants.statusTypes.open;
+                let pollIndex = this.polls.findIndex(poll => poll._id === pollId);
+                this.polls[pollIndex] = JSON.parse(JSON.stringify(res.poll));
+                this.dataSource.data = this.polls;
                 this.utils.openSnackBar('messages.pollRestored');
               } else {
                 this.utils.openSnackBar('errors.e008_restoringPoll');
