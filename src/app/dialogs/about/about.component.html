@@ -2,7 +2,7 @@
     {{ 'labels.about' | translate }}
 </h1>
 
-<div mat-dialog-content class="border-top">
+<div mat-dialog-content class="border-top overflow-auto" id="aboutDialogContent">
 
     <div class="text-center">
         <h4 class="mt-2">
@@ -16,12 +16,16 @@
     </div>
 
     <div class="mt-3">
-        <div *ngFor="let item of metadata | keyvalue" class="mb-2">
-            <h6 class="m-0">
-                {{ getLabel(item.key) }}
-            </h6>
-            {{ getValue(item.key) }}
-        </div>
+        <h6 class="mb-1">
+            {{ 'labels.languageFile' | translate }}
+        </h6>
+        <p class="m-0">{{ 'metadata.nativeLanguageName' | translate }}</p>
+        <p class="m-0">{{ 'metadata.twoletterCode' | translate }}</p>
+        <p>{{ getLanguageDate() }}</p>
+        <p class="text-justify">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus enim, recusandae ipsam fuga rerum blanditiis maxime corrupti corporis sit ducimus doloribus? Sit, in suscipit ut fugit consectetur explicabo recusandae. Quaerat.
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus enim, recusandae ipsam fuga rerum blanditiis maxime corrupti corporis sit ducimus doloribus? Sit, in suscipit ut fugit consectetur explicabo recusandae. Quaerat.
+        </p>
     </div>
 </div>
 

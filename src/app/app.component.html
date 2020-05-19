@@ -1,7 +1,7 @@
 <mat-sidenav-container>
 
   <mat-sidenav #snav fixedInViewport="true">
-    <div class="w-100 px-3 d-flex justify-content-start align-items-center" style="font-size: 1.3rem; padding: 12px 0">
+    <div class="w-100 px-3 d-flex justify-content-start align-items-center" style="font-size: 1.3rem; padding: 13px 0">
       <mat-icon style="vertical-align: middle;" class="mr-2">poll</mat-icon>
       <span style="vertical-align: middle;">{{ 'labels.polling' | translate }}</span>
     </div>
@@ -9,31 +9,31 @@
     <mat-divider></mat-divider>
 
     <mat-nav-list>
-      <a class="nav-link" routerLink='dashboard/all' (click)="toggleSidebar()" [routerLinkActive]="['active']">
+      <a class="nav-link cursor-pointer" routerLink='dashboard/all' (click)="toggleSidebar()" [routerLinkActive]="['active']">
         <i class="fas fa-list mr-2"></i>
         {{ 'labels.myPolls' | translate }}
       </a>
 
-      <a class="nav-link" routerLink='dashboard/create' (click)="toggleSidebar()" [routerLinkActive]="['active']">
+      <a class="nav-link cursor-pointer" routerLink='dashboard/create' (click)="toggleSidebar()" [routerLinkActive]="['active']">
         <i class="fas fa-plus-circle mr-2"></i>
         {{ 'labels.create' | translate }}
       </a>
 
       <mat-divider></mat-divider>
 
-      <a class="nav-link" (click)="changePassword()">
+      <a class="nav-link cursor-pointer" (click)="changePassword()">
         <i class="fas fa-key mr-2"></i>
         {{ 'labels.changePassword' | translate }}
       </a>
 
-      <a class="nav-link" (click)="language()">
+      <a class="nav-link cursor-pointer" (click)="language()">
         <i class="fas fa-globe mr-2"></i>
         {{ 'labels.language' | translate }}
       </a>
 
       <mat-divider></mat-divider>
 
-      <a class="nav-link" (click)="about()">
+      <a class="nav-link cursor-pointer" (click)="about()">
         <i class="fas fa-info-circle mr-2"></i>
         {{ 'labels.about' | translate }}
       </a>
