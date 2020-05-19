@@ -134,13 +134,13 @@
             <mat-button-toggle-group #group="matButtonToggleGroup" [(ngModel)]="answerObj.answer"
               [disabled]="shouldDisable" id="smiley">
               <mat-button-toggle value="sad">
-                <i class="fas fa-frown" style="color: #f44336"></i>
+                <i class="far fa-frown" style="color: #f44336"></i>
               </mat-button-toggle>
               <mat-button-toggle value="medium">
-                <i class="fas fa-meh" style="color: #ffc107"></i>
+                <i class="far fa-meh" style="color: #ffc107"></i>
               </mat-button-toggle>
               <mat-button-toggle value="happy">
-                <i class="fas fa-smile" style="color: #4caf50"></i>
+                <i class="far fa-smile" style="color: #4caf50"></i>
               </mat-button-toggle>
             </mat-button-toggle-group>
           </div>
@@ -167,14 +167,15 @@
           </div>
 
           <div *ngSwitchCase="constants.answerTypes.dropdown">
-            <mat-form-field appearance="outline" class="dropdown-container">
+            <mat-form-field appearance="none" class="dropdown-container mat-field-no-margin option-dropdown">
               <mat-select [value]="answerObj.answer" (selectionChange)="dropdownOptionChanged($event, i, j)"
-                [disabled]="shouldDisable" [disabled]="shouldDisable">
-                <mat-option *ngFor="let option of constants.options.dropdown" [value]="option">
-                  {{ option }}
-                </mat-option>
+                          [disabled]="shouldDisable" [disabled]="shouldDisable" class="border p-3">
+                          <mat-option *ngFor="let option of constants.options.dropdown" [value]="option">
+                            {{ option }}
+                          </mat-option>
               </mat-select>
-            </mat-form-field>
+          </mat-form-field>
+
           </div>
 
           <div *ngSwitchCase="constants.answerTypes.value" class="mt-3" [class.text-right]="question.options.length">

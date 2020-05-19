@@ -247,13 +247,13 @@
                             <tr>
                                 <th *ngIf="question.hasOptions">{{ 'labels.option' | translate }}</th>
                                 <th>
-                                    <i class="fas fa-frown"></i>
+                                    <i class="far fa-frown"></i>
                                 </th>
                                 <th>
-                                    <i class="fas fa-meh"></i>
+                                    <i class="far fa-meh"></i>
                                 </th>
                                 <th>
-                                    <i class="fas fa-smile"></i>
+                                    <i class="far fa-smile"></i>
                                 </th>
                                 <th>{{ 'labels.score' | translate }}</th>
                                 <th>{{ 'labels.result' | translate }}</th>
@@ -401,15 +401,15 @@
                                     <div *ngSwitchCase="constants.answerTypes.smiley">
                                         <div [ngSwitch]="key">
                                             <div *ngSwitchCase="'sad'">
-                                                <i class="fas fa-frown"></i>
+                                                <i class="far fa-frown"></i>
                                             </div>
 
                                             <div *ngSwitchCase="'medium'">
-                                                <i class="fas fa-meh"></i>
+                                                <i class="far fa-meh"></i>
                                             </div>
 
                                             <div *ngSwitchCase="'happy'">
-                                                <i class="fas fa-smile"></i>
+                                                <i class="far fa-smile"></i>
                                             </div>
                                         </div>
                                     </div>
