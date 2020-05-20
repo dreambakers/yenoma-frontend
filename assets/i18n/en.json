@@ -186,7 +186,8 @@
     "decimalPlaces": "Enter decimal places",
     "minValue": "Enter minimum value",
     "maxValue": "Enter maximum value",
-    "enterValue": "Enter value between {{MINV}} and {{MAXV}}."
+    "enterValue": "Enter value between {{MINV}} and {{MAXV}}.",
+    "typeOption": "Type option"
   },
 
   "answerTypes": {
