@@ -86,7 +86,7 @@ export class ResponsesComponent implements OnInit {
 
       this.emitterService.emittter.pipe(takeUntil(this.destroy$)).subscribe((emitted) => {
         switch(emitted.event) {
-          case constants.emitterKeys.cancel:
+          case constants.emitterKeys.home:
               return this.preview ? this.toggleViewResponse() : this.backClicked();
           case constants.emitterKeys.arrange:
             return this.openSortDialog();
@@ -108,7 +108,7 @@ export class ResponsesComponent implements OnInit {
     // populate default props incase props not provided
     if (!updatedProps) {
       updatedProps = {
-        cancel: true,
+        home: true,
         arrange: this.responses.length > 0,
         add: false,
         create: false,

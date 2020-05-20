@@ -21,7 +21,7 @@ export const constants = {
         deleted: 'deleted'
     },
     emitterKeys: {
-        cancel: 'cancel',
+        home: 'home',
         arrange: 'arrange',
         add: 'add',
         create: 'create',

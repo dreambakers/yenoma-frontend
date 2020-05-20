@@ -100,7 +100,7 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
     // populate default props incase props not provided
     if (!updatedProps) {
       updatedProps = {
-        cancel: false,
+        home: false,
         arrange: this.polls.length > 0,
         add: true,
         create: false,

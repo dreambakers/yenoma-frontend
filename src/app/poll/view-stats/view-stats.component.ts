@@ -58,7 +58,7 @@ export class ViewStatsComponent implements OnInit {
             }
             const navTitle = this.translate.instant('labels.pollStats') + ` (${this.responses.length})`;
             this.emitterService.emit(constants.emitterKeys.changeNavbarTitle, navTitle);
-            this.emitterService.emit(constants.emitterKeys.updateNavbarProps, { cancel: true });
+            this.emitterService.emit(constants.emitterKeys.updateNavbarProps, { home: true });
           } else {
             this.utils.openSnackBar('errors.e003_gettingPoll');
           }
@@ -71,7 +71,7 @@ export class ViewStatsComponent implements OnInit {
 
     this.emitterService.emittter.pipe(takeUntil(this.destroy$)).subscribe((emitted) => {
       switch(emitted.event) {
-        case constants.emitterKeys.cancel:
+        case constants.emitterKeys.home:
           return this.onBackClicked();
       }
     });

@@ -98,7 +98,7 @@ export class ManagePollComponent implements OnInit, OnDestroy {
       switch(emitted.event) {
         case constants.emitterKeys.add:
           return this.addQuestion();
-        case constants.emitterKeys.cancel:
+        case constants.emitterKeys.home:
           return this.onCancelClicked();
         case constants.emitterKeys.preview:
           return this.togglePreview();
@@ -114,7 +114,7 @@ export class ManagePollComponent implements OnInit, OnDestroy {
 
   updateMobileNavbar() {
     this.mobileNavbarProps = {
-      cancel: true ,
+      home: true,
       arrange: !this.preview &&
                 (this.rearrangeQuestions
                   || (this.poll.questions.length > 1 && this.isMobile && !this.shouldDisable)),

@@ -8,7 +8,7 @@ import { constants } from '../app.constants';
 import { Router } from '@angular/router';
 
 export interface MobileNavbarProps {
-  cancel?: Boolean;
+  home?: Boolean;
   arrange?: Boolean;
   add?: Boolean;
   create?: Boolean;
@@ -23,14 +23,14 @@ export interface MobileNavbarProps {
 export class FooterComponent implements OnInit, OnDestroy {
   contants = constants;
   navbarProps: MobileNavbarProps = {
-    cancel: false,
+    home: false,
     arrange: false,
     add: false,
     create: false,
     preview: false
   };
   labels = {
-    cancel: 'labels.cancel',
+    home: 'labels.home',
     arrange: 'labels.arrange',
     add: 'labels.add',
     create: 'labels.create',

@@ -13,9 +13,9 @@
   <div class="container-fluid bg-white mat-elevation-z2" id="mobileNavbar">
     <div class="row">
       <div class="w-20 py-2" matRipple>
-        <div class="d-flex flex-column align-items-center cursor-pointer" (click)="btnClick('cancel')">
-          <i class="fas fa-window-close" [class.active]="isActive('cancel')"></i>
-          <span>{{ labels.cancel | translate }}</span>
+        <div class="d-flex flex-column align-items-center cursor-pointer" (click)="btnClick('home')">
+          <i class="fas fa-home" [class.active]="isActive('home')"></i>
+          <span>{{ labels.home | translate }}</span>
         </div>
       </div>
       <div class="w-20 py-2" [class.highlight]="keysToHighlight['arrange']" matRipple>
