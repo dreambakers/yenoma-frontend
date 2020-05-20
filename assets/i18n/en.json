@@ -106,7 +106,8 @@
     "terminated": "Terminated",
     "to": "to",
     "languageFile": "Language file:",
-    "home": "Home"
+    "home": "Home",
+    "signedInAs": "Signed in as"
   },
 
   "messages": {
@@ -152,7 +153,8 @@
     "pollLinkCopied": "Poll link copied to clipboard",
     "sessionExpired": "The session has expired, please login again to continue",
     "currentPasswordNotCorrect": "The current password is not correct",
-    "passwordChanged": "Password changed successfully"
+    "passwordChanged": "Password changed successfully",
+    "aboutText": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus enim, recusandae ipsam fuga rerum blanditiis maxime corrupti corporis sit ducimus doloribus? Sit, in suscipit ut fugit consectetur explicabo recusandae. Quaerat. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus enim, recusandae ipsam fuga rerum blanditiis maxime corrupti corporis sit ducimus doloribus? Sit, in suscipit ut fugit consectetur explicabo recusandae. Quaerat."
   },
 
   "errors": {
