@@ -142,8 +142,8 @@
 
                       id="question{{i}}"
                 >
-                <div class="d-flex align-items-center p-3" *ngIf="rearrangeQuestions" cdkDragHandle>
-                    <i class="mr-1 fas fa-sort"></i>
+                <div class="d-flex align-items-center p-3" *ngIf="rearrangeQuestions">
+                    <i class="mr-1 fas fa-sort p-2" cdkDragHandle></i>
                     <input matInput disabled [value]="question.text || translate.instant('labels.noQuestionEntered')"
                            [class.font-italic]="!question.text" class="dragDiv">
                     <i class="fas fa-minus-circle text-danger cursor-pointer"
@@ -257,7 +257,8 @@
                 </div>
 
                 <div *ngIf="!rearrangeQuestions" cdkDropList (cdkDropListDropped)="dropOption($event, question)" class="mt-5">
-                    <div *ngFor="let option of question.options; let j = index; trackBy: trackByFn" cdkDrag [cdkDragDisabled]="question.options.length <= 1">
+                    <div *ngFor="let option of question.options; let j = index; trackBy: trackByFn" cdkDrag
+                         [cdkDragDisabled]="shouldDisable || question.options.length <= 1">
                         <div class="d-flex align-items-center justify-content-between dragDiv">
                             <div class="p-2" cdkDragHandle *ngIf="question.options.length > 1 && !shouldDisable">
                                 <i class="fas fa-sort"></i>
