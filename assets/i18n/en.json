@@ -1,13 +1,14 @@
 {
   "metadata": {
-    "creationDate": "2020-05-11T14:38:25Z",
+    "creationDate": "2020-05-19T19:41:31Z",
     "generator": "Excel Macro",
     "generatorVersion": "2020-04-30",
     "twoletterCode": "en",
+    "isoLanguageName": "English",
     "nativeLanguageName": "English",
-    "translator": "Original"
+    "translator": "Original",
+    "isRightToLeft": "0"
   },
-
   "labels": {
     "polling": "Polling",
     "createNewPoll": "Create a new poll",
