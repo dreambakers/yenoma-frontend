@@ -66,4 +66,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.destroy$.unsubscribe();
   }
 
+  changePassword() {
+    this.emitterService.emit(this.constants.emitterKeys.changePasswordClicked);
+  }
+
+  about() {
+    this.emitterService.emit(this.constants.emitterKeys.aboutClicked);
+  }
 }

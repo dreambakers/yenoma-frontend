@@ -1,8 +1,8 @@
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary align-items-center" #navbar>
 
   <div class="d-flex align-items-center">
-    <button mat-icon-button (click)="toggleSidebar()" class="mr-2">
-      <i class="fas fa-bars text-white" ></i>
+    <button mat-icon-button (click)="toggleSidebar()" class="mr-2" *ngIf="isMobile">
+      <i class="fas fa-bars text-white"></i>
     </button>
     <span class="navbar-brand d-lg-none">{{ currentPage }}</span>
   </div>
@@ -24,11 +24,31 @@
           {{ 'labels.create' | translate }}
         </a>
       </div>
-      <div>
-        <a class="nav-link cursor-pointer" (click)="logout()"
-            matTooltip="{{ translate.instant('messages.loggedInAs') }} {{user.email}}">
-          {{ 'labels.logout' | translate }}
-        </a>
+      <div class="d-flex align-items-center cursor-pointer" [matMenuTriggerFor]="menu">
+        <div class="d-flex align-items-center justify-content-center nav-link" style="padding-left: 0.5rem;">
+          <i class="fas fa-user-circle"></i>
+          <mat-icon>arrow_drop_down</mat-icon>
+        </div>
+        <mat-menu #menu="matMenu">
+          <div class="p-3">
+            {{ 'labels.signedInAs' | translate }}
+            <span class="font-weight-bold">{{ user.email }}</span>
+          </div>
+          <mat-divider></mat-divider>
+          <button mat-menu-item (click)="about()">
+            <i class="fas fa-info-circle mr-2"></i>
+            {{ 'labels.about' | translate }}
+          </button>
+          <button mat-menu-item (click)="changePassword()">
+            <i class="fas fa-key mr-2"></i>
+            {{ 'labels.changePassword' | translate }}
+          </button>
+          <mat-divider></mat-divider>
+          <button mat-menu-item (click)="logout()">
+            <i class="fas fa-sign-out-alt mr-2"></i>
+            {{ 'labels.logout' | translate }}
+          </button>
+        </mat-menu>
       </div>
     </div>
   </div>

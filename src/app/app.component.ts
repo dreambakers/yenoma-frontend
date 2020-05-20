@@ -31,7 +31,11 @@ export class AppComponent implements OnInit {
     this.emitterService.emittter.pipe(takeUntil(this.destroy$)).subscribe((emitted) => {
       switch(emitted.event) {
         case constants.emitterKeys.toggleSidebar:
-          this.sideNav.toggle();
+          return this.sideNav.toggle();
+        case constants.emitterKeys.changePasswordClicked:
+          return this.changePassword();
+        case constants.emitterKeys.aboutClicked:
+          return this.about();
       }
     });
   }
@@ -56,17 +60,14 @@ export class AppComponent implements OnInit {
   }
 
   changePassword() {
-    this.toggleSidebar();
     this.dialogService.changePassword();
   }
 
   about() {
-    this.toggleSidebar();
     this.dialogService.about();
   }
 
   language() {
-    this.toggleSidebar();
     this.dialogService.language();
   }
 
@@ -77,6 +78,7 @@ export class AppComponent implements OnInit {
 
   toggleSidebar() {
     this.sideNav.toggle();
+    return true;
   }
 
 }

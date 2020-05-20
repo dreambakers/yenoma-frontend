@@ -34,7 +34,9 @@ export const constants = {
         updateNavbarLabels: 'updateNavbarLabels',
         highlightKeys: "highlightKeys",
         languageChanged: "languageChanged",
-        screeenSizeChanged: "screeenSizeChanged"
+        screeenSizeChanged: "screeenSizeChanged",
+        aboutClicked: "aboutClicked",
+        changePasswordClicked: "changePasswordClicked"
     },
     languages: [
         { display: "English", value: "en" },
