@@ -152,7 +152,7 @@
 
                 <div class="w-100 d-flex justify-content-end align-items-center" *ngIf="!rearrangeQuestions">
                     <mat-icon
-                        class="mb-3 mr-2 cursor-pointer text-muted"
+                        class="mr-2 cursor-pointer text-muted"
                         matTooltip="{{ getInfoTooltip(question) }}"
                         matTooltipPosition="above"
                         *ngIf="questionInfoRequired(question)">
@@ -195,7 +195,7 @@
                           </mat-option>
                         </mat-select>
                     </mat-form-field>
-                    <i class="ml-2 fas fa-question-circle text-muted py-2 pl-2 cursor-pointer"
+                    <i class="ml-2 fas fa-question-circle text-muted cursor-pointer"
                         (click)="question.showQuestionHints = !question.showQuestionHints">
                     </i>
                 </div>
@@ -256,14 +256,21 @@
                         (click)="removeQuestion(i)" *ngIf="!rearrangeQuestions && !shouldDisable"></i>
                 </div>
 
+                <div class="float-right" *ngIf="question.options.length">
+                    <i class="ml-2 fas fa-question-circle text-muted cursor-pointer"
+                        (click)="question.showOptionHints = !question.showOptionHints">
+                    </i>
+                </div>
+
                 <div *ngIf="!rearrangeQuestions" cdkDropList (cdkDropListDropped)="dropOption($event, question)" class="mt-5">
                     <div *ngFor="let option of question.options; let j = index; trackBy: trackByFn" cdkDrag
                          [cdkDragDisabled]="shouldDisable || question.options.length <= 1">
-                        <div class="d-flex align-items-center justify-content-between dragDiv">
-                            <div class="p-2" cdkDragHandle *ngIf="question.options.length > 1 && !shouldDisable">
+                        <div class="d-flex align-items-center justify-content-between dragDiv" [class.mb-2]="question.showOptionHints">
+                            <div class="p-2" [class.mb-3]="question.showOptionHints"
+                                 cdkDragHandle *ngIf="question.options.length > 1 && !shouldDisable">
                                 <i class="fas fa-sort"></i>
                             </div>
-                            <mat-form-field appearance="outline" class="w-100 mat-field-no-margin">
+                            <mat-form-field appearance="outline" class="w-100 {{ question.showOptionHints ? '' : 'mat-field-no-margin' }}">
                                 <mat-label>
                                     {{ 'labels.question' | translate }}
                                     {{ i + 1 }}
@@ -272,11 +279,16 @@
                                 </mat-label>
                                 <input matInput placeholder="{{ 'placeholders.option' | translate }}"
                                        [(ngModel)]="question.options[j]" [disabled]="shouldDisable">
+                                <mat-hint *ngIf="poll.status === constants.statusTypes.open && question.showOptionHints">
+                                    {{ 'hints.typeOption' | translate }} {{j + 1}}
+                                </mat-hint>
                             </mat-form-field>
 
                             <i class="fas fa-minus-circle text-danger cursor-pointer p-2" (click)="removeOption(i,j)"
                                 *ngIf="!shouldDisable"
-                                matTooltip="{{ 'labels.removeOption' | translate }}" matTooltipPosition="above"></i>
+                                matTooltip="{{ 'labels.removeOption' | translate }}" matTooltipPosition="above"
+                                [class.mb-3]="question.showOptionHints">
+                            </i>
                         </div>
                     </div>
                 </div>
