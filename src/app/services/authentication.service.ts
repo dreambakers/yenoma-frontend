@@ -3,13 +3,19 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { constants } from '../app.constants';
 import { UserService } from './user.service';
+import { EmitterService } from './emitter.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
 
-  constructor(private http: HttpClient, private router: Router, private userService: UserService) { }
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private userService: UserService,
+    private emitterService: EmitterService
+  ) { }
 
   authenticateUser(email: string, password: string, signUp = false, remember = false) {
     let requestUrl = `${constants.apiUrl}/user`;
@@ -27,6 +33,7 @@ export class AuthenticationService {
   logout() {
     this.http.post(`${constants.apiUrl}/user/logout`, {}).subscribe();
     this.userService.unsetLoggedInUser();
+    this.emitterService.emit(constants.emitterKeys.logoutInitiated);
     this.router.navigateByUrl('login');
   }
 

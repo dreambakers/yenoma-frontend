@@ -33,7 +33,7 @@ export class UserService {
 
   getPreference(preference) {
     const preferences = this.getPreferences();
-    return preferences[preference];
+    return preferences && preferences[preference];
   }
 
   updatePreference(preference) {

@@ -36,7 +36,8 @@ export const constants = {
         languageChanged: "languageChanged",
         screeenSizeChanged: "screeenSizeChanged",
         aboutClicked: "aboutClicked",
-        changePasswordClicked: "changePasswordClicked"
+        changePasswordClicked: "changePasswordClicked",
+        logoutInitiated: "logoutInitiated"
     },
     languages: [
         { display: "English", value: "en" },

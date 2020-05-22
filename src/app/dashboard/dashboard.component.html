@@ -1,15 +1,15 @@
 <div id="dashboard">
     <app-navbar></app-navbar>
-    <app-alert
-        *ngIf="hasGlobalMessage('questionerWarning')"
-        messageKey="globalMessages.questionerWarning"
-        type="danger">
-    </app-alert>
-    <app-alert
-        *ngIf="hasGlobalMessage('questionerHint')"
-        messageKey="globalMessages.questionerHint"
-        type="info">
-    </app-alert>
+
+    <ng-container *ngFor="let alert of globalAlerts">
+        <app-alert
+            *ngIf="showGlobalAlert(alert.key)"
+            [messageKey]="alert.messageKey"
+            [type]="alert.type"
+            (onDismiss)="globalAlertDismissed(alert.key)">
+        </app-alert>
+    </ng-container>
+
     <div [class.container]="!isMobile">
         <router-outlet></router-outlet>
     </div>
