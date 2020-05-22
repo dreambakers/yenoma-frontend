@@ -32,12 +32,19 @@
                 </textarea>
             </mat-form-field>
 
-            <mat-checkbox class="mr-3" [(ngModel)]="poll.allowNames" [disabled]="true">
-                {{ 'labels.allowNames' | translate }}
-            </mat-checkbox>
-            <mat-checkbox [(ngModel)]="poll.allowComments" [disabled]="true">
-                {{ 'labels.allowComments' | translate }}
-            </mat-checkbox>
+            <div class="d-flex flex-column flex-md-row">
+                <mat-checkbox class="mr-3" [(ngModel)]="poll.allowNames" [disabled]="true">
+                    {{ 'labels.allowNames' | translate }}
+                </mat-checkbox>
+
+                <mat-checkbox class="mr-3" [(ngModel)]="poll.allowComments" [disabled]="true">
+                    {{ 'labels.allowComments' | translate }}
+                </mat-checkbox>
+
+                <mat-checkbox [(ngModel)]="poll.password" [disabled]="true">
+                    {{ 'labels.passwordProtected' | translate }}
+                </mat-checkbox>
+            </div>
         </mat-card>
     </div>
 
