@@ -94,7 +94,7 @@ export class ManagePollComponent implements OnInit, OnDestroy {
       }
       this.updateMobileNavbar();
     }
-    this.emitterService.emittter.pipe(takeUntil(this.destroy$)).subscribe((emitted) => {
+    this.emitterService.emitter.pipe(takeUntil(this.destroy$)).subscribe((emitted) => {
       switch(emitted.event) {
         case constants.emitterKeys.add:
           return this.addQuestion();

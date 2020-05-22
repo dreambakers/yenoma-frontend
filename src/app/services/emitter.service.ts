@@ -5,12 +5,12 @@ import { Injectable, Output, EventEmitter } from '@angular/core';
 })
 export class EmitterService {
 
-  @Output() emittter: EventEmitter<{ event: string, data: any }> = new EventEmitter();
+  @Output() emitter: EventEmitter<{ event: string, data: any }> = new EventEmitter();
 
   constructor() { }
 
   emit(event, data = null) {
-    this.emittter.emit({event, data});
+    this.emitter.emit({event, data});
   }
 
 }

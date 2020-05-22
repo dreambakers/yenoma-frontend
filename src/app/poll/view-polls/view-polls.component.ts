@@ -71,7 +71,7 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
         this.utils.openSnackBar('errors.e003_gettingPoll');
       }
     );
-    this.emitterService.emittter.pipe(takeUntil(this.destroy$)).subscribe((emitted) => {
+    this.emitterService.emitter.pipe(takeUntil(this.destroy$)).subscribe((emitted) => {
       switch(emitted.event) {
         case constants.emitterKeys.add:
           return this.addClicked();

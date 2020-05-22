@@ -87,7 +87,7 @@ export class ResponsesComponent implements OnInit {
         }
       );
 
-      this.emitterService.emittter.pipe(takeUntil(this.destroy$)).subscribe((emitted) => {
+      this.emitterService.emitter.pipe(takeUntil(this.destroy$)).subscribe((emitted) => {
         switch(emitted.event) {
           case constants.emitterKeys.home:
               return this.backClicked();

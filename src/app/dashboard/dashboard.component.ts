@@ -36,7 +36,7 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.emitterService.emittter.pipe(takeUntil(this.destroy$)).subscribe((emitted) => {
+    this.emitterService.emitter.pipe(takeUntil(this.destroy$)).subscribe((emitted) => {
       switch(emitted.event) {
         case constants.emitterKeys.logoutInitiated:
           for (const alert of this.globalAlerts) {

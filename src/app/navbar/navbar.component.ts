@@ -32,7 +32,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.user = this.userService.getLoggedInUser();
 
-    this.emitterService.emittter.pipe(takeUntil(this.destroy$)).subscribe((emitted) => {
+    this.emitterService.emitter.pipe(takeUntil(this.destroy$)).subscribe((emitted) => {
       switch(emitted.event) {
         case constants.emitterKeys.changeNavbarTitle:
           return this.currentPage = emitted.data;

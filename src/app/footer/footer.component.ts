@@ -50,7 +50,7 @@ export class FooterComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.selectedLanguage = localStorage.getItem('selectedLanguage') || 'en';
     this.translate.use(this.selectedLanguage);
-    this.emitterService.emittter.pipe(takeUntil(this.destroy$)).subscribe((emitted) => {
+    this.emitterService.emitter.pipe(takeUntil(this.destroy$)).subscribe((emitted) => {
       switch(emitted.event) {
         case constants.emitterKeys.updateNavbarProps:
           return this.navbarProps = { ...this.navbarProps, ...emitted.data };
