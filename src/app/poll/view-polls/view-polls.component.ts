@@ -50,10 +50,12 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
     public translate: TranslateService,
     private ngNavigatorShareService: NgNavigatorShareService,
     private emitterService: EmitterService,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private userService: UserService
     ) { }
 
   ngOnInit() {
+    this.currentSort = { ...this.currentSort, ...this.userService.getPreference('viewPollsSorting') };
     this.pollService.getPolls().subscribe(
       (res: any) => {
         if (res.success) {
@@ -309,6 +311,10 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
     this.emitterService.emit(this.constants.emitterKeys.resetNavbar);
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
+  }
+
+  sortChanged($event: { active: string, direction: string }) {
+    this.userService.updatePreference({ viewPollsSorting: { id: $event.active, start: $event.direction } });
   }
 
   get isMobile() {

@@ -15,6 +15,7 @@ import { MobileNavbarProps } from 'src/app/footer/footer.component';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { DialogService } from 'src/app/services/dialog.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-responses',
@@ -46,10 +47,12 @@ export class ResponsesComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     public translate: TranslateService,
     private responseService: ResponseService,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private userService: UserService
   ) { }
 
   ngOnInit() {
+    this.currentSort = { ...this.currentSort, ...this.userService.getPreference('responsesSorting') };
     this.activatedRoute.queryParams.subscribe(params => {
       const pollId = params['id'];
       this.responseService.getResponsesForPoll(pollId).subscribe(
@@ -215,6 +218,10 @@ export class ResponsesComponent implements OnInit {
         }
       }
     );
+  }
+
+  sortChanged($event: { active: string, direction: string }) {
+    this.userService.updatePreference({ responsesSorting: { id: $event.active, start: $event.direction } });
   }
 
   ngOnDestroy(): void {
