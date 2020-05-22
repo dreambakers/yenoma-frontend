@@ -90,9 +90,11 @@ export class ResponsesComponent implements OnInit {
       this.emitterService.emittter.pipe(takeUntil(this.destroy$)).subscribe((emitted) => {
         switch(emitted.event) {
           case constants.emitterKeys.home:
-              return this.preview ? this.toggleViewResponse() : this.backClicked();
+              return this.backClicked();
           case constants.emitterKeys.arrange:
             return this.openSortDialog();
+          case constants.emitterKeys.preview:
+            return this.toggleViewResponse();
         }
       });
     });
@@ -184,13 +186,15 @@ export class ResponsesComponent implements OnInit {
       this.updateNavbarProps();
       this.setTableAttributes();
       this.preview = false;
+      this.emitterService.emit(this.constants.emitterKeys.highlightKeys, { preview: false });
     } else {
       this.responseService.getResponse(response._id).subscribe(
         (res: any) => {
           if (res.success) {
             this.response = res.response;
             this.preview = true;
-            this.updateNavbarProps({ arrange: false });
+            this.emitterService.emit(this.constants.emitterKeys.highlightKeys, { preview: true });
+            this.updateNavbarProps({ arrange: false, preview: true });
             this.updateNavTitle(this.translate.instant('labels.response'));
           } else {
             this.utils.openSnackBar('errors.e013_gettingResponse');
