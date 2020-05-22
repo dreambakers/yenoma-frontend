@@ -5,7 +5,9 @@
         <app-signup *ngIf="activeLink === '/signup'"></app-signup>
     </mat-tab>
     <mat-tab label="{{ translate.instant('labels.respond') }}">
-        <app-respond *ngIf="!isViewingResponse"></app-respond>
-        <app-view-poll *ngIf="isViewingResponse"></app-view-poll>
+        <div class="container">
+            <app-respond *ngIf="!isViewingResponse"></app-respond>
+            <app-view-poll *ngIf="isViewingResponse"></app-view-poll>
+        </div>
     </mat-tab>
 </mat-tab-group>

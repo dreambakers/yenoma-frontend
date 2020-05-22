@@ -10,5 +10,7 @@
         messageKey="globalMessages.questionerHint"
         type="info">
     </app-alert>
-    <router-outlet></router-outlet>
+    <div [class.container]="!isMobile">
+        <router-outlet></router-outlet>
+    </div>
 </div>
