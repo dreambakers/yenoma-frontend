@@ -108,7 +108,10 @@
     "to": "to",
     "languageFile": "Language file:",
     "home": "Home",
-    "signedInAs": "Signed in as"
+    "signedInAs": "Signed in as",
+    "of": "of",
+    "pollsPerPage": "Polls per page",
+    "responsesPerPage": "Responses per page"
   },
 
   "messages": {
