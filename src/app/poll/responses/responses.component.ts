@@ -6,7 +6,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { PollService } from 'src/app/services/poll.service';
 import { UtilService } from 'src/app/services/util.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { ResponseService } from 'src/app/services/response.service';
 import { DataService } from 'src/app/services/data.service';
@@ -97,7 +97,28 @@ export class ResponsesComponent implements OnInit {
             return this.toggleViewResponse();
         }
       });
+      this.translate.onLangChange.pipe(takeUntil(this.destroy$)).subscribe(
+        (event: LangChangeEvent) => {
+          this.updatePaginatorLabels();
+        }
+      );
     });
+  }
+
+  updatePaginatorLabels() {
+    if (!this.isMobile && this.dataSource) {
+      this.paginator._intl.itemsPerPageLabel = this.translate.instant('labels.responsesPerPage');
+      this.paginator._intl.getRangeLabel = (page: number, pageSize: number, length: number) => {
+        if (length == 0 || pageSize == 0) {
+          return `0 ${this.translate.instant('labels.of')} ${length}`;
+        }
+        length = Math.max(length, 0);
+        const startIndex = page * pageSize;
+        const endIndex = startIndex < length ? Math.min(startIndex + pageSize, length) : startIndex + pageSize;
+        return `${startIndex + 1} - ${endIndex} ${this.translate.instant('labels.of')} ${length}`;
+      };
+      this.dataSource.paginator = this.paginator;
+    }
   }
 
   setTableAttributes() {
@@ -106,6 +127,7 @@ export class ResponsesComponent implements OnInit {
       this.sort.sort(this.currentSort);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sortingDataAccessor = (data, header) => data[header];
+      this.updatePaginatorLabels();
     });
   }
 

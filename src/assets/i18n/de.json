@@ -106,7 +106,10 @@
     "shareWithFriends": "Mit Freunden teilen",
     "terminated": "Beendet",
     "to": "bis",
-    "languageFile": "Sprachdatei:"
+    "languageFile": "Sprachdatei:",
+    "of": "of_de",
+    "pollsPerPage": "Polls per page_de",
+    "responsesPerPage": "Responses per page_de"
   },
   "messages": {
     "pollCreated": "Umfrage erfolgreich erstellt",
