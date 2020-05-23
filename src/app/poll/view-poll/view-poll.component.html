@@ -72,7 +72,7 @@
         <li class="list-group-item mt-2 border-0" [ngClass]="(question.answerType !== constants.answerTypes.text) &&
                       'd-flex justify-content-between align-items-center'">
           <div class="text-break">
-            <p>{{option}}</p>
+            <p class="m-0">{{option}}</p>
           </div>
           <ng-container
             *ngTemplateOutlet="questions; context: { question: question, i: i, j: j, answerObj: response.questions[i].answers[j] }">
@@ -104,14 +104,18 @@
 
           <div *ngSwitchCase="constants.answerTypes.radioButton">
             <mat-radio-group name="{{i}}" [disabled]="shouldDisable">
-              <mat-radio-button [checked]="answerObj.answer" value="" (change)="onRadioButtonChanged(i, j)">
+              <mat-radio-button
+                [checked]="answerObj.answer"
+                value=""
+                (change)="onRadioButtonChanged(i, j)"
+                class="mat-radio-mb-0">
               </mat-radio-button>
             </mat-radio-group>
           </div>
 
           <div *ngSwitchCase="constants.answerTypes.checkbox">
             <mat-checkbox (change)="onCheckboxChanged($event, i, j)" [checked]="answerObj.answer"
-              [disabled]="shouldDisable">
+              [disabled]="shouldDisable" class="mat-checkbox-mb-0">
             </mat-checkbox>
           </div>
 

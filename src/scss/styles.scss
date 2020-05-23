@@ -289,3 +289,15 @@ button {
     background-color: $color-primary !important;
     color: $color-primary-light !important;
 }
+
+.mat-checkbox-mb-0 {
+    .mat-checkbox-layout {
+        margin-bottom: 0.1rem;
+    }
+}
+
+.mat-radio-mb-0 {
+    .mat-radio-label {
+        margin-bottom: 0.1rem;
+    }
+}
