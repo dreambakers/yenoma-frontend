@@ -90,7 +90,8 @@ export class ManagePollComponent implements OnInit, OnDestroy {
         title: '',
         status: constants.statusTypes.open,
         allowComments: false,
-        allowNames: false
+        allowNames: false,
+        automaticNumbering: true
       }
       this.updateMobileNavbar();
     }

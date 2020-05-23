@@ -95,7 +95,7 @@
                             </mat-hint>
                         </mat-form-field>
 
-                        <div class="d-flex flex-column flex-md-row">
+                        <div class="d-flex flex-column">
                             <mat-checkbox class="mr-3" [(ngModel)]="poll.allowNames" [disabled]="shouldDisable">
                                 {{ 'labels.allowNames' | translate }}
                             </mat-checkbox>
@@ -104,8 +104,12 @@
                                 {{ 'labels.allowComments' | translate }}
                             </mat-checkbox>
 
-                            <mat-checkbox (change)="togglePassword()" [disabled]="shouldDisable" [checked]="showPassword || poll.password">
+                            <mat-checkbox class="mr-3" (change)="togglePassword()" [disabled]="shouldDisable" [checked]="showPassword || poll.password">
                                 {{ 'labels.passwordProtected' | translate }}
+                            </mat-checkbox>
+
+                            <mat-checkbox [(ngModel)]="poll.automaticNumbering" [disabled]="shouldDisable">
+                                {{ 'labels.automaticNumbering' | translate }}
                             </mat-checkbox>
                         </div>
                         <mat-form-field appearance="outline" class="w-100 mb-2" *ngIf="showPassword || poll.password">

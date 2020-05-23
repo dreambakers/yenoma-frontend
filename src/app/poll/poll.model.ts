@@ -20,5 +20,6 @@ export class Poll {
     shortId?: string;
     inactiveComment?: string;
     activeComment?: string;
-    terminatedAt?: Date
+    terminatedAt?: Date;
+    automaticNumbering?: Boolean;
 }
