@@ -1,8 +1,8 @@
 <mat-tab-group mat-align-tabs="center" [selectedIndex]="selectedIndex">
     <mat-tab label="{{ translate.instant('labels.login') }}/{{ translate.instant('labels.register') }}">
         <app-alert messageKey="messages.sessionExpired" type="danger" *ngIf="showSessionExpiredBanner"></app-alert>
-        <app-login *ngIf="activeLink !== '/signup'"></app-login>
-        <app-signup *ngIf="activeLink === '/signup'"></app-signup>
+        <app-login *ngIf="activeLink !== '/signup'" class="flex-fill"></app-login>
+        <app-signup *ngIf="activeLink === '/signup'" class="flex-fill"></app-signup>
     </mat-tab>
     <mat-tab label="{{ translate.instant('labels.respond') }}">
         <div class="container">
