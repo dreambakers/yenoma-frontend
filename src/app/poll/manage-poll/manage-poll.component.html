@@ -9,14 +9,14 @@
                 </span>
             </span>
         </h3>
-        <div class="d-flex justify-content-end">
+        <!-- <div class="d-flex justify-content-end">
             <i class="fas mr-2 cursor-pointer" [ngClass]="!preview ? 'fa-eye' : 'fa-eye-slash'"
                (click)="preview = !preview"
                matTooltip="{{ preview ? translate.instant('tooltips.stopPreviewing')
                                       : translate.instant('pollActions.preview') }}"
                matTooltipPosition="above">
             </i>
-        </div>
+        </div> -->
     </div>
 
     <div *ngIf="!preview">
@@ -342,4 +342,17 @@
     </div>
 
     <app-view-poll [poll]="poll" [embeddedPreview]="true" *ngIf="preview"></app-view-poll>
+
+    <div style="position: fixed; right: 0; bottom: 65px;" class="mr-3" *ngIf="!isMobile">
+        <button mat-fab color="primary"
+                (click)="preview = !preview"
+                matTooltip="{{ preview ? translate.instant('tooltips.stopPreviewing')
+                                        : translate.instant('pollActions.preview') }}"
+                matTooltipPosition="above" >
+
+            <mat-icon>
+                {{ !preview ? 'visibility' : 'visibility_off' }}
+            </mat-icon>
+        </button>
+    </div>
 </div>
