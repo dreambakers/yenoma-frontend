@@ -237,11 +237,11 @@ export class ManagePollComponent implements OnInit, OnDestroy {
     return this.minimumOptionsRequired(question) || question.answerType === constants.answerTypes.value;
   }
 
-  getInfoTooltip(question) {
+  getInfoTooltipKey(question) {
     if (this.minimumOptionsRequired(question)) {
-      return this.translate.instant('tooltips.minTwoOptions');
+      return 'tooltips.minTwoOptions';
     } else {
-      return this.translate.instant('tooltips.valueInfo');
+      return 'tooltips.valueInfo';
     }
   }
 

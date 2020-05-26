@@ -137,7 +137,7 @@
         <div cdkDropList (cdkDropListDropped)="dropQuestion($event)" [class.mt-5]="shouldDisable">
             <mat-card *ngFor="let question of poll.questions; let i = index" class="border mb-1" cdkDrag
                       [cdkDragDisabled]="!rearrangeQuestions"
-                      [ngClass]="{ 'p-0 dragDiv': rearrangeQuestions,
+                      [ngClass]="{ 'p-0': rearrangeQuestions,
                                    'mb-5 p-3': !rearrangeQuestions,
                                    'border-danger': valueFieldsInvalid(question) ||
                                                     (minimumOptionsRequired(question) &&
@@ -147,104 +147,112 @@
                       id="question{{i}}"
                 >
                 <div class="d-flex align-items-center p-3" *ngIf="rearrangeQuestions">
-                    <i class="mr-1 fas fa-sort p-2" cdkDragHandle></i>
-                    <input matInput disabled [value]="question.text || translate.instant('labels.noQuestionEntered')"
-                           [class.font-italic]="!question.text" class="dragDiv">
-                    <i class="fas fa-minus-circle text-danger cursor-pointer"
+                    <i class="p-2 mr-3 fas fa-sort dragDiv" cdkDragHandle></i>
+                    <p [class.font-italic]="!question.text" class="w-100 m-0 text-ellipsis">
+                        {{
+                            question.text || translate.instant('labels.noQuestionEntered')
+                        }}
+                    </p>
+                    <i class="fas fa-minus-circle text-danger cursor-pointer p-2 ml-3"
                         (click)="removeQuestion(i)"></i>
                 </div>
 
-                <div class="w-100 d-flex justify-content-end align-items-center" *ngIf="!rearrangeQuestions">
-                    <mat-icon
-                        class="mr-2 cursor-pointer text-muted"
-                        matTooltip="{{ getInfoTooltip(question) }}"
-                        matTooltipPosition="above"
-                        *ngIf="questionInfoRequired(question)">
-                        info
-                    </mat-icon>
-                    <mat-form-field class="dropdown-container">
-                        <mat-label [hidden]="!question.showHints">
-                            {{ 'labels.answers' | translate }}
-                        </mat-label>
-                        <mat-select [(ngModel)]="question.answerType" [disabled]="shouldDisable">
-                          <mat-option [value]="constants.answerTypes.binary">
-                            {{ 'answerTypes.binary' | translate }}
-                          </mat-option>
-                          <mat-option [value]="constants.answerTypes.rating">
-                            {{ 'answerTypes.rating' | translate }}
-                          </mat-option>
-                          <mat-option [value]="constants.answerTypes.checkbox">
-                            {{ 'answerTypes.checkbox' | translate }}
-                          </mat-option>
-                          <mat-option [value]="constants.answerTypes.radioButton">
-                            {{ 'answerTypes.radioButton' | translate }}
-                          </mat-option>
-                          <mat-option [value]="constants.answerTypes.yesNoMaybe">
-                            {{ 'answerTypes.yesNoMaybe' | translate }}
-                          </mat-option>
-                          <mat-option [value]="constants.answerTypes.slider">
-                            {{ 'answerTypes.slider' | translate }}
-                          </mat-option>
-                          <mat-option [value]="constants.answerTypes.smiley">
-                            {{ 'answerTypes.smiley' | translate }}
-                          </mat-option>
-                          <mat-option [value]="constants.answerTypes.text">
-                            {{ 'answerTypes.text' | translate }}
-                          </mat-option>
-                          <mat-option [value]="constants.answerTypes.dropdown">
-                            {{ 'answerTypes.dropdown' | translate }}
-                          </mat-option>
-                          <mat-option [value]="constants.answerTypes.value">
-                            {{ 'answerTypes.value' | translate }}
-                          </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                    <i class="ml-2 fas fa-question-circle text-muted cursor-pointer"
-                        (click)="question.showHints = !question.showHints">
-                    </i>
-                </div>
+                <div class="d-flex flex-column" *ngIf="!rearrangeQuestions">
+                    <div class="d-flex justify-content-end align-items-center">
+                        <mat-form-field class="dropdown-container">
+                            <mat-label [hidden]="!question.showHints">
+                                {{ 'labels.answers' | translate }}
+                            </mat-label>
+                            <mat-select [(ngModel)]="question.answerType" [disabled]="shouldDisable">
+                              <mat-option [value]="constants.answerTypes.binary">
+                                {{ 'answerTypes.binary' | translate }}
+                              </mat-option>
+                              <mat-option [value]="constants.answerTypes.rating">
+                                {{ 'answerTypes.rating' | translate }}
+                              </mat-option>
+                              <mat-option [value]="constants.answerTypes.checkbox">
+                                {{ 'answerTypes.checkbox' | translate }}
+                              </mat-option>
+                              <mat-option [value]="constants.answerTypes.radioButton">
+                                {{ 'answerTypes.radioButton' | translate }}
+                              </mat-option>
+                              <mat-option [value]="constants.answerTypes.yesNoMaybe">
+                                {{ 'answerTypes.yesNoMaybe' | translate }}
+                              </mat-option>
+                              <mat-option [value]="constants.answerTypes.slider">
+                                {{ 'answerTypes.slider' | translate }}
+                              </mat-option>
+                              <mat-option [value]="constants.answerTypes.smiley">
+                                {{ 'answerTypes.smiley' | translate }}
+                              </mat-option>
+                              <mat-option [value]="constants.answerTypes.text">
+                                {{ 'answerTypes.text' | translate }}
+                              </mat-option>
+                              <mat-option [value]="constants.answerTypes.dropdown">
+                                {{ 'answerTypes.dropdown' | translate }}
+                              </mat-option>
+                              <mat-option [value]="constants.answerTypes.value">
+                                {{ 'answerTypes.value' | translate }}
+                              </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <i class="ml-2 fas fa-question-circle text-{{ questionInfoRequired(question) ? 'danger' : 'muted' }} cursor-pointer"
+                            (click)="question.showHints = !question.showHints">
+                        </i>
+                    </div>
 
-                <div class="d-flex flex-column flex-md-row justify-content-start mb-5"
-                     *ngIf="question.answerType === constants.answerTypes.value">
-                    <mat-form-field appearance="outline" class="mr-2 mb-2 dropdown-container">
-                        <mat-label>{{ 'labels.decimalPlaces' | translate }}</mat-label>
-                        <mat-select [(ngModel)]="question.decimalPlaces" [disabled]="shouldDisable">
-                            <mat-option [value]="0">
-                                0
-                            </mat-option>
-                            <mat-option [value]="1">
-                                1
-                            </mat-option>
-                            <mat-option [value]="2">
-                                2
-                            </mat-option>
-                            <mat-option [value]="3">
-                                3
-                            </mat-option>
-                          </mat-select>
-                        <mat-hint *ngIf="poll.status === constants.statusTypes.open && question.showHints">
-                            {{ 'hints.decimalPlaces' | translate }}
-                        </mat-hint>
-                    </mat-form-field>
-                    <mat-form-field appearance="outline" class="mr-2 mb-2">
-                        <mat-label>{{ 'labels.minValue' | translate }}</mat-label>
-                        <input matInput placeholder="1"
-                               [(ngModel)]="question.minValue" [disabled]="shouldDisable"
-                               type="text" pattern="^-?[0-9]*$" mask>
-                        <mat-hint *ngIf="poll.status === constants.statusTypes.open && question.showHints">
-                            {{ 'hints.minValue' | translate }}
-                        </mat-hint>
-                    </mat-form-field>
+                    <div>
+                        <app-alert
+                            *ngIf="!rearrangeQuestions && question.showHints && questionInfoRequired(question)"
+                            [dismissible]="false"
+                            type="danger"
+                            [messageKey]="getInfoTooltipKey(question)"
+                            class="mb-2">
+                        </app-alert>
 
-                    <mat-form-field appearance="outline" class="mb-2">
-                        <mat-label>{{ 'labels.maxValue' | translate }}</mat-label>
-                        <input matInput placeholder="5"
-                               [(ngModel)]="question.maxValue" [disabled]="shouldDisable"
-                               type="text" pattern="^-?[0-9]*$" mask>
-                        <mat-hint *ngIf="poll.status === constants.statusTypes.open && question.showHints">
-                            {{ 'hints.maxValue' | translate }}
-                        </mat-hint>
-                    </mat-form-field>
+                        <div class="d-flex flex-column flex-md-row justify-content-start mb-5"
+                            *ngIf="!rearrangeQuestions && question.answerType === constants.answerTypes.value">
+                            <mat-form-field appearance="outline" class="mr-2 mb-2 dropdown-container">
+                                <mat-label>{{ 'labels.decimalPlaces' | translate }}</mat-label>
+                                <mat-select [(ngModel)]="question.decimalPlaces" [disabled]="shouldDisable">
+                                    <mat-option [value]="0">
+                                        0
+                                    </mat-option>
+                                    <mat-option [value]="1">
+                                        1
+                                    </mat-option>
+                                    <mat-option [value]="2">
+                                        2
+                                    </mat-option>
+                                    <mat-option [value]="3">
+                                        3
+                                    </mat-option>
+                                </mat-select>
+                                <mat-hint *ngIf="poll.status === constants.statusTypes.open && question.showHints">
+                                    {{ 'hints.decimalPlaces' | translate }}
+                                </mat-hint>
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" class="mr-2 mb-2">
+                                <mat-label>{{ 'labels.minValue' | translate }}</mat-label>
+                                <input matInput placeholder="1"
+                                    [(ngModel)]="question.minValue" [disabled]="shouldDisable"
+                                    type="text" pattern="^-?[0-9]*$" mask>
+                                <mat-hint *ngIf="poll.status === constants.statusTypes.open && question.showHints">
+                                    {{ 'hints.minValue' | translate }}
+                                </mat-hint>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline" class="mb-2">
+                                <mat-label>{{ 'labels.maxValue' | translate }}</mat-label>
+                                <input matInput placeholder="5"
+                                    [(ngModel)]="question.maxValue" [disabled]="shouldDisable"
+                                    type="text" pattern="^-?[0-9]*$" mask>
+                                <mat-hint *ngIf="poll.status === constants.statusTypes.open && question.showHints">
+                                    {{ 'hints.maxValue' | translate }}
+                                </mat-hint>
+                            </mat-form-field>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="d-flex align-items-center justify-content-between">
@@ -263,8 +271,8 @@
                 <div *ngIf="!rearrangeQuestions" cdkDropList (cdkDropListDropped)="dropOption($event, question)" class="mt-5">
                     <div *ngFor="let option of question.options; let j = index; trackBy: trackByFn" cdkDrag
                          [cdkDragDisabled]="shouldDisable || question.options.length <= 1">
-                        <div class="d-flex align-items-center justify-content-between dragDiv" [class.mb-2]="question.showHints">
-                            <div class="p-2" [class.mb-3]="question.showHints"
+                        <div class="d-flex align-items-center justify-content-between" [class.mb-2]="question.showHints">
+                            <div class="p-2 dragDiv" [class.mb-3]="question.showHints"
                                  cdkDragHandle *ngIf="question.options.length > 1 && !shouldDisable">
                                 <i class="fas fa-sort"></i>
                             </div>
