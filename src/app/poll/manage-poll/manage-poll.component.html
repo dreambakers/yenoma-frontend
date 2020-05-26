@@ -343,7 +343,8 @@
 
     <app-view-poll [poll]="poll" [embeddedPreview]="true" *ngIf="preview"></app-view-poll>
 
-    <div style="position: fixed; right: 0; bottom: 65px;" class="mr-3" *ngIf="!isMobile">
+    <div style="position: fixed; right: 0; transition:bottom 0.1s ease;" class="mr-3" *ngIf="!isMobile"
+        [style.bottom]="getStyle()">
         <button mat-fab color="primary"
                 (click)="preview = !preview"
                 matTooltip="{{ preview ? translate.instant('tooltips.stopPreviewing')

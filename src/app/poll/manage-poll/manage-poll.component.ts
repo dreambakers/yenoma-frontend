@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PollService } from 'src/app/services/poll.service';
 import { Response } from '../response.model';
@@ -44,6 +44,8 @@ export class ManagePollComponent implements OnInit, OnDestroy {
   constants = constants;
   mobileNavbarProps: MobileNavbarProps;
   destroy$: Subject<boolean> = new Subject<boolean>();
+
+  test = 33;
 
   constructor(
     private router: Router,
@@ -276,6 +278,20 @@ export class ManagePollComponent implements OnInit, OnDestroy {
     } else {
       return false;
     }
+  }
+
+  @HostListener("window:scroll", ["$event"])
+  onWindowScroll() {
+  }
+
+  getStyle() {
+    let pos = (document.documentElement.scrollTop || document.body.scrollTop) + document.documentElement.offsetHeight;
+    let max = document.documentElement.scrollHeight;
+    this.test = max - pos;
+    if (65 - this.test < 10) {
+      return '20px'
+    }
+    return `${65 - this.test}px`
   }
 
   get isMobile() {
