@@ -139,6 +139,18 @@ button {
       padding: 0;
       margin: 0;
     }
+    // dropdown specific styling
+    &.dropdown {
+        .mat-form-field-infix {
+            padding: 0 !important;
+            margin: 0 !important;
+            border: 0;
+        }
+        .mat-form-field-label-wrapper {
+            top: 0;
+            padding: 0;
+        }
+    }
 }
 
 .mat-row {
@@ -300,4 +312,8 @@ button {
     .mat-radio-label {
         margin-bottom: 0.1rem;
     }
+}
+
+.mat-button-toggle-checked {
+    background-color: $color-primary-very-light !important;
 }

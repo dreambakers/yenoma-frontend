@@ -34,7 +34,7 @@
     </div>
 
     <div *ngIf="poll.description" class="p-3">
-      <p>
+      <p class="m-0">
         {{poll.description}}
       </p>
     </div>
@@ -63,13 +63,13 @@
             {{ i + 1 }}
           </span>
         </div>
-        <h4 class="m-0 text-break">
+        <h5 class="m-0 text-break">
           {{question.text}}
-        </h4>
+        </h5>
       </div>
 
       <ul class="list-group" *ngFor="let option of question.options; let j = index">
-        <li class="list-group-item mt-2 border-0" [ngClass]="(question.answerType !== constants.answerTypes.text) &&
+        <li class="list-group-item border-0" [ngClass]="(question.answerType !== constants.answerTypes.text) &&
                       'd-flex justify-content-between align-items-center'">
           <div class="text-break">
             <p class="m-0">{{option}}</p>
@@ -171,7 +171,7 @@
           </div>
 
           <div *ngSwitchCase="constants.answerTypes.dropdown">
-            <mat-form-field appearance="none" class="dropdown-container mat-field-no-margin option-dropdown">
+            <mat-form-field appearance="none" class="dropdown-container mat-field-no-margin dropdown option-dropdown">
               <mat-select [value]="answerObj.answer" (selectionChange)="dropdownOptionChanged($event, i, j)"
                           [disabled]="shouldDisable" [disabled]="shouldDisable" class="border p-3">
                           <mat-option *ngFor="let option of constants.options.dropdown" [value]="option">
