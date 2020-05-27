@@ -4,6 +4,8 @@ import { Subject } from 'rxjs';
 import { EmitterService } from '../services/emitter.service';
 import { DialogService } from '../services/dialog.service';
 import { takeUntil } from 'rxjs/operators';
+import { DataService } from '../services/data.service';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -18,7 +20,8 @@ export class SidebarComponent implements OnInit {
 
   constructor(
     private emitterService: EmitterService,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private authenticationService: AuthenticationService
     ) {}
 
   ngOnInit(): void {
@@ -30,6 +33,8 @@ export class SidebarComponent implements OnInit {
           return this.changePassword();
         case constants.emitterKeys.aboutClicked:
           return this.about();
+        case constants.emitterKeys.languageChangeClicked:
+            return this.language();
       }
     });
   }
@@ -58,6 +63,10 @@ export class SidebarComponent implements OnInit {
   ngOnDestroy(): void {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
+  }
+
+  get showFooter() {
+    return !this.authenticationService.isAuthenticated() || DataService.isMobile;
   }
 
 }

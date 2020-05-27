@@ -256,13 +256,17 @@ export class ManagePollComponent implements OnInit, OnDestroy {
   }
 
   getFabPosition() {
-    let pos = (document.documentElement.scrollTop || document.body.scrollTop) + document.documentElement.offsetHeight;
-    let max = document.documentElement.scrollHeight;
-    this.remainingScroll = max - pos;
-    if (65 - this.remainingScroll < 10) {
-      return '20px'
-    }
-    return `${65 - this.remainingScroll}px`
+    return '20px';
+    // dynamic position of FAB according to scroll position
+    // commented because footer is currently hidden from the desktop layout
+
+    // let pos = (document.documentElement.scrollTop || document.body.scrollTop) + document.documentElement.offsetHeight;
+    // let max = document.documentElement.scrollHeight;
+    // this.remainingScroll = max - pos;
+    // if (65 - this.remainingScroll < 10) {
+    //   return '20px'
+    // }
+    // return `${65 - this.remainingScroll}px`
   }
 
   isQuestionInvalid(question) {

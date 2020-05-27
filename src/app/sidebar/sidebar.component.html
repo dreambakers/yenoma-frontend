@@ -49,11 +49,11 @@
     <mat-sidenav-content>
       <div id="wrapper">
         <div class="d-flex w-100 h-100">
-          <div class="flex-fill" id="content">
+          <div class="flex-fill" [class.hasFooter]="showFooter" id="content">
             <router-outlet></router-outlet>
           </div>
         </div>
-        <app-footer></app-footer>
+        <app-footer *ngIf="showFooter"></app-footer>
       </div>
     </mat-sidenav-content>
   </mat-sidenav-container>

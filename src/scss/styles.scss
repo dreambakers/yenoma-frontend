@@ -219,8 +219,10 @@ button {
 #content {
     max-width: 100%;
     min-height: calc(100vh - 50px);
-    padding-bottom: 50px;
-    /* Height of the footer element */
+    &.hasFooter {
+        /* Height of the footer element */
+        padding-bottom: 50px;
+    }
 }
 
 #mobileNavbar {
