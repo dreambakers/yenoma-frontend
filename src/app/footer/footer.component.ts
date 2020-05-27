@@ -49,7 +49,6 @@ export class FooterComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.selectedLanguage = localStorage.getItem('selectedLanguage') || 'en';
-    this.translate.use(this.selectedLanguage);
     this.emitterService.emitter.pipe(takeUntil(this.destroy$)).subscribe((emitted) => {
       switch(emitted.event) {
         case constants.emitterKeys.updateNavbarProps:
@@ -60,8 +59,6 @@ export class FooterComponent implements OnInit, OnDestroy {
           return this.labels = { ...this.labels, ...emitted.data };
         case constants.emitterKeys.highlightKeys:
           return this.keysToHighlight = { ...this.keysToHighlight, ...emitted.data };
-        case constants.emitterKeys.languageChanged:
-          return this.languageChanged(emitted.data);
       }
     });
   }
@@ -75,9 +72,7 @@ export class FooterComponent implements OnInit, OnDestroy {
   }
 
   languageChanged(event) {
-    this.selectedLanguage = event.value;
-    localStorage.setItem('selectedLanguage', this.selectedLanguage);
-    this.translate.use(this.selectedLanguage);
+    this.emitterService.emit(constants.emitterKeys.languageChanged, event);
   }
 
   isActive(key) {

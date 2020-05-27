@@ -28,9 +28,6 @@ export class LanguageComponent implements OnInit {
   }
 
   languageChanged(event) {
-    this.selectedLanguage = event.value;
-    localStorage.setItem('selectedLanguage', this.selectedLanguage);
-    this.translate.use(this.selectedLanguage);
     this.emitterService.emit(this.constants.emitterKeys.languageChanged, event);
   }
 
