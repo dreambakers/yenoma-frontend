@@ -5,6 +5,7 @@ interface Question {
     decimalPlaces?: number;
     minValue?: number;
     maxValue?: number;
+    showHints?: boolean;
 }
 
 export class Poll {

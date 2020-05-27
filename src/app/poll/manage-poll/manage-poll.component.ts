@@ -44,8 +44,7 @@ export class ManagePollComponent implements OnInit, OnDestroy {
   constants = constants;
   mobileNavbarProps: MobileNavbarProps;
   destroy$: Subject<boolean> = new Subject<boolean>();
-
-  test = 33;
+  remainingScroll = 33;
 
   constructor(
     private router: Router,
@@ -252,6 +251,24 @@ export class ManagePollComponent implements OnInit, OnDestroy {
     this.updateMobileNavbar();
   }
 
+  @HostListener("window:scroll", ["$event"])
+  onWindowScroll() {
+  }
+
+  getFabPosition() {
+    let pos = (document.documentElement.scrollTop || document.body.scrollTop) + document.documentElement.offsetHeight;
+    let max = document.documentElement.scrollHeight;
+    this.remainingScroll = max - pos;
+    if (65 - this.remainingScroll < 10) {
+      return '20px'
+    }
+    return `${65 - this.remainingScroll}px`
+  }
+
+  isQuestionInvalid(question) {
+    return this.valueFieldsInvalid(question) || (this.minimumOptionsRequired(question) && question.options.length < 2);
+  }
+
   ngOnDestroy(): void {
     this.emitterService.emit(this.constants.emitterKeys.resetNavbar);
     this.destroy$.next(true);
@@ -278,20 +295,6 @@ export class ManagePollComponent implements OnInit, OnDestroy {
     } else {
       return false;
     }
-  }
-
-  @HostListener("window:scroll", ["$event"])
-  onWindowScroll() {
-  }
-
-  getStyle() {
-    let pos = (document.documentElement.scrollTop || document.body.scrollTop) + document.documentElement.offsetHeight;
-    let max = document.documentElement.scrollHeight;
-    this.test = max - pos;
-    if (65 - this.test < 10) {
-      return '20px'
-    }
-    return `${65 - this.test}px`
   }
 
   get isMobile() {

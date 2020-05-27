@@ -33,25 +33,27 @@
       <h4 class="p-3 m-0">{{poll.title}}</h4>
     </div>
 
-    <div *ngIf="poll.description" class="p-3">
-      <p class="m-0">
-        {{poll.description}}
-      </p>
-    </div>
+    <div class="p-3" *ngIf="poll.description || !commentDismissed">
+      <div *ngIf="poll.description">
+        <p class="m-0 text-break">
+          {{poll.description}}
+        </p>
+      </div>
 
-    <div *ngIf="isOpen && poll.activeComment && !commentDismissed" class="p-3">
-      <app-alert
-        [message]="poll.activeComment"
-        class="font-italic"
-        (onDismiss)="commentDismissed = true">
-      </app-alert>
-    </div>
+      <div *ngIf="isOpen && poll.activeComment && !commentDismissed">
+        <app-alert
+          [message]="poll.activeComment"
+          class="font-italic"
+          (onDismiss)="commentDismissed = true">
+        </app-alert>
+      </div>
 
-    <div *ngIf="!isOpen && poll.inactiveComment && !commentDismissed" class="p-3">
-      <app-alert
-        [message]="poll.inactiveComment"
-        (onDismiss)="commentDismissed = true">
-      </app-alert>
+      <div *ngIf="!isOpen && poll.inactiveComment && !commentDismissed">
+        <app-alert
+          [message]="poll.inactiveComment"
+          (onDismiss)="commentDismissed = true">
+        </app-alert>
+      </div>
     </div>
   </mat-card>
 
@@ -74,9 +76,11 @@
           <div class="text-break">
             <p class="m-0">{{option}}</p>
           </div>
-          <ng-container
-            *ngTemplateOutlet="questions; context: { question: question, i: i, j: j, answerObj: response.questions[i].answers[j] }">
-          </ng-container>
+          <div  class="ml-3">
+            <ng-container
+              *ngTemplateOutlet="questions; context: { question: question, i: i, j: j, answerObj: response.questions[i].answers[j] }">
+            </ng-container>
+          </div>
         </li>
       </ul>
 

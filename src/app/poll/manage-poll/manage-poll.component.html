@@ -9,14 +9,6 @@
                 </span>
             </span>
         </h3>
-        <!-- <div class="d-flex justify-content-end">
-            <i class="fas mr-2 cursor-pointer" [ngClass]="!preview ? 'fa-eye' : 'fa-eye-slash'"
-               (click)="preview = !preview"
-               matTooltip="{{ preview ? translate.instant('tooltips.stopPreviewing')
-                                      : translate.instant('pollActions.preview') }}"
-               matTooltipPosition="above">
-            </i>
-        </div> -->
     </div>
 
     <div *ngIf="!preview">
@@ -139,9 +131,7 @@
                       [cdkDragDisabled]="!rearrangeQuestions"
                       [ngClass]="{ 'p-0': rearrangeQuestions,
                                    'mb-5 p-3': !rearrangeQuestions,
-                                   'border-danger': valueFieldsInvalid(question) ||
-                                                    (minimumOptionsRequired(question) &&
-                                                    question.options.length < 2)
+                                   'border-danger': isQuestionInvalid(question)
                                 }"
 
                       id="question{{i}}"
@@ -196,7 +186,7 @@
                               </mat-option>
                             </mat-select>
                         </mat-form-field>
-                        <i class="ml-2 fas fa-question-circle text-{{ questionInfoRequired(question) ? 'danger' : 'muted' }} cursor-pointer"
+                        <i class="ml-2 fas fa-question-circle text-{{ isQuestionInvalid(question) ? 'danger' : 'muted' }} cursor-pointer"
                             (click)="question.showHints = !question.showHints">
                         </i>
                     </div>
@@ -343,14 +333,13 @@
 
     <app-view-poll [poll]="poll" [embeddedPreview]="true" *ngIf="preview"></app-view-poll>
 
-    <div style="position: fixed; right: 0; transition:bottom 0.1s ease;" class="mr-3" *ngIf="!isMobile"
-        [style.bottom]="getStyle()">
+    <div class="mr-3 preview-fab-container" *ngIf="!isMobile && !rearrangeQuestions"
+         [style.bottom]="getFabPosition()">
         <button mat-fab color="primary"
                 (click)="preview = !preview"
                 matTooltip="{{ preview ? translate.instant('tooltips.stopPreviewing')
-                                        : translate.instant('pollActions.preview') }}"
-                matTooltipPosition="above" >
-
+                                       : translate.instant('pollActions.preview') }}"
+                matTooltipPosition="above">
             <mat-icon>
                 {{ !preview ? 'visibility' : 'visibility_off' }}
             </mat-icon>

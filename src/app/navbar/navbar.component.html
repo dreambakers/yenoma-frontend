@@ -1,5 +1,6 @@
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary align-items-center" #navbar>
 
+ <div [class.container]="!isMobile">
   <div class="d-flex align-items-center">
     <button mat-icon-button (click)="toggleSidebar()" class="mr-2" *ngIf="isMobile">
       <i class="fas fa-bars text-white bars"></i>
@@ -52,4 +53,5 @@
       </div>
     </div>
   </div>
+ </div>
 </nav>
