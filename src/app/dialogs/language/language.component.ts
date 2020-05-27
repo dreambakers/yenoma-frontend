@@ -3,7 +3,7 @@ import { constants } from 'src/app/app.constants';
 import { MatDialogRef } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { EmitterService } from 'src/app/services/emitter.service';
-import { languages } from '../../../assets/i18n/metadata.json';
+import { LanguageService } from 'src/app/services/language.service';
 
 @Component({
   selector: 'app-language',
@@ -14,18 +14,24 @@ import { languages } from '../../../assets/i18n/metadata.json';
 export class LanguageComponent implements OnInit {
 
   constants = constants;
-  languages = languages;
+  languages;
   selectedLanguage;
 
   constructor(
     public dialogRef: MatDialogRef<LanguageComponent>,
     private translate: TranslateService,
-    private emitterService: EmitterService
+    private emitterService: EmitterService,
+    private languageService: LanguageService
   ) {
   }
 
   ngOnInit() {
     this.selectedLanguage = this.translate.currentLang;
+    this.languageService.getLanguages().subscribe(
+      (res: any) => {
+        this.languages = res.languages;
+      }
+    );
   }
 
   languageChanged(event) {

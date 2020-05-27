@@ -6,7 +6,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { constants } from '../app.constants';
 import { Router } from '@angular/router';
-import { languages } from '../../assets/i18n/metadata.json';
+import { LanguageService } from '../services/language.service';
 
 export interface MobileNavbarProps {
   home?: Boolean;
@@ -40,13 +40,14 @@ export class FooterComponent implements OnInit, OnDestroy {
   labelsCopy = JSON.stringify(this.labels);
   keysToHighlight = {};
   selectedLanguage;
-  languages = languages;
+  languages;
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(
     private translate: TranslateService,
     private emitterService: EmitterService,
-    private router: Router) { }
+    private router: Router,
+    private languageService: LanguageService) { }
 
   ngOnInit() {
     this.selectedLanguage = localStorage.getItem('selectedLanguage') || 'en';
@@ -62,6 +63,11 @@ export class FooterComponent implements OnInit, OnDestroy {
           return this.keysToHighlight = { ...this.keysToHighlight, ...emitted.data };
       }
     });
+    this.languageService.getLanguages().subscribe(
+      (res: any) => {
+        this.languages = res.languages;
+      }
+    );
   }
 
   reset() {
