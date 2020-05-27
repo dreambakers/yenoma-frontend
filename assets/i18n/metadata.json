@@ -1,0 +1,10 @@
+{
+    "languages": [
+        { "display": "English", "value": "en" },
+        { "display": "German", "value": "de" },
+        { "display": "French", "value": "fr" },
+        { "display": "Spanish", "value": "es" },
+        { "display": "Italian", "value": "it" },
+        { "display": "Portuguese", "value": "pt" }
+    ]
+}
