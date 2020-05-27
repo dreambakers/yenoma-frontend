@@ -40,11 +40,6 @@ export const constants = {
         logoutInitiated: "logoutInitiated",
         languageChangeClicked: "languageChangeClicked"
     },
-    languages: [
-        { display: "English", value: "en" },
-        { display: "German", value: "de" },
-        { display: "French", value: "fr" },
-    ],
 
     options: {
         binary: ['yes', 'no'],

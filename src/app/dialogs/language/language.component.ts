@@ -3,6 +3,7 @@ import { constants } from 'src/app/app.constants';
 import { MatDialogRef } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { EmitterService } from 'src/app/services/emitter.service';
+import { languages } from '../../../assets/i18n/metadata.json';
 
 @Component({
   selector: 'app-language',
@@ -13,7 +14,7 @@ import { EmitterService } from 'src/app/services/emitter.service';
 export class LanguageComponent implements OnInit {
 
   constants = constants;
-  languages = this.constants.languages;
+  languages = languages;
   selectedLanguage;
 
   constructor(

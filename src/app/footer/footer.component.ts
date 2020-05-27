@@ -6,6 +6,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { constants } from '../app.constants';
 import { Router } from '@angular/router';
+import { languages } from '../../assets/i18n/metadata.json';
 
 export interface MobileNavbarProps {
   home?: Boolean;
@@ -39,7 +40,7 @@ export class FooterComponent implements OnInit, OnDestroy {
   labelsCopy = JSON.stringify(this.labels);
   keysToHighlight = {};
   selectedLanguage;
-  languages = this.contants.languages;
+  languages = languages;
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(
