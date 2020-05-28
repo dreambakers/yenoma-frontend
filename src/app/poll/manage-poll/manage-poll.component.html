@@ -251,7 +251,7 @@
                         <input matInput placeholder="{{ 'placeholders.question' | translate }}"
                                [(ngModel)]="question.text" [disabled]="shouldDisable">
                         <mat-hint *ngIf="poll.status === constants.statusTypes.open && question.showHints">
-                            {{ 'hints.typeQuestion' | translate }} {{i + 1}}
+                            {{ 'hints.typeQuestion' | translate: { QN: i + 1} }}
                         </mat-hint>
                     </mat-form-field>
                     <i class="fas fa-minus-circle text-danger pb-4 pl-2 cursor-pointer"
@@ -276,7 +276,7 @@
                                 <input matInput placeholder="{{ 'placeholders.option' | translate }}"
                                        [(ngModel)]="question.options[j]" [disabled]="shouldDisable">
                                 <mat-hint *ngIf="poll.status === constants.statusTypes.open && question.showHints">
-                                    {{ 'hints.typeOption' | translate }} {{j + 1}}
+                                    {{ 'hints.typeOption' | translate: { OPN: j + 1 } }}
                                 </mat-hint>
                             </mat-form-field>
 
