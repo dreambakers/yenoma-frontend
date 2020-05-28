@@ -273,6 +273,10 @@ export class ManagePollComponent implements OnInit, OnDestroy {
     return this.valueFieldsInvalid(question) || (this.minimumOptionsRequired(question) && question.options.length < 2);
   }
 
+  getAddOptionLabel(question) {
+    return question.options.length ? 'labels.addAnotherOption' : 'labels.addOption';
+  }
+
   ngOnDestroy(): void {
     this.emitterService.emit(this.constants.emitterKeys.resetNavbar);
     this.destroy$.next(true);

@@ -56,6 +56,7 @@ export class ViewPollComponent implements OnInit {
 
   ngOnInit() {
     if (this.poll) {
+      window.scroll(0,0);
       this.preview = true;
       !this.hasResponded && this.setAnswers();
     } else {

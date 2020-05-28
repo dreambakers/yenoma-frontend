@@ -32,7 +32,8 @@
                 <mat-card class="mat-elevation-z0 pb-0">
                     <div class="text-right">
                         <i class="fas fa-question-circle text-muted p-2 cursor-pointer"
-                           (click)="showBasicHints = !showBasicHints">
+                           (click)="showBasicHints = !showBasicHints"
+                           [class.help-button-active]="showBasicHints">
                         </i>
                     </div>
                     <mat-form-field appearance="outline" class="w-100 mt-3">
@@ -187,13 +188,14 @@
                             </mat-select>
                         </mat-form-field>
                         <i class="ml-2 fas fa-question-circle text-{{ isQuestionInvalid(question) ? 'danger' : 'muted' }} cursor-pointer"
-                            (click)="question.showHints = !question.showHints">
+                           (click)="question.showHints = !question.showHints"
+                           [class.help-button-active]="question.showHints">
                         </i>
                     </div>
 
                     <div>
                         <app-alert
-                            *ngIf="!rearrangeQuestions && question.showHints && questionInfoRequired(question)"
+                            *ngIf="isQuestionInvalid(question) && !rearrangeQuestions && question.showHints && questionInfoRequired(question)"
                             [dismissible]="false"
                             type="danger"
                             [messageKey]="getInfoTooltipKey(question)"
@@ -294,8 +296,7 @@
                        (click)="addOption(i)" *ngIf="isMobile; else desktopButton"></i>
                     <ng-template #desktopButton>
                         <button class="btn btn-primary mt-3" (click)="addOption(i)">
-                            {{ 'labels.add' | translate }}
-                            {{ 'labels.option' | translate | lowercase }}
+                            {{ getAddOptionLabel(question) | translate }}
                         </button>
                     </ng-template>
                 </div>
