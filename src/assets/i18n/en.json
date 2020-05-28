@@ -174,7 +174,8 @@
     "update": "Update",
     "view": "View",
     "vote": "Vote",
-    "yes": "Yes"
+    "yes": "Yes",
+    "pollPreview": "Poll preview"
   },
   "messages": {
     "areYouSure": "Are you sure?",

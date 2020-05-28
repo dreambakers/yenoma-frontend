@@ -32,7 +32,6 @@ export class ManagePollComponent implements OnInit, OnDestroy {
   responses;
   answerMap: any;
   hide = true;
-  navTitle = '';
   preview = false;
   loading = false;
   isEditing = false;
@@ -71,8 +70,9 @@ export class ManagePollComponent implements OnInit, OnDestroy {
               this.pollCopy = JSON.stringify(this.poll);
               this.updateMobileNavbar();
               if (this.responses.length) {
-                this.navTitle += ` (${this.responses.length})`;
-                this.emitterService.emit(constants.emitterKeys.changeNavbarTitle, this.navTitle);
+                this.emitterService.emit(constants.emitterKeys.changeNavbarTitle, {
+                  extra: ` (${this.responses.length})`
+                });
               }
             } else {
               this.utils.openSnackBar('errors.e003_gettingPoll');
@@ -110,8 +110,8 @@ export class ManagePollComponent implements OnInit, OnDestroy {
           return this.toggleRearrangement();
       }
     });
-    this.navTitle = this.translate.instant(this.isEditing ? 'labels.managePoll' : 'labels.createPoll');
-    this.emitterService.emit(constants.emitterKeys.changeNavbarTitle, this.navTitle);
+    const key = this.isEditing ? 'labels.managePoll' : 'labels.createPoll';
+    this.emitterService.emit(constants.emitterKeys.changeNavbarTitle, { key });
   }
 
   updateMobileNavbar() {

@@ -145,9 +145,15 @@ export class ResponsesComponent implements OnInit {
     this.emitterService.emit(constants.emitterKeys.updateNavbarProps, updatedProps);
   }
 
-  updateNavTitle(message = null) {
-    const titleToSet = message || this.translate.instant('pollActions.responseDetails') + ` (${this.responses.length})`;
-    this.emitterService.emit(constants.emitterKeys.changeNavbarTitle, titleToSet);
+  updateNavTitle(messageKey = null) {
+    if (messageKey) {
+      this.emitterService.emit(constants.emitterKeys.changeNavbarTitle, { key: messageKey, extra: null });
+    } else {
+      this.emitterService.emit(constants.emitterKeys.changeNavbarTitle, {
+        key: 'pollActions.responseDetails',
+        extra: ` (${this.responses.length})`
+      });
+    }
   }
 
   getParsedDate(date) {
@@ -217,7 +223,7 @@ export class ResponsesComponent implements OnInit {
             this.preview = true;
             this.emitterService.emit(this.constants.emitterKeys.highlightKeys, { preview: true });
             this.updateNavbarProps({ arrange: false, preview: true });
-            this.updateNavTitle(this.translate.instant('labels.response'));
+            this.updateNavTitle('labels.response');
           } else {
             this.utils.openSnackBar('errors.e013_gettingResponse');
           }

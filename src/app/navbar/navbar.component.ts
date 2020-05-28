@@ -19,7 +19,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   constants = constants;
   user;
   show = false;
-  currentPage = '';
+  currentPage: any = {};
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(private auth: AuthenticationService,
@@ -35,12 +35,18 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.emitterService.emitter.pipe(takeUntil(this.destroy$)).subscribe((emitted) => {
       switch(emitted.event) {
         case constants.emitterKeys.changeNavbarTitle:
-          return this.currentPage = emitted.data;
+          return this.currentPage = { ...this.currentPage, ...emitted.data };
         case constants.emitterKeys.logoutClicked:
           return this.logout();
+        case constants.emitterKeys.resetNavbar:
+          return this.reset();
       }
     });
 
+  }
+
+  reset() {
+    this.currentPage = {};
   }
 
   logout() {

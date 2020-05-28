@@ -56,8 +56,10 @@ export class ViewStatsComponent implements OnInit {
                 }
               });
             }
-            const navTitle = this.translate.instant('labels.pollStats') + ` (${this.responses.length})`;
-            this.emitterService.emit(constants.emitterKeys.changeNavbarTitle, navTitle);
+            this.emitterService.emit(constants.emitterKeys.changeNavbarTitle, {
+              key: 'labels.pollStats',
+              extra: ` (${this.responses.length})`
+            });
             this.emitterService.emit(constants.emitterKeys.updateNavbarProps, { home: true });
           } else {
             this.utils.openSnackBar('errors.e003_gettingPoll');

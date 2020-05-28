@@ -5,7 +5,10 @@
     <button mat-icon-button (click)="toggleSidebar()" class="mr-2" *ngIf="isMobile">
       <i class="fas fa-bars text-white bars"></i>
     </button>
-    <span class="navbar-brand d-lg-none">{{ currentPage }}</span>
+    <span class="navbar-brand d-lg-none">
+      {{ currentPage.key | translate }}
+      {{ currentPage.extra }}
+    </span>
   </div>
 
   <div class="collapse navbar-collapse" id="navbarToggle">

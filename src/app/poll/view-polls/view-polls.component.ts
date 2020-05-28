@@ -134,9 +134,18 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
     this.emitterService.emit(constants.emitterKeys.updateNavbarProps, updatedProps);
   }
 
-  updateNavTitle(message = null) {
-    const navTitleToSet = message || this.translate.instant('labels.myPolls') + ` (${this.polls.length})`;
-    this.emitterService.emit(constants.emitterKeys.changeNavbarTitle, navTitleToSet);
+  updateNavTitle(messageKey = null) {
+    if (messageKey) {
+      this.emitterService.emit(constants.emitterKeys.changeNavbarTitle, {
+        key: messageKey,
+        extra: null
+      });
+    } else {
+      this.emitterService.emit(constants.emitterKeys.changeNavbarTitle, {
+        key: 'labels.myPolls',
+        extra: ` (${this.polls.length})`
+      });
+    }
   }
 
   deletePoll(pollId) {
@@ -300,7 +309,7 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
       this.setTableAttributes();
       return this.preview = false;
     }
-    this.updateNavTitle(this.translate.instant('labels.poll') + ' ' + this.translate.instant('labels.preview'));
+    this.updateNavTitle('labels.pollPreview');
     this.updateNavbarProps({ preview: true, arrange: false, add: false });
     this.emitterService.emit(this.constants.emitterKeys.highlightKeys, { preview: true });
     this.poll = poll;
