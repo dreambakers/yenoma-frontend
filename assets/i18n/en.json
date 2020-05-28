@@ -66,9 +66,9 @@
     "pollDescription": "Type poll description",
     "pollTitle": "Type poll title",
     "privateNote": "Type private note (not visible to responders)",
-    "typeOption": "Type option",
+    "typeOption": "Type option {{OPN}}",
     "typePollPassword": "Type poll password",
-    "typeQuestion": "Type question"
+    "typeQuestion": "Type question {{QN}}"
   },
   "labels": {
     "about": "About",
@@ -175,7 +175,8 @@
     "view": "View",
     "vote": "Vote",
     "yes": "Yes",
-    "pollPreview": "Poll preview"
+    "pollPreview": "Poll preview",
+    "myPollsCount": "My Polls ({{PC}})"
   },
   "messages": {
     "areYouSure": "Are you sure?",
