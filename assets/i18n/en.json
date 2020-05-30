@@ -68,7 +68,9 @@
     "privateNote": "Type private note (not visible to responders)",
     "typeOption": "Type option {{OPN}}",
     "typePollPassword": "Type poll password",
-    "typeQuestion": "Type question {{QN}}"
+    "typeQuestion": "Type question {{QN}}",
+    "answers": "Answers",
+    "addOption": "Add option"
   },
   "labels": {
     "about": "About",
