@@ -1,10 +1,10 @@
 {
     "languages": [
         { "display": "English", "value": "en" },
-        { "display": "German", "value": "de" },
-        { "display": "French", "value": "fr" },
-        { "display": "Spanish", "value": "es" },
-        { "display": "Italian", "value": "it" },
-        { "display": "Portuguese", "value": "pt" }
+        { "display": "Deutsch", "value": "de" },
+        { "display": "Français", "value": "fr" },
+        { "display": "Español", "value": "es" },
+        { "display": "Italiano", "value": "it" },
+        { "display": "Português", "value": "pt" }
     ]
 }

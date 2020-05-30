@@ -180,7 +180,9 @@
     "addOption": "Add option",
     "addAnotherOption": "Add another option",
     "addQuestion": "Add question",
-    "addPoll": "Add Poll"
+    "addPoll": "Add Poll",
+    "questionNumber": "Question {{QN}}",
+    "optionNumber": "Option {{OPN}}"
   },
   "messages": {
     "areYouSure": "Are you sure?",
