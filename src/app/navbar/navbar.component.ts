@@ -22,6 +22,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
   currentPage: any = {};
   destroy$: Subject<boolean> = new Subject<boolean>();
 
+  top = 0;
+  right = 0;
+  left = 0;
+  bottom = 0;
+
   constructor(private auth: AuthenticationService,
               private userService: UserService,
               private utils: UtilService,
@@ -82,5 +87,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   about() {
     this.emitterService.emit(this.constants.emitterKeys.aboutClicked);
+  }
+
+  get(position) {
+    return this[position] + 'px';
   }
 }
