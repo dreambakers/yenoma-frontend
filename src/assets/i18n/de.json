@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "creationDate": "2020-05-25T18:32:04Z",
+    "creationDate": "2020-05-28T20:01:54Z",
     "generator": "Excel Macro",
     "generatorVersion": "2020-05-25",
     "twoletterCode": "de",
@@ -174,7 +174,11 @@
     "update": "Aktualisieren",
     "view": "Aussicht",
     "vote": "Abstimmung",
-    "yes": "Ja"
+    "yes": "Ja",
+    "pollPreview": "Umfragevorschau",
+    "myPollsCount": "Meine Umfragen ({{PC}})",
+    "addOption": "Option hinzufügen",
+    "addAnotherOption": "Nächste Option"
   },
   "messages": {
     "areYouSure": "Sind Sie sicher?",
