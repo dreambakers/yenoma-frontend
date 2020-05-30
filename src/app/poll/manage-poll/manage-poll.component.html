@@ -149,7 +149,13 @@
                 </div>
 
                 <div class="d-flex flex-column" *ngIf="!rearrangeQuestions">
-                    <div class="d-flex justify-content-end align-items-center" [class.mb-3]="question.showHints">
+                    <div class="d-flex justify-content-between align-items-cennter ">
+                        <div class="d-flex align-items-center">
+                            <mat-slide-toggle (change)="question.editMode = !question.editMode" *ngIf="!shouldDisable">
+                                {{ 'labels.edit' | translate }}
+                            </mat-slide-toggle>
+                        </div>
+                        <div class="d-flex justify-content-end align-items-center" [class.mb-3]="question.showHints">
                             <mat-form-field class="dropdown-container">
                                 <mat-select [(ngModel)]="question.answerType" [disabled]="shouldDisable">
                                   <mat-option [value]="constants.answerTypes.binary">
@@ -187,10 +193,11 @@
                                     {{ 'hints.answers' | translate }}
                                 </mat-hint>
                             </mat-form-field>
-                        <i class="ml-2 fas fa-question-circle text-{{ isQuestionInvalid(question) ? 'danger' : 'muted' }} cursor-pointer"
-                           (click)="question.showHints = !question.showHints"
-                           [class.help-button-active]="question.showHints">
-                        </i>
+                            <i class="ml-2 fas fa-question-circle text-{{ isQuestionInvalid(question) ? 'danger' : 'muted' }} cursor-pointer"
+                                (click)="question.showHints = !question.showHints"
+                                [class.help-button-active]="question.showHints">
+                            </i>
+                        </div>
                     </div>
 
                     <div>
@@ -259,15 +266,15 @@
                         </mat-hint>
                     </mat-form-field>
                     <i class="fas fa-minus-circle text-danger pb-4 pl-2 cursor-pointer"
-                        (click)="removeQuestion(i)" *ngIf="!rearrangeQuestions && !shouldDisable"></i>
+                        (click)="removeQuestion(i)" *ngIf="question.editMode && !rearrangeQuestions && !shouldDisable"></i>
                 </div>
 
                 <div *ngIf="!rearrangeQuestions" cdkDropList (cdkDropListDropped)="dropOption($event, question)" class="mt-5">
                     <div *ngFor="let option of question.options; let j = index; trackBy: trackByFn" cdkDrag
-                         [cdkDragDisabled]="shouldDisable || question.options.length <= 1">
+                         [cdkDragDisabled]="!question.editMode || shouldDisable || question.options.length <= 1">
                         <div class="d-flex align-items-center justify-content-between" [class.mb-2]="question.showHints">
                             <div class="p-2 dragDiv" [class.mb-3]="question.showHints"
-                                 cdkDragHandle *ngIf="question.options.length > 1 && !shouldDisable">
+                                 cdkDragHandle *ngIf="question.editMode && question.options.length > 1 && !shouldDisable">
                                 <i class="fas fa-sort"></i>
                             </div>
                             <mat-form-field appearance="outline" class="w-100 {{ question.showHints ? '' : 'mat-field-no-margin' }}">
@@ -283,7 +290,7 @@
                             </mat-form-field>
 
                             <i class="fas fa-minus-circle text-danger cursor-pointer p-2" (click)="removeOption(i,j)"
-                                *ngIf="!shouldDisable"
+                                *ngIf="question.editMode && !shouldDisable"
                                 matTooltip="{{ 'labels.removeOption' | translate }}" matTooltipPosition="above"
                                 [class.mb-3]="question.showHints">
                             </i>
@@ -342,7 +349,7 @@
     <div class="mr-3 preview-fab-container" *ngIf="!isMobile && !rearrangeQuestions"
          [style.bottom]="getFabPosition()">
         <button mat-fab color="primary"
-                (click)="preview = !preview"
+                (click)="togglePreview()"
                 matTooltip="{{ preview ? translate.instant('tooltips.stopPreviewing')
                                        : translate.instant('pollActions.preview') }}"
                 matTooltipPosition="above">

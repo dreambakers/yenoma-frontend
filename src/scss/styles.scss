@@ -320,17 +320,20 @@ button {
     background-color: $color-primary-very-light !important;
 }
 
-.mat-flat-button.mat-primary, .mat-raised-button.mat-primary, .mat-fab.mat-primary, .mat-mini-fab.mat-primary {
-    background-color: $color-primary !important;
-    &:hover {
-        background-color: #303F9F !important;
-    }
-}
 
-.mat-button {
-    background-color: $color-primary-light !important;
-    &:hover {
-        background-color: #9FA8DA !important;
+#confirmationDialogActions {
+    .mat-flat-button.mat-primary, .mat-raised-button.mat-primary {
+        background-color: $color-primary !important;
+        &:hover {
+            background-color: #303F9F !important;
+        }
+    }
+
+    .mat-button {
+        background-color: $color-primary-light !important;
+        &:hover {
+            background-color: #9FA8DA !important;
+        }
     }
 }
 

@@ -201,6 +201,7 @@ export class ManagePollComponent implements OnInit, OnDestroy {
   toggleRearrangement() {
     this.rearrangeQuestions = !this.rearrangeQuestions;
     this.updateMobileNavbar();
+    this.deleteEditKeys();
   }
 
   minimumOptionsRequired(question) {
@@ -250,6 +251,7 @@ export class ManagePollComponent implements OnInit, OnDestroy {
   togglePreview() {
     this.preview = !this.preview;
     this.updateMobileNavbar();
+    this.deleteEditKeys();
   }
 
   @HostListener("window:scroll", ["$event"])
@@ -276,6 +278,10 @@ export class ManagePollComponent implements OnInit, OnDestroy {
 
   getAddOptionLabel(question) {
     return question.options.length ? 'labels.addAnotherOption' : 'labels.addOption';
+  }
+
+  deleteEditKeys() {
+    this.poll.questions.forEach(question => delete question.editMode);
   }
 
   ngOnDestroy(): void {
