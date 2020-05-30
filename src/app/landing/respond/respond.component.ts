@@ -17,6 +17,7 @@ export class RespondComponent implements OnInit {
   submitted = false;
   responded = false;
   action;
+  pattern = /\s*[1-9a-zA-Z]\s*[1-9a-zA-Z]\s*[1-9a-zA-Z]\s*[1-9a-zA-Z]\s*[1-9a-zA-Z]\s*[1-9a-zA-Z]\s*[1-9a-zA-Z]\s*[1-9a-zA-Z]\s*$/i;
 
   constructor(private formBuilder: FormBuilder,
     private pollService: PollService,
@@ -27,7 +28,7 @@ export class RespondComponent implements OnInit {
 
   ngOnInit() {
     this.responseForm = this.formBuilder.group({
-      pollId: ['', [Validators.required, Validators.pattern(/^[1-9a-zA-Z]{8}$/i)]]
+      pollId: ['', [Validators.required, Validators.pattern(this.pattern)]]
     });
 
     this.route.queryParams.pipe(take(1)).subscribe(params => {
@@ -54,10 +55,11 @@ export class RespondComponent implements OnInit {
       return;
     }
 
-    this.pollService.getPoll(this.responseForm.value.pollId.trim()).subscribe(
+    const id = this.responseForm.value.pollId.match(this.pattern)[0].replace(/\s/g,'');
+    this.pollService.getPoll(id).subscribe(
       (response: any) => {
         if (response.poll) {
-          this.router.navigate(['p'], { queryParams: { id: this.responseForm.value.pollId } });
+          this.router.navigate(['p'], { queryParams: { id } });
         } else {
           this.utils.openSnackBar('messages.noPollFoundAgainstId', 'labels.retry');
         }
