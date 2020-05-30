@@ -178,7 +178,9 @@
     "pollPreview": "Poll preview",
     "myPollsCount": "My Polls ({{PC}})",
     "addOption": "Add option",
-    "addAnotherOption": "Add another option"
+    "addAnotherOption": "Add another option",
+    "addQuestion": "Add question",
+    "addPoll": "Add Poll"
   },
   "messages": {
     "areYouSure": "Are you sure?",

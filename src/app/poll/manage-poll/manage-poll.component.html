@@ -3,7 +3,7 @@
     <div class="mb-3 d-flex justify-content-between" *ngIf="!isMobile">
         <h3>
             <span *ngIf="!preview">
-                {{ (isEditing ? 'labels.managePoll' : 'labels.createPoll') | translate }}
+                {{ (isEditing ? 'labels.managePoll' : 'labels.createNewPoll') | translate }}
                 <span class="font-italic text-muted" *ngIf="shouldDisable">
                     ({{ 'labels.readOnly' | translate }})
                 </span>

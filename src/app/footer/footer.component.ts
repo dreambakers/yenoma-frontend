@@ -33,7 +33,7 @@ export class FooterComponent implements OnInit, OnDestroy {
   labels = {
     home: 'labels.home',
     arrange: 'labels.arrange',
-    add: 'labels.add',
+    add: 'labels.addPoll',
     create: 'labels.create',
     preview: 'labels.preview'
   };
@@ -58,8 +58,10 @@ export class FooterComponent implements OnInit, OnDestroy {
         case constants.emitterKeys.resetNavbar:
           return this.reset();
         case constants.emitterKeys.updateNavbarLabels:
-          return this.labels = { ...this.labels, ...emitted.data };
-        case constants.emitterKeys.highlightKeys:
+          this.labels = { ...this.labels, ...emitted.data };
+          console.log(this.labels);
+          return
+          case constants.emitterKeys.highlightKeys:
           return this.keysToHighlight = { ...this.keysToHighlight, ...emitted.data };
       }
     });
