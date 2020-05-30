@@ -182,7 +182,11 @@
     "addQuestion": "Add question",
     "addPoll": "Add Poll",
     "questionNumber": "Question {{QN}}",
-    "optionNumber": "Option {{OPN}}"
+    "optionNumber": "Option {{OPN}}",
+    "loginTitle": "Login",
+    "loginButton": "Login",
+    "registerTitle": "Register",
+    "registerButton": "Register"
   },
   "messages": {
     "areYouSure": "Are you sure?",
