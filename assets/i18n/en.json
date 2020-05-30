@@ -188,7 +188,8 @@
     "loginTitle": "Login",
     "loginButton": "Login",
     "registerTitle": "Register",
-    "registerButton": "Register"
+    "registerButton": "Register",
+    "edit": "Edit"
   },
   "messages": {
     "areYouSure": "Are you sure?",
