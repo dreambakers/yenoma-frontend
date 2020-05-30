@@ -30,7 +30,16 @@
 
   <mat-card class="p-0">
     <div class="border-bottom">
-      <h4 class="p-3 m-0">{{poll.title}}</h4>
+      <h4 class="p-3 m-0">
+        <span *ngIf="poll.title; else placeHolderTitle">
+          {{poll.title}}
+        </span>
+        <ng-template #placeHolderTitle>
+          <span>
+            <mat-label class="text-muted">({{ 'labels.title' | translate }})</mat-label>
+          </span>
+        </ng-template>
+      </h4>
     </div>
 
     <div class="p-3" *ngIf="poll.description || (((isOpen && poll.activeComment) || (!isOpen && poll.inactiveComment)) && !commentDismissed)">
@@ -66,7 +75,12 @@
           </span>
         </div>
         <h5 class="m-0 text-break">
-          {{question.text}}
+          <span *ngIf="question.text; else placeholderQuestion">
+            {{question.text}}
+          </span>
+          <ng-template #placeholderQuestion>
+            <span class="text-muted">({{ 'labels.questionNumber' | translate: { QN: i + 1} }})</span>
+          </ng-template>
         </h5>
       </div>
 
@@ -74,7 +88,16 @@
         <li class="list-group-item border-0" [ngClass]="(question.answerType !== constants.answerTypes.text) &&
                       'd-flex justify-content-between align-items-center'">
           <div class="text-break">
-            <p class="m-0">{{option}}</p>
+            <p class="m-0">
+              <span *ngIf="option; else placeholderOption">
+                {{option}}
+              </span>
+              <ng-template #placeholderOption>
+                <span class="text-muted">
+                  ({{ 'labels.optionNumber' | translate: { OPN: j + 1 } }})
+                </span>
+              </ng-template>
+            </p>
           </div>
           <div  class="ml-3">
             <ng-container

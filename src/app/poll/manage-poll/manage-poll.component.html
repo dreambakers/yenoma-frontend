@@ -249,7 +249,9 @@
 
                 <div class="d-flex align-items-center justify-content-between">
                     <mat-form-field appearance="outline" class="w-100" *ngIf="!rearrangeQuestions">
-                        <mat-label>{{ 'labels.question' | translate }} {{i + 1}}</mat-label>
+                        <mat-label>
+                            {{ 'labels.questionNumber' | translate: { QN: i + 1} }}
+                        </mat-label>
                         <input matInput placeholder="{{ 'placeholders.question' | translate }}"
                                [(ngModel)]="question.text" [disabled]="shouldDisable">
                         <mat-hint *ngIf="poll.status === constants.statusTypes.open && question.showHints">
@@ -270,10 +272,8 @@
                             </div>
                             <mat-form-field appearance="outline" class="w-100 {{ question.showHints ? '' : 'mat-field-no-margin' }}">
                                 <mat-label>
-                                    {{ 'labels.question' | translate }}
-                                    {{ i + 1 }}
-                                    {{ 'labels.option' | translate | lowercase }}
-                                    {{ j + 1 }}
+                                    {{ 'labels.questionNumber' | translate: { QN: i + 1} }}
+                                    {{ 'labels.optionNumber' | translate: { OPN: j + 1 } }}
                                 </mat-label>
                                 <input matInput placeholder="{{ 'placeholders.option' | translate }}"
                                        [(ngModel)]="question.options[j]" [disabled]="shouldDisable">
