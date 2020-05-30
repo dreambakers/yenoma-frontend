@@ -2,25 +2,14 @@
 
  <div [class.container]="!isMobile">
   <div class="d-flex align-items-center">
-    <button mat-icon-button (click)="toggleSidebar()" class="mr-4" *ngIf="isMobile">
-      <img src="../../assets/images/menu-24px.svg" alt=""
-       style="position: relative;"
-       [style.top]="get('top')"
-       [style.bottom]="get('bottom')"
-       [style.right]="get('right')"
-       [style.left]="get('left')"
-      >
+    <button mat-icon-button (click)="toggleSidebar()" class="mr-4" *ngIf="isMobile"
+            style="position: relative; top: -1px; left: -8px">
+      <img src="../../assets/images/menu-24px.svg">
     </button>
     <span class="navbar-brand d-lg-none p-0">
       {{ currentPage.key | translate }}
       {{ currentPage.extra }}
     </span>
-    <div class="d-flex flex-row text-white">
-      T<input style="width: 20px" [(ngModel)]="top" type="number">
-      <!-- B<input style="width: 20px" [(ngModel)]="bottom" type="number"> -->
-      <!-- R<input style="width: 20px" [(ngModel)]="right" type="number"> -->
-      L<input style="width: 20px" [(ngModel)]="left" type="number">
-    </div>
   </div>
 
   <div class="collapse navbar-collapse" id="navbarToggle">
