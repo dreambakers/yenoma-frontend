@@ -10,7 +10,7 @@
     <button mat-button (click)="onDismiss()">
         {{ 'labels.no' | translate }}
     </button>
-    <button mat-raised-button color="primary" (click)="onConfirm()">
+    <button mat-button (click)="onConfirm()" cdkFocusInitial>
         {{ 'labels.yes' | translate }}
     </button>
 </div>
