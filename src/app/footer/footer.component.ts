@@ -58,10 +58,8 @@ export class FooterComponent implements OnInit, OnDestroy {
         case constants.emitterKeys.resetNavbar:
           return this.reset();
         case constants.emitterKeys.updateNavbarLabels:
-          this.labels = { ...this.labels, ...emitted.data };
-          console.log(this.labels);
-          return
-          case constants.emitterKeys.highlightKeys:
+          return this.labels = { ...this.labels, ...emitted.data };
+        case constants.emitterKeys.highlightKeys:
           return this.keysToHighlight = { ...this.keysToHighlight, ...emitted.data };
       }
     });

@@ -323,14 +323,18 @@ button {
 
 #confirmationDialogActions {
     .mat-flat-button.mat-primary, .mat-raised-button.mat-primary {
-        background-color: $color-primary !important;
+        &:active {
+            background-color: $color-primary !important;
+        }
         &:hover {
             background-color: #303F9F !important;
         }
     }
 
     .mat-button {
-        background-color: $color-primary-light !important;
+        &:active {
+            background-color: $color-primary-light !important;
+        }
         &:hover {
             background-color: #9FA8DA !important;
         }
