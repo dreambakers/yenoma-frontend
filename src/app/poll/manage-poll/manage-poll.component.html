@@ -298,17 +298,18 @@
                     </div>
                 </div>
 
-                <div *ngIf="!rearrangeQuestions && !shouldDisable" class="d-flex flex-column align-items-center justify-content-center mt-3">
+                <div *ngIf="!rearrangeQuestions && !shouldDisable" class="d-flex flex-column align-items-center mt-3">
                     <div>
-                        <i class="fas fa-plus-circle text-primary p-4 cursor-pointer"
+                        <i class="fas fa-plus-circle text-primary cursor-pointer" 
+                            [ngClass]="{'p-4': !question.showHints, 'px-4 pt-4 pb-0': question.showHints}"
                             (click)="addOption(i)" *ngIf="isMobile; else desktopButton"></i>
                         <ng-template #desktopButton>
-                            <button class="btn btn-primary" (click)="addOption(i)">
+                            <button class="btn btn-primary" [class.mb-1]="question.showHints" (click)="addOption(i)">
                                 {{ getAddOptionLabel(question) | translate }}
                             </button>
                         </ng-template>
                     </div>
-                    <div class="mt-2" *ngIf="question.showHints">
+                    <div *ngIf="question.showHints" class="d-flex align-items-start">
                         <mat-hint>{{ 'hints.addOption' | translate }}</mat-hint>
                     </div>
                 </div>
@@ -319,7 +320,7 @@
         <div class="mt-5" [hidden]="isMobile">
             <div class="d-flex flex-row justify-content-center">
                 <button class="btn btn-primary mb-5" (click)="addQuestion()" *ngIf="!shouldDisable">
-                    {{ 'labels.addAnotherQuestion' | translate }}
+                    {{ 'labels.addQuestionDesktop' | translate }}
                 </button>
             </div>
 

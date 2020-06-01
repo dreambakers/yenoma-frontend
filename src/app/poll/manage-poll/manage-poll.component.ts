@@ -112,7 +112,7 @@ export class ManagePollComponent implements OnInit, OnDestroy {
     });
     const key = this.isEditing ? 'labels.managePoll' : 'labels.createPoll';
     this.emitterService.emit(constants.emitterKeys.changeNavbarTitle, { key });
-    this.emitterService.emit(this.constants.emitterKeys.updateNavbarLabels, { add: 'labels.addQuestion' });
+    this.emitterService.emit(this.constants.emitterKeys.updateNavbarLabels, { add: 'labels.addQuestionMobile' });
   }
 
   updateMobileNavbar() {

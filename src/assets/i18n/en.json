@@ -78,7 +78,6 @@
     "active": "Active",
     "activeComment": "Active comment",
     "add": "Add",
-    "addAnotherQuestion": "Add question",
     "allowComments": "Allow comments",
     "allowNames": "Allow names",
     "alreadyRegistered": "Already registered? Login here",
@@ -181,7 +180,6 @@
     "myPollsCount": "My Polls ({{PC}})",
     "addOption": "Add option",
     "addAnotherOption": "Add another option",
-    "addQuestion": "Add question",
     "addPoll": "Add Poll",
     "questionNumber": "Question {{QN}}",
     "optionNumber": "Option {{OPN}}",
@@ -189,7 +187,9 @@
     "loginButton": "Login",
     "registerTitle": "Register",
     "registerButton": "Register",
-    "edit": "Edit"
+    "edit": "Edit",
+    "addQuestionDesktop": "Add question",
+    "addQuestionMobile": "Add question"
   },
   "messages": {
     "areYouSure": "Are you sure?",
