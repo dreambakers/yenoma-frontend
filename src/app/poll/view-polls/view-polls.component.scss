@@ -1,0 +1,25 @@
+.desktop-table {
+    .mat-column-title{
+        flex: 0 0 37%;
+    }
+
+    .mat-column-action{
+        flex: 0 0 10%;
+    }
+
+    .mat-column-status{
+        flex: 0 0 10%;
+    }
+
+    .mat-column-responses{
+        flex: 0 0 13%;
+    }
+
+    .mat-column-terminatedAt{
+        flex: 0 0 15%;
+    }
+
+    .mat-column-createdAt{
+        flex: 0 0 15%;
+    }
+}

@@ -4,14 +4,16 @@
     {{ 'labels.myPollsCount' | translate: { PC: polls.length } }}
   </h3>
 
-  <div class="mat-elevation-z8 mat-table-container" [class.mt-3]="!isMobile">
+  <div class="mat-elevation-z8 mat-table-container" [class.mt-3]="!isMobile" [class.desktop-table]="!isMobile">
     <mat-table #table [dataSource]="dataSource" [class.isMobile]="isMobile" matSort (matSortChange)="sortChanged($event)">
       <ng-container matColumnDef="title">
         <mat-header-cell *matHeaderCellDef mat-sort-header class="text-dark">
           {{ 'labels.title' | translate }}
         </mat-header-cell>
         <mat-cell *matCellDef="let poll" class="text-ellipsis">
-          {{poll.title}}
+          <span class="text-ellipsis">
+            {{poll.title}}
+          </span>
         </mat-cell>
       </ng-container>
 
