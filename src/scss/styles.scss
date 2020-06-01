@@ -340,3 +340,9 @@ button {
 .mat-hint {
     font-size: 0.750rem;
 }
+
+.no-cdk-focus {
+    .mat-button-focus-overlay {
+        background-color: transparent!important;
+    }
+}

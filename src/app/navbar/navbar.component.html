@@ -1,7 +1,7 @@
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary align-items-center" #navbar>
 
  <div [class.container]="!isMobile">
-  <div class="d-flex align-items-center">
+  <div class="d-flex align-items-center no-cdk-focus">
     <button mat-icon-button (click)="toggleSidebar()" class="mr-4" *ngIf="isMobile"
             style="position: relative; top: -1px; left: -8px">
       <img src="../../assets/images/menu-24px.svg">
