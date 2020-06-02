@@ -173,10 +173,10 @@ button {
         .mat-table {
             .mat-row {
                 display: block;
-                height: 125px;
+                height: 115px;
                 position: relative;
                 background-color: #fff;
-                padding: 15px 0;
+                padding: 10px 0;
             }
 
             .mat-cell {
@@ -195,11 +195,11 @@ button {
                 margin: 0;
                 position: absolute;
                 &.item1 {
-                    top: 16px;
+                    top: 9px;
                     right: 45px;
                 }
                 &.item2 {
-                    top: 5px;
+                    top: -2px;
                     right: 0;
                 }
             }
