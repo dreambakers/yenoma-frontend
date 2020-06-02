@@ -135,7 +135,7 @@
                 [checked]="answerObj.answer"
                 value=""
                 (change)="onRadioButtonChanged(i, j)"
-                class="mat-radio-mb-0">
+                class="mat-radio-mb-0 radio-button-no-content">
               </mat-radio-button>
             </mat-radio-group>
           </div>
@@ -228,7 +228,7 @@
 
     </mat-card>
 
-    <mat-card *ngIf="poll?.allowComments || poll?.allowNames">
+    <mat-card *ngIf="poll?.allowComments || poll?.allowNames" class="comments-card">
       <mat-form-field appearance="outline" class="w-100 mb-2" *ngIf="poll.allowNames">
         <mat-label>
           {{ 'labels.name' | translate }}

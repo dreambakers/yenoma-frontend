@@ -328,7 +328,7 @@ button {
             background-color: #9FA8DA !important;
         }
         &:focus {
-            color: white;   
+            color: white;
             background-color: $color-primary !important;
             &:hover {
               background-color: #303F9F !important;
@@ -344,5 +344,11 @@ button {
 .no-cdk-focus {
     .mat-button-focus-overlay {
         background-color: transparent!important;
+    }
+}
+
+.radio-button-no-content {
+    .mat-radio-label-content {
+        display: none;
     }
 }
