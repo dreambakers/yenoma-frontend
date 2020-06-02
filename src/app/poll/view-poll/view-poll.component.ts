@@ -423,11 +423,15 @@ export class ViewPollComponent implements OnInit {
   }
 
   get shouldDisable() {
-    return this.poll.status === constants.statusTypes.terminated || (this.preview && this.hasResponded ? true : false);
+    return this.poll.status === constants.statusTypes.terminated || this.isViewingResponseOfUser;
   }
 
   get isOpen() {
     return this.poll.status === constants.statusTypes.open;
+  }
+
+  get isViewingResponseOfUser() {
+    return this.preview && this.hasResponded;
   }
 
   get isMobile() {

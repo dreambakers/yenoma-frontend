@@ -1,32 +1,34 @@
 <div class="h-100" [ngClass]="!embeddedPreview && (isMobile ? 'p-2' : 'p-5')" *ngIf="poll?.questions">
 
-  <app-alert
-    *ngIf="hasGlobalMessage('responderWarning')"
-    messageKey="globalMessages.responderWarning"
-    type="danger"
-    class="mb-3">
-  </app-alert>
+  <ng-container *ngIf="!isViewingResponseOfUser">
+    <app-alert
+      *ngIf="hasGlobalMessage('responderWarning')"
+      messageKey="globalMessages.responderWarning"
+      type="danger"
+      class="mb-3">
+    </app-alert>
 
-  <app-alert
-    *ngIf="hasGlobalMessage('responderHint')"
-    messageKey="globalMessages.responderHint"
-    type="info"
-    class="mb-3">
-  </app-alert>
+    <app-alert
+      *ngIf="hasGlobalMessage('responderHint')"
+      messageKey="globalMessages.responderHint"
+      type="info"
+      class="mb-3">
+    </app-alert>
 
-  <app-alert
-    [message]="getRespondedMessage()"
-    type="info"
-    *ngIf="hasResponded"
-    class="mb-3">
-  </app-alert>
+    <app-alert
+      [message]="getRespondedMessage()"
+      type="info"
+      *ngIf="hasResponded"
+      class="mb-3">
+    </app-alert>
 
-  <app-alert
-    messageKey="{{ poll.status === constants.statusTypes.deleted ? 'messages.pollDeleted' : 'messages.cannotRespondPollTerminated'}}"
-    type="danger"
-    *ngIf="!isOpen"
-    class="mb-3">
-  </app-alert>
+    <app-alert
+      messageKey="{{ poll.status === constants.statusTypes.deleted ? 'messages.pollDeleted' : 'messages.cannotRespondPollTerminated'}}"
+      type="danger"
+      *ngIf="!isOpen"
+      class="mb-3">
+    </app-alert>
+  </ng-container>
 
   <mat-card class="p-0">
     <div class="border-bottom">
@@ -66,7 +68,7 @@
     </div>
   </mat-card>
 
-  <div *ngIf="isOpen">
+  <div *ngIf="isOpen || isViewingResponseOfUser; else pollNotOpen">
     <mat-card *ngFor="let question of poll.questions; let i = index" class="my-5 p-0">
       <div class="d-flex flex-row align-items-center p-3 border-bottom">
         <div class="d-flex justify-content-center align-items-center mr-3 rounded text-white question-number" *ngIf="poll.automaticNumbering">
@@ -253,6 +255,15 @@
       </button>
     </div>
   </div>
+
+  <ng-template #pollNotOpen>
+    <div class="d-flex justify-content-center mt-5" *ngIf="!preview">
+      <button class="btn btn-danger" (click)="navigateToRespond()">
+        {{ 'labels.back' | translate }}
+      </button>
+    </div>
+  </ng-template>
+
 </div>
 
 <div *ngIf="passwordRequired" class="d-flex justify-content-center">
