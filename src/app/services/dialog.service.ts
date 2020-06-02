@@ -8,11 +8,14 @@ import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { AboutComponent } from '../dialogs/about/about.component';
 import { LanguageComponent } from '../dialogs/language/language.component';
+import { constants } from '../app.constants';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DialogService {
+
+  constants = constants;
 
   constructor(
     public dialog: MatDialog,
@@ -22,7 +25,7 @@ export class DialogService {
   confirm(title, message): Observable<any> {
     const dialogData = new ConfirmDialogModel(this.translate.instant(title), this.translate.instant(message));
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      minWidth: !DataService.isMobile ? "400px" : "280px",
+      minWidth: !DataService.isMobile ? this.constants.dialogWidth.desktop : this.constants.dialogWidth.mobile,
       data: dialogData
     });
     return dialogRef.afterClosed();
@@ -31,7 +34,7 @@ export class DialogService {
   sort(keys, currentSort): Observable<any> {
     const dialogData = new SortDialogModel(keys, currentSort);
     const dialogRef = this.dialog.open(SortDialogComponent, {
-      minWidth: !DataService.isMobile ? "400px" : "280px",
+      minWidth: !DataService.isMobile ? this.constants.dialogWidth.desktop : this.constants.dialogWidth.mobile,
       data: dialogData
     });
     return dialogRef.afterClosed();
@@ -39,21 +42,21 @@ export class DialogService {
 
   changePassword(): Observable<any> {
     const dialogRef = this.dialog.open(ChangePasswordComponent, {
-      minWidth: !DataService.isMobile ? "400px" : "280px",
+      minWidth: !DataService.isMobile ? this.constants.dialogWidth.desktop : this.constants.dialogWidth.mobile,
     });
     return dialogRef.afterClosed();
   }
 
   about(): Observable<any> {
     const dialogRef = this.dialog.open(AboutComponent, {
-      minWidth: !DataService.isMobile ? "400px" : "280px",
+      minWidth: !DataService.isMobile ? this.constants.dialogWidth.desktop : this.constants.dialogWidth.mobile,
     });
     return dialogRef.afterClosed();
   }
 
   language(): Observable<any> {
     const dialogRef = this.dialog.open(LanguageComponent, {
-      minWidth: !DataService.isMobile ? "400px" : "280px",
+      minWidth: !DataService.isMobile ? this.constants.dialogWidth.desktop : this.constants.dialogWidth.mobile,
     });
     return dialogRef.afterClosed();
   }

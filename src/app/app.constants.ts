@@ -51,6 +51,10 @@ export const constants = {
         text: ['filled', 'unfilled'],
         radioButton: ['true', 'false'],
         checkbox: ['true', 'false']
-    }
+    },
 
+    dialogWidth: {
+        mobile: '280px',
+        desktop: '400px'
+    }
 }
