@@ -99,11 +99,9 @@
               </ng-template>
             </p>
           </div>
-          <div  class="ml-3">
-            <ng-container
-              *ngTemplateOutlet="questions; context: { question: question, i: i, j: j, answerObj: response.questions[i].answers[j] }">
-            </ng-container>
-          </div>
+          <ng-container
+            *ngTemplateOutlet="questions; context: { question: question, i: i, j: j, answerObj: response.questions[i].answers[j] }">
+          </ng-container>
         </li>
       </ul>
 
@@ -190,11 +188,13 @@
           </div>
 
           <div *ngSwitchCase="constants.answerTypes.text" class="mt-3">
-            <textarea matInput placeholder="{{ 'placeholders.textAnswer' | translate }}"
-              (input)="onTextAnswerChanged($event, i, j)" maxlength="500" rows="4"
-              [value]="answerObj.answer || (hasResponded ? translate.instant('messages.noAnswer') : '')"
-              [disabled]="shouldDisable" [class.font-italic]="this.preview && !answerObj.answer">
-          </textarea>
+            <mat-form-field appearance="outline" class="w-100">
+              <textarea matInput placeholder="{{ 'placeholders.textAnswer' | translate }}"
+                        (input)="onTextAnswerChanged($event, i, j)" maxlength="500" rows="4"
+                        [value]="answerObj.answer || (hasResponded ? translate.instant('messages.noAnswer') : '')"
+                        [disabled]="shouldDisable" [class.font-italic]="this.preview && !answerObj.answer">
+              </textarea>
+            </mat-form-field>
           </div>
 
           <div *ngSwitchCase="constants.answerTypes.dropdown">
