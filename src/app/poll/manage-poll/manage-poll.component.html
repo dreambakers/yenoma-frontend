@@ -149,11 +149,11 @@
                 </div>
 
                 <div class="d-flex flex-column" *ngIf="!rearrangeQuestions">
-                    <div class="d-flex justify-content-between align-items-cennter ">
-                        <div class="d-flex align-items-center">
-                            <mat-slide-toggle (change)="question.editMode = !question.editMode" *ngIf="!shouldDisable">
-                                {{ 'labels.edit' | translate }}
-                            </mat-slide-toggle>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center edit-mode-toggle">
+                            <i class="fas fa-sort cursor-pointer" [class.text-danger]="question.editMode"
+                               (click)="question.editMode = !question.editMode" *ngIf="!shouldDisable">
+                            </i>
                         </div>
                         <div class="d-flex justify-content-end align-items-center" [class.mb-3]="question.showHints">
                             <mat-form-field class="dropdown-container">
@@ -255,7 +255,7 @@
                 </div>
 
                 <div class="d-flex align-items-center justify-content-between">
-                    <mat-form-field appearance="outline" class="w-100" *ngIf="!rearrangeQuestions">
+                    <mat-form-field appearance="outline" class="w-100 {{ question.showHints ? '' : 'mat-field-no-margin' }}" *ngIf="!rearrangeQuestions">
                         <mat-label>
                             {{ 'labels.questionNumber' | translate: { QN: i + 1} }}
                         </mat-label>
@@ -265,15 +265,18 @@
                             {{ 'hints.typeQuestion' | translate: { QN: i + 1} }}
                         </mat-hint>
                     </mat-form-field>
-                    <i class="fas fa-minus-circle text-danger pb-4 pl-2 cursor-pointer"
-                        (click)="removeQuestion(i)" *ngIf="question.editMode && !rearrangeQuestions && !shouldDisable"></i>
+                    <i  class="fas fa-minus-circle text-danger ml-2 cursor-pointer"
+                        (click)="removeQuestion(i)"
+                        *ngIf="question.editMode && !rearrangeQuestions && !shouldDisable"
+                        [class.mb-3]="question.showHints">
+                    </i>
                 </div>
 
-                <div *ngIf="!rearrangeQuestions" cdkDropList (cdkDropListDropped)="dropOption($event, question)" class="mt-5">
+                <div *ngIf="!rearrangeQuestions" cdkDropList (cdkDropListDropped)="dropOption($event, question)" class="mt-4">
                     <div *ngFor="let option of question.options; let j = index; trackBy: trackByFn" cdkDrag
                          [cdkDragDisabled]="!question.editMode || shouldDisable || question.options.length <= 1">
-                        <div class="d-flex align-items-center justify-content-between" [class.mb-2]="question.showHints">
-                            <div class="p-2 dragDiv" [class.mb-3]="question.showHints"
+                        <div class="d-flex align-items-center justify-content-between mb-4">
+                            <div class="mr-2 dragDiv" [class.mb-3]="question.showHints"
                                  cdkDragHandle *ngIf="question.editMode && question.options.length > 1 && !shouldDisable">
                                 <i class="fas fa-sort"></i>
                             </div>
@@ -289,7 +292,7 @@
                                 </mat-hint>
                             </mat-form-field>
 
-                            <i class="fas fa-minus-circle text-danger cursor-pointer p-2" (click)="removeOption(i,j)"
+                            <i class="fas fa-minus-circle text-danger cursor-pointer ml-2" (click)="removeOption(i,j)"
                                 *ngIf="question.editMode && !shouldDisable"
                                 matTooltip="{{ 'labels.removeOption' | translate }}" matTooltipPosition="above"
                                 [class.mb-3]="question.showHints">
@@ -300,7 +303,7 @@
 
                 <div *ngIf="!rearrangeQuestions && !shouldDisable" class="d-flex flex-column align-items-center mt-3">
                     <div>
-                        <i class="fas fa-plus-circle text-primary cursor-pointer" 
+                        <i class="fas fa-plus-circle text-primary cursor-pointer"
                             [ngClass]="{'p-4': !question.showHints, 'px-4 pt-4 pb-0': question.showHints}"
                             (click)="addOption(i)" *ngIf="isMobile; else desktopButton"></i>
                         <ng-template #desktopButton>
