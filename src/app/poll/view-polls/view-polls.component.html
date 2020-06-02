@@ -80,7 +80,7 @@
             <i class="cursor-pointer fas fa-ellipsis-h" *ngIf="!isMobile"></i>
           </button>
 
-          <mat-menu #menu="matMenu" xPosition="before">
+          <mat-menu #menu="matMenu" xPosition="before" backdropClass="{{ isMobile ? 'actions-menu-mobile' : 'actions-menu-desktop'}}">
             <button mat-menu-item (click)="deletePoll(poll._id)">
               <i class="fas fa-trash-alt text-danger mr-2"></i> {{ 'pollActions.delete' | translate }}
             </button>

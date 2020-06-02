@@ -353,3 +353,7 @@ button {
         display: none;
     }
 }
+
+.actions-menu-mobile + * .cdk-overlay-pane {
+    margin-right: 20px;
+}
