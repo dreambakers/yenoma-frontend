@@ -8,7 +8,7 @@ body {
     min-height: 100%;
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
-    background: #F7F7F7;
+    background: $color-background;
 }
 
 .cursor-pointer {
@@ -155,7 +155,7 @@ button {
 
 .mat-row {
     &:hover {
-      background-color: #e9f3ff;
+      background-color: $color-primary-very-light;
     }
 }
 
@@ -214,6 +214,7 @@ button {
 #wrapper {
     min-height: 100vh;
     position: relative;
+    background-color: $color-background;
 }
 
 #content {
