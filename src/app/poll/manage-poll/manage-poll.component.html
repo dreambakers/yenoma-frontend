@@ -304,7 +304,6 @@
                 <div *ngIf="!rearrangeQuestions && !shouldDisable" class="d-flex flex-column align-items-center mt-3">
                     <div>
                         <i class="fas fa-plus-circle text-primary cursor-pointer"
-                            [ngClass]="{'p-4': !question.showHints, 'px-4 pt-4 pb-0': question.showHints}"
                             (click)="addOption(i)" *ngIf="isMobile; else desktopButton"></i>
                         <ng-template #desktopButton>
                             <button class="btn btn-primary" [class.mb-1]="question.showHints" (click)="addOption(i)">
