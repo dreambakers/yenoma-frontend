@@ -210,8 +210,8 @@
             </mat-form-field>
           </div>
 
-          <div *ngSwitchCase="constants.answerTypes.value" class="mt-3 value-container" [class.text-right]="question.options.length">
-            <input matInput class="border p-3 text-left mb-2" [(ngModel)]="answerObj.answer" [disabled]="shouldDisable"
+          <div *ngSwitchCase="constants.answerTypes.value" class="value-container" [class.text-right]="question.options.length">
+            <input matInput class="border px-3 text-right" [(ngModel)]="answerObj.answer" [disabled]="shouldDisable"
               [class.invalid]="answerObj.answer && !valueInputValid(answerObj.answer, question)"
               (keydown)="valueInputKeydown(answerObj.answer, $event, question)">
           </div>
