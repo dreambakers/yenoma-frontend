@@ -10,7 +10,8 @@ const gitInfo = gitDescribeSync({
 });
 
 gitInfo.version = version;
-gitInfo.buildDate = moment(new Date()).format('YYMMDDhhmm');
+const dateTime = moment(new Date()).format('YYMMDDHHmm');
+gitInfo.buildDate = parseInt(dateTime, 10).toString(36); // convert to base 36
 
 const file = resolve(__dirname, 'src', 'environments', 'version.ts');
 writeFileSync(file,
