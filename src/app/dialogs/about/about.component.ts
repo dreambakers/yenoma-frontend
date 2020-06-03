@@ -3,6 +3,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { constants } from 'src/app/app.constants';
 import * as moment from 'moment';
+import { VERSION } from '../../../environments/version';
 
 @Component({
   selector: 'app-about',
@@ -12,6 +13,7 @@ import * as moment from 'moment';
 export class AboutComponent implements OnInit {
 
   constants = constants;
+  version = VERSION;
 
   constructor(
     public dialogRef: MatDialogRef<AboutComponent>,
