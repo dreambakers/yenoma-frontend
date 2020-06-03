@@ -177,8 +177,14 @@
           </div>
 
           <div *ngSwitchCase="constants.answerTypes.rating">
-            <app-star-rating [rating]="answerObj.answer" [starCount]="starCount" [color]="starColor"
-              (ratingUpdated)="onRatingChanged($event, i, j)" [disabled]="shouldDisable" class="text-nowrap">
+            <app-star-rating
+              [rating]="answerObj.answer"
+              [starCount]="starCount"
+              [color]="starColor"
+              (ratingUpdated)="onRatingChanged($event, i, j)"
+              [disabled]="shouldDisable"
+              class="text-nowrap"
+              alignment="{{ question.options.length ? 'text-right' : 'text-left' }}">
             </app-star-rating>
           </div>
 

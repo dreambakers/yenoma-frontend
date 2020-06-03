@@ -8,6 +8,7 @@ import { Component, OnInit, Input, Output, EventEmitter, ViewEncapsulation } fro
 })
 export class StarRatingComponent implements OnInit {
 
+  @Input('alignment') alignment: string = '';
   @Input('disabled') disabled: boolean = false;
   @Input('rating') rating: number = 3;
   @Input('starCount') starCount: number = 5;
