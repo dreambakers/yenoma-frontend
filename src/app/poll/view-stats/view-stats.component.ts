@@ -45,6 +45,7 @@ export class ViewStatsComponent implements OnInit {
           if (res.success) {
             this.poll = res.poll;
             this.responses = res.responses;
+            this.populateOtherAnswers();
             if (res.responses) {
               this.getResponseForQuestions();
               this.poll.questions.forEach(question => {
@@ -76,6 +77,27 @@ export class ViewStatsComponent implements OnInit {
         case constants.emitterKeys.home:
           return this.onBackClicked();
       }
+    });
+  }
+
+  populateOtherAnswers() {
+    this.poll.questions.filter(
+      question => [constants.answerTypes.checkbox, constants.answerTypes.radioButton].includes(question.answerType)
+    ).forEach(
+      question => question.options.push('other')
+    );
+    this.responses.forEach(response => {
+      response.questions.filter(
+        question => [constants.answerTypes.checkbox, constants.answerTypes.radioButton].includes(question.answerType)
+      ).forEach(
+        question => {
+          question.answers.push({
+            option: "other",
+            answer: !!question.otherAnswer,
+            isOther: true
+          });
+        }
+      );
     });
   }
 

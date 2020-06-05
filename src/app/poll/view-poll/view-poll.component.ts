@@ -359,6 +359,9 @@ export class ViewPollComponent implements OnInit {
     if (!responseQuestion['allowOtherAnswer']) {
       delete responseQuestion['otherAnswer'];
     }
+    if (responseQuestion.answerType === constants.answerTypes.radioButton && responseQuestion['allowOtherAnswer']) {
+      responseQuestion.answers.forEach(answerObj => answerObj.answer = false);
+    }
   }
 
   get canVote() {

@@ -334,7 +334,14 @@
 
                         <tbody>
                             <tr *ngFor="let option of question.options; let j = index">
-                                <td *ngIf="question.hasOptions">{{ option }}</td>
+                                <td *ngIf="question.hasOptions">
+                                    <span *ngIf="j !== question.options.length - 1; else otherOpt">
+                                        {{ option }}
+                                    </span>
+                                    <ng-template #otherOpt>
+                                        <span class="font-italic">{{ 'labels.other' | translate }}</span>
+                                    </ng-template>
+                                </td>
                                 <td>{{ answerMap[i][j]['yes'] || answerMap[i][j]['true'] || 0 }}</td>
                                 <td>{{ answerMap[i][j]['response'] }}</td>
                                 <td>
@@ -362,7 +369,12 @@
 
                     <div class="d-flex flex-row justify-content-center w-100 border-top">
                         <div class="w-50 p-2 border-right border-left">
-                            <span>{{ option }}</span>
+                            <span *ngIf="j !== question.options.length - 1; else otherOpt">
+                                {{ option }}
+                            </span>
+                            <ng-template #otherOpt>
+                                <span class="font-italic">{{ 'labels.other' | translate }}</span>
+                            </ng-template>
                             <span class="float-right" *ngIf="canExpand(question)">
                                 <i class="fas" (click)="toggleDetails(question, i, j)"
                                     [ngClass]="question.expanded && question.expanded[i][j] ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
