@@ -189,7 +189,10 @@
     "registerButton": "Register",
     "edit": "Edit",
     "addQuestionDesktop": "Add question",
-    "addQuestionMobile": "Add question"
+    "addQuestionMobile": "Add question",
+    "limitChecks": "Limit checks",
+    "minChecks": "Minimum checks",
+    "maxChecks": "Maximum checks"
   },
   "messages": {
     "areYouSure": "Are you sure?",
