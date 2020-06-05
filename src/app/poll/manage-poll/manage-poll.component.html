@@ -202,15 +202,15 @@
 
                     <div>
                         <app-alert
-                            *ngIf="isQuestionInvalid(question) && !rearrangeQuestions && question.showHints && questionInfoRequired(question)"
+                            *ngIf="isQuestionInvalid(question) && question.showHints && questionInfoRequired(question)"
                             [dismissible]="false"
                             type="danger"
                             [messageKey]="getInfoTooltipKey(question)"
                             class="mb-2">
                         </app-alert>
 
-                        <div class="d-flex flex-column flex-md-row justify-content-start mb-5"
-                            *ngIf="!rearrangeQuestions && question.answerType === constants.answerTypes.value">
+                        <div class="d-flex flex-column flex-md-row justify-content-start mb-1"
+                            *ngIf="question.answerType === constants.answerTypes.value">
                             <mat-form-field appearance="outline" class="mr-2 mb-2 dropdown-container">
                                 <mat-label>{{ 'labels.decimalPlaces' | translate }}</mat-label>
                                 <mat-select [(ngModel)]="question.decimalPlaces" [disabled]="shouldDisable">
@@ -250,6 +250,32 @@
                                     {{ 'hints.maxValue' | translate }}
                                 </mat-hint>
                             </mat-form-field>
+                        </div>
+
+                        <div class="d-flex flex-column"
+                            *ngIf="question.answerType === constants.answerTypes.checkbox && question.options.length > 2">
+                            <mat-checkbox (change)="toggleLimit(question)" [disabled]="shouldDisable" [checked]="question.limits">
+                                {{ 'labels.limitChecks' | translate }}
+                            </mat-checkbox>
+
+                            <div class="d-flex flex-column flex-md-row justify-content-start" *ngIf="question.limits">
+                                <mat-form-field appearance="outline" class="mr-2 mb-2">
+                                    <mat-label>{{ 'labels.minChecks' | translate }}</mat-label>
+                                    <mat-select [(ngModel)]="question.limits.minChecks" [disabled]="shouldDisable">
+                                        <mat-option *ngFor="let option of getMinimumChecksDropdownValues(question)" [value]="option">
+                                            {{option}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <mat-form-field appearance="outline" class="mr-2 mb-2">
+                                    <mat-label>{{ 'labels.maxChecks' | translate }}</mat-label>
+                                    <mat-select [(ngModel)]="question.limits.maxChecks" [disabled]="shouldDisable">
+                                        <mat-option *ngFor="let option of getMaximumChecksDropdownValues(question)" [value]="option">
+                                            {{option}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -292,7 +318,7 @@
                                 </mat-hint>
                             </mat-form-field>
 
-                            <i class="fas fa-minus-circle text-danger cursor-pointer ml-2" (click)="removeOption(i,j)"
+                            <i class="fas fa-minus-circle text-danger cursor-pointer ml-2" (click)="removeOption(question,j)"
                                 *ngIf="question.editMode && !shouldDisable"
                                 matTooltip="{{ 'labels.removeOption' | translate }}" matTooltipPosition="above"
                                 [class.mb-3]="question.showHints">
@@ -304,9 +330,9 @@
                 <div *ngIf="!rearrangeQuestions && !shouldDisable" class="d-flex flex-column align-items-center mt-3">
                     <div>
                         <i class="fas fa-plus-circle text-primary cursor-pointer"
-                            (click)="addOption(i)" *ngIf="isMobile; else desktopButton"></i>
+                            (click)="addOption(question)" *ngIf="isMobile; else desktopButton"></i>
                         <ng-template #desktopButton>
-                            <button class="btn btn-primary" [class.mb-1]="question.showHints" (click)="addOption(i)">
+                            <button class="btn btn-primary" [class.mb-1]="question.showHints" (click)="addOption(question)">
                                 {{ getAddOptionLabel(question) | translate }}
                             </button>
                         </ng-template>

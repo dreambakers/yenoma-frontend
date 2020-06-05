@@ -69,7 +69,8 @@
   </mat-card>
 
   <div *ngIf="isOpen || isViewingResponseOfUser; else pollNotOpen">
-    <mat-card *ngFor="let question of poll.questions; let i = index" class="p-0 question-card">
+    <mat-card *ngFor="let question of poll.questions; let i = index" class="p-0 question-card"
+              [ngClass]="{'border border-danger': question.limitsError}">
       <div class="d-flex flex-row align-items-center p-3 border-bottom">
         <div class="d-flex justify-content-center align-items-center mr-3 rounded text-white question-number" *ngIf="poll.automaticNumbering">
           <span class="font-weight-bold">

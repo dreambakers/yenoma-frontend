@@ -397,7 +397,7 @@ export class ViewPollComponent implements OnInit {
       return acc;
     }, 0);
 
-    return totalOptions === respondedCount && this.valueInputsValid;
+    return totalOptions === respondedCount && this.valueInputsValid && this.limitsValid;
   }
 
   get valueInputsValid() {
@@ -416,6 +416,26 @@ export class ViewPollComponent implements OnInit {
         }
       }
     );
+  }
+
+  get limitsValid() {
+    let valid = true;
+    for (let i = 0; i < this.response.questions.length; i++) {
+      if (this.poll.questions[i].limits) {
+        const checked = this.response.questions[i].answers.filter(answerObj => answerObj.answer).length;
+        if (checked < this.poll.questions[i].limits.minChecks || checked > this.poll.questions[i].limits.maxChecks) {
+          this.poll.questions[i]['limitsError'] = {
+            minChecks: this.poll.questions[i].limits.minChecks,
+            maxChecks: this.poll.questions[i].limits.maxChecks
+          }
+          valid = false;
+          break;
+        } else {
+          delete this.poll.questions[i]['limitsError'];
+        }
+      }
+    }
+    return valid;
   }
 
   get dirty() {

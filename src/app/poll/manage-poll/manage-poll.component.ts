@@ -152,12 +152,14 @@ export class ManagePollComponent implements OnInit, OnDestroy {
     this.updateMobileNavbar();
   }
 
-  addOption(questionIndex) {
-    this.poll.questions[questionIndex].options.push('');
+  addOption(question) {
+    question.options.push('');
+    this.updatesLimitForCheckboxAnswer(question);
   }
 
-  removeOption(questionIndex, index) {
-    this.poll.questions[questionIndex].options.splice(index, 1);
+  removeOption(question, index) {
+    question.options.splice(index, 1);
+    this.updatesLimitForCheckboxAnswer(question);
   }
 
   trackByFn(index: any, item: any) {
@@ -284,6 +286,45 @@ export class ManagePollComponent implements OnInit, OnDestroy {
     this.poll.questions.forEach(question => delete question.editMode);
   }
 
+  toggleLimit(question) {
+    if (question.limits) {
+      delete question.limits;
+    } else {
+      question.limits = {
+        minChecks: 2,
+        maxChecks: question.options.length
+      }
+    }
+  }
+
+  getMinimumChecksDropdownValues(question) {
+    let options = [2];
+    for (let i = 3; i <= question.options.length; i ++) {
+      options.push(i);
+    }
+    return options;
+  }
+
+  getMaximumChecksDropdownValues(question) {
+    let options = [];
+    for (let i = question.limits.minChecks; i <= question.options.length; i ++) {
+      options.push(i);
+    }
+    return options;
+  }
+
+  updatesLimitForCheckboxAnswer(question) {
+    if (question.answerType === constants.answerTypes.checkbox) {
+      if (question.options.length <= 2) {
+        delete question.limits;
+      } else {
+        if (question.limits) {
+          question.limits.maxChecks = question.options.length;
+        }
+      }
+    }
+  }
+
   ngOnDestroy(): void {
     this.emitterService.emit(this.constants.emitterKeys.resetNavbar);
     this.destroy$.next(true);
@@ -292,6 +333,7 @@ export class ManagePollComponent implements OnInit, OnDestroy {
 
   get isValid() {
     const valid = this.poll.title && (this.showPassword ? this.poll.password : true) &&
+                  this.poll.questions.filter(question => question.limits).every(question => question.limits.maxChecks >= question.limits.minChecks) &&
                   this.poll.questions.every(question => question.text && question.options.every(option => option.length)) &&
                   this.poll.questions.filter(question => this.minimumOptionsRequired(question)).every(question => question.options.length >= 2) &&
                   this.poll.questions.filter(question => question.answerType === constants.answerTypes.value).every(question => !this.valueFieldsInvalid(question));
