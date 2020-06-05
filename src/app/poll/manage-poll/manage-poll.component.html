@@ -254,12 +254,16 @@
 
                         <div class="d-flex flex-column"
                             *ngIf="question.answerType === constants.answerTypes.checkbox && question.options.length > 2">
-                            <mat-checkbox (change)="toggleLimit(question)" [disabled]="shouldDisable" [checked]="question.limits">
+                            <mat-checkbox
+                                class="mb-3"
+                                (change)="toggleLimit(question)"
+                                [disabled]="shouldDisable"
+                                [checked]="question.limits">
                                 {{ 'labels.limitChecks' | translate }}
                             </mat-checkbox>
 
                             <div class="d-flex flex-column flex-md-row justify-content-start" *ngIf="question.limits">
-                                <mat-form-field appearance="outline" class="mr-2 mb-2">
+                                <mat-form-field appearance="outline">
                                     <mat-label>{{ 'labels.minChecks' | translate }}</mat-label>
                                     <mat-select [(ngModel)]="question.limits.minChecks" [disabled]="shouldDisable">
                                         <mat-option *ngFor="let option of getMinimumChecksDropdownValues(question)" [value]="option">
@@ -267,7 +271,8 @@
                                         </mat-option>
                                     </mat-select>
                                 </mat-form-field>
-                                <mat-form-field appearance="outline" class="mr-2 mb-2">
+                                <div class="mx-1 d-none d-sm-block"></div>
+                                <mat-form-field appearance="outline">
                                     <mat-label>{{ 'labels.maxChecks' | translate }}</mat-label>
                                     <mat-select [(ngModel)]="question.limits.maxChecks" [disabled]="shouldDisable">
                                         <mat-option *ngFor="let option of getMaximumChecksDropdownValues(question)" [value]="option">
