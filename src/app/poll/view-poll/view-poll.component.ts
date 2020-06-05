@@ -197,6 +197,8 @@ export class ViewPollComponent implements OnInit {
 
   onRadioButtonChanged(questionIndex, answerIndex = null) {
     const question = this.response.questions[questionIndex];
+    delete question['otherAnswer'];
+    delete question['allowOtherAnswer'];
     question.answerType = constants.answerTypes.radioButton;
     if (answerIndex !== null) {
       question.answers.forEach((answerObject, index) => {
@@ -352,6 +354,13 @@ export class ViewPollComponent implements OnInit {
     return message && message !== `globalMessages.${messageKey}`;
   }
 
+  toggleOtherAnswer(responseQuestion) {
+    responseQuestion['allowOtherAnswer'] = !responseQuestion['allowOtherAnswer'];
+    if (!responseQuestion['allowOtherAnswer']) {
+      delete responseQuestion['otherAnswer'];
+    }
+  }
+
   get canVote() {
 
     const answerTypesToSkip = [
@@ -383,7 +392,7 @@ export class ViewPollComponent implements OnInit {
                 constants.answerTypes.radioButton,
                 constants.answerTypes.checkbox
               ].includes(question.answerType)
-              && question.answers.filter(answerObj => answerObj.answer).length) {
+              && (!!question['otherAnswer'] || question.answers.filter(answerObj => answerObj.answer).length)) {
             acc ++;
           } else {
             acc += question.answers.filter(answerObj => answerObj.answer).length;
@@ -397,7 +406,7 @@ export class ViewPollComponent implements OnInit {
       return acc;
     }, 0);
 
-    return totalOptions === respondedCount && this.valueInputsValid && this.limitsValid;
+    return totalOptions === respondedCount && this.testCheckboxLimits() && this.valueInputsValid;
   }
 
   get valueInputsValid() {
@@ -418,11 +427,12 @@ export class ViewPollComponent implements OnInit {
     );
   }
 
-  get limitsValid() {
+  testCheckboxLimits() {
     let valid = true;
     for (let i = 0; i < this.response.questions.length; i++) {
       if (this.poll.questions[i].limits) {
-        const checked = this.response.questions[i].answers.filter(answerObj => answerObj.answer).length;
+        let checked = this.response.questions[i].answers.filter(answerObj => answerObj.answer).length;
+        !!this.response.questions[i]['otherAnswer'] ? (checked += 1) : null;
         if (checked < this.poll.questions[i].limits.minChecks || checked > this.poll.questions[i].limits.maxChecks) {
           this.poll.questions[i]['limitsError'] = {
             minChecks: this.poll.questions[i].limits.minChecks,

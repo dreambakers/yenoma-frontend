@@ -192,7 +192,8 @@
     "addQuestionMobile": "Add question",
     "limitChecks": "Limit checks",
     "minChecks": "Minimum checks",
-    "maxChecks": "Maximum checks"
+    "maxChecks": "Maximum checks",
+    "other": "Other"
   },
   "messages": {
     "areYouSure": "Are you sure?",
@@ -252,7 +253,8 @@
     "privateNote": "Private note",
     "question": "What is your favorite food?",
     "textAnswer": "Your answer (500 chars max.)",
-    "title": "A poll about food"
+    "title": "A poll about food",
+    "typeYourAnswer": "Type your answer"
   },
   "pollActions": {
     "delete": "Delete",
