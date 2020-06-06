@@ -158,35 +158,35 @@
                         <div class="d-flex justify-content-end align-items-center" [class.mb-3]="question.showHints">
                             <mat-form-field class="dropdown-container">
                                 <mat-select [(ngModel)]="question.answerType" [disabled]="shouldDisable">
-                                  <mat-option [value]="constants.answerTypes.binary">
-                                    {{ 'answerTypes.binary' | translate }}
-                                  </mat-option>
-                                  <mat-option [value]="constants.answerTypes.rating">
-                                    {{ 'answerTypes.rating' | translate }}
+                                  <mat-option [value]="constants.answerTypes.radioButton">
+                                    {{ 'answerTypes.radioButton' | translate }}
                                   </mat-option>
                                   <mat-option [value]="constants.answerTypes.checkbox">
                                     {{ 'answerTypes.checkbox' | translate }}
                                   </mat-option>
-                                  <mat-option [value]="constants.answerTypes.radioButton">
-                                    {{ 'answerTypes.radioButton' | translate }}
+                                  <mat-option [value]="constants.answerTypes.binary">
+                                    {{ 'answerTypes.binary' | translate }}
                                   </mat-option>
                                   <mat-option [value]="constants.answerTypes.yesNoMaybe">
                                     {{ 'answerTypes.yesNoMaybe' | translate }}
                                   </mat-option>
-                                  <mat-option [value]="constants.answerTypes.slider">
-                                    {{ 'answerTypes.slider' | translate }}
-                                  </mat-option>
                                   <mat-option [value]="constants.answerTypes.smiley">
                                     {{ 'answerTypes.smiley' | translate }}
                                   </mat-option>
-                                  <mat-option [value]="constants.answerTypes.text">
-                                    {{ 'answerTypes.text' | translate }}
+                                  <mat-option [value]="constants.answerTypes.rating">
+                                    {{ 'answerTypes.rating' | translate }}
                                   </mat-option>
                                   <mat-option [value]="constants.answerTypes.dropdown">
                                     {{ 'answerTypes.dropdown' | translate }}
                                   </mat-option>
+                                  <mat-option [value]="constants.answerTypes.slider">
+                                    {{ 'answerTypes.slider' | translate }}
+                                  </mat-option>
                                   <mat-option [value]="constants.answerTypes.value">
                                     {{ 'answerTypes.value' | translate }}
+                                  </mat-option>
+                                  <mat-option [value]="constants.answerTypes.text">
+                                    {{ 'answerTypes.text' | translate }}
                                   </mat-option>
                                 </mat-select>
                                 <mat-hint [hidden]="!question.showHints">
