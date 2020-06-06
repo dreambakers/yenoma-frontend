@@ -34,7 +34,7 @@
           <i class="fas fa-user-circle"></i>
           <mat-icon>arrow_drop_down</mat-icon>
         </div>
-        <mat-menu #menu="matMenu">
+        <mat-menu #menu="matMenu" xPosition="before">
           <div class="p-3">
             {{ 'labels.signedInAs' | translate }}
             <span class="font-weight-bold">{{ user.email }}</span>
