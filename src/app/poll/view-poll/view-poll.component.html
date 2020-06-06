@@ -105,7 +105,7 @@
             </p>
           </div>
           <!-- This margin is for separation between the answer element and the option text -->
-          <div class="ml-3">
+          <div [class.ml-3]="question.answerType !== constants.answerTypes.text">
             <ng-container
               *ngTemplateOutlet="questions; context: { question: question, i: i, j: j, answerObj: response.questions[i].answers[j] }">
             </ng-container>
