@@ -296,11 +296,6 @@
                             {{ 'hints.typeQuestion' | translate: { QN: i + 1} }}
                         </mat-hint>
                     </mat-form-field>
-                    <i  class="fas fa-minus-circle text-danger ml-2 cursor-pointer"
-                        (click)="removeQuestion(i)"
-                        *ngIf="question.editMode && !rearrangeQuestions && !shouldDisable"
-                        [class.mb-3]="question.showHints">
-                    </i>
                 </div>
 
                 <div *ngIf="!rearrangeQuestions" cdkDropList (cdkDropListDropped)="dropOption($event, question)" class="mt-4">
