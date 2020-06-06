@@ -246,7 +246,7 @@
     "description": "Poll description",
     "email": "Email address",
     "inactiveComment": "Inactive comment",
-    "name": "John Doe",
+    "name": "",
     "option": "Pizza",
     "password": "Password",
     "pollPassword": "Poll password",
