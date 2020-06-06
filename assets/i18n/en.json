@@ -193,7 +193,8 @@
     "limitChecks": "Limit checks",
     "minChecks": "Minimum checks",
     "maxChecks": "Maximum checks",
-    "other": "Other"
+    "other": "Other",
+    "allowOtherAnswer": "Allow other answer"
   },
   "messages": {
     "areYouSure": "Are you sure?",
