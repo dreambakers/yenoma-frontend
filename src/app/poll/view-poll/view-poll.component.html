@@ -70,7 +70,7 @@
 
   <div *ngIf="isOpen || isViewingResponseOfUser; else pollNotOpen">
     <mat-card *ngFor="let question of poll.questions; let i = index" class="p-0 question-card"
-              [ngClass]="{'border border-danger': !!question.limitsError}">
+              [ngClass]="{'border border-danger': !isCheckboxLimitSatisfied(i)}">
       <div class="d-flex flex-row align-items-center p-3 border-bottom">
         <div class="d-flex justify-content-center align-items-center mr-3 rounded text-white question-number" *ngIf="poll.automaticNumbering">
           <span class="font-weight-bold">
@@ -89,61 +89,31 @@
 
       <ul class="list-group">
         <li *ngFor="let option of question.options; let j = index"
-            class="list-group-item border-0"
-            [ngClass]="(question.answerType !== constants.answerTypes.text) &&
-                        'd-flex justify-content-between align-items-center'">
-          <div class="text-break">
-            <p class="m-0">
-              <span *ngIf="option; else placeholderOption">
-                {{option}}
-              </span>
-              <ng-template #placeholderOption>
-                <span class="text-muted">
-                  ({{ 'labels.optionNumber' | translate: { OPN: j + 1 } }})
-                </span>
-              </ng-template>
-            </p>
-          </div>
-          <!-- This margin is for separation between the answer element and the option text -->
-          <div [class.ml-3]="question.answerType !== constants.answerTypes.text">
-            <ng-container
-              *ngTemplateOutlet="questions; context: { question: question, i: i, j: j, answerObj: response.questions[i].answers[j] }">
-            </ng-container>
-          </div>
-        </li>
-
-        <li class="list-group-item border-0" *ngIf="question.allowOtherAnswer">
-          <div class="d-flex justify-content-between">
+            class="list-group-item border-0">
+          <div [ngClass]="(question.answerType !== constants.answerTypes.text) && 'd-flex justify-content-between align-items-center'">
             <div class="text-break">
-              <p class="m-0 font-italic">
-                {{ 'labels.other' | translate }}
+              <p class="m-0">
+                <span *ngIf="option; else placeholderOption">
+                  {{option}}
+                </span>
+                <ng-template #placeholderOption>
+                  <span class="text-muted">
+                    ({{ 'labels.optionNumber' | translate: { OPN: j + 1 } }})
+                  </span>
+                </ng-template>
               </p>
             </div>
-            <div [ngSwitch]="question.answerType">
-              <div *ngSwitchCase="constants.answerTypes.radioButton">
-                <mat-radio-group name="{{i}}" [disabled]="shouldDisable">
-                  <mat-radio-button
-                    [checked]="response.questions[i]['hasOtherAnswer']"
-                    value=""
-                    (change)="toggleOtherAnswer(response.questions[i])"
-                    class="mat-radio-mb-0 radio-button-no-content">
-                  </mat-radio-button>
-                </mat-radio-group>
-              </div>
-              <div *ngSwitchCase="constants.answerTypes.checkbox">
-                <mat-checkbox
-                  (change)="toggleOtherAnswer(response.questions[i])"
-                  [checked]="response.questions[i]['hasOtherAnswer']"
-                  [disabled]="shouldDisable" class="mat-checkbox-mb-0">
-                </mat-checkbox>
-              </div>
+            <!-- This margin is for separation between the answer element and the option text -->
+            <div [class.ml-3]="question.answerType !== constants.answerTypes.text">
+              <ng-container
+                *ngTemplateOutlet="questions; context: { question: question, i: i, j: j, answerObj: response.questions[i].answers[j] }">
+              </ng-container>
             </div>
           </div>
-
           <mat-form-field
             appearance="outline"
-            class="w-100 mt-2"
-            *ngIf="response.questions[i]['hasOtherAnswer']">
+            class="w-100 mt-2 mat-field-no-margin"
+            *ngIf="question.allowOtherAnswer && j === question.options.length -1 && response.questions[i].answers[j].answer">
             <textarea
               matInput
               placeholder="{{ 'placeholders.typeYourAnswer' | translate }}"

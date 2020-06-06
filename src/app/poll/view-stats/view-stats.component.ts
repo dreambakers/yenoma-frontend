@@ -45,7 +45,6 @@ export class ViewStatsComponent implements OnInit {
           if (res.success) {
             this.poll = res.poll;
             this.responses = res.responses;
-            this.populateOtherAnswers();
             if (res.responses) {
               this.getResponseForQuestions();
               this.poll.questions.forEach(question => {
@@ -78,23 +77,6 @@ export class ViewStatsComponent implements OnInit {
           return this.onBackClicked();
       }
     });
-  }
-
-  populateOtherAnswers() {
-    for (let i = 0; i < this.poll.questions.length; i ++) {
-      const pollQuestion = this.poll.questions[i];
-      if (pollQuestion.allowOtherAnswer) {
-        pollQuestion.options.push('other');
-        this.responses.forEach(
-          response => {
-            response.questions[i].answers.push({
-              option: "other",
-              answer: !!response.questions[i].otherAnswer,
-            });
-          }
-        );
-      }
-    }
   }
 
   getResponseForQuestions() {
@@ -146,7 +128,6 @@ export class ViewStatsComponent implements OnInit {
       }
     }
 
-    // console.log(this.answerMap)
   }
 
   getWeightFunctionForAnswer(questionType): Function {
