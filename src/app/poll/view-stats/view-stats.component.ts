@@ -81,24 +81,20 @@ export class ViewStatsComponent implements OnInit {
   }
 
   populateOtherAnswers() {
-    this.poll.questions.filter(
-      question => [constants.answerTypes.checkbox, constants.answerTypes.radioButton].includes(question.answerType)
-    ).forEach(
-      question => question.options.push('other')
-    );
-    this.responses.forEach(response => {
-      response.questions.filter(
-        question => [constants.answerTypes.checkbox, constants.answerTypes.radioButton].includes(question.answerType)
-      ).forEach(
-        question => {
-          question.answers.push({
-            option: "other",
-            answer: !!question.otherAnswer,
-            isOther: true
-          });
-        }
-      );
-    });
+    for (let i = 0; i < this.poll.questions.length; i ++) {
+      const pollQuestion = this.poll.questions[i];
+      if (pollQuestion.allowOtherAnswer) {
+        pollQuestion.options.push('other');
+        this.responses.forEach(
+          response => {
+            response.questions[i].answers.push({
+              option: "other",
+              answer: !!response.questions[i].otherAnswer,
+            });
+          }
+        );
+      }
+    }
   }
 
   getResponseForQuestions() {
@@ -149,6 +145,8 @@ export class ViewStatsComponent implements OnInit {
         }
       }
     }
+
+    // console.log(this.answerMap)
   }
 
   getWeightFunctionForAnswer(questionType): Function {

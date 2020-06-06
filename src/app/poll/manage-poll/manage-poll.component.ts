@@ -159,6 +159,7 @@ export class ManagePollComponent implements OnInit, OnDestroy {
 
   removeOption(question, index) {
     question.options.splice(index, 1);
+    !question.options.length && (question.editMode = false);
     this.updatesLimitForCheckboxAnswer(question);
   }
 
@@ -322,6 +323,12 @@ export class ManagePollComponent implements OnInit, OnDestroy {
           question.limits.maxChecks = question.options.length;
         }
       }
+    }
+  }
+
+  toggleQuestionEditMode(question) {
+    if (question.options.length || question.editMode) {
+      question.editMode = !question.editMode;
     }
   }
 

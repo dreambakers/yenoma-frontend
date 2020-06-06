@@ -198,7 +198,7 @@ export class ViewPollComponent implements OnInit {
   onRadioButtonChanged(questionIndex, answerIndex = null) {
     const question = this.response.questions[questionIndex];
     delete question['otherAnswer'];
-    delete question['allowOtherAnswer'];
+    delete question['hasOtherAnswer'];
     question.answerType = constants.answerTypes.radioButton;
     if (answerIndex !== null) {
       question.answers.forEach((answerObject, index) => {
@@ -355,11 +355,11 @@ export class ViewPollComponent implements OnInit {
   }
 
   toggleOtherAnswer(responseQuestion) {
-    responseQuestion['allowOtherAnswer'] = !responseQuestion['allowOtherAnswer'];
-    if (!responseQuestion['allowOtherAnswer']) {
+    responseQuestion['hasOtherAnswer'] = !responseQuestion['hasOtherAnswer'];
+    if (!responseQuestion['hasOtherAnswer']) {
       delete responseQuestion['otherAnswer'];
     }
-    if (responseQuestion.answerType === constants.answerTypes.radioButton && responseQuestion['allowOtherAnswer']) {
+    if (responseQuestion.answerType === constants.answerTypes.radioButton) {
       responseQuestion.answers.forEach(answerObj => answerObj.answer = false);
     }
   }

@@ -151,8 +151,10 @@
                 <div class="d-flex flex-column" *ngIf="!rearrangeQuestions">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="d-flex align-items-center edit-mode-toggle">
-                            <i class="fas fa-sort cursor-pointer" [class.text-danger]="question.editMode"
-                               (click)="question.editMode = !question.editMode" *ngIf="!shouldDisable">
+                            <i class="fas fa-sort cursor-pointer"
+                               [ngClass]="{ 'color-disabled': !question.options.length, 'text-danger': question.editMode }"
+                               (click)="toggleQuestionEditMode(question)"
+                               *ngIf="!shouldDisable">
                             </i>
                         </div>
                         <div class="d-flex justify-content-end align-items-center" [class.mb-3]="question.showHints">
@@ -250,6 +252,15 @@
                                     {{ 'hints.maxValue' | translate }}
                                 </mat-hint>
                             </mat-form-field>
+                        </div>
+
+                        <div *ngIf="question.answerType === constants.answerTypes.checkbox || question.answerType === constants.answerTypes.radioButton">
+                            <mat-checkbox
+                                class="mb-3"
+                                [(ngModel)]="question.allowOtherAnswer"
+                                [disabled]="shouldDisable">
+                                {{ 'labels.allowOtherAnswer' | translate }}
+                            </mat-checkbox>
                         </div>
 
                         <div class="d-flex flex-column"

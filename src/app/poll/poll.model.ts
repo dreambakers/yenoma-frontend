@@ -8,6 +8,7 @@ interface Question {
     showHints?: boolean;
     editMode?: boolean;
     limits?: { minChecks?: Number, maxChecks?: Number };
+    allowOtherAnswer?: boolean;
 }
 
 export class Poll {
