@@ -50,9 +50,9 @@
         <mat-header-cell *matHeaderCellDef class="text-dark justify-content-center" mat-sort-header>
           {{ 'labels.delete' | translate }}
         </mat-header-cell>
-        <mat-cell *matCellDef="let response" class="justify-content-center text-ellipsis right-side-item item2">
+        <mat-cell *matCellDef="let response" class="justify-content-center text-ellipsis right-side-item item2 no-cdk-focus">
           <button mat-icon-button (click)="deleteResponse(response)">
-            <i class="fas fa-trash-alt cursor-pointer text-danger" (click)="deleteResponse(response)"></i>
+            <i class="fas fa-trash-alt cursor-pointer text-danger"></i>
           </button>
         </mat-cell>
       </ng-container>
