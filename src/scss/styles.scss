@@ -204,6 +204,12 @@ button {
                 }
             }
         }
+
+        &#responsesTableContainer {
+            .mat-row {
+                height: 95px;
+            }
+        }
     }
 }
 
