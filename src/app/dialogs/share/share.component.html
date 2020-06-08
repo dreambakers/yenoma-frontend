@@ -1,0 +1,47 @@
+<h1 mat-dialog-title>
+    {{ 'labels.share' | translate }}
+</h1>
+
+<div mat-dialog-content class="border-top overflow-auto" id="aboutDialogContent">
+
+    <div class="d-flex flex-column justify-content-center align-items-center my-3">
+        <div class="border rounded-top w-100">
+            <input
+                matInput
+                class="w-100 text-center p-1"
+                [readonly]="true"
+                [value]="url">
+        </div>
+
+        <span class="mt-2">
+            {{ 'messages.surveySharingMessage' | translate }}
+        </span>
+
+        <button class="btn btn-primary mt-2" (click)="copyLink()">
+            {{ 'labels.copyLink' | translate }}
+        </button>
+
+    </div>
+
+    <div class="separator text-muted" *ngIf="qrUrl">{{ 'labels.or' | translate }}</div>
+
+    <div class="d-flex justify-content-between align-items-center mt-3" *ngIf="qrUrl">
+        <img [src]="qrUrl" alt="">
+        <div class="ml-2">
+            <p class="m-0">
+                {{ 'messages.scanTheQrCode' | translate}}
+                {{ 'labels.or' | translate | lowercase }}
+                <span class="text-primary cursor-pointer" (click)="download()">
+                {{ 'labels.download' | translate }}
+                </span>
+            </p>
+        </div>
+    </div>
+
+</div>
+
+<div mat-dialog-actions>
+    <button mat-raised-button color="primary" (click)="onDismiss()">
+        {{ 'labels.back' | translate }}
+    </button>
+</div>

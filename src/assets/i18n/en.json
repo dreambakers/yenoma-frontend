@@ -194,7 +194,11 @@
     "minChecks": "Minimum checks",
     "maxChecks": "Maximum checks",
     "other": "Other",
-    "allowOtherAnswer": "Allow other answer"
+    "allowOtherAnswer": "Allow other answer",
+    "share":  "Share",
+    "copyLink": "Copy link",
+    "or": "Or",
+    "download": "Download"
   },
   "messages": {
     "areYouSure": "Are you sure?",
@@ -239,7 +243,9 @@
     "sessionExpired": "The session has expired, please login again to continue",
     "sharePoll": "View poll created on Polling application",
     "sharePollTitle": "View poll",
-    "userAlreadyExists": "A user with the same email already exists"
+    "userAlreadyExists": "A user with the same email already exists",
+    "surveySharingMessage": "Anyone with the link can view the survey.",
+    "scanTheQrCode": "Scan the QR code"
   },
   "placeholders": {
     "activeComment": "Active comment",
