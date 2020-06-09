@@ -272,7 +272,8 @@
     "restore": "Restore",
     "share": "Share",
     "showStats": "Statistics",
-    "terminate": "Terminate"
+    "terminate": "Terminate",
+    "download": "Download"
   },
   "tooltips": {
     "minTwoOptions": "This answer type requires a minimum of 2 options",

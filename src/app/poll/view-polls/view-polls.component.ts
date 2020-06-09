@@ -20,6 +20,10 @@ import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { DialogService } from 'src/app/services/dialog.service';
 import { Poll } from '../poll.model';
+import { ResponseService } from 'src/app/services/response.service';
+import { Stats } from 'src/app/shared/utils/calculate-stats';
+import { NewFile } from 'src/app/shared/utils/download-file';
+
 @Component({
   selector: 'app-view-polls',
   templateUrl: './view-polls.component.html',
@@ -51,7 +55,8 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
     private ngNavigatorShareService: NgNavigatorShareService,
     private emitterService: EmitterService,
     private dialogService: DialogService,
-    private userService: UserService
+    private userService: UserService,
+    private responseService: ResponseService
     ) { }
 
   ngOnInit() {
@@ -319,6 +324,97 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
           this.currentSort = result;
           this.sort.sort(this.currentSort);
         }
+      }
+    );
+  }
+
+  downloadResponses(poll) {
+    this.responseService.getResponsesForPoll(poll._id).subscribe(
+      (res: any) => {
+        if (res.success) {
+          let commentsAllowed = false;
+          let nameAllowed = false;
+          let data = `"Date";"Time";`;
+          const poll = res.responses[0].for;
+
+          if (poll.allowNames) {
+            nameAllowed = true;
+            data += '"Name";'
+          }
+
+          if (poll.allowComments) {
+            commentsAllowed = true;
+            data += '"Comment";'
+          }
+
+          for (let i = 0; i < poll.questions.length; i ++) {
+            const question = poll.questions[i];
+            if (question.options.length) {
+              for (let j = 0; j < question.options.length; j ++) {
+                data += `"Q${i + 1}O${j + 1}";`
+              }
+
+              if (question.allowOtherAnswer) {
+                data += `"Q${i + 1}O${question.options.length}C";`
+              }
+
+            } else {
+              data += `"Q${i + 1}";`
+            }
+          }
+
+          data += '\n';
+
+          // console.log(data)
+          // console.log(res.responses)
+
+          const answerMap = new Stats(res.responses).getAnswerMap();
+
+          // console.log(answerMap)
+
+          for (let i = 0; i < res.responses.length; i ++) {
+            const response = res.responses[i];
+            data += `"${moment(response.createdAt).format('YYYY-MM-DD')}";`;
+            data += `"${moment(response.createdAt).format('HH:mm:ss')}";`;
+
+            if (nameAllowed) {
+              data += `"${response.name}";`
+            }
+
+            if (commentsAllowed) {
+              data += `"${response.comments}";`
+            }
+
+            for (let j = 0; j < response.questions.length; j++) {
+
+              const question = response.questions[j];
+
+              if (question.answers.length) {
+
+                for (let k = 0; k < question.answers.length; k ++) {
+                  data += `"${answerMap[j][k].response}";`;
+                }
+
+                if (poll.questions[j].allowOtherAnswer) {
+                  data += `"${answerMap[j].otherAnswer || ''}";`;
+                }
+
+              } else {
+                data += `"${answerMap[j]['0'].response}";`;
+              }
+            }
+
+            data += '\n';
+          }
+
+          new NewFile(data, poll.shortId).download();
+        } else {
+          this.utils.openSnackBar('errors.e011_gettingResponses');
+        }
+      },
+
+      (err) => {
+        this.utils.openSnackBar('errors.e011_gettingResponses');
       }
     );
   }
