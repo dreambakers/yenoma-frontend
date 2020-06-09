@@ -47,7 +47,7 @@ export const constants = {
         rating: [5,4,3,2,1],
         dropdown: [10,9,8,7,6,5,4,3,2,1,0],
         smiley: ['happy','medium', 'sad',],
-        text: ['filled', 'unfilled'],
+        text: ['unfilled', 'filled'],
         radioButton: ['true', 'false'],
         checkbox: ['true', 'false']
     },

@@ -102,6 +102,9 @@ export class Stats {
       case constants.answerTypes.dropdown:
         return this.getWeightForDropdown;
 
+      case constants.answerTypes.text:
+        return this.getWeightForText;
+
       default:
         return this.getWeightForRating;
     }
@@ -144,5 +147,9 @@ export class Stats {
 
   getWeightForSmiley(answer): Number {
     return answer === 'happy' ? 100 : (answer === 'medium' ? 50 : 0);
+  }
+
+  getWeightForText(answer): Number {
+    return answer ? 100 : 0;
   }
 }

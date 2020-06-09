@@ -334,41 +334,64 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
         if (res.success) {
           let commentsAllowed = false;
           let nameAllowed = false;
-          let data = `"Date";"Time";`;
-          const poll = res.responses[0].for;
+          let data = '';
 
-          if (poll.allowNames) {
-            nameAllowed = true;
-            data += '"Name";'
-          }
+          for (let j = 0; j < 2; j ++) {
 
-          if (poll.allowComments) {
-            commentsAllowed = true;
-            data += '"Comment";'
-          }
+            data += `"Date";"Time";`;
+            const poll = res.responses[0].for;
 
-          for (let i = 0; i < poll.questions.length; i ++) {
-            const question = poll.questions[i];
-            if (question.options.length) {
-              for (let j = 0; j < question.options.length; j ++) {
-                data += `"Q${i + 1}O${j + 1}";`
-              }
-
-              if (question.allowOtherAnswer) {
-                data += `"Q${i + 1}O${question.options.length}C";`
-              }
-
-            } else {
-              data += `"Q${i + 1}";`
+            if (poll.allowNames) {
+              nameAllowed = true;
+              data += '"Name";'
             }
-          }
 
-          data += '\n';
+            if (poll.allowComments) {
+              commentsAllowed = true;
+              data += '"Comment";'
+            }
+
+            for (let i = 0; i < poll.questions.length; i ++) {
+              const question = poll.questions[i];
+
+
+                if (question.options.length) {
+                  for (let k = 0; k < question.options.length; k ++) {
+
+                    if (j === 0) {
+                      data += `"Q${i + 1}O${k + 1}";`
+                    } else {
+                      data += `"Q_${question.text}_O_${question.options[k]}";`
+                    }
+                  }
+
+                  if (question.allowOtherAnswer) {
+                    if (j === 0) {
+                      data += `"Q${i + 1}O${question.options.length}C";`
+                    } else {
+                      data += `"Q_${question.text}_O_${question.options[question.options.length - 1]}_C";`
+                    }
+                  }
+
+                } else {
+                  if (j === 0) {
+                    data += `"Q${i + 1}";`
+                  } else {
+                    data += `"Q_${question.text}";`
+                  }
+                }
+
+            }
+
+            data += '\n';
+
+          }
 
           // console.log(data)
           // console.log(res.responses)
 
-          const answerMap = new Stats(res.responses).getAnswerMap();
+          const stats = new Stats(res.responses);
+          const answerMap = stats.getAnswerMap();
 
           // console.log(answerMap)
 
@@ -388,11 +411,12 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
             for (let j = 0; j < response.questions.length; j++) {
 
               const question = response.questions[j];
+              const weightFunction = stats.getWeightFunctionForAnswer(question.answerType);
 
               if (question.answers.length) {
 
                 for (let k = 0; k < question.answers.length; k ++) {
-                  data += `"${answerMap[j][k].response}";`;
+                  data += `"${weightFunction(question.answers[k].answer.toString())}";`;
                 }
 
                 if (poll.questions[j].allowOtherAnswer) {
@@ -400,14 +424,14 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
                 }
 
               } else {
-                data += `"${answerMap[j]['0'].response}";`;
+                data += `"${weightFunction(question.answer.toString())}";`;
               }
             }
 
             data += '\n';
           }
 
-          new NewFile(data, poll.shortId).download();
+          new NewFile(data, poll.shortId + '.csv').download();
         } else {
           this.utils.openSnackBar('errors.e011_gettingResponses');
         }
