@@ -37,7 +37,7 @@ export class ShareComponent implements OnInit {
 
   generateQrCode() {
 
-    QRCode.toDataURL(this.url, { margin: 0 })
+    QRCode.toDataURL(this.url, { margin: 2 })
     .then(url => {
       this.qrUrl = url;
     })
@@ -54,7 +54,7 @@ export class ShareComponent implements OnInit {
   download() {
     const a = document.createElement('a');
     a.href = this.qrUrl;
-    a.download = this.poll.title;
+    a.download = this.poll.shortId + '.png';
     document.body.appendChild(a);
     a.click();
   }

@@ -5,7 +5,7 @@
 <div mat-dialog-content class="border-top overflow-auto" id="aboutDialogContent">
 
     <div class="d-flex flex-column justify-content-center align-items-center my-3">
-        <div class="border rounded-top w-100">
+        <div class="border rounded w-100">
             <input
                 matInput
                 class="w-100 text-center p-1"
@@ -32,7 +32,7 @@
                 {{ 'messages.scanTheQrCode' | translate}}
                 {{ 'labels.or' | translate | lowercase }}
                 <span class="text-primary cursor-pointer" (click)="download()">
-                {{ 'labels.download' | translate }}
+                {{ 'labels.download' | translate | lowercase }}
                 </span>
             </p>
         </div>
