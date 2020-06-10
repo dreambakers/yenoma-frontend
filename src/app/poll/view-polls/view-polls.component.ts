@@ -329,6 +329,52 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
   }
 
   downloadResponses(poll) {
+    const addNameOrTimeColumn = (data) => {
+      if (poll.allowNames) {
+        data += '"";';
+      }
+      if (poll.allowComments){
+        data += '"";';
+      }
+      return data;
+    }
+
+    const getFirstRow = () => {
+      let data = `"${moment(Date.now()).format('YYYY-MM-DD')}";"${moment(Date.now()).format('HH:mm:ss')}";`;
+      data = addNameOrTimeColumn(data);
+      for (let question of poll.questions) {
+        if (question.options.length) {
+          for (let option of question.options) {
+            data += `"${question.text}";`;
+          }
+          if (question.allowOtherAnswer) {
+            data += `"${question.text}";`;
+          }
+        } else {
+          data += `"${question.text}";`;
+        }
+      }
+      return data + '\n';
+    }
+
+    const getSecondRow = () => {
+      let data = '"";"";';
+      data = addNameOrTimeColumn(data);
+      for (let question of poll.questions) {
+        if (question.options.length) {
+          for (let option of question.options) {
+            data += `"${option}";`;
+          }
+          if (question.allowOtherAnswer) {
+            data += `"${question.options[question.options.length - 1]}_C";`
+          }
+        } else {
+          data += `"";`;
+        }
+      }
+      return data + '\n';
+    }
+
     this.responseService.getResponsesForPoll(poll._id).subscribe(
       (res: any) => {
         if (res.success) {
@@ -336,56 +382,35 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
           let nameAllowed = false;
           let data = '';
 
-          for (let j = 0; j < 2; j ++) {
+          data += getFirstRow();
+          data += getSecondRow();
+          data += `"Date";"Time";`;
 
-            data += `"Date";"Time";`;
-            const poll = res.responses[0].for;
-
-            if (poll.allowNames) {
-              nameAllowed = true;
-              data += '"Name";'
-            }
-
-            if (poll.allowComments) {
-              commentsAllowed = true;
-              data += '"Comment";'
-            }
-
-            for (let i = 0; i < poll.questions.length; i ++) {
-              const question = poll.questions[i];
-
-
-                if (question.options.length) {
-                  for (let k = 0; k < question.options.length; k ++) {
-
-                    if (j === 0) {
-                      data += `"Q${i + 1}O${k + 1}";`
-                    } else {
-                      data += `"Q_${question.text}_O_${question.options[k]}";`
-                    }
-                  }
-
-                  if (question.allowOtherAnswer) {
-                    if (j === 0) {
-                      data += `"Q${i + 1}O${question.options.length}C";`
-                    } else {
-                      data += `"Q_${question.text}_O_${question.options[question.options.length - 1]}_C";`
-                    }
-                  }
-
-                } else {
-                  if (j === 0) {
-                    data += `"Q${i + 1}";`
-                  } else {
-                    data += `"Q_${question.text}";`
-                  }
-                }
-
-            }
-
-            data += '\n';
-
+          if (poll.allowNames) {
+            nameAllowed = true;
+            data += '"Name";'
           }
+
+          if (poll.allowComments) {
+            commentsAllowed = true;
+            data += '"Comment";'
+          }
+
+          for (let i = 0; i < poll.questions.length; i ++) {
+            const question = poll.questions[i];
+            if (question.options.length) {
+              for (let k = 0; k < question.options.length; k ++) {
+                data += `"Q${i + 1}O${k + 1}";`
+              }
+              if (question.allowOtherAnswer) {
+                data += `"Q${i + 1}O${question.options.length}C";`
+              }
+            } else {
+              data += `"Q${i + 1}";`
+            }
+          }
+
+          data += '\n';
 
           // console.log(data)
           // console.log(res.responses)
@@ -420,7 +445,7 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
                 }
 
                 if (poll.questions[j].allowOtherAnswer) {
-                  data += `"${answerMap[j].otherAnswer || ''}";`;
+                  data += `"${question.otherAnswer || ''}";`;
                 }
 
               } else {
