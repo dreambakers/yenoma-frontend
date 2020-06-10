@@ -366,7 +366,7 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
             data += `"${option}";`;
           }
           if (question.allowOtherAnswer) {
-            data += `"${question.options[question.options.length - 1]}_C";`
+            data += `"${question.options[question.options.length - 1]} [Text]";`
           }
         } else {
           data += `"";`;
@@ -403,7 +403,7 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
                 data += `"Q${i + 1}O${k + 1}";`
               }
               if (question.allowOtherAnswer) {
-                data += `"Q${i + 1}O${question.options.length}C";`
+                data += `"Q${i + 1}O${question.options.length}T";`
               }
             } else {
               data += `"Q${i + 1}";`
@@ -412,13 +412,7 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
 
           data += '\n';
 
-          // console.log(data)
-          // console.log(res.responses)
-
           const stats = new Stats(res.responses);
-          const answerMap = stats.getAnswerMap();
-
-          // console.log(answerMap)
 
           for (let i = 0; i < res.responses.length; i ++) {
             const response = res.responses[i];
