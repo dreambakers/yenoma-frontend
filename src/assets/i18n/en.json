@@ -245,7 +245,8 @@
     "sharePollTitle": "View poll",
     "userAlreadyExists": "A user with the same email already exists",
     "surveySharingMessage": "Anyone with the link can view the survey.",
-    "scanTheQrCode": "Scan the QR code"
+    "scanTheQrCode": "Scan the QR code",
+    "pleaseCorrect": "Please correct the incorrect questions and try again"
   },
   "placeholders": {
     "activeComment": "Active comment",

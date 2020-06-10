@@ -70,7 +70,7 @@
 
   <div *ngIf="isOpen || isViewingResponseOfUser; else pollNotOpen">
     <mat-card *ngFor="let question of poll.questions; let i = index" class="p-0 question-card"
-              [ngClass]="{'border border-danger': !isCheckboxLimitSatisfied(i)}">
+              [ngClass]="{'border border-danger': submitted && !isResponseQuestionValid(i) }">
       <div class="d-flex flex-row align-items-center p-3 border-bottom">
         <div class="d-flex justify-content-center align-items-center mr-3 rounded text-white question-number" *ngIf="poll.automaticNumbering">
           <span class="font-weight-bold">
@@ -265,16 +265,25 @@
       </mat-form-field>
     </mat-card>
 
+    <app-alert
+      *ngIf="submitted && !valid"
+      messageKey="messages.pleaseCorrect"
+      type="danger"
+      class="mt-5">
+    </app-alert>
+
     <div class="text-center mt-5" *ngIf="!preview">
       <button class="btn btn-danger mr-2" (click)="navigateToRespond()">
         {{ 'labels.back' | translate }}
       </button>
 
-      <button class="btn btn-success" (click)="vote()" [disabled]="!canVote || !dirty" *ngIf="!shouldDisable">
-        {{ (hasResponded && responseValid)
-          ? translate.instant('labels.update') :
-            !(canVote) ? translate.instant('messages.selectAllOptions')  : translate.instant('labels.vote')
-      }}
+      <button
+        class="btn btn-success"
+        (click)="vote()"
+        [disabled]="!dirty"
+        [class.disabled]="!valid"
+        *ngIf="!shouldDisable">
+        {{ (hasResponded && responseValid) ? translate.instant('labels.update') : translate.instant('labels.vote') }}
       </button>
     </div>
   </div>

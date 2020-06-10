@@ -1,4 +1,4 @@
-<mat-tab-group mat-align-tabs="center" [selectedIndex]="selectedIndex">
+<mat-tab-group mat-align-tabs="center" [selectedIndex]="selectedIndex" *ngIf="!isViewingResponse; else pollView">
     <mat-tab label="{{ translate.instant('labels.login') }}/{{ translate.instant('labels.register') }}">
         <app-alert messageKey="messages.sessionExpired" type="danger" *ngIf="showSessionExpiredBanner"></app-alert>
         <app-login *ngIf="activeLink !== '/signup'" class="flex-fill"></app-login>
@@ -6,8 +6,13 @@
     </mat-tab>
     <mat-tab label="{{ translate.instant('labels.respond') }}">
         <div class="container">
-            <app-respond *ngIf="!isViewingResponse"></app-respond>
-            <app-view-poll *ngIf="isViewingResponse"></app-view-poll>
+            <app-respond></app-respond>
         </div>
     </mat-tab>
 </mat-tab-group>
+
+<ng-template #pollView>
+    <div class="container">
+        <app-view-poll></app-view-poll>
+    </div>
+</ng-template>

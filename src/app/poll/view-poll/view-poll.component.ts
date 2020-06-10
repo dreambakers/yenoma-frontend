@@ -43,6 +43,7 @@ export class ViewPollComponent implements OnInit {
   responseValid = false;
   passwordRequired = false;
   commentDismissed = false;
+  submitted = false;
   constants = constants;
 
   constructor(
@@ -146,6 +147,12 @@ export class ViewPollComponent implements OnInit {
   }
 
   vote() {
+    this.submitted = true;
+
+    if (!this.valid) {
+      return;
+    }
+
     delete this.response['updatedAt'];
     delete this.response['createdAt'];
     if (this.hasResponded && this.responseValid) {
@@ -352,81 +359,35 @@ export class ViewPollComponent implements OnInit {
     return message && message !== `globalMessages.${messageKey}`;
   }
 
-  get canVote() {
+  isResponseQuestionValid(questionIndex) {
+    const responseQuestion = this.response.questions[questionIndex];
 
-    const answerTypesToSkip = [
-      constants.answerTypes.slider,
-      constants.answerTypes.text,
-      constants.answerTypes.dropdown
-    ];
+    switch (responseQuestion.answerType) {
+      case constants.answerTypes.slider:
+      case constants.answerTypes.text:
+      case constants.answerTypes.dropdown:
+        return true;
 
-    const totalOptions = this.poll.questions.reduce((acc, question) => {
-      if (!answerTypesToSkip.includes(question.answerType)) {
-        if (question.options.length) {
-          // dont count multiple options for checkbox/radio (since a min of 1 must be selected)
-          if ([constants.answerTypes.radioButton, constants.answerTypes.checkbox].includes(question.answerType)) {
-            acc += 1;
-          } else {
-            acc += question.options.length;
-          }
+      case constants.answerTypes.checkbox:
+        return this.isCheckboxLimitSatisfied(questionIndex);
+
+      case constants.answerTypes.radioButton:
+        return responseQuestion.answers.some(answerObj => answerObj.answer);
+
+      case constants.answerTypes.value:
+        if (responseQuestion.answers.length) {
+          return responseQuestion.answers.every(answerObj => this.valueInputValid(answerObj.answer, responseQuestion));
         } else {
-          acc += 1;
+          return this.valueInputValid(responseQuestion.answer, responseQuestion);
         }
-      }
-      return acc;
-    }, 0);
 
-    const respondedCount = this.response.questions.reduce((acc, question) => {
-      if (!answerTypesToSkip.includes(question.answerType)) {
-        if (question.answers.length) {
-          if ([
-                constants.answerTypes.radioButton,
-                constants.answerTypes.checkbox
-              ].includes(question.answerType)
-              && (!!question['otherAnswer'] || question.answers.filter(answerObj => answerObj.answer).length)) {
-            acc ++;
-          } else {
-            acc += question.answers.filter(answerObj => answerObj.answer).length;
-          }
+      default:
+        if (responseQuestion.answers.length) {
+          return responseQuestion.answers.every(answerObj => answerObj.answer);
         } else {
-          if (question.answer) {
-            acc++;
-          }
+          return responseQuestion.answer;
         }
-      }
-      return acc;
-    }, 0);
-
-    return totalOptions === respondedCount && this.testCheckboxLimits() && this.valueInputsValid;
-  }
-
-  get valueInputsValid() {
-    return this.response.questions.filter(
-      question => question.answerType === constants.answerTypes.value
-    ).every(
-      question => {
-        if (question.answers.length) {
-          return question.answers.every(
-            answerObj => {
-              return this.valueInputValid(answerObj.answer, question);
-            }
-          );
-        } else {
-          return this.valueInputValid(question.answer, question);
-        }
-      }
-    );
-  }
-
-  testCheckboxLimits() {
-    let valid = true;
-    for (let i = 0; i < this.response.questions.length; i++) {
-      if (!this.isCheckboxLimitSatisfied(i)) {
-        valid = false;
-        break;
-      }
     }
-    return valid;
   }
 
   isCheckboxLimitSatisfied(questionIndex) {
@@ -437,6 +398,19 @@ export class ViewPollComponent implements OnInit {
       let checked = responseQuestion.answers.filter(answerObj => answerObj.answer).length;
       if (checked < question.limits.minChecks || checked > question.limits.maxChecks) {
         valid = false;
+      }
+    } else {
+      valid = this.response.questions[questionIndex].answers.some(answerObj => answerObj.answer);
+    }
+    return valid;
+  }
+
+  get valid() {
+    let valid = true;
+    for (let i = 0; i < this.response.questions.length; i ++) {
+      if (!this.isResponseQuestionValid(i)) {
+        valid = false;
+        break;
       }
     }
     return valid;
