@@ -346,12 +346,20 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
         if (question.options.length) {
           for (let option of question.options) {
             data += `"${question.text}";`;
+            // For text question type we need two columns, one for the weight and the other for the actual answer
+            // This is why whenever we encounter a text answer type, we would need to manually append another column
+            if (question.answerType === constants.answerTypes.text) {
+              data += `"${question.text}";`;
+            }
           }
           if (question.allowOtherAnswer) {
             data += `"${question.text}";`;
           }
         } else {
           data += `"${question.text}";`;
+          if (question.answerType === constants.answerTypes.text) {
+            data += `"${question.text}";`;
+          }
         }
       }
       return data + '\n';
@@ -364,92 +372,113 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
         if (question.options.length) {
           for (let option of question.options) {
             data += `"${option}";`;
+            if (question.answerType === constants.answerTypes.text) {
+              data += `"${option} [Text]";`;
+            }
           }
           if (question.allowOtherAnswer) {
             data += `"${question.options[question.options.length - 1]} [Text]";`
           }
         } else {
           data += `"";`;
+          if (question.answerType === constants.answerTypes.text) {
+            data += `"";`;
+          }
         }
       }
       return data + '\n';
     }
 
+    const getThirdRow = () => {
+      let data = `"Date";"Time";`;
+
+      if (poll.allowNames) {
+        data += '"Name";'
+      }
+
+      if (poll.allowComments) {
+        data += '"Comment";'
+      }
+
+      for (let i = 0; i < poll.questions.length; i ++) {
+        const question = poll.questions[i];
+        if (question.options.length) {
+          for (let k = 0; k < question.options.length; k ++) {
+            data += `"Q${i + 1}O${k + 1}";`
+            if (question.answerType === constants.answerTypes.text) {
+              data += `"Q${i + 1}O${k + 1}T";`
+            }
+          }
+          if (question.allowOtherAnswer) {
+            data += `"Q${i + 1}O${question.options.length}T";`
+          }
+        } else {
+          data += `"Q${i + 1}";`
+          if (question.answerType === constants.answerTypes.text) {
+            data += `"Q${i + 1}T";`
+          }
+        }
+      }
+
+      return data += '\n';
+    }
+
+    const getResponsesRows = (responses) => {
+      const stats = new Stats(responses);
+      let data = '';
+
+      for (let i = 0; i < responses.length; i ++) {
+        const response = responses[i];
+        data += `"${moment(response.createdAt).format('YYYY-MM-DD')}";`;
+        data += `"${moment(response.createdAt).format('HH:mm:ss')}";`;
+
+        if (poll.allowNames) {
+          data += `"${response.name}";`
+        }
+
+        if (poll.allowComments) {
+          data += `"${response.comments}";`
+        }
+
+        for (let j = 0; j < response.questions.length; j++) {
+
+          const question = response.questions[j];
+          const weightFunction = stats.getWeightFunctionForAnswer(question.answerType);
+
+          if (question.answers.length) {
+
+            for (let k = 0; k < question.answers.length; k ++) {
+              data += `"${weightFunction(question.answers[k].answer.toString())}";`;
+              if (question.answerType === constants.answerTypes.text) {
+                data += `"${question.answers[k].answer}";`
+              }
+            }
+
+            if (poll.questions[j].allowOtherAnswer) {
+              data += `"${question.otherAnswer || ''}";`;
+            }
+
+          } else {
+            data += `"${weightFunction(question.answer.toString())}";`;
+            if (question.answerType === constants.answerTypes.text) {
+              data += `"${question.answer}";`
+            }
+          }
+        }
+
+        data += '\n';
+      }
+      return data;
+    }
+
     this.responseService.getResponsesForPoll(poll._id).subscribe(
       (res: any) => {
         if (res.success) {
-          let commentsAllowed = false;
-          let nameAllowed = false;
           let data = '';
-
           data += getFirstRow();
           data += getSecondRow();
-          data += `"Date";"Time";`;
-
-          if (poll.allowNames) {
-            nameAllowed = true;
-            data += '"Name";'
-          }
-
-          if (poll.allowComments) {
-            commentsAllowed = true;
-            data += '"Comment";'
-          }
-
-          for (let i = 0; i < poll.questions.length; i ++) {
-            const question = poll.questions[i];
-            if (question.options.length) {
-              for (let k = 0; k < question.options.length; k ++) {
-                data += `"Q${i + 1}O${k + 1}";`
-              }
-              if (question.allowOtherAnswer) {
-                data += `"Q${i + 1}O${question.options.length}T";`
-              }
-            } else {
-              data += `"Q${i + 1}";`
-            }
-          }
-
-          data += '\n';
-
-          const stats = new Stats(res.responses);
-
-          for (let i = 0; i < res.responses.length; i ++) {
-            const response = res.responses[i];
-            data += `"${moment(response.createdAt).format('YYYY-MM-DD')}";`;
-            data += `"${moment(response.createdAt).format('HH:mm:ss')}";`;
-
-            if (nameAllowed) {
-              data += `"${response.name}";`
-            }
-
-            if (commentsAllowed) {
-              data += `"${response.comments}";`
-            }
-
-            for (let j = 0; j < response.questions.length; j++) {
-
-              const question = response.questions[j];
-              const weightFunction = stats.getWeightFunctionForAnswer(question.answerType);
-
-              if (question.answers.length) {
-
-                for (let k = 0; k < question.answers.length; k ++) {
-                  data += `"${weightFunction(question.answers[k].answer.toString())}";`;
-                }
-
-                if (poll.questions[j].allowOtherAnswer) {
-                  data += `"${question.otherAnswer || ''}";`;
-                }
-
-              } else {
-                data += `"${weightFunction(question.answer.toString())}";`;
-              }
-            }
-
-            data += '\n';
-          }
-
+          data += getThirdRow();
+          data += getResponsesRows(res.responses);
           new NewFile(data, poll.shortId + '.csv').download();
         } else {
           this.utils.openSnackBar('errors.e011_gettingResponses');
