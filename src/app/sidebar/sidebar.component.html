@@ -48,12 +48,12 @@
 
     <mat-sidenav-content>
       <div id="wrapper">
-        <div class="d-flex w-100 h-100">
-          <div class="flex-fill" [class.hasFooter]="showFooter" id="content">
+        <div class="d-flex flex-column w-100 h-100">
+          <div class="flex-fill" [class.hasMobileNav]="hasMobileNav" id="content">
             <router-outlet></router-outlet>
           </div>
+          <app-footer [hidden]="!showFooter"></app-footer>
         </div>
-        <app-footer [hidden]="!showFooter"></app-footer>
       </div>
     </mat-sidenav-content>
   </mat-sidenav-container>

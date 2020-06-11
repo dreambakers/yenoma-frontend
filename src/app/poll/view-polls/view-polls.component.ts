@@ -403,10 +403,10 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
       for (let i = 0; i < poll.questions.length; i ++) {
         const question = poll.questions[i];
         if (question.options.length) {
-          for (let k = 0; k < question.options.length; k ++) {
-            data += `"Q${i + 1}O${k + 1}";`
+          for (let j = 0; j < question.options.length; j ++) {
+            data += `"Q${i + 1}O${j + 1}";`
             if (question.answerType === constants.answerTypes.text) {
-              data += `"Q${i + 1}O${k + 1}T";`
+              data += `"Q${i + 1}O${j + 1}T";`
             }
           }
           if (question.allowOtherAnswer) {

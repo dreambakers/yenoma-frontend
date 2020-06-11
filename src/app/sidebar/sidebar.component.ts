@@ -69,4 +69,8 @@ export class SidebarComponent implements OnInit {
     return !this.authenticationService.isAuthenticated() || DataService.isMobile;
   }
 
+  get hasMobileNav() {
+    return this.authenticationService.isAuthenticated() && DataService.isMobile;
+  }
+
 }
