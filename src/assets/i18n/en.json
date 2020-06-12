@@ -198,7 +198,8 @@
     "share":  "Share",
     "copyLink": "Copy link",
     "or": "Or",
-    "download": "Download"
+    "download": "Download",
+    "useDropdown": "Use dropdown"
   },
   "messages": {
     "areYouSure": "Are you sure?",

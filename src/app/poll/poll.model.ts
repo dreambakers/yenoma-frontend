@@ -9,6 +9,7 @@ interface Question {
     editMode?: boolean;
     limits?: { minChecks?: Number, maxChecks?: Number };
     allowOtherAnswer?: boolean;
+    radioToDropdown?: boolean;
 }
 
 export class Poll {

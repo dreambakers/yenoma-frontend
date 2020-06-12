@@ -89,8 +89,11 @@
 
       <ul class="list-group">
         <li *ngFor="let option of question.options; let j = index"
-            class="list-group-item border-0">
-          <div [ngClass]="(question.answerType !== constants.answerTypes.text) && 'd-flex justify-content-between align-items-center'">
+            class="list-group-item border-0"
+            [class.p-0]="question.radioToDropdown && j !== question.options.length - 1">
+          <div
+            *ngIf="!question.radioToDropdown; else radioDropdown"
+            [ngClass]="(question.answerType !== constants.answerTypes.text) && 'd-flex justify-content-between align-items-center'">
             <div class="text-break">
               <p class="m-0">
                 <span *ngIf="option; else placeholderOption">
@@ -110,6 +113,18 @@
               </ng-container>
             </div>
           </div>
+
+          <ng-template #radioDropdown>
+            <mat-form-field appearance="none" class="dropdown-container mat-field-no-margin dropdown" *ngIf="j === question.options.length -1">
+              <mat-select [value]="getSelectedRadioDropdownValue(i)"
+                          [disabled]="shouldDisable" class="border p-3">
+                  <mat-option *ngFor="let option of question.options; let k = index" [value]="option" (click)="onRadioButtonChanged(i, k)">
+                    {{ option }}
+                  </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </ng-template>
+
           <mat-form-field
             appearance="outline"
             class="w-100 mt-2 mat-field-no-margin"

@@ -405,6 +405,15 @@ export class ViewPollComponent implements OnInit {
     return valid;
   }
 
+  getSelectedRadioDropdownValue(questionIndex) {
+    const question = this.response.questions[questionIndex];
+    console.log(question)
+    const selectedOption = question.answers.find(answerObj => answerObj.answer);
+    if (selectedOption) {
+      return selectedOption.option;
+    }
+  }
+
   get valid() {
     let valid = true;
     for (let i = 0; i < this.response.questions.length; i ++) {
