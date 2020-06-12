@@ -69,7 +69,7 @@
   </mat-card>
 
   <div *ngIf="isOpen || isViewingResponseOfUser; else pollNotOpen">
-    <mat-card *ngFor="let question of poll.questions; let i = index" class="p-0 question-card"
+    <mat-card *ngFor="let question of poll.questions; let i = index" class="p-0 mt-2p1"
               [ngClass]="{'border border-danger': submitted && !isResponseQuestionValid(i) }">
       <div class="d-flex flex-row align-items-center p-3 border-bottom">
         <div class="d-flex justify-content-center align-items-center mr-3 rounded text-white question-number" *ngIf="poll.automaticNumbering">
@@ -244,7 +244,7 @@
 
     </mat-card>
 
-    <mat-card *ngIf="poll?.allowComments || poll?.allowNames" class="comments-card">
+    <mat-card *ngIf="poll?.allowComments || poll?.allowNames" class="comments-card mt-2p1">
       <mat-form-field appearance="outline" class="w-100 mb-2" *ngIf="poll.allowNames">
         <mat-label>
           {{ 'labels.name' | translate }}
@@ -269,10 +269,10 @@
       *ngIf="submitted && !valid"
       messageKey="messages.pleaseCorrect"
       type="danger"
-      class="mt-5">
+      class="mt-2p1">
     </app-alert>
 
-    <div class="text-center mt-5" *ngIf="!preview">
+    <div class="text-center my-2p1" *ngIf="!preview">
       <button class="btn btn-danger mr-2" (click)="navigateToRespond()">
         {{ 'labels.back' | translate }}
       </button>
