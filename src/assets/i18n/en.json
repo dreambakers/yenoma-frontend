@@ -71,7 +71,9 @@
     "typePollPassword": "Type poll password",
     "typeQuestion": "Type question {{QN}}",
     "answers": "Answers",
-    "addOption": "Add option"
+    "addOption": "Add option",
+    "thankYouTitle": "This title will be shown to the responder once they have responded",
+    "thankYouMessage": "This message will be shown to the responder once they have responded"
   },
   "labels": {
     "about": "About",
@@ -200,7 +202,9 @@
     "copyLink": "Copy link",
     "or": "Or",
     "download": "Download",
-    "useDropdown": "Use dropdown"
+    "useDropdown": "Use dropdown",
+    "thankYouTitle": "Thank you title",
+    "thankYouMessage": "Thank you message"
   },
   "messages": {
     "areYouSure": "Are you sure?",

@@ -88,6 +88,23 @@
                             </mat-hint>
                         </mat-form-field>
 
+                        <mat-form-field appearance="outline" class="w-100 mb-3">
+                            <mat-label>{{ 'labels.thankYouTitle' | translate }}</mat-label>
+                            <textarea matInput [(ngModel)]="poll.thankYouTitle">
+                            </textarea>
+                            <mat-hint *ngIf="showBasicHints">
+                                {{ 'hints.thankYouTitle' | translate }}
+                            </mat-hint>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" class="w-100 mb-3">
+                            <mat-label>{{ 'labels.thankYouMessage' | translate }}</mat-label>
+                            <textarea matInput [(ngModel)]="poll.thankYouMessage"></textarea>
+                            <mat-hint *ngIf="showBasicHints">
+                                {{ 'hints.thankYouMessage' | translate }}
+                            </mat-hint>
+                        </mat-form-field>
+
                         <div class="d-flex flex-column">
                             <mat-checkbox class="mr-3" [(ngModel)]="poll.allowNames" [disabled]="shouldDisable">
                                 {{ 'labels.allowNames' | translate }}

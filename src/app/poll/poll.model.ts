@@ -27,4 +27,6 @@ export class Poll {
     activeComment?: string;
     terminatedAt?: Date;
     automaticNumbering?: Boolean;
+    thankYouTitle?: string;
+    thankYouMessage?: string;
 }
