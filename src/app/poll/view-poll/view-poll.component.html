@@ -260,23 +260,26 @@
     </mat-card>
 
     <mat-card *ngIf="poll?.allowComments || poll?.allowNames" class="comments-card mt-2p1">
-      <mat-form-field appearance="outline" class="w-100 mb-2" *ngIf="poll.allowNames">
+      <mat-form-field appearance="outline" class="w-100 mat-field-no-margin" *ngIf="poll.allowNames">
         <mat-label>
           {{ 'labels.name' | translate }}
         </mat-label>
         <input matInput placeholder="{{ 'placeholders.name' | translate }}" [(ngModel)]="response.name"
           [disabled]="shouldDisable">
-        <mat-hint *ngIf="!shouldDisable">
-          {{ 'hints.enterName' | translate }}
-        </mat-hint>
       </mat-form-field>
 
-      <mat-form-field appearance="outline" class="w-100 mb-2" *ngIf="poll.allowComments">
+      <mat-form-field
+        appearance="outline"
+        class="w-100 mat-field-no-margin"
+        [class.mt-1p25]="poll.allowNames"
+        *ngIf="poll.allowComments">
         <mat-label>{{ 'labels.comments' | translate }}</mat-label>
-        <textarea matInput placeholder="{{ 'placeholders.comment' | translate }}" [(ngModel)]="response.comments"
+        <textarea
+          matInput
+          placeholder="{{ 'placeholders.comment' | translate }}"
+          [(ngModel)]="response.comments"
           [disabled]="shouldDisable">
-      </textarea>
-        <mat-hint *ngIf="!shouldDisable">{{ 'hints.enterComments' | translate }}</mat-hint>
+        </textarea>
       </mat-form-field>
     </mat-card>
 

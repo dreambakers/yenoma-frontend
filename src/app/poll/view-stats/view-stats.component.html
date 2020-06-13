@@ -15,36 +15,9 @@
         </div>
 
         <mat-card>
-            <mat-form-field appearance="outline" class="w-100 mb-3 mt-3">
-                <mat-label>{{ 'labels.title' | translate }}</mat-label>
-                <input matInput [(ngModel)]="poll.title" [disabled]="true">
-            </mat-form-field>
-
-            <mat-form-field appearance="outline" class="w-100 mb-3" *ngIf="poll.description">
-                <mat-label>{{ 'labels.description' | translate }}</mat-label>
-                <textarea matInput [(ngModel)]="poll.description" [disabled]="true">
-                </textarea>
-            </mat-form-field>
-
-            <mat-form-field appearance="outline" class="w-100 mb-3" *ngIf="poll.privateNote">
-                <mat-label>{{ 'labels.privateNote' | translate }}</mat-label>
-                <textarea matInput [(ngModel)]="poll.privateNote" [disabled]="true">
-                </textarea>
-            </mat-form-field>
-
-            <div class="d-flex flex-column flex-md-row">
-                <mat-checkbox class="mr-3" [(ngModel)]="poll.allowNames" [disabled]="true">
-                    {{ 'labels.allowNames' | translate }}
-                </mat-checkbox>
-
-                <mat-checkbox class="mr-3" [(ngModel)]="poll.allowComments" [disabled]="true">
-                    {{ 'labels.allowComments' | translate }}
-                </mat-checkbox>
-
-                <mat-checkbox [(ngModel)]="poll.password" [disabled]="true">
-                    {{ 'labels.passwordProtected' | translate }}
-                </mat-checkbox>
-            </div>
+            <h4 class="m-0">
+                {{poll.title}}
+            </h4>
         </mat-card>
     </div>
 
