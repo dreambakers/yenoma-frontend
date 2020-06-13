@@ -52,7 +52,8 @@
     "e012_deletingResponse": "An error occurred while deleting the response (#012)",
     "e013_gettingResponse": "An error occurred while getting the response for the poll (#013)",
     "e014_duplicatingPoll": "An error occurred while duplicating the poll (#014)",
-    "e015_changingPassword": "An error occurred while changing the password (#015)"
+    "e015_changingPassword": "An error occurred while changing the password (#015)",
+    "e016_gettingPolls": "An error occurred while getting the polls (#016)"
   },
   "hints": {
     "activeComment": "Enter active comment (shown when poll is active)",

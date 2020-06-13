@@ -47,7 +47,7 @@
     </mat-sidenav>
 
     <mat-sidenav-content>
-      <div id="wrapper">
+      <div id="wrapper" [scrollTop]="scrollPosition">
         <div class="d-flex flex-column w-100 h-100">
           <div class="flex-fill" [class.hasMobileNav]="hasMobileNav" id="content">
             <router-outlet></router-outlet>

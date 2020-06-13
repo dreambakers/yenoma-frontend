@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy, HostListener } from '@angular/core';
 import { PollService } from 'src/app/services/poll.service';
 import { UserService } from 'src/app/services/user.service';
 import { UtilService } from 'src/app/services/util.service';
@@ -23,6 +23,7 @@ import { Poll } from '../poll.model';
 import { ResponseService } from 'src/app/services/response.service';
 import { Stats } from 'src/app/shared/utils/calculate-stats';
 import { NewFile } from 'src/app/shared/utils/download-file';
+import { ScrollService } from 'src/app/services/scroll.service';
 
 @Component({
   selector: 'app-view-polls',
@@ -56,7 +57,8 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
     private emitterService: EmitterService,
     private dialogService: DialogService,
     private userService: UserService,
-    private responseService: ResponseService
+    private responseService: ResponseService,
+    private scrollService: ScrollService
     ) { }
 
   ngOnInit() {
@@ -73,7 +75,9 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
         }
       },
       err => {
-        this.utils.openSnackBar('errors.e003_gettingPoll');
+        if (err.status !== 401) {
+          this.utils.openSnackBar('errors.e016_gettingPolls');
+        }
       }
     );
     this.emitterService.emitter.pipe(takeUntil(this.destroy$)).subscribe((emitted) => {
@@ -293,12 +297,14 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
 
   togglePreview(poll = null) {
     if (this.preview) {
+      this.scrollService.restore();
       this.updateNavTitle();
       this.updateNavbarProps();
       this.emitterService.emit(this.constants.emitterKeys.highlightKeys, { preview: false });
       this.setTableAttributes();
       return this.preview = false;
     }
+    this.scrollService.saveCurrent();
     this.updateNavTitle('labels.pollPreview');
     this.updateNavbarProps({ preview: true, arrange: false, add: false });
     this.emitterService.emit(this.constants.emitterKeys.highlightKeys, { preview: true });

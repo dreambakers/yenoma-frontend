@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener, ChangeDetectorRef, AfterViewChecked } from '@angular/core';
 import { constants } from '../app.constants';
 import { Subject } from 'rxjs';
 import { EmitterService } from '../services/emitter.service';
@@ -6,22 +6,26 @@ import { DialogService } from '../services/dialog.service';
 import { takeUntil } from 'rxjs/operators';
 import { DataService } from '../services/data.service';
 import { AuthenticationService } from '../services/authentication.service';
+import { ScrollService } from '../services/scroll.service';
 
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss']
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent implements OnInit, AfterViewChecked {
   constants = constants;
   @ViewChild('snav') sideNav;
 
   destroy$: Subject<boolean> = new Subject<boolean>();
+  scrollPosition = 0;
 
   constructor(
     private emitterService: EmitterService,
     private dialogService: DialogService,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private scrollService: ScrollService,
+    private changeDetector : ChangeDetectorRef
     ) {}
 
   ngOnInit(): void {
@@ -34,9 +38,15 @@ export class SidebarComponent implements OnInit {
         case constants.emitterKeys.aboutClicked:
           return this.about();
         case constants.emitterKeys.languageChangeClicked:
-            return this.language();
+          return this.language();
+        case constants.emitterKeys.scrollPositionUpdated:
+          return this.scrollPosition = emitted.data;
       }
     });
+  }
+
+  ngAfterViewChecked(): void {
+    this.changeDetector.detectChanges();
   }
 
   logout() {

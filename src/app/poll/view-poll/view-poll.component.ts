@@ -11,6 +11,7 @@ import * as moment from 'moment';
 
 import { take } from 'rxjs/operators'
 import { DataService } from 'src/app/services/data.service';
+import { ScrollService } from 'src/app/services/scroll.service';
 
 @Component({
   selector: 'app-view-poll',
@@ -52,12 +53,13 @@ export class ViewPollComponent implements OnInit {
     private route: ActivatedRoute,
     private responseService: ResponseService,
     private utils: UtilService,
-    public translate: TranslateService
+    public translate: TranslateService,
+    private scrollService: ScrollService
   ) { }
 
   ngOnInit() {
     if (this.poll) {
-      window.scroll(0,0);
+      this.scrollService.top();
       this.preview = true;
       !this.hasResponded && this.setAnswers();
     } else {
@@ -407,7 +409,6 @@ export class ViewPollComponent implements OnInit {
 
   getSelectedRadioDropdownValue(questionIndex) {
     const question = this.response.questions[questionIndex];
-    console.log(question)
     const selectedOption = question.answers.find(answerObj => answerObj.answer);
     if (selectedOption) {
       return selectedOption.option;

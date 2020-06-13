@@ -38,7 +38,8 @@ export const constants = {
         aboutClicked: "aboutClicked",
         changePasswordClicked: "changePasswordClicked",
         logoutInitiated: "logoutInitiated",
-        languageChangeClicked: "languageChangeClicked"
+        languageChangeClicked: "languageChangeClicked",
+        scrollPositionUpdated: "scrollPositionUpdated"
     },
 
     options: {
