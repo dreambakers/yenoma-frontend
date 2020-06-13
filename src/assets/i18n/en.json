@@ -76,6 +76,7 @@
     "thankYouMessage": "This message will be shown to the responder once they have responded"
   },
   "labels": {
+    "appName": "Polling",
     "about": "About",
     "actions": "Actions",
     "active": "Active",
@@ -142,7 +143,6 @@
     "passwordsDontMatch": "Passwords don't match",
     "poll": "Poll",
     "pollId": "Poll ID",
-    "polling": "Polling",
     "pollsFound": "polls found",
     "pollsPerPage": "Polls per page",
     "pollStats": "Poll Statistics",

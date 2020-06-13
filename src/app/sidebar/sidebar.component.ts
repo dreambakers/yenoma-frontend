@@ -83,4 +83,8 @@ export class SidebarComponent implements OnInit, AfterViewChecked {
     return this.authenticationService.isAuthenticated() && DataService.isMobile;
   }
 
+  onScroll(event) {
+    this.scrollService.updateCurrent(event.srcElement.scrollTop);
+  }
+
 }

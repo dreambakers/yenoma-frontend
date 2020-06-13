@@ -11,12 +11,7 @@ export class ScrollService {
   checkpointPosition;
 
   constructor(private emitterService: EmitterService) {
-    window.addEventListener('scroll', this.scroll, true);
   }
-
-  scroll = (event: any): void => {
-    this.updateCurrent(event.srcElement.scrollTop);
-  };
 
   updateCurrent(newPosition) {
     this.position = newPosition;
