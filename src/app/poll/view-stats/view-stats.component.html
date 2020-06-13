@@ -81,7 +81,7 @@
                                 <th *ngIf="question.hasOptions">{{ 'labels.option' | translate }}</th>
                                 <th *ngFor="let option of getOptions(question)">{{ option }}</th>
                                 <th>{{ 'labels.score' | translate }}</th>
-                                <th>{{ 'labels.result' | translate }}</th>
+                                <th class="result-column">{{ 'labels.result' | translate }}</th>
                             </tr>
                         </thead>
 
@@ -117,7 +117,7 @@
                                 <th *ngIf="question.hasOptions">{{ 'labels.option' | translate }}</th>
                                 <th *ngFor="let option of getOptions(question)">{{ option }}</th>
                                 <th>{{ 'labels.score' | translate }}</th>
-                                <th>{{ 'labels.result' | translate }}</th>
+                                <th class="result-column">{{ 'labels.result' | translate }}</th>
                             </tr>
                         </thead>
 
@@ -180,7 +180,7 @@
                             <tr>
                                 <th *ngIf="question.hasOptions">{{ 'labels.option' | translate }}</th>
                                 <th>{{ 'labels.score' | translate }}</th>
-                                <th>{{ 'labels.result' | translate }}</th>
+                                <th class="result-column">{{ 'labels.result' | translate }}</th>
                             </tr>
 
                         </thead>
@@ -217,7 +217,7 @@
                                 <th>{{ 'answers.maybe' | translate }}</th>
                                 <th>{{ 'answers.yes' | translate }}</th>
                                 <th>{{ 'labels.score' | translate }}</th>
-                                <th>{{ 'labels.result' | translate }}</th>
+                                <th class="result-column">{{ 'labels.result' | translate }}</th>
                             </tr>
 
                         </thead>
@@ -263,7 +263,7 @@
                                     <i class="far fa-smile"></i>
                                 </th>
                                 <th>{{ 'labels.score' | translate }}</th>
-                                <th>{{ 'labels.result' | translate }}</th>
+                                <th class="result-column">{{ 'labels.result' | translate }}</th>
                             </tr>
 
                         </thead>
@@ -328,7 +328,7 @@
                                 <th *ngIf="question.hasOptions">{{ 'labels.option' | translate }}</th>
                                 <th>{{ 'labels.count' | translate }}</th>
                                 <th>{{ 'labels.score' | translate }}</th>
-                                <th>{{ 'labels.result' | translate }}</th>
+                                <th class="result-column">{{ 'labels.result' | translate }}</th>
                             </tr>
                         </thead>
 
