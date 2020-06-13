@@ -297,12 +297,15 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
 
   togglePreview(poll = null) {
     if (this.preview) {
-      this.scrollService.restore();
       this.updateNavTitle();
       this.updateNavbarProps();
       this.emitterService.emit(this.constants.emitterKeys.highlightKeys, { preview: false });
       this.setTableAttributes();
-      return this.preview = false;
+      this.preview = false;
+      setTimeout(() => {
+        this.scrollService.restore();
+      }, 0);
+      return;
     }
     this.scrollService.saveCurrent();
     this.updateNavTitle('labels.pollPreview');
