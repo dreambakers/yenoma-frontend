@@ -15,7 +15,6 @@ export class ScrollService {
 
   updateCurrent(newPosition) {
     this.position = newPosition;
-    this.emitterService.emit(constants.emitterKeys.scrollPositionUpdated, this.position);
   }
 
   saveCurrent() {
@@ -24,6 +23,7 @@ export class ScrollService {
 
   restore() {
     this.updateCurrent(this.checkpointPosition);
+    this.emitterService.emit(constants.emitterKeys.scrollPositionUpdated, this.position);
   }
 
   getCurrent() {
@@ -31,6 +31,13 @@ export class ScrollService {
   }
 
   top() {
-    this.updateCurrent(0);
+    this.updateCurrent(1);
+    this.emitterService.emit(constants.emitterKeys.scrollPositionUpdated, this.position);
+  }
+
+  toElement(element) {
+    setTimeout(() => {
+      document.querySelector(element).scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 0);
   }
 }

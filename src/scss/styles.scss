@@ -210,14 +210,6 @@ button {
     height: 100%;
 }
 
-#wrapper {
-    height: 100%;
-    width: 100%;
-    overflow: auto;
-    position: fixed;
-    background-color: $color-background;
-}
-
 #content {
     max-width: 100%;
     &.hasMobileNav {

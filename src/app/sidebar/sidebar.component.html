@@ -46,14 +46,12 @@
 
     </mat-sidenav>
 
-    <mat-sidenav-content>
-      <div id="wrapper" [scrollTop]="scrollPosition" (scroll)="onScroll($event)">
-        <div class="d-flex flex-column w-100 h-100">
-          <div class="flex-fill" [class.hasMobileNav]="hasMobileNav" id="content">
-            <router-outlet></router-outlet>
-          </div>
-          <app-footer [hidden]="!showFooter"></app-footer>
+    <mat-sidenav-content (scroll)="onScroll($event)" [scrollTop]="scrollPosition">
+      <div class="d-flex flex-column w-100 h-100">
+        <div class="flex-fill" [class.hasMobileNav]="hasMobileNav" id="content">
+          <router-outlet></router-outlet>
         </div>
+        <app-footer [hidden]="!showFooter"></app-footer>
       </div>
     </mat-sidenav-content>
   </mat-sidenav-container>

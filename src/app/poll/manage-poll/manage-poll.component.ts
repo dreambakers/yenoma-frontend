@@ -14,6 +14,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { MobileNavbarProps } from 'src/app/footer/footer.component';
 import { DialogService } from 'src/app/services/dialog.service';
+import { ScrollService } from 'src/app/services/scroll.service';
 
 @Component({
   selector: 'app-manage-poll',
@@ -52,7 +53,8 @@ export class ManagePollComponent implements OnInit, OnDestroy {
     private utils: UtilService,
     public translate: TranslateService,
     private emitterService: EmitterService,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private scrollService: ScrollService
   ) { }
 
   ngOnInit() {
@@ -139,9 +141,7 @@ export class ManagePollComponent implements OnInit, OnDestroy {
   addQuestion() {
     this.poll.questions.push({ text: '', options: [], answerType: constants.answerTypes.yesNoMaybe });
     this.updateMobileNavbar();
-    setTimeout(() => {
-      document.querySelector(`#question${this.poll.questions.length - 1}`).scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }, 0);
+    this.scrollService.toElement(`#question${this.poll.questions.length - 1}`);
   }
 
   removeQuestion(questionIndex) {
