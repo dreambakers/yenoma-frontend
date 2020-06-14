@@ -88,6 +88,23 @@
                             </mat-hint>
                         </mat-form-field>
 
+                        <mat-form-field appearance="outline" class="w-100 mb-3">
+                            <mat-label>{{ 'labels.thankYouTitle' | translate }}</mat-label>
+                            <textarea matInput [(ngModel)]="poll.thankYouTitle">
+                            </textarea>
+                            <mat-hint *ngIf="showBasicHints">
+                                {{ 'hints.thankYouTitle' | translate }}
+                            </mat-hint>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" class="w-100 mb-3">
+                            <mat-label>{{ 'labels.thankYouMessage' | translate }}</mat-label>
+                            <textarea matInput [(ngModel)]="poll.thankYouMessage"></textarea>
+                            <mat-hint *ngIf="showBasicHints">
+                                {{ 'hints.thankYouMessage' | translate }}
+                            </mat-hint>
+                        </mat-form-field>
+
                         <div class="d-flex flex-column">
                             <mat-checkbox class="mr-3" [(ngModel)]="poll.allowNames" [disabled]="shouldDisable">
                                 {{ 'labels.allowNames' | translate }}
@@ -152,7 +169,11 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="d-flex align-items-center edit-mode-toggle">
                             <i class="fas fa-sort cursor-pointer"
-                               [ngClass]="{ 'color-disabled': !question.options.length, 'text-danger': question.editMode }"
+                               [ngClass]="{
+                                   'color-disabled': !question.options.length,
+                                   'text-danger': question.editMode,
+                                   'text-muted': question.options.length && !question.editMode
+                                }"
                                (click)="toggleQuestionEditMode(question)"
                                *ngIf="!shouldDisable">
                             </i>
@@ -260,6 +281,15 @@
                                 [(ngModel)]="question.allowOtherAnswer"
                                 [disabled]="shouldDisable">
                                 {{ 'labels.allowOtherAnswer' | translate }}
+                            </mat-checkbox>
+                        </div>
+
+                        <div *ngIf="question.answerType === constants.answerTypes.radioButton">
+                            <mat-checkbox
+                                class="mb-3"
+                                [(ngModel)]="question.radioToDropdown"
+                                [disabled]="shouldDisable">
+                                {{ 'labels.useDropdown' | translate }}
                             </mat-checkbox>
                         </div>
 

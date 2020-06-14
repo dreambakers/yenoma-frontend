@@ -9,6 +9,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { AboutComponent } from '../dialogs/about/about.component';
 import { LanguageComponent } from '../dialogs/language/language.component';
 import { constants } from '../app.constants';
+import { ShareComponent } from '../dialogs/share/share.component';
 
 @Injectable({
   providedIn: 'root'
@@ -57,6 +58,14 @@ export class DialogService {
   language(): Observable<any> {
     const dialogRef = this.dialog.open(LanguageComponent, {
       minWidth: !DataService.isMobile ? this.constants.dialogWidth.desktop : this.constants.dialogWidth.mobile,
+    });
+    return dialogRef.afterClosed();
+  }
+
+  share(poll): Observable<any> {
+    const dialogRef = this.dialog.open(ShareComponent, {
+      width: '350px',
+      data: { poll }
     });
     return dialogRef.afterClosed();
   }

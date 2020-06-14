@@ -1,7 +1,7 @@
 import { environment } from '../environments/environment';
 
 export const constants = {
-    version: '0.14',
+    version: '0.15',
     apiUrl: environment.production ? 'https://db-polling.herokuapp.com' : 'http://localhost:3000',
     answerTypes: {
         binary: 'binary',
@@ -38,7 +38,8 @@ export const constants = {
         aboutClicked: "aboutClicked",
         changePasswordClicked: "changePasswordClicked",
         logoutInitiated: "logoutInitiated",
-        languageChangeClicked: "languageChangeClicked"
+        languageChangeClicked: "languageChangeClicked",
+        scrollPositionUpdated: "scrollPositionUpdated"
     },
 
     options: {
@@ -47,7 +48,7 @@ export const constants = {
         rating: [5,4,3,2,1],
         dropdown: [10,9,8,7,6,5,4,3,2,1,0],
         smiley: ['happy','medium', 'sad',],
-        text: ['filled', 'unfilled'],
+        text: ['unfilled', 'filled'],
         radioButton: ['true', 'false'],
         checkbox: ['true', 'false']
     },

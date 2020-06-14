@@ -69,8 +69,8 @@
   </mat-card>
 
   <div *ngIf="isOpen || isViewingResponseOfUser; else pollNotOpen">
-    <mat-card *ngFor="let question of poll.questions; let i = index" class="p-0 question-card"
-              [ngClass]="{'border border-danger': !isCheckboxLimitSatisfied(i)}">
+    <mat-card *ngFor="let question of poll.questions; let i = index" class="p-0 mt-2p1"
+              [ngClass]="{'border border-danger': submitted && !isResponseQuestionValid(i) }">
       <div class="d-flex flex-row align-items-center p-3 border-bottom">
         <div class="d-flex justify-content-center align-items-center mr-3 rounded text-white question-number" *ngIf="poll.automaticNumbering">
           <span class="font-weight-bold">
@@ -89,8 +89,11 @@
 
       <ul class="list-group">
         <li *ngFor="let option of question.options; let j = index"
-            class="list-group-item border-0">
-          <div [ngClass]="(question.answerType !== constants.answerTypes.text) && 'd-flex justify-content-between align-items-center'">
+            class="list-group-item border-0"
+            [class.p-0]="question.radioToDropdown && j !== question.options.length - 1">
+          <div
+            *ngIf="!question.radioToDropdown; else radioDropdown"
+            [ngClass]="(question.answerType !== constants.answerTypes.text) && 'd-flex justify-content-between align-items-center'">
             <div class="text-break">
               <p class="m-0">
                 <span *ngIf="option; else placeholderOption">
@@ -110,6 +113,18 @@
               </ng-container>
             </div>
           </div>
+
+          <ng-template #radioDropdown>
+            <mat-form-field appearance="none" class="dropdown-container mat-field-no-margin dropdown" *ngIf="j === question.options.length -1">
+              <mat-select [value]="getSelectedRadioDropdownValue(i)"
+                          [disabled]="shouldDisable" class="border p-3">
+                  <mat-option *ngFor="let option of question.options; let k = index" [value]="option" (click)="onRadioButtonChanged(i, k)">
+                    {{ option }}
+                  </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </ng-template>
+
           <mat-form-field
             appearance="outline"
             class="w-100 mt-2 mat-field-no-margin"
@@ -244,37 +259,49 @@
 
     </mat-card>
 
-    <mat-card *ngIf="poll?.allowComments || poll?.allowNames" class="comments-card">
-      <mat-form-field appearance="outline" class="w-100 mb-2" *ngIf="poll.allowNames">
+    <mat-card *ngIf="poll?.allowComments || poll?.allowNames" class="comments-card mt-2p1">
+      <mat-form-field appearance="outline" class="w-100 mat-field-no-margin" *ngIf="poll.allowNames">
         <mat-label>
           {{ 'labels.name' | translate }}
         </mat-label>
         <input matInput placeholder="{{ 'placeholders.name' | translate }}" [(ngModel)]="response.name"
           [disabled]="shouldDisable">
-        <mat-hint *ngIf="!shouldDisable">
-          {{ 'hints.enterName' | translate }}
-        </mat-hint>
       </mat-form-field>
 
-      <mat-form-field appearance="outline" class="w-100 mb-2" *ngIf="poll.allowComments">
+      <mat-form-field
+        appearance="outline"
+        class="w-100 mat-field-no-margin"
+        [class.mt-1p25]="poll.allowNames"
+        *ngIf="poll.allowComments">
         <mat-label>{{ 'labels.comments' | translate }}</mat-label>
-        <textarea matInput placeholder="{{ 'placeholders.comment' | translate }}" [(ngModel)]="response.comments"
+        <textarea
+          matInput
+          placeholder="{{ 'placeholders.comment' | translate }}"
+          [(ngModel)]="response.comments"
           [disabled]="shouldDisable">
-      </textarea>
-        <mat-hint *ngIf="!shouldDisable">{{ 'hints.enterComments' | translate }}</mat-hint>
+        </textarea>
       </mat-form-field>
     </mat-card>
 
-    <div class="text-center mt-5" *ngIf="!preview">
+    <app-alert
+      *ngIf="submitted && !valid"
+      messageKey="messages.pleaseCorrect"
+      type="danger"
+      class="mt-2p1">
+    </app-alert>
+
+    <div class="text-center my-2p1" *ngIf="!preview">
       <button class="btn btn-danger mr-2" (click)="navigateToRespond()">
         {{ 'labels.back' | translate }}
       </button>
 
-      <button class="btn btn-success" (click)="vote()" [disabled]="!canVote || !dirty" *ngIf="!shouldDisable">
-        {{ (hasResponded && responseValid)
-          ? translate.instant('labels.update') :
-            !(canVote) ? translate.instant('messages.selectAllOptions')  : translate.instant('labels.vote')
-      }}
+      <button
+        class="btn btn-success"
+        (click)="vote()"
+        [disabled]="!dirty"
+        [class.disabled]="!valid"
+        *ngIf="!shouldDisable">
+        {{ (hasResponded && responseValid) ? translate.instant('labels.update') : translate.instant('labels.vote') }}
       </button>
     </div>
   </div>

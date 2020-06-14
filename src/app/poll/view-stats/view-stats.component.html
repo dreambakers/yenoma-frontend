@@ -1,6 +1,6 @@
 <div [ngClass]="isMobile ? 'p-2' : 'p-5'" *ngIf="poll?.questions">
 
-    <div class="d-flex flex-column mb-5">
+    <div class="d-flex flex-column mb-2">
         <div class="w-75 mb-3" *ngIf="!isMobile">
             <h3>{{ 'labels.pollStats' | translate }}</h3>
         </div>
@@ -15,36 +15,9 @@
         </div>
 
         <mat-card>
-            <mat-form-field appearance="outline" class="w-100 mb-3 mt-3">
-                <mat-label>{{ 'labels.title' | translate }}</mat-label>
-                <input matInput [(ngModel)]="poll.title" [disabled]="true">
-            </mat-form-field>
-
-            <mat-form-field appearance="outline" class="w-100 mb-3" *ngIf="poll.description">
-                <mat-label>{{ 'labels.description' | translate }}</mat-label>
-                <textarea matInput [(ngModel)]="poll.description" [disabled]="true">
-                </textarea>
-            </mat-form-field>
-
-            <mat-form-field appearance="outline" class="w-100 mb-3" *ngIf="poll.privateNote">
-                <mat-label>{{ 'labels.privateNote' | translate }}</mat-label>
-                <textarea matInput [(ngModel)]="poll.privateNote" [disabled]="true">
-                </textarea>
-            </mat-form-field>
-
-            <div class="d-flex flex-column flex-md-row">
-                <mat-checkbox class="mr-3" [(ngModel)]="poll.allowNames" [disabled]="true">
-                    {{ 'labels.allowNames' | translate }}
-                </mat-checkbox>
-
-                <mat-checkbox class="mr-3" [(ngModel)]="poll.allowComments" [disabled]="true">
-                    {{ 'labels.allowComments' | translate }}
-                </mat-checkbox>
-
-                <mat-checkbox [(ngModel)]="poll.password" [disabled]="true">
-                    {{ 'labels.passwordProtected' | translate }}
-                </mat-checkbox>
-            </div>
+            <h4 class="m-0">
+                {{poll.title}}
+            </h4>
         </mat-card>
     </div>
 
@@ -81,7 +54,7 @@
                                 <th *ngIf="question.hasOptions">{{ 'labels.option' | translate }}</th>
                                 <th *ngFor="let option of getOptions(question)">{{ option }}</th>
                                 <th>{{ 'labels.score' | translate }}</th>
-                                <th>{{ 'labels.result' | translate }}</th>
+                                <th class="result-column">{{ 'labels.result' | translate }}</th>
                             </tr>
                         </thead>
 
@@ -117,7 +90,7 @@
                                 <th *ngIf="question.hasOptions">{{ 'labels.option' | translate }}</th>
                                 <th *ngFor="let option of getOptions(question)">{{ option }}</th>
                                 <th>{{ 'labels.score' | translate }}</th>
-                                <th>{{ 'labels.result' | translate }}</th>
+                                <th class="result-column">{{ 'labels.result' | translate }}</th>
                             </tr>
                         </thead>
 
@@ -180,7 +153,7 @@
                             <tr>
                                 <th *ngIf="question.hasOptions">{{ 'labels.option' | translate }}</th>
                                 <th>{{ 'labels.score' | translate }}</th>
-                                <th>{{ 'labels.result' | translate }}</th>
+                                <th class="result-column">{{ 'labels.result' | translate }}</th>
                             </tr>
 
                         </thead>
@@ -217,7 +190,7 @@
                                 <th>{{ 'answers.maybe' | translate }}</th>
                                 <th>{{ 'answers.yes' | translate }}</th>
                                 <th>{{ 'labels.score' | translate }}</th>
-                                <th>{{ 'labels.result' | translate }}</th>
+                                <th class="result-column">{{ 'labels.result' | translate }}</th>
                             </tr>
 
                         </thead>
@@ -263,7 +236,7 @@
                                     <i class="far fa-smile"></i>
                                 </th>
                                 <th>{{ 'labels.score' | translate }}</th>
-                                <th>{{ 'labels.result' | translate }}</th>
+                                <th class="result-column">{{ 'labels.result' | translate }}</th>
                             </tr>
 
                         </thead>
@@ -328,7 +301,7 @@
                                 <th *ngIf="question.hasOptions">{{ 'labels.option' | translate }}</th>
                                 <th>{{ 'labels.count' | translate }}</th>
                                 <th>{{ 'labels.score' | translate }}</th>
-                                <th>{{ 'labels.result' | translate }}</th>
+                                <th class="result-column">{{ 'labels.result' | translate }}</th>
                             </tr>
                         </thead>
 

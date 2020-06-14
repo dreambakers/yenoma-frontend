@@ -9,6 +9,7 @@ interface Question {
     editMode?: boolean;
     limits?: { minChecks?: Number, maxChecks?: Number };
     allowOtherAnswer?: boolean;
+    radioToDropdown?: boolean;
 }
 
 export class Poll {
@@ -26,4 +27,6 @@ export class Poll {
     activeComment?: string;
     terminatedAt?: Date;
     automaticNumbering?: Boolean;
+    thankYouTitle?: string;
+    thankYouMessage?: string;
 }

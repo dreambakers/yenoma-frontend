@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy, HostListener } from '@angular/core';
 import { PollService } from 'src/app/services/poll.service';
 import { UserService } from 'src/app/services/user.service';
 import { UtilService } from 'src/app/services/util.service';
@@ -20,6 +20,11 @@ import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { DialogService } from 'src/app/services/dialog.service';
 import { Poll } from '../poll.model';
+import { ResponseService } from 'src/app/services/response.service';
+import { Stats } from 'src/app/shared/utils/calculate-stats';
+import { NewFile } from 'src/app/shared/utils/download-file';
+import { ScrollService } from 'src/app/services/scroll.service';
+
 @Component({
   selector: 'app-view-polls',
   templateUrl: './view-polls.component.html',
@@ -51,7 +56,9 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
     private ngNavigatorShareService: NgNavigatorShareService,
     private emitterService: EmitterService,
     private dialogService: DialogService,
-    private userService: UserService
+    private userService: UserService,
+    private responseService: ResponseService,
+    private scrollService: ScrollService
     ) { }
 
   ngOnInit() {
@@ -68,7 +75,9 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
         }
       },
       err => {
-        this.utils.openSnackBar('errors.e003_gettingPoll');
+        if (err.status !== 401) {
+          this.utils.openSnackBar('errors.e016_gettingPolls');
+        }
       }
     );
     this.emitterService.emitter.pipe(takeUntil(this.destroy$)).subscribe((emitted) => {
@@ -282,23 +291,8 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
       url: pollUrl,
     })
     .catch((error) => {
-      this.copyMessage(pollUrl);
-      this.utils.openSnackBar('messages.pollLinkCopied');
+      this.dialogService.share(poll);
     });
-  }
-
-  copyMessage(val: string){
-    const selBox = document.createElement('textarea');
-    selBox.style.position = 'fixed';
-    selBox.style.left = '0';
-    selBox.style.top = '0';
-    selBox.style.opacity = '0';
-    selBox.value = val;
-    document.body.appendChild(selBox);
-    selBox.focus();
-    selBox.select();
-    document.execCommand('copy');
-    document.body.removeChild(selBox);
   }
 
   togglePreview(poll = null) {
@@ -307,8 +301,13 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
       this.updateNavbarProps();
       this.emitterService.emit(this.constants.emitterKeys.highlightKeys, { preview: false });
       this.setTableAttributes();
-      return this.preview = false;
+      this.preview = false;
+      setTimeout(() => {
+        this.scrollService.restore();
+      }, 0);
+      return;
     }
+    this.scrollService.saveCurrent();
     this.updateNavTitle('labels.pollPreview');
     this.updateNavbarProps({ preview: true, arrange: false, add: false });
     this.emitterService.emit(this.constants.emitterKeys.highlightKeys, { preview: true });
@@ -334,6 +333,169 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
           this.currentSort = result;
           this.sort.sort(this.currentSort);
         }
+      }
+    );
+  }
+
+  downloadResponses(poll) {
+    const addNameOrTimeColumn = (data) => {
+      if (poll.allowNames) {
+        data += '"";';
+      }
+      if (poll.allowComments){
+        data += '"";';
+      }
+      return data;
+    }
+
+    const getFirstRow = () => {
+      let data = `"${moment(Date.now()).format('YYYY-MM-DD')}";"${moment(Date.now()).format('HH:mm:ss')}";`;
+      data = addNameOrTimeColumn(data);
+      for (let question of poll.questions) {
+        if (question.options.length) {
+          for (let option of question.options) {
+            data += `"${question.text}";`;
+            // For text question type we need two columns, one for the weight and the other for the actual answer
+            // This is why whenever we encounter a text answer type, we would need to manually append another column
+            if (question.answerType === constants.answerTypes.text) {
+              data += `"${question.text}";`;
+            }
+          }
+          if (question.allowOtherAnswer) {
+            data += `"${question.text}";`;
+          }
+        } else {
+          data += `"${question.text}";`;
+          if (question.answerType === constants.answerTypes.text) {
+            data += `"${question.text}";`;
+          }
+        }
+      }
+      return data + '\n';
+    }
+
+    const getSecondRow = () => {
+      let data = '"";"";';
+      data = addNameOrTimeColumn(data);
+      for (let question of poll.questions) {
+        if (question.options.length) {
+          for (let option of question.options) {
+            data += `"${option}";`;
+            if (question.answerType === constants.answerTypes.text) {
+              data += `"${option} [Text]";`;
+            }
+          }
+          if (question.allowOtherAnswer) {
+            data += `"${question.options[question.options.length - 1]} [Text]";`
+          }
+        } else {
+          data += `"";`;
+          if (question.answerType === constants.answerTypes.text) {
+            data += `"";`;
+          }
+        }
+      }
+      return data + '\n';
+    }
+
+    const getThirdRow = () => {
+      let data = `"Date";"Time";`;
+
+      if (poll.allowNames) {
+        data += '"Name";'
+      }
+
+      if (poll.allowComments) {
+        data += '"Comment";'
+      }
+
+      for (let i = 0; i < poll.questions.length; i ++) {
+        const question = poll.questions[i];
+        if (question.options.length) {
+          for (let j = 0; j < question.options.length; j ++) {
+            data += `"Q${i + 1}O${j + 1}";`
+            if (question.answerType === constants.answerTypes.text) {
+              data += `"Q${i + 1}O${j + 1}T";`
+            }
+          }
+          if (question.allowOtherAnswer) {
+            data += `"Q${i + 1}O${question.options.length}T";`
+          }
+        } else {
+          data += `"Q${i + 1}";`
+          if (question.answerType === constants.answerTypes.text) {
+            data += `"Q${i + 1}T";`
+          }
+        }
+      }
+
+      return data += '\n';
+    }
+
+    const getResponsesRows = (responses) => {
+      const stats = new Stats(responses);
+      let data = '';
+
+      for (let i = 0; i < responses.length; i ++) {
+        const response = responses[i];
+        data += `"${moment(response.createdAt).format('YYYY-MM-DD')}";`;
+        data += `"${moment(response.createdAt).format('HH:mm:ss')}";`;
+
+        if (poll.allowNames) {
+          data += `"${response.name}";`
+        }
+
+        if (poll.allowComments) {
+          data += `"${response.comments}";`
+        }
+
+        for (let j = 0; j < response.questions.length; j++) {
+
+          const question = response.questions[j];
+          const weightFunction = stats.getWeightFunctionForAnswer(question.answerType);
+
+          if (question.answers.length) {
+
+            for (let k = 0; k < question.answers.length; k ++) {
+              data += `"${weightFunction(question.answers[k].answer.toString())}";`;
+              if (question.answerType === constants.answerTypes.text) {
+                data += `"${question.answers[k].answer}";`
+              }
+            }
+
+            if (poll.questions[j].allowOtherAnswer) {
+              data += `"${question.otherAnswer || ''}";`;
+            }
+
+          } else {
+            data += `"${weightFunction(question.answer.toString())}";`;
+            if (question.answerType === constants.answerTypes.text) {
+              data += `"${question.answer}";`
+            }
+          }
+        }
+
+        data += '\n';
+      }
+      return data;
+    }
+
+    this.responseService.getResponsesForPoll(poll._id).subscribe(
+      (res: any) => {
+        if (res.success) {
+          let data = '';
+          data += getFirstRow();
+          data += getSecondRow();
+          data += getThirdRow();
+          data += getResponsesRows(res.responses);
+          new NewFile(data, poll.shortId + '.csv').download();
+        } else {
+          this.utils.openSnackBar('errors.e011_gettingResponses');
+        }
+      },
+
+      (err) => {
+        this.utils.openSnackBar('errors.e011_gettingResponses');
       }
     );
   }

@@ -35,6 +35,7 @@ import { LanguageComponent } from './dialogs/language/language.component';
 import { AlertComponent } from './shared/alert/alert.component';
 import { RecordedComponent } from './landing/respond/recorded/recorded.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { ShareComponent } from './dialogs/share/share.component';
 
 import { DigitOnlyModule } from '@uiowa/digit-only';
 
@@ -89,6 +90,7 @@ import { MatRippleModule } from '@angular/material/core';
     AlertComponent,
     RecordedComponent,
     SidebarComponent,
+    ShareComponent,
   ],
   imports: [
     BrowserAnimationsModule,
