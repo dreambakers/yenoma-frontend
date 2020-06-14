@@ -52,7 +52,8 @@
     "e012_deletingResponse": "An error occurred while deleting the response (#012)",
     "e013_gettingResponse": "An error occurred while getting the response for the poll (#013)",
     "e014_duplicatingPoll": "An error occurred while duplicating the poll (#014)",
-    "e015_changingPassword": "An error occurred while changing the password (#015)"
+    "e015_changingPassword": "An error occurred while changing the password (#015)",
+    "e016_gettingPolls": "An error occurred while getting the polls (#016)"
   },
   "hints": {
     "activeComment": "Enter active comment (shown when poll is active)",
@@ -70,9 +71,12 @@
     "typePollPassword": "Type poll password",
     "typeQuestion": "Type question {{QN}}",
     "answers": "Answers",
-    "addOption": "Add option"
+    "addOption": "Add option",
+    "thankYouTitle": "This title will be shown to the responder once they have responded",
+    "thankYouMessage": "This message will be shown to the responder once they have responded"
   },
   "labels": {
+    "appName": "Polling",
     "about": "About",
     "actions": "Actions",
     "active": "Active",
@@ -139,7 +143,6 @@
     "passwordsDontMatch": "Passwords don't match",
     "poll": "Poll",
     "pollId": "Poll ID",
-    "polling": "Polling",
     "pollsFound": "polls found",
     "pollsPerPage": "Polls per page",
     "pollStats": "Poll Statistics",
@@ -194,7 +197,14 @@
     "minChecks": "Minimum checks",
     "maxChecks": "Maximum checks",
     "other": "Other",
-    "allowOtherAnswer": "Allow other answer"
+    "allowOtherAnswer": "Allow other answer",
+    "share":  "Share",
+    "copyLink": "Copy link",
+    "or": "Or",
+    "download": "Download",
+    "useDropdown": "Use dropdown",
+    "thankYouTitle": "Thank you title",
+    "thankYouMessage": "Thank you message"
   },
   "messages": {
     "areYouSure": "Are you sure?",
@@ -239,7 +249,10 @@
     "sessionExpired": "The session has expired, please login again to continue",
     "sharePoll": "View poll created on Polling application",
     "sharePollTitle": "View poll",
-    "userAlreadyExists": "A user with the same email already exists"
+    "userAlreadyExists": "A user with the same email already exists",
+    "surveySharingMessage": "Anyone with the link can view the survey.",
+    "scanTheQrCode": "Scan the QR code",
+    "pleaseCorrect": "Please correct the incorrect questions and try again"
   },
   "placeholders": {
     "activeComment": "Active comment",
@@ -266,7 +279,8 @@
     "restore": "Restore",
     "share": "Share",
     "showStats": "Statistics",
-    "terminate": "Terminate"
+    "terminate": "Terminate",
+    "download": "Download"
   },
   "tooltips": {
     "minTwoOptions": "This answer type requires a minimum of 2 options",
