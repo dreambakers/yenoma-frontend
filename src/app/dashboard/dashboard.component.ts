@@ -6,6 +6,9 @@ import { EmitterService } from '../services/emitter.service';
 import { constants } from '../app.constants';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { UserIdleService } from 'angular-user-idle';
+import { DialogService } from '../services/dialog.service';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -28,14 +31,40 @@ export class DashboardComponent implements OnInit {
     }
   ];
   destroy$: Subject<boolean> = new Subject<boolean>();
+  inActivityDialogOpened = false;
 
   constructor(
     private translate: TranslateService,
     private userService: UserService,
-    private emitterService: EmitterService
+    private emitterService: EmitterService,
+    private userIdle: UserIdleService,
+    private dialogService: DialogService,
+    private authenticationService: AuthenticationService
   ) { }
 
   ngOnInit() {
+    this.userIdle.startWatching();
+    this.userIdle.onTimerStart().pipe(takeUntil(this.destroy$)).subscribe((count) => {
+      this.emitterService.emit(this.constants.emitterKeys.idleTimeoutCount, count);
+      if (!this.inActivityDialogOpened) {
+        this.inActivityDialogOpened = true;
+        this.dialogService.inactivity().subscribe(
+          res => {
+            if (!res || !res.logout) {
+              this.userService.refreshToken().subscribe();
+            }
+            this.userIdle.stopTimer();
+            this.inActivityDialogOpened = false;
+          }
+        );
+      }
+    });
+
+    this.userIdle.onTimeout().pipe(takeUntil(this.destroy$)).subscribe(() => {
+      this.emitterService.emit(this.constants.emitterKeys.idleTimedOut);
+      this.authenticationService.logout(true);
+    });
+
     this.emitterService.emitter.pipe(takeUntil(this.destroy$)).subscribe((emitted) => {
       switch(emitted.event) {
         case constants.emitterKeys.logoutInitiated:

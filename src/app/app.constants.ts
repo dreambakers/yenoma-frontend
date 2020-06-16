@@ -1,7 +1,7 @@
 import { environment } from '../environments/environment';
 
 export const constants = {
-    version: '0.15',
+    version: '0.16',
     apiUrl: environment.production ? 'https://db-polling.herokuapp.com' : 'http://localhost:3000',
     answerTypes: {
         binary: 'binary',
@@ -39,7 +39,9 @@ export const constants = {
         changePasswordClicked: "changePasswordClicked",
         logoutInitiated: "logoutInitiated",
         languageChangeClicked: "languageChangeClicked",
-        scrollPositionUpdated: "scrollPositionUpdated"
+        scrollPositionUpdated: "scrollPositionUpdated",
+        idleTimeoutCount: "idleTimeoutCount",
+        idleTimedOut: "idleTimedOut"
     },
 
     options: {
@@ -56,5 +58,11 @@ export const constants = {
     dialogWidth: {
         mobile: '280px',
         desktop: '400px'
+    },
+
+    idleTimouts: {
+        idle: 5,
+        timeout: 12,
+        ping: 120
     }
 }

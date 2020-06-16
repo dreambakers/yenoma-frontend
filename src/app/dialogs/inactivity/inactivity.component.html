@@ -1,0 +1,23 @@
+<h1 mat-dialog-title>
+    {{ 'labels.sessionTimeout' | translate }}
+</h1>
+
+<div mat-dialog-content class="border-top overflow-auto">
+    <p class="mt-3">
+        {{ 'messages.sessionTimingOut' | translate }}
+    </p>
+</div>
+
+<div mat-dialog-actions id="confirmationDialogActions">
+    <button mat-button (click)="onCancelTimeout()">
+        <span *ngIf="remaining; else stayLoggedIn">
+            {{ 'labels.inactiveStayLoggedIn' | translate: { remaining: remaining } }}
+        </span>
+        <ng-template #stayLoggedIn>
+            {{ 'labels.stayLoggedIn' | translate }}
+        </ng-template>
+    </button>
+    <button mat-button (click)="onLogout()">
+        {{ 'labels.logout' | translate }}
+    </button>
+</div>
