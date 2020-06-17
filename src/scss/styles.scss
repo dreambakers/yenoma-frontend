@@ -380,3 +380,9 @@ button {
 .mat-tab-label-container {
     background-color: #fff;
 }
+
+.mat-ep-no-padding {
+    .mat-expansion-panel-body {
+        padding: 0 !important;
+    }
+}

@@ -28,15 +28,15 @@
                 </p>
             </div>
 
-            <div class="mat-elevation-z1">
-                <mat-card class="mat-elevation-z0 pb-0">
+            <div class="mat-elevation-z1 bg-white p-3">
+                <mat-card class="mat-elevation-z0 p-0">
                     <div class="text-right">
                         <i class="fas fa-question-circle text-muted p-2 cursor-pointer"
                            (click)="showBasicHints = !showBasicHints"
                            [class.help-button-active]="showBasicHints">
                         </i>
                     </div>
-                    <mat-form-field appearance="outline" class="w-100 mt-3">
+                    <mat-form-field appearance="outline" class="w-100 mt-3 {{ showBasicHints ? '' : 'mat-field-no-margin' }}">
                         <mat-label>{{ 'labels.title' | translate }}</mat-label>
                         <input matInput placeholder="{{ 'placeholders.title' | translate }}"
                                [(ngModel)]="poll.title" [disabled]="shouldDisable">
@@ -44,9 +44,22 @@
                     </mat-form-field>
                 </mat-card>
                 <mat-accordion>
-                    <mat-expansion-panel class="mat-elevation-z0">
-                        <mat-expansion-panel-header class="justify-content-center">
+                    <mat-expansion-panel class="mat-elevation-z0 mat-ep-no-padding" #mep>
+                        <mat-expansion-panel-header
+                            *ngIf="!rearrangeQuestions"
+                            class="justify-content-center bg-white mt-2"
+                            [class.py-3]="!showBasicHints"
+                            [collapsedHeight]="'15px'"
+                            [expandedHeight]="'15px'">
                         </mat-expansion-panel-header>
+
+                        <div class="text-center text-muted bg-white cursor-pointer expansion-label mb-2"
+                             *ngIf="!rearrangeQuestions && showBasicHints"
+                             (click)="mep.expanded = false">
+                            <mat-hint>
+                                {{ 'labels.collapse' | translate }}
+                            </mat-hint>
+                        </div>
 
                         <mat-form-field appearance="outline" class="w-100 mb-3" *ngIf="!shouldDisable || poll.description">
                             <mat-label>{{ 'labels.description' | translate }}</mat-label>
@@ -134,6 +147,13 @@
                             </mat-hint>
                         </mat-form-field>
                     </mat-expansion-panel>
+                    <div class="text-center text-muted bg-white cursor-pointer expansion-label"
+                         *ngIf="!rearrangeQuestions && showBasicHints && !mep.expanded"
+                         (click)="mep.expanded = true">
+                         <mat-hint>
+                            {{ 'labels.expand' | translate }}
+                        </mat-hint>
+                    </div>
                 </mat-accordion>
             </div>
         </div>
@@ -339,50 +359,80 @@
                     </mat-form-field>
                 </div>
 
-                <div *ngIf="!rearrangeQuestions" cdkDropList (cdkDropListDropped)="dropOption($event, question)" class="mt-4">
-                    <div *ngFor="let option of question.options; let j = index; trackBy: trackByFn" cdkDrag
-                         [cdkDragDisabled]="!question.editMode || shouldDisable || question.options.length <= 1">
-                        <div class="d-flex align-items-center justify-content-between mb-4">
-                            <div class="mr-2 dragDiv" [class.mb-3]="question.showHints"
-                                 cdkDragHandle *ngIf="question.editMode && question.options.length > 1 && !shouldDisable">
-                                <i class="fas fa-sort"></i>
-                            </div>
-                            <mat-form-field appearance="outline" class="w-100 {{ question.showHints ? '' : 'mat-field-no-margin' }}">
-                                <mat-label>
-                                    {{ 'labels.questionNumber' | translate: { QN: i + 1} }}
-                                    {{ 'labels.optionNumber' | translate: { OPN: j + 1 } }}
-                                </mat-label>
-                                <input matInput placeholder="{{ 'placeholders.option' | translate }}"
-                                       [(ngModel)]="question.options[j]" [disabled]="shouldDisable">
-                                <mat-hint *ngIf="poll.status === constants.statusTypes.open && question.showHints">
-                                    {{ 'hints.typeOption' | translate: { OPN: j + 1 } }}
-                                </mat-hint>
-                            </mat-form-field>
 
-                            <i class="fas fa-minus-circle text-danger cursor-pointer ml-2" (click)="removeOption(question,j)"
-                                *ngIf="question.editMode && !shouldDisable"
-                                matTooltip="{{ 'labels.removeOption' | translate }}" matTooltipPosition="above"
-                                [class.mb-3]="question.showHints">
-                            </i>
+                <mat-accordion>
+                    <mat-expansion-panel class="mat-elevation-z0 p-0 mat-ep-no-padding" #optionsPanel [expanded]="!question.collapsed">
+                        <mat-expansion-panel-header
+                            *ngIf="!rearrangeQuestions"
+                            class="justify-content-center bg-white mt-2"
+                            [class.py-3]="!question.showHints"
+                            [collapsedHeight]="'15px'"
+                            [expandedHeight]="'15px'"
+                            (click)="question.collapsed = !question.collapsed">
+                        </mat-expansion-panel-header>
+
+                        <div class="text-center text-muted bg-white cursor-pointer expansion-label mb-2"
+                             *ngIf="!rearrangeQuestions && question.showHints"
+                             (click)="question.collapsed = true">
+                            <mat-hint>
+                                {{ 'labels.collapse' | translate }}
+                            </mat-hint>
                         </div>
-                    </div>
-                </div>
 
-                <div *ngIf="!rearrangeQuestions && !shouldDisable" class="d-flex flex-column align-items-center mt-3">
-                    <div>
-                        <i class="fas fa-plus-circle text-primary cursor-pointer"
-                            (click)="addOption(question)" *ngIf="isMobile; else desktopButton"></i>
-                        <ng-template #desktopButton>
-                            <button class="btn btn-primary" [class.mb-1]="question.showHints" (click)="addOption(question)">
-                                {{ getAddOptionLabel(question) | translate }}
-                            </button>
-                        </ng-template>
-                    </div>
-                    <div *ngIf="question.showHints" class="d-flex align-items-start">
-                        <mat-hint>{{ 'hints.addOption' | translate }}</mat-hint>
-                    </div>
-                </div>
+                        <div *ngIf="!rearrangeQuestions" cdkDropList (cdkDropListDropped)="dropOption($event, question)">
+                            <div *ngFor="let option of question.options; let j = index; trackBy: trackByFn" cdkDrag
+                                 [cdkDragDisabled]="!question.editMode || shouldDisable || question.options.length <= 1">
+                                <div class="d-flex align-items-center justify-content-between mb-4">
+                                    <div class="mr-2 dragDiv" [class.mb-3]="question.showHints"
+                                         cdkDragHandle *ngIf="question.editMode && question.options.length > 1 && !shouldDisable">
+                                        <i class="fas fa-sort"></i>
+                                    </div>
+                                    <mat-form-field appearance="outline" class="w-100 {{ question.showHints ? '' : 'mat-field-no-margin' }}">
+                                        <mat-label>
+                                            {{ 'labels.questionNumber' | translate: { QN: i + 1} }}
+                                            {{ 'labels.optionNumber' | translate: { OPN: j + 1 } }}
+                                        </mat-label>
+                                        <input matInput placeholder="{{ 'placeholders.option' | translate }}"
+                                               [(ngModel)]="question.options[j]" [disabled]="shouldDisable">
+                                        <mat-hint *ngIf="poll.status === constants.statusTypes.open && question.showHints">
+                                            {{ 'hints.typeOption' | translate: { OPN: j + 1 } }}
+                                        </mat-hint>
+                                    </mat-form-field>
 
+                                    <i class="fas fa-minus-circle text-danger cursor-pointer ml-2" (click)="removeOption(question,j)"
+                                        *ngIf="question.editMode && !shouldDisable"
+                                        matTooltip="{{ 'labels.removeOption' | translate }}" matTooltipPosition="above"
+                                        [class.mb-3]="question.showHints">
+                                    </i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div *ngIf="!rearrangeQuestions && !shouldDisable" class="d-flex flex-column align-items-center mt-3">
+                            <div>
+                                <i class="fas fa-plus-circle text-primary cursor-pointer"
+                                    (click)="addOption(question)" *ngIf="isMobile; else desktopButton"></i>
+                                <ng-template #desktopButton>
+                                    <button class="btn btn-primary" [class.mb-1]="question.showHints" (click)="addOption(question)">
+                                        {{ getAddOptionLabel(question) | translate }}
+                                    </button>
+                                </ng-template>
+                            </div>
+                            <div *ngIf="question.showHints" class="d-flex align-items-start">
+                                <mat-hint>{{ 'hints.addOption' | translate }}</mat-hint>
+                            </div>
+                        </div>
+
+                    </mat-expansion-panel>
+
+                    <div class="text-center text-muted bg-white cursor-pointer expansion-label"
+                         *ngIf="!rearrangeQuestions && question.collapsed && question.showHints"
+                         (click)="question.collapsed = false">
+                        <mat-hint>
+                            {{ 'labels.expand' | translate }}
+                        </mat-hint>
+                    </div>
+                </mat-accordion>
             </mat-card>
         </div>
 
@@ -416,7 +466,7 @@
 
     <app-view-poll [poll]="poll" [embeddedPreview]="true" *ngIf="preview"></app-view-poll>
 
-    <div class="mr-3 preview-fab-container" *ngIf="!isMobile && !rearrangeQuestions"
+    <div class="mr-4 preview-fab-container" *ngIf="!isMobile && !rearrangeQuestions"
          [style.bottom]="getFabPosition()">
         <button mat-fab color="primary"
                 (click)="togglePreview()"

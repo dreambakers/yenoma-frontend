@@ -206,7 +206,9 @@
     "useDropdown": "Use dropdown",
     "view": "View",
     "vote": "Vote",
-    "yes": "Yes"
+    "yes": "Yes",
+    "collapse": "Collapse",
+    "expand": "Expand"
   },
   "messages": {
     "areYouSure": "Are you sure?",
