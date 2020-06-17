@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PollService } from 'src/app/services/poll.service';
 import { StarRatingColor } from 'src/app/star-rating/star-rating.component';
@@ -16,7 +16,8 @@ import { ScrollService } from 'src/app/services/scroll.service';
 @Component({
   selector: 'app-view-poll',
   templateUrl: './view-poll.component.html',
-  styleUrls: ['./view-poll.component.scss']
+  styleUrls: ['./view-poll.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ViewPollComponent implements OnInit {
 
@@ -54,7 +55,8 @@ export class ViewPollComponent implements OnInit {
     private responseService: ResponseService,
     private utils: UtilService,
     public translate: TranslateService,
-    private scrollService: ScrollService
+    private scrollService: ScrollService,
+    private changeDetectorRef: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
@@ -99,6 +101,9 @@ export class ViewPollComponent implements OnInit {
             this.navigateToRespond();
           }
         }
+        setTimeout(
+          () => { this.changeDetectorRef.detectChanges() }, 0
+        );
       },
       (err) => {
         this.utils.openSnackBar('errors.e003_gettingPoll');
@@ -417,7 +422,7 @@ export class ViewPollComponent implements OnInit {
 
   get valid() {
     let valid = true;
-    for (let i = 0; i < this.response.questions.length; i ++) {
+    for (let i = this.response.questions.length - 1; i >= 0; i --) {
       if (!this.isResponseQuestionValid(i)) {
         valid = false;
         break;
