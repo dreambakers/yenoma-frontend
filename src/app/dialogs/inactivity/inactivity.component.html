@@ -1,5 +1,8 @@
 <h1 mat-dialog-title>
     {{ 'labels.sessionTimeout' | translate }}
+    <span class="float-right">
+        {{ remaining }}
+    </span>
 </h1>
 
 <div mat-dialog-content class="border-top overflow-auto">
@@ -10,12 +13,7 @@
 
 <div mat-dialog-actions id="confirmationDialogActions">
     <button mat-button (click)="onCancelTimeout()">
-        <span *ngIf="remaining; else stayLoggedIn">
-            {{ 'labels.inactiveStayLoggedIn' | translate: { remaining: remaining } }}
-        </span>
-        <ng-template #stayLoggedIn>
-            {{ 'labels.stayLoggedIn' | translate }}
-        </ng-template>
+        {{ 'labels.stayLoggedIn' | translate }}
     </button>
     <button mat-button (click)="onLogout()">
         {{ 'labels.logout' | translate }}

@@ -6,6 +6,7 @@ import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { constants } from 'src/app/app.constants';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-inactivity',
@@ -14,6 +15,7 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 })
 export class InactivityComponent implements OnInit {
 
+  interval;
   constants = constants;
   remaining;
   destroy$: Subject<boolean> = new Subject<boolean>();
@@ -26,10 +28,16 @@ export class InactivityComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    const start = moment(`00:${this.constants.idleTimouts.timeout}`, "mm:ss");
+    let seconds = start.minutes() * 60;
+    this.interval = setInterval(() => {
+      this.remaining = start.subtract(1, "second").format("mm:ss");
+      seconds--;
+      if (seconds === 0) clearInterval(this.interval);
+    }, 1000);
+
     this.emitterService.emitter.pipe(takeUntil(this.destroy$)).subscribe((emitted) => {
       switch(emitted.event) {
-        case constants.emitterKeys.idleTimeoutCount:
-          return this.remaining = this.constants.idleTimouts.timeout - emitted.data;
         case constants.emitterKeys.idleTimedOut:
           this.dialogRef.close({ logout: true });
       }
@@ -47,6 +55,7 @@ export class InactivityComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
+    clearInterval(this.interval);
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
   }

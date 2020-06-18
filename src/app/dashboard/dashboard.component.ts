@@ -43,27 +43,29 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.userIdle.startWatching();
-    this.userIdle.onTimerStart().pipe(takeUntil(this.destroy$)).subscribe((count) => {
-      this.emitterService.emit(this.constants.emitterKeys.idleTimeoutCount, count);
-      if (!this.inActivityDialogOpened) {
-        this.inActivityDialogOpened = true;
-        this.dialogService.inactivity().subscribe(
-          res => {
-            if (!res || !res.logout) {
-              this.userService.refreshToken().subscribe();
+    if (!!!this.userService.getPreference('stayLoggedIn')) {
+      this.userIdle.startWatching();
+      this.userIdle.onTimerStart().pipe(takeUntil(this.destroy$)).subscribe((count) => {
+        this.emitterService.emit(this.constants.emitterKeys.idleTimeoutCount, count);
+        if (!this.inActivityDialogOpened) {
+          this.inActivityDialogOpened = true;
+          this.dialogService.inactivity().subscribe(
+            res => {
+              if (!res || !res.logout) {
+                this.userService.refreshToken().subscribe();
+              }
+              this.userIdle.stopTimer();
+              this.inActivityDialogOpened = false;
             }
-            this.userIdle.stopTimer();
-            this.inActivityDialogOpened = false;
-          }
-        );
-      }
-    });
+          );
+        }
+      });
 
-    this.userIdle.onTimeout().pipe(takeUntil(this.destroy$)).subscribe(() => {
-      this.emitterService.emit(this.constants.emitterKeys.idleTimedOut);
-      this.authenticationService.logout(true);
-    });
+      this.userIdle.onTimeout().pipe(takeUntil(this.destroy$)).subscribe(() => {
+        this.emitterService.emit(this.constants.emitterKeys.idleTimedOut);
+        this.authenticationService.logout(true);
+      });
+    }
 
     this.emitterService.emitter.pipe(takeUntil(this.destroy$)).subscribe((emitted) => {
       switch(emitted.event) {
