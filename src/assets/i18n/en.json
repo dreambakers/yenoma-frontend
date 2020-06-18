@@ -35,7 +35,8 @@
     "smiley": "Smiley",
     "text": "Text",
     "value": "Value",
-    "yesNoMaybe": "Yes No Maybe"
+    "yesNoMaybe": "Yes No Maybe",
+    "email": "Email"
   },
   "errors": {
     "e001_creatingPoll": "An error occurred while creating the poll (#001)",

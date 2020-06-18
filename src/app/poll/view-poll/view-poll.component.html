@@ -230,10 +230,20 @@
           <div *ngSwitchCase="constants.answerTypes.text">
             <mat-form-field appearance="outline" class="w-100 mat-field-no-margin">
               <textarea matInput placeholder="{{ 'placeholders.textAnswer' | translate }}"
-                        (input)="onTextAnswerChanged($event, i, j)" maxlength="500" rows="4"
-                        [value]="answerObj.answer || (hasResponded ? translate.instant('messages.noAnswer') : '')"
-                        [disabled]="shouldDisable" [class.font-italic]="this.preview && !answerObj.answer">
+                        [(ngModel)]="answerObj.answer"
+                        [disabled]="shouldDisable">
               </textarea>
+            </mat-form-field>
+          </div>
+
+          <div *ngSwitchCase="constants.answerTypes.email">
+            <mat-form-field appearance="outline" class="w-100 mat-field-no-margin">
+              <mat-label>
+                {{ 'labels.emailAddress' | translate }}
+              </mat-label>
+              <input matInput placeholder="{{ 'placeholders.email' | translate }}"
+                     [(ngModel)]="answerObj.answer"
+                     [disabled]="shouldDisable">
             </mat-form-field>
           </div>
 

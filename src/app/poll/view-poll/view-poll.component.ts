@@ -381,6 +381,13 @@ export class ViewPollComponent implements OnInit {
       case constants.answerTypes.radioButton:
         return responseQuestion.answers.some(answerObj => answerObj.answer);
 
+      case constants.answerTypes.email:
+        if (responseQuestion.answers.length) {
+          return responseQuestion.answers.every(answerObj => this.emailInputValid(answerObj.answer));
+        } else {
+          return this.emailInputValid(responseQuestion.answer);
+        }
+
       case constants.answerTypes.value:
         if (responseQuestion.answers.length) {
           return responseQuestion.answers.every(answerObj => this.valueInputValid(answerObj.answer, responseQuestion));
@@ -417,6 +424,15 @@ export class ViewPollComponent implements OnInit {
     const selectedOption = question.answers.find(answerObj => answerObj.answer);
     if (selectedOption) {
       return selectedOption.option;
+    }
+  }
+
+  emailInputValid(value) {
+    if (!value) {
+      return true;
+    } else {
+      const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(String(value).toLowerCase());
     }
   }
 

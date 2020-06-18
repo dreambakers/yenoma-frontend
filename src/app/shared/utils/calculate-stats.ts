@@ -22,7 +22,7 @@ export class Stats {
 
     const insertAnswer = (answerIndex, answer, question) => {
       let key = answer;
-      if (question.type === constants.answerTypes.text) {
+      if ([constants.answerTypes.text, constants.answerTypes.email].includes(question.type)) {
         key = answer ? 'filled' : 'unfilled';
       }
       if (answerIndex in question && key in question[answerIndex]) {
@@ -103,6 +103,7 @@ export class Stats {
         return this.getWeightForDropdown;
 
       case constants.answerTypes.text:
+      case constants.answerTypes.email:
         return this.getWeightForText;
 
       default:

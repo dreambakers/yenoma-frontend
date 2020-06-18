@@ -13,7 +13,8 @@ export const constants = {
         smiley: 'smiley',
         text: 'text',
         dropdown: 'dropdown',
-        value: 'value'
+        value: 'value',
+        email: 'email'
     },
     statusTypes: {
         open: 'open',
@@ -52,7 +53,8 @@ export const constants = {
         smiley: ['happy','medium', 'sad',],
         text: ['unfilled', 'filled'],
         radioButton: ['true', 'false'],
-        checkbox: ['true', 'false']
+        checkbox: ['true', 'false'],
+        email: ['unfilled', 'filled'],
     },
 
     dialogWidth: {

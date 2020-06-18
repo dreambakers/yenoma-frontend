@@ -357,7 +357,7 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
             data += `"${question.text}";`;
             // For text question type we need two columns, one for the weight and the other for the actual answer
             // This is why whenever we encounter a text answer type, we would need to manually append another column
-            if (question.answerType === constants.answerTypes.text) {
+            if ([constants.answerTypes.text, constants.answerTypes.email].includes(question.answerType)) {
               data += `"${question.text}";`;
             }
           }
@@ -366,7 +366,7 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
           }
         } else {
           data += `"${question.text}";`;
-          if (question.answerType === constants.answerTypes.text) {
+          if ([constants.answerTypes.text, constants.answerTypes.email].includes(question.answerType)) {
             data += `"${question.text}";`;
           }
         }
@@ -381,7 +381,7 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
         if (question.options.length) {
           for (let option of question.options) {
             data += `"${option}";`;
-            if (question.answerType === constants.answerTypes.text) {
+            if ([constants.answerTypes.text, constants.answerTypes.email].includes(question.answerType)) {
               data += `"${option} [Text]";`;
             }
           }
@@ -390,7 +390,7 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
           }
         } else {
           data += `"";`;
-          if (question.answerType === constants.answerTypes.text) {
+          if ([constants.answerTypes.text, constants.answerTypes.email].includes(question.answerType)) {
             data += `"";`;
           }
         }
@@ -414,7 +414,7 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
         if (question.options.length) {
           for (let j = 0; j < question.options.length; j ++) {
             data += `"Q${i + 1}O${j + 1}";`
-            if (question.answerType === constants.answerTypes.text) {
+            if ([constants.answerTypes.text, constants.answerTypes.email].includes(question.answerType)) {
               data += `"Q${i + 1}O${j + 1}T";`
             }
           }
@@ -423,7 +423,7 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
           }
         } else {
           data += `"Q${i + 1}";`
-          if (question.answerType === constants.answerTypes.text) {
+          if ([constants.answerTypes.text, constants.answerTypes.email].includes(question.answerType)) {
             data += `"Q${i + 1}T";`
           }
         }
@@ -458,7 +458,7 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
 
             for (let k = 0; k < question.answers.length; k ++) {
               data += `"${weightFunction(question.answers[k].answer.toString())}";`;
-              if (question.answerType === constants.answerTypes.text) {
+              if ([constants.answerTypes.text, constants.answerTypes.email].includes(question.answerType)) {
                 data += `"${question.answers[k].answer}";`
               }
             }
@@ -469,7 +469,7 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
 
           } else {
             data += `"${weightFunction(question.answer.toString())}";`;
-            if (question.answerType === constants.answerTypes.text) {
+            if ([constants.answerTypes.text, constants.answerTypes.email].includes(question.answerType)) {
               data += `"${question.answer}";`
             }
           }
