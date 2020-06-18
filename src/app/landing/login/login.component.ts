@@ -44,6 +44,7 @@ export class LoginComponent implements OnInit {
     this.auth.authenticateUser(this.loginForm.value.email, this.loginForm.value.password, false, this.loginForm.value.rememberLogin).subscribe((response: any) => {
       if (response.headers.get('x-auth')) {
         const user = { ...response.body, authToken: response.headers.get('x-auth') };
+        this.userService.updatePreference({ stayLoggedIn: this.loginForm.value.rememberLogin });
         this.userService.setLoggedInUser(user);
         this.router.navigateByUrl('/dashboard/all');
       }
