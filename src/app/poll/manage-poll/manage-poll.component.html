@@ -39,7 +39,7 @@
                     <mat-form-field appearance="outline" class="w-100 mt-3 {{ showBasicHints ? '' : 'mat-field-no-margin' }}">
                         <mat-label>{{ 'labels.title' | translate }}</mat-label>
                         <input matInput placeholder="{{ 'placeholders.title' | translate }}"
-                               [(ngModel)]="poll.title" [disabled]="shouldDisable">
+                               [(ngModel)]="poll.title" [disabled]="shouldDisable" autocomplete="off">
                         <mat-hint *ngIf="!shouldDisable && showBasicHints">{{ 'hints.pollTitle' | translate }}</mat-hint>
                     </mat-form-field>
                 </mat-card>
@@ -155,7 +155,7 @@
                                 </mat-hint>
                             </div>
                         </div>
-                        <mat-form-field appearance="outline" class="w-100 mb-2" *ngIf="showPassword || poll.password">
+                        <mat-form-field appearance="outline" class="w-100 mt-2" *ngIf="showPassword || poll.password">
                             <mat-label>{{ 'labels.password' | translate }}</mat-label>
                             <input matInput placeholder="{{ 'placeholders.pollPassword' | translate }}"
                                 [disabled]="shouldDisable" [(ngModel)]="poll.password" [type]="hide ? 'password' : 'text'">
@@ -396,7 +396,7 @@
                             {{ 'labels.questionNumber' | translate: { QN: i + 1} }}
                         </mat-label>
                         <input matInput placeholder="{{ 'placeholders.question' | translate }}"
-                               [(ngModel)]="question.text" [disabled]="shouldDisable">
+                               [(ngModel)]="question.text" [disabled]="shouldDisable" autocomplete="off">
                         <mat-hint *ngIf="poll.status === constants.statusTypes.open && question.showHints">
                             {{ 'hints.typeQuestion' | translate: { QN: i + 1} }}
                         </mat-hint>
@@ -437,7 +437,8 @@
                                             {{ 'labels.optionNumber' | translate: { OPN: j + 1 } }}
                                         </mat-label>
                                         <input matInput placeholder="{{ 'placeholders.option' | translate }}"
-                                               [(ngModel)]="question.options[j]" [disabled]="shouldDisable">
+                                               [(ngModel)]="question.options[j]" [disabled]="shouldDisable"
+                                               autocomplete="off">
                                         <mat-hint *ngIf="poll.status === constants.statusTypes.open && question.showHints">
                                             {{ 'hints.typeOption' | translate: { OPN: j + 1 } }}
                                         </mat-hint>

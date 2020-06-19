@@ -243,7 +243,8 @@
               </mat-label>
               <input matInput placeholder="{{ 'placeholders.email' | translate }}"
                      [(ngModel)]="answerObj.answer"
-                     [disabled]="shouldDisable">
+                     [disabled]="shouldDisable"
+                     autocomplete="off">
             </mat-form-field>
           </div>
 
