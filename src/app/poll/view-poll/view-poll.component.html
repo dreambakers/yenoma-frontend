@@ -30,7 +30,7 @@
     </app-alert>
   </ng-container>
 
-  <mat-card class="p-0">
+  <mat-card class="p-0" *ngIf="!isDeleted">
     <div class="border-bottom">
       <h4 class="p-3 m-0">
         <span *ngIf="poll.title; else placeHolderTitle">
@@ -44,7 +44,7 @@
       </h4>
     </div>
 
-    <div class="p-3" *ngIf="poll.description || (((isOpen && poll.activeComment) || (!isOpen && poll.inactiveComment)) && !commentDismissed)">
+    <div class="p-3" *ngIf="poll.description || (((isOpen && poll.activeComment) || (isTerminated && poll.inactiveComment)) && !commentDismissed)">
       <div *ngIf="poll.description">
         <p class="m-0 text-break">
           {{poll.description}}
@@ -59,7 +59,7 @@
         </app-alert>
       </div>
 
-      <div *ngIf="!isOpen && poll.inactiveComment && !commentDismissed" [class.mt-3]="poll.description">
+      <div *ngIf="isTerminated && poll.inactiveComment && !commentDismissed" [class.mt-3]="poll.description">
         <app-alert
           [message]="poll.inactiveComment"
           (onDismiss)="commentDismissed = true">
@@ -230,10 +230,21 @@
           <div *ngSwitchCase="constants.answerTypes.text">
             <mat-form-field appearance="outline" class="w-100 mat-field-no-margin">
               <textarea matInput placeholder="{{ 'placeholders.textAnswer' | translate }}"
-                        (input)="onTextAnswerChanged($event, i, j)" maxlength="500" rows="4"
-                        [value]="answerObj.answer || (hasResponded ? translate.instant('messages.noAnswer') : '')"
-                        [disabled]="shouldDisable" [class.font-italic]="this.preview && !answerObj.answer">
+                        [(ngModel)]="answerObj.answer"
+                        [disabled]="shouldDisable">
               </textarea>
+            </mat-form-field>
+          </div>
+
+          <div *ngSwitchCase="constants.answerTypes.email">
+            <mat-form-field appearance="outline" class="w-100 mat-field-no-margin">
+              <mat-label>
+                {{ 'labels.emailAddress' | translate }}
+              </mat-label>
+              <input matInput placeholder="{{ 'placeholders.email' | translate }}"
+                     [(ngModel)]="answerObj.answer"
+                     [disabled]="shouldDisable"
+                     autocomplete="off">
             </mat-form-field>
           </div>
 

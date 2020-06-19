@@ -44,4 +44,8 @@ export class UserService {
   unsetLoggedInUser() {
     localStorage.removeItem('user');
   }
+
+  refreshToken() {
+    return this.http.post(`${constants.apiUrl}/user/refreshToken/`, { });
+  }
 }

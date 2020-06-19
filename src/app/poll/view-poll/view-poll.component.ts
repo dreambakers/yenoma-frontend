@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PollService } from 'src/app/services/poll.service';
 import { StarRatingColor } from 'src/app/star-rating/star-rating.component';
@@ -16,7 +16,8 @@ import { ScrollService } from 'src/app/services/scroll.service';
 @Component({
   selector: 'app-view-poll',
   templateUrl: './view-poll.component.html',
-  styleUrls: ['./view-poll.component.scss']
+  styleUrls: ['./view-poll.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ViewPollComponent implements OnInit {
 
@@ -54,7 +55,8 @@ export class ViewPollComponent implements OnInit {
     private responseService: ResponseService,
     private utils: UtilService,
     public translate: TranslateService,
-    private scrollService: ScrollService
+    private scrollService: ScrollService,
+    private changeDetectorRef: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
@@ -99,6 +101,9 @@ export class ViewPollComponent implements OnInit {
             this.navigateToRespond();
           }
         }
+        setTimeout(
+          () => { this.changeDetectorRef.detectChanges() }, 0
+        );
       },
       (err) => {
         this.utils.openSnackBar('errors.e003_gettingPoll');
@@ -376,6 +381,13 @@ export class ViewPollComponent implements OnInit {
       case constants.answerTypes.radioButton:
         return responseQuestion.answers.some(answerObj => answerObj.answer);
 
+      case constants.answerTypes.email:
+        if (responseQuestion.answers.length) {
+          return responseQuestion.answers.every(answerObj => this.emailInputValid(answerObj.answer));
+        } else {
+          return this.emailInputValid(responseQuestion.answer);
+        }
+
       case constants.answerTypes.value:
         if (responseQuestion.answers.length) {
           return responseQuestion.answers.every(answerObj => this.valueInputValid(answerObj.answer, responseQuestion));
@@ -415,9 +427,18 @@ export class ViewPollComponent implements OnInit {
     }
   }
 
+  emailInputValid(value) {
+    if (!value) {
+      return true;
+    } else {
+      const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(String(value).toLowerCase());
+    }
+  }
+
   get valid() {
     let valid = true;
-    for (let i = 0; i < this.response.questions.length; i ++) {
+    for (let i = this.response.questions.length - 1; i >= 0; i --) {
       if (!this.isResponseQuestionValid(i)) {
         valid = false;
         break;
@@ -436,6 +457,14 @@ export class ViewPollComponent implements OnInit {
 
   get isOpen() {
     return this.poll.status === constants.statusTypes.open;
+  }
+
+  get isDeleted() {
+    return this.poll.status === constants.statusTypes.deleted;
+  }
+
+  get isTerminated() {
+    return this.poll.status === constants.statusTypes.terminated;
   }
 
   get isViewingResponseOfUser() {

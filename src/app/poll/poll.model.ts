@@ -10,6 +10,7 @@ interface Question {
     limits?: { minChecks?: Number, maxChecks?: Number };
     allowOtherAnswer?: boolean;
     radioToDropdown?: boolean;
+    collapsed?: boolean;
 }
 
 export class Poll {

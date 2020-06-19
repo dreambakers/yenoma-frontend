@@ -9,36 +9,36 @@
       <mat-divider></mat-divider>
 
       <mat-nav-list>
-        <a class="nav-link cursor-pointer" routerLink='dashboard/all' (click)="toggleSidebar()" [routerLinkActive]="['active']">
+        <a class="nav-link cursor-pointer" routerLink='dashboard/all' (click)="toggleSidebar()" [routerLinkActive]="['active']" matRipple>
           <i class="fas fa-list mr-2"></i>
           {{ 'labels.myPolls' | translate }}
         </a>
 
-        <a class="nav-link cursor-pointer" routerLink='dashboard/create' (click)="toggleSidebar()" [routerLinkActive]="['active']">
+        <a class="nav-link cursor-pointer" routerLink='dashboard/create' (click)="toggleSidebar()" [routerLinkActive]="['active']" matRipple>
           <i class="fas fa-plus-circle mr-2"></i>
           {{ 'labels.createNewPoll' | translate }}
         </a>
 
         <mat-divider></mat-divider>
 
-        <a class="nav-link cursor-pointer" (click)="toggleSidebar() && changePassword()">
+        <a class="nav-link cursor-pointer" (click)="toggleSidebar() && changePassword()" matRipple>
           <i class="fas fa-key mr-2"></i>
           {{ 'labels.changePassword' | translate }}
         </a>
 
-        <a class="nav-link cursor-pointer" (click)="toggleSidebar() && language()">
+        <a class="nav-link cursor-pointer" (click)="toggleSidebar() && language()" matRipple>
           <i class="fas fa-globe mr-2"></i>
           {{ 'labels.language' | translate }}
         </a>
 
-        <a class="nav-link cursor-pointer" (click)="toggleSidebar() && about()">
+        <a class="nav-link cursor-pointer" (click)="toggleSidebar() && about()" matRipple>
           <i class="fas fa-info-circle mr-2"></i>
           {{ 'labels.about' | translate }}
         </a>
 
         <mat-divider></mat-divider>
 
-        <a class="nav-link cursor-pointer" (click)="toggleSidebar() && logout()">
+        <a class="nav-link cursor-pointer" (click)="toggleSidebar() && logout()" matRipple>
           <i class="fas fa-sign-out-alt mr-2"></i>
           {{ 'labels.logout' | translate }}
         </a>

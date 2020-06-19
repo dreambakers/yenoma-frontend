@@ -10,6 +10,7 @@ import { AboutComponent } from '../dialogs/about/about.component';
 import { LanguageComponent } from '../dialogs/language/language.component';
 import { constants } from '../app.constants';
 import { ShareComponent } from '../dialogs/share/share.component';
+import { InactivityComponent } from '../dialogs/inactivity/inactivity.component';
 
 @Injectable({
   providedIn: 'root'
@@ -66,6 +67,13 @@ export class DialogService {
     const dialogRef = this.dialog.open(ShareComponent, {
       width: '350px',
       data: { poll }
+    });
+    return dialogRef.afterClosed();
+  }
+
+  inactivity(): Observable<any> {
+    const dialogRef = this.dialog.open(InactivityComponent, {
+      width: '350px',
     });
     return dialogRef.afterClosed();
   }

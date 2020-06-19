@@ -170,9 +170,10 @@ button {
 
             .mat-cell {
                 display: block;
-                width: 80%;
+                // width: 80%;
+                margin-right: 70px;
                 min-height: auto;
-                padding: 0 16px;
+                padding-left: 16px;
                 &:first-child {
                     font-size: 20px;
                 }
@@ -379,4 +380,18 @@ button {
 
 .mat-tab-label-container {
     background-color: #fff;
+}
+
+.mat-ep-no-padding {
+    .mat-expansion-panel-body {
+        padding: 0 !important;
+    }
+}
+
+.mat-checkbox-label {
+    font-size: 0.9rem !important;
+}
+
+.mat-ripple{
+    z-index:50; // 50 for example
 }

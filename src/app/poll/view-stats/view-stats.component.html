@@ -284,6 +284,34 @@
                     </table>
                 </div>
 
+                <div *ngSwitchCase="constants.answerTypes.email">
+                    <table class="table table-bordered" #text>
+                        <thead>
+                            <tr>
+                                <th colspan="3">
+                                    {{ question.text }}
+                                    <span class="float-right font-weight-light text-muted font-italic">
+                                        {{ 'answerTypes.email' | translate }}
+                                    </span>
+                                </th>
+                            </tr>
+
+                            <tr>
+                                <th *ngIf="question.hasOptions">{{ 'labels.option' | translate }}</th>
+                                <th>{{ 'labels.unfilled' | translate }}</th>
+                                <th>{{ 'labels.filled' | translate }}</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr *ngFor="let option of question.options; let j = index">
+                                <td *ngIf="question.hasOptions">{{ option }}</td>
+                                <td *ngFor="let option of getOptions(question)">{{ answerMap[i][j][option] || 0 }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
                 <ng-template #radioCheckYesNo>
                     <table class="table table-bordered">
                         <thead>

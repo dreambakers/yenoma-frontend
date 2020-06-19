@@ -13,7 +13,7 @@ import { ScrollService } from '../services/scroll.service';
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss']
 })
-export class SidebarComponent implements OnInit, AfterViewChecked {
+export class SidebarComponent implements OnInit {
   constants = constants;
   @ViewChild('snav') sideNav;
 
