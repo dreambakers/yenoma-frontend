@@ -30,11 +30,20 @@ export class AuthenticationService {
     return this.http.post(requestUrl, { email, password, remember }, {observe: 'response'});
   }
 
-  logout() {
+  logout(sessionExpired = false) {
     this.http.post(`${constants.apiUrl}/user/logout`, {}).subscribe();
     this.userService.unsetLoggedInUser();
     this.emitterService.emit(constants.emitterKeys.logoutInitiated);
-    this.router.navigateByUrl('login');
+    if (!sessionExpired) {
+      this.router.navigateByUrl('login');
+    } else {
+      this.router.navigate(['login'], {
+        queryParams: {
+          sessionExpired: true
+        },
+        // skipLocationChange: true
+      });
+    }
   }
 
   isAuthenticated() {

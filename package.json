@@ -24,9 +24,11 @@
     "@ngx-translate/core": "^12.1.2",
     "@ngx-translate/http-loader": "^4.0.0",
     "@uiowa/digit-only": "^1.7.0",
+    "angular-user-idle": "^2.2.2",
     "bootstrap": "^4.4.1",
     "moment": "^2.24.0",
     "ng-navigator-share": "^1.0.1",
+    "qrcode": "^1.4.4",
     "rxjs": "~6.5.5",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"

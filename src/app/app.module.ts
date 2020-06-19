@@ -35,8 +35,10 @@ import { LanguageComponent } from './dialogs/language/language.component';
 import { AlertComponent } from './shared/alert/alert.component';
 import { RecordedComponent } from './landing/respond/recorded/recorded.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { ShareComponent } from './dialogs/share/share.component';
 
 import { DigitOnlyModule } from '@uiowa/digit-only';
+import { UserIdleModule } from 'angular-user-idle';
 
 import { MatSortModule } from '@angular/material/sort';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -63,6 +65,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatRippleModule } from '@angular/material/core';
+import { InactivityComponent } from './dialogs/inactivity/inactivity.component';
+import { constants } from './app.constants';
 
 @NgModule({
   declarations: [
@@ -89,6 +93,8 @@ import { MatRippleModule } from '@angular/material/core';
     AlertComponent,
     RecordedComponent,
     SidebarComponent,
+    ShareComponent,
+    InactivityComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -128,7 +134,8 @@ import { MatRippleModule } from '@angular/material/core';
     DigitOnlyModule,
     MatExpansionModule,
     MatSidenavModule,
-    MatRippleModule
+    MatRippleModule,
+    UserIdleModule.forRoot(constants.idleTimouts)
   ],
   providers: [
     {
