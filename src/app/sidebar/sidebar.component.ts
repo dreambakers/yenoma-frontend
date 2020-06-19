@@ -25,7 +25,7 @@ export class SidebarComponent implements OnInit {
     private dialogService: DialogService,
     private authenticationService: AuthenticationService,
     private scrollService: ScrollService,
-    // private changeDetector : ChangeDetectorRef
+    private changeDetector : ChangeDetectorRef
     ) {}
 
   ngOnInit(): void {
@@ -45,10 +45,9 @@ export class SidebarComponent implements OnInit {
     });
   }
 
-  // ngAfterViewChecked(): void {
-  //   console.log('comin in here')
-  //   this.changeDetector.detectChanges();
-  // }
+  ngAfterViewChecked(): void {
+    this.changeDetector.detectChanges();
+  }
 
   logout() {
     this.emitterService.emit(this.constants.emitterKeys.logoutClicked);
