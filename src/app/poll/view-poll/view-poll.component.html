@@ -30,7 +30,7 @@
     </app-alert>
   </ng-container>
 
-  <mat-card class="p-0">
+  <mat-card class="p-0" *ngIf="!isDeleted">
     <div class="border-bottom">
       <h4 class="p-3 m-0">
         <span *ngIf="poll.title; else placeHolderTitle">
@@ -44,7 +44,7 @@
       </h4>
     </div>
 
-    <div class="p-3" *ngIf="poll.description || (((isOpen && poll.activeComment) || (poll.status === constants.statusTypes.terminated && poll.inactiveComment)) && !commentDismissed)">
+    <div class="p-3" *ngIf="poll.description || (((isOpen && poll.activeComment) || (isTerminated && poll.inactiveComment)) && !commentDismissed)">
       <div *ngIf="poll.description">
         <p class="m-0 text-break">
           {{poll.description}}
@@ -59,7 +59,7 @@
         </app-alert>
       </div>
 
-      <div *ngIf="poll.status === constants.statusTypes.terminated && poll.inactiveComment && !commentDismissed" [class.mt-3]="poll.description">
+      <div *ngIf="isTerminated && poll.inactiveComment && !commentDismissed" [class.mt-3]="poll.description">
         <app-alert
           [message]="poll.inactiveComment"
           (onDismiss)="commentDismissed = true">

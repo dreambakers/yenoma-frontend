@@ -459,6 +459,14 @@ export class ViewPollComponent implements OnInit {
     return this.poll.status === constants.statusTypes.open;
   }
 
+  get isDeleted() {
+    return this.poll.status === constants.statusTypes.deleted;
+  }
+
+  get isTerminated() {
+    return this.poll.status === constants.statusTypes.terminated;
+  }
+
   get isViewingResponseOfUser() {
     return this.preview && this.hasResponded;
   }

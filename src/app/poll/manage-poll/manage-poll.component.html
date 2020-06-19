@@ -44,7 +44,7 @@
                     </mat-form-field>
                 </mat-card>
                 <mat-accordion>
-                    <mat-expansion-panel class="mat-elevation-z0 mat-ep-no-padding px-3 pb-3" #mep>
+                    <mat-expansion-panel class="mat-elevation-z0 mat-ep-no-padding px-3" [class.pb-3]="!showBasicHints || mep.expanded" #mep>
                         <mat-expansion-panel-header
                             *ngIf="!rearrangeQuestions"
                             class="justify-content-center bg-white mt-2"
@@ -164,10 +164,10 @@
                             </mat-icon>
                             <mat-hint *ngIf="showBasicHints">
                                 {{ 'hints.typePollPassword' | translate }}
-                            </mat-hint>
+                        </mat-hint>
                         </mat-form-field>
                     </mat-expansion-panel>
-                    <div class="text-center text-muted bg-white cursor-pointer expansion-label"
+                    <div class="text-center text-muted bg-white cursor-pointer expansion-label pb-3"
                          *ngIf="!rearrangeQuestions && showBasicHints && !mep.expanded"
                          (click)="mep.expanded = true">
                          <mat-hint>
