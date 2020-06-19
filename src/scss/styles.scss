@@ -170,7 +170,8 @@ button {
 
             .mat-cell {
                 display: block;
-                width: 80%;
+                // width: 80%;
+                margin-right: 50px;
                 min-height: auto;
                 padding: 0 16px;
                 &:first-child {

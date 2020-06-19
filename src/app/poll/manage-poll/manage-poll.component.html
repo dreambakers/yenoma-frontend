@@ -28,8 +28,8 @@
                 </p>
             </div>
 
-            <div class="mat-elevation-z1 bg-white p-3">
-                <mat-card class="mat-elevation-z0 p-0">
+            <div class="mat-elevation-z1 bg-white">
+                <mat-card class="mat-elevation-z0 p-0 px-3 pt-3">
                     <div class="text-right">
                         <i class="fas fa-question-circle text-muted p-2 cursor-pointer"
                            (click)="showBasicHints = !showBasicHints"
@@ -44,7 +44,7 @@
                     </mat-form-field>
                 </mat-card>
                 <mat-accordion>
-                    <mat-expansion-panel class="mat-elevation-z0 mat-ep-no-padding" #mep>
+                    <mat-expansion-panel class="mat-elevation-z0 mat-ep-no-padding px-3 pb-3" #mep>
                         <mat-expansion-panel-header
                             *ngIf="!rearrangeQuestions"
                             class="justify-content-center bg-white mt-2"
@@ -119,21 +119,41 @@
                         </mat-form-field>
 
                         <div class="d-flex flex-column">
-                            <mat-checkbox class="mr-3" [(ngModel)]="poll.allowNames" [disabled]="shouldDisable">
-                                {{ 'labels.allowNames' | translate }}
-                            </mat-checkbox>
+                            <div class="d-flex flex-column align-items-start">
+                                <mat-checkbox class="mr-3 checkbox-reduced-height" [(ngModel)]="poll.allowNames" [disabled]="shouldDisable">
+                                    {{ 'labels.allowNames' | translate }}
+                                </mat-checkbox>
+                                <mat-hint class="ml-l"  *ngIf="showBasicHints">
+                                    {{ 'hints.allowNames' | translate }}
+                                </mat-hint>
+                            </div>
 
-                            <mat-checkbox class="mr-3" [(ngModel)]="poll.allowComments" [disabled]="shouldDisable">
-                                {{ 'labels.allowComments' | translate }}
-                            </mat-checkbox>
+                            <div class="d-flex flex-column align-items-start mt-1">
+                                <mat-checkbox class="mr-3 checkbox-reduced-height" [(ngModel)]="poll.allowComments" [disabled]="shouldDisable">
+                                    {{ 'labels.allowComments' | translate }}
+                                </mat-checkbox>
+                                <mat-hint class="ml-l"  *ngIf="showBasicHints">
+                                    {{ 'hints.allowComments' | translate }}
+                                </mat-hint>
+                            </div>
 
-                            <mat-checkbox [(ngModel)]="poll.automaticNumbering" [disabled]="shouldDisable">
-                                {{ 'labels.automaticNumbering' | translate }}
-                            </mat-checkbox>
+                            <div class="d-flex flex-column align-items-start mt-1">
+                                <mat-checkbox class="mr-3 checkbox-reduced-height" [(ngModel)]="poll.automaticNumbering" [disabled]="shouldDisable">
+                                    {{ 'labels.automaticNumbering' | translate }}
+                                </mat-checkbox>
+                                <mat-hint class="ml-l"  *ngIf="showBasicHints">
+                                    {{ 'hints.questionNumbering' | translate }}
+                                </mat-hint>
+                            </div>
 
-                            <mat-checkbox class="mr-3" (change)="togglePassword()" [disabled]="shouldDisable" [checked]="showPassword || poll.password">
-                                {{ 'labels.passwordProtected' | translate }}
-                            </mat-checkbox>
+                            <div class="d-flex flex-column align-items-start mt-1">
+                                <mat-checkbox class="mr-3 checkbox-reduced-height" (change)="togglePassword()" [disabled]="shouldDisable" [checked]="showPassword || poll.password">
+                                    {{ 'labels.passwordProtected' | translate }}
+                                </mat-checkbox>
+                                <mat-hint class="ml-l"  *ngIf="showBasicHints">
+                                    {{ 'hints.passwordProtected' | translate }}
+                                </mat-hint>
+                            </div>
                         </div>
                         <mat-form-field appearance="outline" class="w-100 mb-2" *ngIf="showPassword || poll.password">
                             <mat-label>{{ 'labels.password' | translate }}</mat-label>
@@ -187,7 +207,7 @@
 
                 <div class="d-flex flex-column" *ngIf="!rearrangeQuestions">
                     <div class="d-flex justify-content-between align-items-center">
-                        <div class="d-flex align-items-center edit-mode-toggle">
+                        <div class="d-flex flex-column align-items-start edit-mode-toggle">
                             <i class="fas fa-sort cursor-pointer"
                                [ngClass]="{
                                    'color-disabled': !question.options.length,
@@ -197,6 +217,9 @@
                                (click)="toggleQuestionEditMode(question)"
                                *ngIf="!shouldDisable">
                             </i>
+                            <mat-hint *ngIf="question.showHints">
+                                {{ 'hints.arrangeOptions' | translate }}
+                            </mat-hint>
                         </div>
                         <div class="d-flex justify-content-end align-items-center" [class.mb-3]="question.showHints">
                             <mat-form-field class="dropdown-container">
@@ -298,33 +321,51 @@
                             </mat-form-field>
                         </div>
 
-                        <div *ngIf="question.answerType === constants.answerTypes.checkbox || question.answerType === constants.answerTypes.radioButton">
+                        <div
+                            class="d-flex flex-column align-items-start mb-2"
+                            *ngIf="question.answerType === constants.answerTypes.checkbox || question.answerType === constants.answerTypes.radioButton">
                             <mat-checkbox
-                                class="mb-3"
+                                class="checkbox-reduced-height"
                                 [(ngModel)]="question.allowOtherAnswer"
                                 [disabled]="shouldDisable">
                                 {{ 'labels.allowOtherAnswer' | translate }}
                             </mat-checkbox>
+                            <mat-hint class="ml-l" *ngIf="question.showHints">
+                                {{ 'hints.allowOtherAnswer' | translate }}
+                            </mat-hint>
                         </div>
 
-                        <div *ngIf="question.answerType === constants.answerTypes.radioButton">
+                        <div
+                            class="d-flex flex-column align-items-start mb-2"
+                            *ngIf="question.answerType === constants.answerTypes.radioButton">
                             <mat-checkbox
-                                class="mb-3"
+                                class="checkbox-reduced-height"
                                 [(ngModel)]="question.radioToDropdown"
                                 [disabled]="shouldDisable">
                                 {{ 'labels.useDropdown' | translate }}
                             </mat-checkbox>
+                            <mat-hint class="ml-l" *ngIf="question.showHints">
+                                {{ 'hints.useDropdown' | translate }}
+                            </mat-hint>
                         </div>
 
-                        <div class="d-flex flex-column"
+                        <div class="d-flex flex-column mb-2"
                             *ngIf="question.answerType === constants.answerTypes.checkbox && question.options.length > 2">
-                            <mat-checkbox
-                                class="mb-3"
-                                (change)="toggleLimit(question)"
-                                [disabled]="shouldDisable"
-                                [checked]="question.limits">
-                                {{ 'labels.limitChecks' | translate }}
-                            </mat-checkbox>
+
+                            <div
+                                class="d-flex flex-column align-items-start mb-2"
+                                *ngIf="question.answerType === constants.answerTypes.checkbox || question.answerType === constants.answerTypes.radioButton">
+                                <mat-checkbox
+                                    class="checkbox-reduced-height"
+                                    (change)="toggleLimit(question)"
+                                    [disabled]="shouldDisable"
+                                    [checked]="question.limits">
+                                    {{ 'labels.limitChecks' | translate }}
+                                </mat-checkbox>
+                                <mat-hint class="ml-l" *ngIf="question.showHints">
+                                    {{ 'hints.limitChecks' | translate }}
+                                </mat-hint>
+                            </div>
 
                             <div class="d-flex flex-column flex-md-row justify-content-start" *ngIf="question.limits">
                                 <mat-form-field appearance="outline">
@@ -411,7 +452,7 @@
                             </div>
                         </div>
 
-                        <div *ngIf="!rearrangeQuestions && !shouldDisable" class="d-flex flex-column align-items-center mt-3">
+                        <div *ngIf="!rearrangeQuestions && !shouldDisable" class="d-flex flex-column align-items-center">
                             <div>
                                 <i class="fas fa-plus-circle text-primary cursor-pointer"
                                     (click)="addOption(question)" *ngIf="isMobile; else desktopButton"></i>

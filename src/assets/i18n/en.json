@@ -74,7 +74,15 @@
     "thankYouTitle": "This title will be shown to the responder once they have responded",
     "typeOption": "Type option {{OPN}}",
     "typePollPassword": "Type poll password",
-    "typeQuestion": "Type question {{QN}}"
+    "typeQuestion": "Type question {{QN}}",
+    "arrangeOptions": "Arrange options",
+    "allowNames": "Provide text field to allow responder to enter his/her name",
+    "allowComments": "Provide text field to allow responder to enter a comment",
+    "questionNumbering": "When checked, automatic question numbers will be shown",
+    "passwordProtected": "When checked, answering this survery will require a password",
+    "allowOtherAnswer": "Allow last option to trigger a text field which can be used to enter a text answer",
+    "useDropdown": "Use dropdown for options",
+    "limitChecks": "Limit the number of checks that can be selected marked by the responder"
   },
   "labels": {
     "about": "About",
