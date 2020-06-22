@@ -253,6 +253,15 @@ export class ManagePollComponent implements OnInit, OnDestroy {
 
   togglePreview() {
     this.preview = !this.preview;
+    if (this.preview) {
+      this.emitterService.emit(constants.emitterKeys.changeNavbarTitle, {
+        key: 'labels.pollPreview',
+      });
+    } else {
+      this.emitterService.emit(constants.emitterKeys.changeNavbarTitle, {
+        key: 'labels.managePoll',
+      });
+    }
     this.updateMobileNavbar();
     this.deleteEditKeys();
   }

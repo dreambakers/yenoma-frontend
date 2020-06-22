@@ -63,7 +63,8 @@ export const constants = {
     },
 
     idleTimouts: {
-        idle: 5,
+        // 2.8 hours
+        idle: 10200,
         timeout: 10,
         ping: 120
     }

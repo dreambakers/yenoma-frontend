@@ -52,10 +52,12 @@
           {{ 'labels.responders' | translate }}
         </mat-header-cell>
         <mat-cell *matCellDef="let poll" class="justify-content-center text-ellipsis" [class.text-muted]="isMobile">
-          {{ poll.responses || 0 }}
-          <span *ngIf="isMobile">
-            {{ 'labels.responders' | translate | lowercase }}
+          <span *ngIf="!isMobile; else mobileResponsesCount">
+            {{ poll.responses || 0 }}
           </span>
+          <ng-template #mobileResponsesCount>
+              {{ 'labels.mobileResponsesCount' | translate: { RC: poll.responses } }}
+          </ng-template>
         </mat-cell>
       </ng-container>
 
