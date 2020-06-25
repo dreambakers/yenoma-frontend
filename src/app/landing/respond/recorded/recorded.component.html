@@ -1,7 +1,7 @@
-<mat-card class="d-flex flex-column justify-content-center align-items-center py-5 mx-3 text-center" *ngIf="!loading">
+<div class="d-flex flex-column justify-content-center align-items-center p-3 text-center" *ngIf="!loading">
   <i class="far fa-check-circle text-primary" style="font-size:12rem"></i>
 
-  <h4 style="font-size: 2rem;" class="mt-5">
+  <h4 style="font-size: 2rem;" class="mt-5 text-break">
     <span *ngIf="title; else fbTitle">
       {{ title }}
     </span>
@@ -10,7 +10,7 @@
     </ng-template>
   </h4>
 
-  <h6>
+  <h6 class="text-break">
     <span *ngIf="message; else fbMessage">
       {{ message }}
     </span>
@@ -87,4 +87,4 @@
 
   </div>
 
-</mat-card>
+</div>

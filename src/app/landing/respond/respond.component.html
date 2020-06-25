@@ -1,12 +1,12 @@
 <div class="container h-100">
     <div class="row h-100 justify-content-center align-items-center">
-        <div class="col-lg-10 col-xl-9 mx-auto pb-1 px-0">
-            <app-recorded
-                *ngIf="responded; else responseFormContainer"
-                [messageKey]="getMessageKey()"
-                (onBackToPoll)="onSubmit()">
-            </app-recorded>
-
+        <div class="col-lg-10 col-xl-9 mx-auto mb-1 px-0">
+            <div class="card card-signin" *ngIf="responded; else responseFormContainer">
+                <app-recorded
+                    [messageKey]="getMessageKey()"
+                    (onBackToPoll)="onSubmit()">
+                </app-recorded>
+            </div>
             <ng-template #responseFormContainer>
                 <div class="card card-signin flex-row my-1">
                     <div class="card-img-left d-none d-md-flex flex-column align-items-center justify-content-center">
