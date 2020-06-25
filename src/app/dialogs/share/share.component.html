@@ -17,10 +17,15 @@
             {{ 'messages.surveySharingMessage' | translate }}
         </span>
 
-        <button class="btn btn-primary mt-2" (click)="copyLink()">
-            {{ 'labels.copyLink' | translate }}
-        </button>
+        <div class="d-flex flex-row justify-content-{{ canShare ? 'between' : 'center'}} w-100">
+            <button class="btn btn-primary mt-2" (click)="copyLink()">
+                {{ 'labels.copyLink' | translate }}
+            </button>
 
+            <button class="btn btn-primary mt-2" (click)="shareLink()" *ngIf="canShare">
+                {{ 'labels.shareLink' | translate }}
+            </button>
+        </div>
     </div>
 
     <div class="separator text-muted" *ngIf="qrUrl">{{ 'labels.or' | translate }}</div>

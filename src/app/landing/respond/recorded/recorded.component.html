@@ -32,16 +32,47 @@
   </p>
 
   <div>
-    <!--Facebook-->
-    <a class="btn-floating btn-lg btn-fb" type="button" role="button"><i class="fab fa-facebook-f"></i></a>
+
+    <!-- Facebook-->
+    <a
+      target="_blank"
+      class="btn-floating btn-lg btn-fb"
+      type="button"
+      role="button"
+      href="https://www.facebook.com/sharer/sharer.php?u={{ getSuveryUrl() }}&t={{ getSharingText() }}">
+          <i class="fab fa-facebook-f"></i>
+    </a>
+
     <!--Twitter-->
-    <a class="btn-floating btn-lg btn-tw" type="button" role="button"><i class="fab fa-twitter"></i></a>
-    <!--Instagram-->
-    <a class="btn-floating btn-lg btn-ins" type="button" role="button"><i class="fab fa-instagram"></i></a>
+    <a
+      target="_blank"
+      class="btn-floating btn-lg btn-tw"
+      type="button"
+      role="button"
+      href="https://twitter.com/share?url={{ getSuveryUrl() }}&text={{ getSharingText() }}">
+      <i class="fab fa-twitter"></i>
+    </a>
+
+    <a
+      target="_blank"
+      class="btn-floating btn-lg btn-whatsapp"
+      type="button"
+      role="button"
+      href="whatsapp://send?text={{ getCombinedText() }}"
+      data-action="share/whatsapp/share">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
     <!--Reddit-->
-    <a class="btn-floating btn-lg btn-reddit" type="button" role="button"><i class="fab fa-reddit-alien"></i></a>
-    <!--WhatsApp-->
-    <a class="btn-floating btn-lg btn-whatsapp" type="button" role="button"><i class="fab fa-whatsapp"></i></a>
+    <a
+      target="_blank"
+      class="btn-floating btn-lg btn-fb"
+      type="button"
+      role="button"
+      href="http://www.reddit.com/submit?url={{ getSuveryUrl() }}&title={{ getSharingText() }}">
+          <i class="fab fa-reddit-alien"></i>
+    </a>
+
   </div>
 
 </mat-card>

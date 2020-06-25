@@ -2,6 +2,8 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { take } from 'rxjs/operators';
 import { PollService } from 'src/app/services/poll.service';
+import { TranslateService } from '@ngx-translate/core';
+import { Utility } from 'src/app/shared/utils/utility';
 
 @Component({
   selector: 'app-recorded',
@@ -10,6 +12,7 @@ import { PollService } from 'src/app/services/poll.service';
 })
 export class RecordedComponent implements OnInit {
 
+  poll;
   title;
   message;
   loading = false;
@@ -18,7 +21,8 @@ export class RecordedComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private pollService: PollService
+    private pollService: PollService,
+    private translateService: TranslateService
   ) { }
 
   ngOnInit(): void {
@@ -27,12 +31,13 @@ export class RecordedComponent implements OnInit {
       this.pollService.getPoll(params['id']).subscribe(
         (res: any) => {
           if (res.success) {
+            this.poll = res.poll;
             this.title = res.poll.thankYouTitle;
             this.message = res.poll.thankYouMessage;
           }
           this.loading = false;
         },
-        err => {
+      err => {
           this.loading = false;
         }
       );
@@ -41,6 +46,26 @@ export class RecordedComponent implements OnInit {
 
   onBackToPollClick() {
     this.onBackToPoll.emit();
+  }
+
+  getSharingText(encode = true) {
+    const text = this.translateService.instant('messages.sharePoll');
+    if (encode) {
+      return encodeURI(text);
+    }
+    return text;
+  }
+
+  getSuveryUrl(encode = true) {
+    const url = Utility.getPollUrl(this.poll);
+    if (encode) {
+      return encodeURIComponent(url);
+    }
+    return url;
+  }
+
+  getCombinedText() {
+    return this.getSharingText() + encodeURI(' ') + this.getSuveryUrl();
   }
 
 }

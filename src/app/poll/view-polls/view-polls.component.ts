@@ -53,7 +53,6 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     public translate: TranslateService,
-    private ngNavigatorShareService: NgNavigatorShareService,
     private emitterService: EmitterService,
     private dialogService: DialogService,
     private userService: UserService,
@@ -284,15 +283,7 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
   }
 
   sharePoll(poll) {
-    const pollUrl = window.location.origin + `/p?id=${poll.shortId}`;
-    this.ngNavigatorShareService.share({
-      title: this.translate.instant('messages.sharePollTitle'),
-      text: this.translate.instant('messages.sharePoll'),
-      url: pollUrl,
-    })
-    .catch((error) => {
-      this.dialogService.share(poll);
-    });
+    this.dialogService.share(poll);
   }
 
   togglePreview(poll = null) {

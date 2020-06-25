@@ -218,7 +218,8 @@
     "view": "View",
     "vote": "Vote",
     "yes": "Yes",
-    "mobileResponsesCount": "{{RC}} responders"
+    "mobileResponsesCount": "{{RC}} responders",
+    "shareLink": "Share link"
   },
   "messages": {
     "areYouSure": "Are you sure?",

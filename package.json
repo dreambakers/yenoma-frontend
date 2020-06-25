@@ -27,7 +27,7 @@
     "angular-user-idle": "^2.2.2",
     "bootstrap": "^4.4.1",
     "moment": "^2.24.0",
-    "ng-navigator-share": "^1.0.1",
+    "ng-navigator-share": "^1.0.4",
     "qrcode": "^1.4.4",
     "rxjs": "~6.5.5",
     "tslib": "^1.10.0",
