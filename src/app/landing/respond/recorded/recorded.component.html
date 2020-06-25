@@ -31,7 +31,7 @@
     {{ 'labels.shareWithFriends' | translate }}
   </p>
 
-  <div>
+  <div class="share-icons">
 
     <!-- Facebook-->
     <a
@@ -53,12 +53,13 @@
       <i class="fab fa-twitter"></i>
     </a>
 
+    <!--Whatsapp-->
     <a
       target="_blank"
       class="btn-floating btn-lg btn-whatsapp"
       type="button"
       role="button"
-      href="whatsapp://send?text={{ getCombinedText() }}"
+      href="whatsapp://send?text={{ getSuveryUrl() }}"
       data-action="share/whatsapp/share">
         <i class="fab fa-whatsapp"></i>
     </a>
@@ -71,6 +72,17 @@
       role="button"
       href="http://www.reddit.com/submit?url={{ getSuveryUrl() }}&title={{ getSharingText() }}">
           <i class="fab fa-reddit-alien"></i>
+    </a>
+
+    <!--Generic share-->
+    <a
+      *ngIf="hasNavigatorShare"
+      target="_blank"
+      class="text-primary btn-floating btn-lg btn-fb"
+      type="button"
+      role="button"
+      (click)="navigatorShare()">
+       <i class="fas fa-share-alt"></i>
     </a>
 
   </div>

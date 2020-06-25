@@ -4,6 +4,7 @@ import { take } from 'rxjs/operators';
 import { PollService } from 'src/app/services/poll.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Utility } from 'src/app/shared/utils/utility';
+import { NgNavigatorShareService } from 'ng-navigator-share';
 
 @Component({
   selector: 'app-recorded',
@@ -16,16 +17,19 @@ export class RecordedComponent implements OnInit {
   title;
   message;
   loading = false;
+  hasNavigatorShare = false;
   @Input() messageKey;
   @Output() onBackToPoll = new EventEmitter();
 
   constructor(
     private route: ActivatedRoute,
     private pollService: PollService,
-    private translateService: TranslateService
+    private translate: TranslateService,
+    private ngNavigatorShareService: NgNavigatorShareService,
   ) { }
 
   ngOnInit(): void {
+    this.hasNavigatorShare = this.ngNavigatorShareService.canShare();
     this.route.queryParams.pipe(take(1)).subscribe(params => {
       this.loading = true;
       this.pollService.getPoll(params['id']).subscribe(
@@ -49,7 +53,7 @@ export class RecordedComponent implements OnInit {
   }
 
   getSharingText(encode = true) {
-    const text = this.translateService.instant('messages.sharePoll');
+    const text = this.translate.instant('messages.sharePoll');
     if (encode) {
       return encodeURI(text);
     }
@@ -66,6 +70,14 @@ export class RecordedComponent implements OnInit {
 
   getCombinedText() {
     return this.getSharingText() + encodeURI(' ') + this.getSuveryUrl();
+  }
+
+  navigatorShare() {
+    this.ngNavigatorShareService.share({
+      title: this.translate.instant('messages.sharePollTitle'),
+      text: this.translate.instant('messages.sharePoll'),
+      url: this.getSuveryUrl(false),
+    })
   }
 
 }
