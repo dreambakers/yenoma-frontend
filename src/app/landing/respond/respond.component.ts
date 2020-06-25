@@ -59,7 +59,7 @@ export class RespondComponent implements OnInit {
     this.pollService.getPoll(id).subscribe(
       (response: any) => {
         if (response.poll) {
-          this.router.navigate(['p'], { queryParams: { id } });
+          this.router.navigate(['p', id]);
         } else {
           this.utils.openSnackBar('messages.noPollFoundAgainstId', 'labels.retry');
         }

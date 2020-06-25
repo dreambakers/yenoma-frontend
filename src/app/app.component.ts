@@ -12,7 +12,6 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'Polling';
   selectedLanguage;
   constants = constants;
   destroy$: Subject<boolean> = new Subject<boolean>();

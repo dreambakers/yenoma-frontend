@@ -29,7 +29,7 @@ const routes: Routes = [
         path: 'view', redirectTo: 'p'
       },
       {
-        path: 'p', component: ViewPollComponent
+        path: 'p/:id', component: ViewPollComponent
       },
       {
         path: 'login', component: LoginComponent
