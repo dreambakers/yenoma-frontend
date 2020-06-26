@@ -36,6 +36,21 @@
           {{ 'labels.about' | translate }}
         </a>
 
+        <a class="nav-link cursor-pointer" (click)="toggleSidebar() && termsAndConditions()" matRipple>
+          <i class="fas fa-info-circle mr-2"></i>
+          {{ 'labels.termsAndConditions' | translate }}
+        </a>
+
+        <a class="nav-link cursor-pointer" (click)="toggleSidebar() && cookiePolicy()" matRipple>
+          <i class="fas fa-info-circle mr-2"></i>
+          {{ 'labels.cookiePolicy' | translate }}
+        </a>
+
+        <a class="nav-link cursor-pointer" (click)="toggleSidebar() && imprint()" matRipple>
+          <i class="fas fa-info-circle mr-2"></i>
+          {{ 'labels.imprint' | translate }}
+        </a>
+
         <mat-divider></mat-divider>
 
         <a class="nav-link cursor-pointer" (click)="toggleSidebar() && logout()" matRipple>

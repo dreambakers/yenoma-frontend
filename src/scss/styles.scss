@@ -395,3 +395,15 @@ button {
 .mat-ripple{
     z-index:50; // 50 for example
 }
+
+.responsive-dialog-content {
+    max-height: 450px;
+    max-width: 500px;
+}
+
+@media screen and (max-height:450px) and (orientation:landscape) {
+    /* Landscape styles */
+    .responsive-dialog-content {
+        max-height: 150px !important;
+    }
+}

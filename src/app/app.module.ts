@@ -67,6 +67,9 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatRippleModule } from '@angular/material/core';
 import { InactivityComponent } from './dialogs/inactivity/inactivity.component';
 import { constants } from './app.constants';
+import { CookiePolicyComponent } from './dialogs/cookie-policy/cookie-policy.component';
+import { ImprintComponent } from './dialogs/imprint/imprint.component';
+import { TermsAndConditionsComponent } from './dialogs/terms-and-conditions/terms-and-conditions.component';
 
 @NgModule({
   declarations: [
@@ -95,6 +98,9 @@ import { constants } from './app.constants';
     SidebarComponent,
     ShareComponent,
     InactivityComponent,
+    CookiePolicyComponent,
+    ImprintComponent,
+    TermsAndConditionsComponent,
   ],
   imports: [
     BrowserAnimationsModule,

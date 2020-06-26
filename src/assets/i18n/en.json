@@ -14,7 +14,10 @@
     "questionerHint": "",
     "responderWarning": "",
     "responderHint": "",
-    "aboutText": "EN Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus enim, recusandae ipsam fuga rerum blanditiis maxime corrupti corporis sit ducimus doloribus? Sit, in suscipit ut fugit consectetur explicabo recusandae. Quaerat. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus enim, recusandae ipsam fuga rerum blanditiis maxime corrupti corporis sit ducimus doloribus? Sit, in suscipit ut fugit consectetur explicabo recusandae. Quaerat."
+    "aboutText": "EN Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus enim, recusandae ipsam fuga rerum blanditiis maxime corrupti corporis sit ducimus doloribus? Sit, in suscipit ut fugit consectetur explicabo recusandae. Quaerat. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus enim, recusandae ipsam fuga rerum blanditiis maxime corrupti corporis sit ducimus doloribus? Sit, in suscipit ut fugit consectetur explicabo recusandae. Quaerat.",
+    "cookiePolicy": "EN Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus enim, recusandae ipsam fuga rerum blanditiis maxime corrupti corporis sit ducimus doloribus? Sit, in suscipit ut fugit consectetur explicabo recusandae. Quaerat. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus enim, recusandae ipsam fuga rerum blanditiis maxime corrupti corporis sit ducimus doloribus? Sit, in suscipit ut fugit consectetur explicabo recusandae. Quaerat.",
+    "imprint": "EN Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus enim, recusandae ipsam fuga rerum blanditiis maxime corrupti corporis sit ducimus doloribus? Sit, in suscipit ut fugit consectetur explicabo recusandae. Quaerat. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus enim, recusandae ipsam fuga rerum blanditiis maxime corrupti corporis sit ducimus doloribus? Sit, in suscipit ut fugit consectetur explicabo recusandae. Quaerat.",
+    "termsAndConditions": "EN Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus enim, recusandae ipsam fuga rerum blanditiis maxime corrupti corporis sit ducimus doloribus? Sit, in suscipit ut fugit consectetur explicabo recusandae. Quaerat. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus enim, recusandae ipsam fuga rerum blanditiis maxime corrupti corporis sit ducimus doloribus? Sit, in suscipit ut fugit consectetur explicabo recusandae. Quaerat."
   },
   "answers": {
     "false": "Unchecked",
@@ -219,7 +222,10 @@
     "vote": "Vote",
     "yes": "Yes",
     "mobileResponsesCount": "{{RC}} responders",
-    "shareLink": "Share link"
+    "shareLink": "Share link",
+    "cookiePolicy": "Cookie Policy",
+    "imprint": "Imprint",
+    "termsAndConditions": "Terms and Conditions"
   },
   "messages": {
     "areYouSure": "Are you sure?",

@@ -84,4 +84,16 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.emitterService.emit(this.constants.emitterKeys.aboutClicked);
   }
 
+  cookiePolicy() {
+    this.emitterService.emit(this.constants.emitterKeys.cookiePolicyClicked);
+  }
+
+  imprint() {
+    this.emitterService.emit(this.constants.emitterKeys.imprintClicked);
+  }
+
+  termsAndConditions() {
+    this.emitterService.emit(this.constants.emitterKeys.termsAndConditionsClicked);
+  }
+
 }

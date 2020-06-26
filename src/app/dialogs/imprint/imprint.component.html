@@ -1,0 +1,18 @@
+<h1 mat-dialog-title>
+    {{ 'labels.imprint' | translate }}
+</h1>
+
+<div mat-dialog-content class="border-top overflow-auto responsive-dialog-content">
+
+    <div class="mt-3">
+        <p class="text-justify">
+            {{ 'globalMessages.imprint' | translate }}
+        </p>
+    </div>
+</div>
+
+<div mat-dialog-actions>
+    <button mat-raised-button color="primary" (click)="onDismiss()">
+        {{ 'labels.back' | translate }}
+    </button>
+</div>

@@ -11,6 +11,9 @@ import { LanguageComponent } from '../dialogs/language/language.component';
 import { constants } from '../app.constants';
 import { ShareComponent } from '../dialogs/share/share.component';
 import { InactivityComponent } from '../dialogs/inactivity/inactivity.component';
+import { CookiePolicyComponent } from '../dialogs/cookie-policy/cookie-policy.component';
+import { ImprintComponent } from '../dialogs/imprint/imprint.component';
+import { TermsAndConditionsComponent } from '../dialogs/terms-and-conditions/terms-and-conditions.component';
 
 @Injectable({
   providedIn: 'root'
@@ -51,6 +54,27 @@ export class DialogService {
 
   about(): Observable<any> {
     const dialogRef = this.dialog.open(AboutComponent, {
+      minWidth: !DataService.isMobile ? this.constants.dialogWidth.desktop : this.constants.dialogWidth.mobile,
+    });
+    return dialogRef.afterClosed();
+  }
+
+  cookiePolicy(): Observable<any> {
+    const dialogRef = this.dialog.open(CookiePolicyComponent, {
+      minWidth: !DataService.isMobile ? this.constants.dialogWidth.desktop : this.constants.dialogWidth.mobile,
+    });
+    return dialogRef.afterClosed();
+  }
+
+  imprint(): Observable<any> {
+    const dialogRef = this.dialog.open(ImprintComponent, {
+      minWidth: !DataService.isMobile ? this.constants.dialogWidth.desktop : this.constants.dialogWidth.mobile,
+    });
+    return dialogRef.afterClosed();
+  }
+
+  termsAndConditions(): Observable<any> {
+    const dialogRef = this.dialog.open(TermsAndConditionsComponent, {
       minWidth: !DataService.isMobile ? this.constants.dialogWidth.desktop : this.constants.dialogWidth.mobile,
     });
     return dialogRef.afterClosed();
