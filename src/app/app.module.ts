@@ -7,6 +7,8 @@ import {HttpClient, HttpClientModule} from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 
+import { constants } from './app.constants';
+
 // import ngx-translate and the http loader
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -36,6 +38,14 @@ import { AlertComponent } from './shared/alert/alert.component';
 import { RecordedComponent } from './landing/respond/recorded/recorded.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ShareComponent } from './dialogs/share/share.component';
+import { CookiePolicyComponent } from './dialogs/cookie-policy/cookie-policy.component';
+import { ImprintComponent } from './dialogs/imprint/imprint.component';
+import { TermsAndConditionsComponent } from './dialogs/terms-and-conditions/terms-and-conditions.component';
+import { SettingsComponent } from './settings/settings.component';
+import { ProfileComponent } from './settings/profile/profile.component';
+import { GeneralComponent } from './settings/general/general.component';
+import { SecurityComponent } from './settings/security/security.component';
+import { InactivityComponent } from './dialogs/inactivity/inactivity.component';
 
 import { DigitOnlyModule } from '@uiowa/digit-only';
 import { UserIdleModule } from 'angular-user-idle';
@@ -65,11 +75,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatRippleModule } from '@angular/material/core';
-import { InactivityComponent } from './dialogs/inactivity/inactivity.component';
-import { constants } from './app.constants';
-import { CookiePolicyComponent } from './dialogs/cookie-policy/cookie-policy.component';
-import { ImprintComponent } from './dialogs/imprint/imprint.component';
-import { TermsAndConditionsComponent } from './dialogs/terms-and-conditions/terms-and-conditions.component';
+
 
 @NgModule({
   declarations: [
@@ -101,6 +107,10 @@ import { TermsAndConditionsComponent } from './dialogs/terms-and-conditions/term
     CookiePolicyComponent,
     ImprintComponent,
     TermsAndConditionsComponent,
+    SettingsComponent,
+    ProfileComponent,
+    GeneralComponent,
+    SecurityComponent,
   ],
   imports: [
     BrowserAnimationsModule,

@@ -38,7 +38,8 @@
     "smiley": "Smiley",
     "text": "Text",
     "value": "Value",
-    "yesNoMaybe": "Yes No Maybe"
+    "yesNoMaybe": "Yes No Maybe",
+    "email": "Email address"
   },
   "errors": {
     "e001_creatingPoll": "An error occurred while creating the survey (#001)",
@@ -225,7 +226,11 @@
     "shareLink": "Share link",
     "cookiePolicy": "Cookie Policy",
     "imprint": "Imprint",
-    "termsAndConditions": "Terms and Conditions"
+    "termsAndConditions": "Terms and Conditions",
+    "saveChanges": "Save Changes",
+    "level": "Level",
+    "username": "Username",
+    "country": "Country"
   },
   "messages": {
     "areYouSure": "Are you sure?",
@@ -274,7 +279,11 @@
     "sharePoll": "View survey created on YNM application",
     "sharePollTitle": "View survey",
     "surveySharingMessage": "Anyone with the link can view the survey.",
-    "userAlreadyExists": "A user with the same email already exists"
+    "userAlreadyExists": "A user with the same email already exists",
+    "usernameRequirement": "Username must be at least 5 characters and can only contain alphabets",
+    "userEmailAlreadyExists": "A user with the same email already exists",
+    "usernameAlreadyExists": "A user with the same username already exists"
+
   },
   "placeholders": {
     "activeComment": "Active comment",
@@ -290,7 +299,8 @@
     "question": "What is your favorite food?",
     "textAnswer": "Your answer (500 chars max.)",
     "title": "A survey about food",
-    "typeYourAnswer": "Type your answer"
+    "typeYourAnswer": "Type your answer",
+    "username": "Username"
   },
   "pollActions": {
     "delete": "Delete",

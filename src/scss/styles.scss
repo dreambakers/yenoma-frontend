@@ -140,6 +140,12 @@ button {
             padding: 0;
         }
     }
+
+    &.input-no-label {
+        .mat-form-field-infix {
+            border: 0;
+        }
+    }
 }
 
 .mat-row {
@@ -405,5 +411,24 @@ button {
     /* Landscape styles */
     .responsive-dialog-content {
         max-height: 150px !important;
+    }
+}
+
+.mat-select-custom {
+    .mat-select-value {
+        padding: 0.7rem;
+    }
+}
+
+#settingsComponent {
+    .mat-tab-body-content {
+        justify-content: start !important;
+    }
+
+    .mat-form-field-disabled {
+        .mat-form-field-wrapper {
+            border-radius: 5px;
+            background-color: #e9ecef;
+        }
     }
 }
