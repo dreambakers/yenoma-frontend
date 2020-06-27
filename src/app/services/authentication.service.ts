@@ -17,7 +17,7 @@ export class AuthenticationService {
     private emitterService: EmitterService
   ) { }
 
-  authenticateUser(email: string, password: string, signUp = false, remember = false) {
+  authenticateUser(user: { email, password, username }, signUp = false, remember = false) {
     let requestUrl = `${constants.apiUrl}/user`;
 
     if (signUp) {
@@ -27,7 +27,7 @@ export class AuthenticationService {
       requestUrl += '/login'
     }
 
-    return this.http.post(requestUrl, { email, password, remember }, {observe: 'response'});
+    return this.http.post(requestUrl, { ...user }, {observe: 'response'});
   }
 
   logout(sessionExpired = false) {

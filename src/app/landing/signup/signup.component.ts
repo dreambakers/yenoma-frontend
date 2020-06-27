@@ -25,6 +25,7 @@ export class SignupComponent implements OnInit {
   ngOnInit() {
 
     this.signupForm = this.formBuilder.group({
+      username: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9]+$'), Validators.minLength(5)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', [Validators.required]]
@@ -43,7 +44,13 @@ export class SignupComponent implements OnInit {
       return;
     }
 
-    this.auth.authenticateUser(this.signupForm.value.email, this.signupForm.value.password, true).subscribe(
+    const user = {
+      email: this.signupForm.value.email,
+      password: this.signupForm.value.password,
+      username: this.signupForm.value.username
+    }
+
+    this.auth.authenticateUser(user, true).subscribe(
       response => {
         if (response.headers.get('x-auth')) {
           const user = { ...response.body, authToken: response.headers.get('x-auth') };
@@ -52,8 +59,16 @@ export class SignupComponent implements OnInit {
         }
       },
       errorResponse => {
-        const errorMessageKey = errorResponse.error.alreadyExists ? 'messages.userAlreadyExists' : 'errors.e009_signingUp';
-        this.utils.openSnackBar(errorMessageKey, 'labels.retry');
+        if (errorResponse.error.alreadyExists) {
+          if (errorResponse.error.username) {
+            this.signupForm.controls['username'].setErrors({'usernameExists': true});
+          }
+          if (errorResponse.error.email) {
+            this.signupForm.controls['email'].setErrors({'emailExists': true});
+          }
+          return;
+        }
+        this.utils.openSnackBar('errors.e009_signingUp', 'labels.retry');
       }
     );
   }

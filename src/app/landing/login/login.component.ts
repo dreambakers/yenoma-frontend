@@ -41,7 +41,14 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.invalid) {
       return;
     }
-    this.auth.authenticateUser(this.loginForm.value.email, this.loginForm.value.password, false, this.loginForm.value.rememberLogin).subscribe((response: any) => {
+
+    const user = {
+      email: this.loginForm.value.email,
+      password: this.loginForm.value.password,
+      username: this.loginForm.value.username
+    }
+
+    this.auth.authenticateUser(user, false, this.loginForm.value.rememberLogin).subscribe((response: any) => {
       if (response.headers.get('x-auth')) {
         const user = { ...response.body, authToken: response.headers.get('x-auth') };
         this.userService.updatePreference({ stayLoggedIn: this.loginForm.value.rememberLogin });
