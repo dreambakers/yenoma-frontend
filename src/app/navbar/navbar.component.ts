@@ -9,6 +9,7 @@ import { DataService } from '../services/data.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { DialogService } from '../services/dialog.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -22,12 +23,15 @@ export class NavbarComponent implements OnInit, OnDestroy {
   currentPage: any = {};
   destroy$: Subject<boolean> = new Subject<boolean>();
 
-  constructor(private auth: AuthenticationService,
-              private userService: UserService,
-              private utils: UtilService,
-              public translate: TranslateService,
-              private emitterService: EmitterService,
-              private dialogService: DialogService) { }
+  constructor(
+    private auth: AuthenticationService,
+    private userService: UserService,
+    private utils: UtilService,
+    public translate: TranslateService,
+    private emitterService: EmitterService,
+    private dialogService: DialogService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.user = this.userService.getLoggedInUser();
@@ -94,6 +98,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   termsAndConditions() {
     this.emitterService.emit(this.constants.emitterKeys.termsAndConditionsClicked);
+  }
+
+  settings() {
+    this.router.navigate(['dashboard/settings']);
   }
 
 }
