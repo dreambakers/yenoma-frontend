@@ -15,6 +15,14 @@ export class UserService {
     return this.http.post(`${constants.apiUrl}/user/changePassword/`, { oldPassword, newPassword });
   }
 
+  updateProfile(profile) {
+    return this.http.post(`${constants.apiUrl}/user/updateProfile/`, profile);
+  }
+
+  getProfile() {
+    return this.http.get(`${constants.apiUrl}/user/getProfile/`);
+  }
+
   getLoggedInUser() {
     return JSON.parse(localStorage.getItem('user'));
   }

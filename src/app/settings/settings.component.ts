@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../services/data.service';
+import { UserService } from '../services/user.service';
+import { UtilService } from '../services/util.service';
 
 @Component({
   selector: 'app-settings',
@@ -8,9 +10,31 @@ import { DataService } from '../services/data.service';
 })
 export class SettingsComponent implements OnInit {
 
-  constructor() { }
+  user;
+  loading = false;
+
+  constructor(
+    private userService: UserService,
+    private utils: UtilService
+  ) { }
 
   ngOnInit(): void {
+    this.loading = true;
+    this.userService.getProfile().subscribe(
+      (res: any) => {
+        if (res.success) {
+          this.user = res.user;
+          this.loading = false;
+        } else {
+          this.loading = false;
+          this.utils.openSnackBar('errors.e017_gettingProfile');
+        }
+      },
+      err => {
+        this.loading = false;
+        this.utils.openSnackBar('errors.e017_gettingProfile');
+      }
+    );
   }
 
   get isMobile() {

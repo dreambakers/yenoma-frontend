@@ -57,7 +57,9 @@
     "e013_gettingResponse": "An error occurred while getting the response for the survey (#013)",
     "e014_duplicatingPoll": "An error occurred while duplicating the survey (#014)",
     "e015_changingPassword": "An error occurred while changing the password (#015)",
-    "e016_gettingPolls": "An error occurred while getting the surveys (#016)"
+    "e016_gettingPolls": "An error occurred while getting the surveys (#016)",
+    "e017_gettingProfile": "An error occurred while getting the user profile (#017)",
+    "e018_updatingProfile": "An error occurred while updating the user profile (#018)"
   },
   "hints": {
     "activeComment": "Enter active comment (shown when survey is active)",
@@ -282,8 +284,8 @@
     "userAlreadyExists": "A user with the same email already exists",
     "usernameRequirement": "Username must be at least 5 characters and can only contain alphabets",
     "userEmailAlreadyExists": "A user with the same email already exists",
-    "usernameAlreadyExists": "A user with the same username already exists"
-
+    "usernameAlreadyExists": "A user with the same username already exists",
+    "profileUpdated": "Profile updated successfully"
   },
   "placeholders": {
     "activeComment": "Active comment",
