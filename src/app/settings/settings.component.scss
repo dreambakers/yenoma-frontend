@@ -1,0 +1,6 @@
+.settings-card, .tab-content {
+    min-height: 300px;
+    &.increased-height {
+        min-height: 350px;
+    }
+}

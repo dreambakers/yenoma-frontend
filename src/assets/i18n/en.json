@@ -232,7 +232,8 @@
     "saveChanges": "Save Changes",
     "level": "Level",
     "username": "Username",
-    "country": "Country"
+    "country": "Country",
+    "settings": "Settings"
   },
   "messages": {
     "areYouSure": "Are you sure?",
