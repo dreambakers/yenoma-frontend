@@ -286,7 +286,9 @@
     "usernameRequirement": "Username must be at least 5 characters and can only contain alphabets",
     "userEmailAlreadyExists": "A user with the same email already exists",
     "usernameAlreadyExists": "A user with the same username already exists",
-    "profileUpdated": "Profile updated successfully"
+    "profileUpdated": "Profile updated successfully",
+    "checkVerificationEmail": "Please check your email to verify your account before logging in.",
+    "accountVerified": "Account verified. Please login to proceed."
   },
   "placeholders": {
     "activeComment": "Active comment",

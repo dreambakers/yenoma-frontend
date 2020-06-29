@@ -23,6 +23,10 @@ export class UserService {
     return this.http.get(`${constants.apiUrl}/user/getProfile/`);
   }
 
+  verifySignup(verificationToken) {
+    return this.http.post(`${constants.apiUrl}/user/verifySignup/`, { verificationToken });
+  }
+
   getLoggedInUser() {
     return JSON.parse(localStorage.getItem('user'));
   }

@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { AuthenticationService } from '../../services/authentication.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UtilService } from '../../services/util.service';
 import { UserService } from '../../services/user.service';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -14,6 +15,7 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
   submitted = false;
+  @Output() accountVerification = new EventEmitter();
 
   constructor(
     private auth: AuthenticationService,
@@ -26,6 +28,23 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     if (this.auth.isAuthenticated()) {
       this.router.navigateByUrl('/dashboard/all');
+    } else {
+      this.route.queryParams.pipe(take(1)).subscribe(params => {
+        const verificationToken = params['verificationToken'];
+        if (verificationToken) {
+          this.userService.verifySignup(verificationToken).subscribe(
+            (res: any) => {
+              if (res.success) {
+                this.accountVerification.emit({ verified: true });
+              } else {
+                this.accountVerification.emit({ verified: false });
+              }
+            }, err => {
+              this.accountVerification.emit({ verified: false });
+            }
+          )
+        }
+      });
     }
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],

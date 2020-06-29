@@ -12,6 +12,9 @@ import { take } from 'rxjs/operators';
 export class LandingComponent implements OnInit {
 
   showSessionExpiredBanner = false;
+  showVerificationBanner = false;
+  showVerificationSuccessBanner = false;
+  showVerificationFailureBanner = false;
 
   constructor(private router: Router,
               public translate: TranslateService,
@@ -20,10 +23,21 @@ export class LandingComponent implements OnInit {
   ngOnInit() {
     this.route.queryParams.pipe(take(1)).subscribe(params => {
       const sessionExpired = params['sessionExpired'];
+      const signupSuccessful = params['signupSuccessful'];
       if (sessionExpired && sessionExpired === 'true') {
-        this.showSessionExpiredBanner = true;
+        this.showVerificationBanner = true;
+      } else if (signupSuccessful && signupSuccessful === 'true') {
+        this.showVerificationBanner = true;
       }
     });
+  }
+
+  onAccountVerficationEvent(event) {
+    this.router.navigate(['login']);
+    if (event.verified) {
+      return this.showVerificationSuccessBanner = true;
+    }
+    this.showVerificationFailureBanner = true;
   }
 
   get activeLink() {

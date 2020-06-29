@@ -38,6 +38,9 @@ const routes: Routes = [
       {
         path: 'response-recorded', component: RespondComponent
       },
+      {
+        path: 'verify', redirectTo: 'login'
+      }
     ]
   },
   {

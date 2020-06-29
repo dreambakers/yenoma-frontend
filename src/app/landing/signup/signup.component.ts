@@ -51,11 +51,15 @@ export class SignupComponent implements OnInit {
     }
 
     this.auth.authenticateUser(user, true).subscribe(
-      response => {
-        if (response.headers.get('x-auth')) {
-          const user = { ...response.body, authToken: response.headers.get('x-auth') };
-          this.userService.setLoggedInUser(user);
-          this.router.navigateByUrl('/dashboard/create');
+      (res: any) => {
+        if (res.body.success) {
+          this.router.navigate([''], {
+            queryParams: {
+              signupSuccessful: true
+            },
+          });
+        } else {
+          this.utils.openSnackBar('errors.e009_signingUp', 'labels.retry');
         }
       },
       errorResponse => {
