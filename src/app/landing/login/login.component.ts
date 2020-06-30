@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { AuthenticationService } from '../../services/authentication.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -73,8 +73,11 @@ export class LoginComponent implements OnInit {
         this.userService.updatePreference({ stayLoggedIn: this.loginForm.value.rememberLogin });
         this.userService.setLoggedInUser(user);
         this.router.navigateByUrl('/dashboard/all');
+      } else if (response.body.notVerified) {
+        this.accountVerification.emit({ verified: false, signedUp: true });
+      } else {
+        this.utils.openSnackBar('errors.e010_loggingIn', 'labels.retry');
       }
-
     }, (errorResponse: any) => {
       const errorMessageKey = errorResponse.error.notFound ? 'messages.noUserFound' : 'errors.e010_loggingIn';
       this.utils.openSnackBar(errorMessageKey, 'labels.retry');

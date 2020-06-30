@@ -59,7 +59,8 @@
     "e015_changingPassword": "An error occurred while changing the password (#015)",
     "e016_gettingPolls": "An error occurred while getting the surveys (#016)",
     "e017_gettingProfile": "An error occurred while getting the user profile (#017)",
-    "e018_updatingProfile": "An error occurred while updating the user profile (#018)"
+    "e018_updatingProfile": "An error occurred while updating the user profile (#018)",
+    "e019_sendingEmail": "An error occurred while sending the verification e-mail (#019)"
   },
   "hints": {
     "activeComment": "Enter active comment (shown when survey is active)",
@@ -233,7 +234,9 @@
     "level": "Level",
     "username": "Username",
     "country": "Country",
-    "settings": "Settings"
+    "settings": "Settings",
+    "registrationVerification": "Registration Verification",
+    "sendEmail": "Send e-email"
   },
   "messages": {
     "areYouSure": "Are you sure?",
@@ -288,7 +291,8 @@
     "usernameAlreadyExists": "A user with the same username already exists",
     "profileUpdated": "Profile updated successfully",
     "checkVerificationEmail": "Please check your email to verify your account before logging in.",
-    "accountVerified": "Account verified. Please login to proceed."
+    "accountVerified": "Account verified. Please login to proceed.",
+    "withSpan" : "Here is some text <span>with a span</span> for formatting"
   },
   "placeholders": {
     "activeComment": "Active comment",

@@ -3,14 +3,31 @@
         <app-alert messageKey="messages.sessionExpired" type="danger" *ngIf="showSessionExpiredBanner"></app-alert>
         <app-alert messageKey="messages.checkVerificationEmail" *ngIf="showVerificationBanner"></app-alert>
         <app-alert messageKey="messages.accountVerified" *ngIf="showVerificationSuccessBanner"></app-alert>
-        <app-alert message="Failure message <TODO>" type="danger" *ngIf="showVerificationFailureBanner"></app-alert>
-        <app-login *ngIf="activeLink !== '/signup'" class="flex-fill" (accountVerification)="onAccountVerficationEvent($event)"></app-login>
+        <app-alert
+            type="danger"
+            [emailAlert]="'true'"
+            [signedUp]="signedUp"
+            *ngIf="showVerificationFailureBanner"
+            (emailVerificationLinkClicked)="onEmailVerificationLinkClicked($event)">
+        </app-alert>
+        <app-login
+            *ngIf="activeLink !== '/signup'"
+            class="flex-fill"
+            (accountVerification)="onAccountVerficationEvent($event)">
+        </app-login>
         <app-signup *ngIf="activeLink === '/signup'" class="flex-fill"></app-signup>
     </mat-tab>
     <mat-tab label="{{ translate.instant('labels.respond') }}">
         <div class="container">
             <app-respond></app-respond>
         </div>
+    </mat-tab>
+    <mat-tab *ngIf="showPasswordResetTab" label="test">
+        <app-password-reset></app-password-reset>
+    </mat-tab>
+
+    <mat-tab *ngIf="showEmailVerificationTab" label="{{ translate.instant('labels.registrationVerification') }}">
+        <app-email-verification (emailSent)="onEmailSent()"></app-email-verification>
     </mat-tab>
 </mat-tab-group>
 

@@ -15,6 +15,9 @@ export class LandingComponent implements OnInit {
   showVerificationBanner = false;
   showVerificationSuccessBanner = false;
   showVerificationFailureBanner = false;
+  showEmailVerificationTab = false;
+  showPasswordResetTab = false;
+  signedUp = false;
 
   constructor(private router: Router,
               public translate: TranslateService,
@@ -25,7 +28,7 @@ export class LandingComponent implements OnInit {
       const sessionExpired = params['sessionExpired'];
       const signupSuccessful = params['signupSuccessful'];
       if (sessionExpired && sessionExpired === 'true') {
-        this.showVerificationBanner = true;
+        this.showSessionExpiredBanner = true;
       } else if (signupSuccessful && signupSuccessful === 'true') {
         this.showVerificationBanner = true;
       }
@@ -38,6 +41,17 @@ export class LandingComponent implements OnInit {
       return this.showVerificationSuccessBanner = true;
     }
     this.showVerificationFailureBanner = true;
+    this.signedUp = !!event.signedUp;
+  }
+
+  onEmailVerificationLinkClicked(event) {
+    this.showVerificationFailureBanner = false;
+    this.showEmailVerificationTab = true;
+  }
+
+  onEmailSent() {
+    this.showEmailVerificationTab = false;
+    this.showVerificationBanner = true;
   }
 
   get activeLink() {
@@ -50,7 +64,7 @@ export class LandingComponent implements OnInit {
 
   get selectedIndex() {
     const isLoginSignup = this.router.url.includes('login') || this.router.url.includes('signup');
-    return isLoginSignup ? 0 : 1;
+    return isLoginSignup ? (this.showEmailVerificationTab ? 2:  0) : 1;
   }
 
 }

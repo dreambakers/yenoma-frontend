@@ -27,6 +27,10 @@ export class UserService {
     return this.http.post(`${constants.apiUrl}/user/verifySignup/`, { verificationToken });
   }
 
+  requestEmailVerificationToken(email) {
+    return this.http.post(`${constants.apiUrl}/user/sendSignupVerificationEmail/`, { email });
+  }
+
   getLoggedInUser() {
     return JSON.parse(localStorage.getItem('user'));
   }

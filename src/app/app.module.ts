@@ -46,6 +46,8 @@ import { ProfileComponent } from './settings/profile/profile.component';
 import { GeneralComponent } from './settings/general/general.component';
 import { SecurityComponent } from './settings/security/security.component';
 import { InactivityComponent } from './dialogs/inactivity/inactivity.component';
+import { PasswordResetComponent } from './landing/password-reset/password-reset.component';
+import { EmailVerificationComponent } from './landing/email-verification/email-verification.component';
 
 import { DigitOnlyModule } from '@uiowa/digit-only';
 import { UserIdleModule } from 'angular-user-idle';
@@ -75,7 +77,6 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatRippleModule } from '@angular/material/core';
-
 
 @NgModule({
   declarations: [
@@ -111,6 +112,8 @@ import { MatRippleModule } from '@angular/material/core';
     ProfileComponent,
     GeneralComponent,
     SecurityComponent,
+    PasswordResetComponent,
+    EmailVerificationComponent,
   ],
   imports: [
     BrowserAnimationsModule,

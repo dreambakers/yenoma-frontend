@@ -12,18 +12,26 @@ export class AlertComponent implements OnInit {
   @Input() messageKey;
   @Input() message;
   @Input() class;
+  @Input() emailAlert;
+  @Input() signedUp;
   @Output() onDismiss:EventEmitter<Boolean> = new EventEmitter();
+  @Output() emailVerificationLinkClicked:EventEmitter<Boolean> = new EventEmitter();
 
   dismissed = false;
 
   constructor() { }
 
   ngOnInit(): void {
+    console.log(this.emailAlert)
   }
 
   dismiss() {
     this.dismissed = true;
     this.onDismiss.emit(true);
+  }
+
+  enableRegistrationVerification() {
+    this.emailVerificationLinkClicked.emit(true);
   }
 
 }
