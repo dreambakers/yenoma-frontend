@@ -7,17 +7,21 @@
         {{ message }}
     </ng-template>
 
-    <span *ngIf="emailAlert">
-        <span *ngIf="!signedUp; else notVerified">
-            The verification link is not valid. Please click <span class="cursor-pointer" (click)="enableRegistrationVerification()"><u>here</u></span> to request a new link via e-email.
-        </span>
+    <div *ngIf="emailAlert">
+        <p *ngIf="!signedUp; else notVerified" class="m-0">
+            {{ 'messages.verificationLinkNotValid' | translate }}
+        </p>
 
         <ng-template #notVerified>
-            <span>
-                This account is not verified. Please check your email or click <span class="cursor-pointer" (click)="enableRegistrationVerification()"><u>here</u></span> to get a new link via email.
-            </span>
+            <p class="m-0">
+                {{ 'messages.accountNotVerified' | translate }}
+            </p>
         </ng-template>
-    </span>
+
+        <p class="m-0 cursor-pointer" (click)="enableRegistrationVerification()">
+            <u>{{ 'labels.requestNewVerificationEmail' | translate }}</u>
+        </p>
+    </div>
 
     <button type="button" class="close" (click)="dismiss()" *ngIf="dismissible">
         <span>&times;</span>

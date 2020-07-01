@@ -236,7 +236,8 @@
     "country": "Country",
     "settings": "Settings",
     "registrationVerification": "Registration Verification",
-    "sendEmail": "Send e-email"
+    "sendEmail": "Send e-email",
+    "requestNewVerificationEmail": "Request new verification email"
   },
   "messages": {
     "areYouSure": "Are you sure?",
@@ -292,7 +293,8 @@
     "profileUpdated": "Profile updated successfully",
     "checkVerificationEmail": "Please check your email to verify your account before logging in.",
     "accountVerified": "Account verified. Please login to proceed.",
-    "withSpan" : "Here is some text <span>with a span</span> for formatting"
+    "verificationLinkNotValid" : "The verification link is not valid. Please visit the following link to request a new confirmation email.",
+    "accountNotVerified" : "This account is not verified. Please check your email or visit the following link to request a new confirmation email."
   },
   "placeholders": {
     "activeComment": "Active comment",
