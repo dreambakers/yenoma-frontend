@@ -15,22 +15,29 @@ export class LandingComponent implements OnInit {
   showVerificationBanner = false;
   showVerificationSuccessBanner = false;
   showVerificationFailureBanner = false;
-  showEmailVerificationTab = false;
-  showPasswordResetTab = false;
+  showPasswordLinkFailureBanner = false;
+  showPasswordChangedBanner = false;
   signedUp = false;
 
-  constructor(private router: Router,
-              public translate: TranslateService,
-              private route: ActivatedRoute) { }
+  optionalTab = '';
+
+  constructor(
+    private router: Router,
+    public translate: TranslateService,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit() {
     this.route.queryParams.pipe(take(1)).subscribe(params => {
       const sessionExpired = params['sessionExpired'];
       const signupSuccessful = params['signupSuccessful'];
+      const passwordResetToken = params['passwordResetToken'];
       if (sessionExpired && sessionExpired === 'true') {
         this.showSessionExpiredBanner = true;
       } else if (signupSuccessful && signupSuccessful === 'true') {
         this.showVerificationBanner = true;
+      } else if (passwordResetToken) {
+        this.optionalTab = 'resetPassword';
       }
     });
   }
@@ -44,14 +51,27 @@ export class LandingComponent implements OnInit {
     this.signedUp = !!event.signedUp;
   }
 
-  onEmailVerificationLinkClicked(event) {
+  onEmailVerificationLinkClicked() {
     this.showVerificationFailureBanner = false;
-    this.showEmailVerificationTab = true;
+    this.optionalTab = 'emailVerification';
   }
 
   onEmailSent() {
-    this.showEmailVerificationTab = false;
+    this.optionalTab = '';
     this.showVerificationBanner = true;
+  }
+
+  onForgotPasswordClicked() {
+    this.optionalTab = 'forgotPassword';
+  }
+
+  onPasswordResetEvent(event) {
+    this.optionalTab = '';
+    if (event.success) {
+      this.showPasswordChangedBanner = true;
+    } else {
+      this.showPasswordLinkFailureBanner = true;
+    }
   }
 
   get activeLink() {
@@ -64,7 +84,7 @@ export class LandingComponent implements OnInit {
 
   get selectedIndex() {
     const isLoginSignup = this.router.url.includes('login') || this.router.url.includes('signup');
-    return isLoginSignup ? (this.showEmailVerificationTab ? 2:  0) : 1;
+    return isLoginSignup ? (this.optionalTab ? 2: 0) : 1;
   }
 
 }

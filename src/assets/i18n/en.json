@@ -237,7 +237,10 @@
     "settings": "Settings",
     "registrationVerification": "Registration Verification",
     "sendEmail": "Send e-email",
-    "requestNewVerificationEmail": "Request new verification email"
+    "requestNewVerificationEmail": "Request new verification email",
+    "forgotPassword": "Forgot Password",
+    "resetPassword": "Reset Password",
+    "requestNewPasswordResetEmail": "Request new password reset email"
   },
   "messages": {
     "areYouSure": "Are you sure?",
@@ -294,7 +297,9 @@
     "checkVerificationEmail": "Please check your email to verify your account before logging in.",
     "accountVerified": "Account verified. Please login to proceed.",
     "verificationLinkNotValid" : "The verification link is not valid. Please visit the following link to request a new confirmation email.",
-    "accountNotVerified" : "This account is not verified. Please check your email or visit the following link to request a new confirmation email."
+    "accountNotVerified" : "This account is not verified. Please check your email or visit the following link to request a new confirmation email.",
+    "passwordChangedLogin" : "The password has been updated successfully, you can now use the new password to login to your account.",
+    "passwordResetLinkNotValid" : "The password reset link is not valid. Please visit the following link to request new password reset instructions."
   },
   "placeholders": {
     "activeComment": "Active comment",

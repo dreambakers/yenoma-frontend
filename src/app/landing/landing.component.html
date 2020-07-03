@@ -1,33 +1,49 @@
 <mat-tab-group mat-align-tabs="center" [selectedIndex]="selectedIndex" *ngIf="!isViewingResponse; else pollView">
+
     <mat-tab label="{{ translate.instant('labels.login') }}/{{ translate.instant('labels.register') }}">
         <app-alert messageKey="messages.sessionExpired" type="danger" *ngIf="showSessionExpiredBanner"></app-alert>
         <app-alert messageKey="messages.checkVerificationEmail" *ngIf="showVerificationBanner"></app-alert>
         <app-alert messageKey="messages.accountVerified" *ngIf="showVerificationSuccessBanner"></app-alert>
+        <app-alert messageKey="messages.passwordChangedLogin" *ngIf="showPasswordChangedBanner"></app-alert>
         <app-alert
             type="danger"
             [emailAlert]="'true'"
             [signedUp]="signedUp"
             *ngIf="showVerificationFailureBanner"
-            (emailVerificationLinkClicked)="onEmailVerificationLinkClicked($event)">
+            (linkClicked)="onEmailVerificationLinkClicked($event)">
         </app-alert>
+        <app-alert
+            type="danger"
+            [passwordAlert]="'true'"
+            (linkClicked)="onForgotPasswordClicked()"
+            *ngIf="showPasswordLinkFailureBanner">
+        </app-alert>
+
         <app-login
             *ngIf="activeLink !== '/signup'"
             class="flex-fill"
-            (accountVerification)="onAccountVerficationEvent($event)">
+            (accountVerification)="onAccountVerficationEvent($event)"
+            (forgotPasswordClicked)="onForgotPasswordClicked($event)">
         </app-login>
         <app-signup *ngIf="activeLink === '/signup'" class="flex-fill"></app-signup>
     </mat-tab>
+
     <mat-tab label="{{ translate.instant('labels.respond') }}">
         <div class="container">
             <app-respond></app-respond>
         </div>
     </mat-tab>
-    <mat-tab *ngIf="showPasswordResetTab" label="test">
-        <app-password-reset></app-password-reset>
+
+    <mat-tab *ngIf="optionalTab === 'resetPassword'" label="{{ translate.instant('labels.resetPassword') }}">
+        <app-password-reset (passwordResetEvents)="onPasswordResetEvent($event)"></app-password-reset>
     </mat-tab>
 
-    <mat-tab *ngIf="showEmailVerificationTab" label="{{ translate.instant('labels.registrationVerification') }}">
+    <mat-tab *ngIf="optionalTab === 'emailVerification'" label="{{ translate.instant('labels.registrationVerification') }}">
         <app-email-verification (emailSent)="onEmailSent()"></app-email-verification>
+    </mat-tab>
+
+    <mat-tab *ngIf="optionalTab === 'forgotPassword'" label="{{ translate.instant('labels.forgotPassword') }}">
+        <app-forgot-password (emailSent)="onEmailSent()"></app-forgot-password>
     </mat-tab>
 </mat-tab-group>
 

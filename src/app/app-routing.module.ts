@@ -40,6 +40,9 @@ const routes: Routes = [
       },
       {
         path: 'verify', redirectTo: 'login'
+      },
+      {
+        path: 'password-reset', redirectTo: 'login'
       }
     ]
   },

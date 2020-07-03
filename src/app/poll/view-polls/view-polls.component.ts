@@ -187,7 +187,6 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
           this.pollService.terminatePoll(pollId).subscribe(
             (res: any) => {
               if (res.success) {
-                console.log(res)
                 let pollIndex = this.polls.findIndex(poll => poll._id === pollId);
                 this.polls[pollIndex] = JSON.parse(JSON.stringify(res.poll));
                 this.dataSource.data = this.polls;

@@ -13,16 +13,16 @@ export class AlertComponent implements OnInit {
   @Input() message;
   @Input() class;
   @Input() emailAlert;
+  @Input() passwordAlert;
   @Input() signedUp;
   @Output() onDismiss:EventEmitter<Boolean> = new EventEmitter();
-  @Output() emailVerificationLinkClicked:EventEmitter<Boolean> = new EventEmitter();
+  @Output() linkClicked:EventEmitter<Boolean> = new EventEmitter();
 
   dismissed = false;
 
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.emailAlert)
   }
 
   dismiss() {
@@ -30,8 +30,8 @@ export class AlertComponent implements OnInit {
     this.onDismiss.emit(true);
   }
 
-  enableRegistrationVerification() {
-    this.emailVerificationLinkClicked.emit(true);
+  onLinkClick() {
+    this.linkClicked.emit(true);
   }
 
 }

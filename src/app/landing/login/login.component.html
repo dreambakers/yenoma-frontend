@@ -55,9 +55,16 @@
 
             <hr>
             <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">{{ 'labels.loginButton' | translate }}</button>
-            <a class="d-block text-center mt-5 small" [routerLink]="[ '/signup' ]">
-              {{ 'labels.noAccount' | translate }}
-            </a>
+
+            <div class="mt-5 d-flex flex-column flex-md-row justify-content-between align-items-center w-100">
+              <a class="small" (click)="forgotPassword()" [routerLink]="[ '/login' ]">
+                {{ 'labels.forgotPassword' | translate }}
+              </a>
+
+              <a class="small" [routerLink]="[ '/signup' ]">
+                {{ 'labels.noAccount' | translate }}
+              </a>
+            </div>
           </form>
 
         </div>

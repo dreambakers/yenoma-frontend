@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { UtilService } from '../../services/util.service';
 import { UserService } from '../../services/user.service';
 import { take } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',
@@ -16,6 +17,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   submitted = false;
   @Output() accountVerification = new EventEmitter();
+  @Output() forgotPasswordClicked = new EventEmitter();
 
   constructor(
     private auth: AuthenticationService,
@@ -23,6 +25,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private utils: UtilService,
     private userService: UserService,
+    private translate: TranslateService,
     private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -82,5 +85,9 @@ export class LoginComponent implements OnInit {
       const errorMessageKey = errorResponse.error.notFound ? 'messages.noUserFound' : 'errors.e010_loggingIn';
       this.utils.openSnackBar(errorMessageKey, 'labels.retry');
     });
+  }
+
+  forgotPassword() {
+    this.forgotPasswordClicked.emit(true);
   }
 }

@@ -18,8 +18,18 @@
             </p>
         </ng-template>
 
-        <p class="m-0 cursor-pointer" (click)="enableRegistrationVerification()">
+        <p class="m-0 cursor-pointer" (click)="onLinkClick()">
             <u>{{ 'labels.requestNewVerificationEmail' | translate }}</u>
+        </p>
+    </div>
+
+    <div *ngIf="passwordAlert">
+        <p class="m-0">
+            {{ 'messages.passwordResetLinkNotValid' | translate }}
+        </p>
+
+        <p class="m-0 cursor-pointer" (click)="onLinkClick()">
+            <u>{{ 'labels.requestNewPasswordResetEmail' | translate }}</u>
         </p>
     </div>
 

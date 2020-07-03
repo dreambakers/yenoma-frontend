@@ -1,18 +1,19 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { AuthenticationService } from '../../services/authentication.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
-import { UtilService } from '../../services/util.service';
-import { UserService } from '../../services/user.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
+import { Router } from '@angular/router';
+import { UtilService } from 'src/app/services/util.service';
+import { UserService } from 'src/app/services/user.service';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-email-verification',
-  templateUrl: './email-verification.component.html',
-  styleUrls: ['./email-verification.component.scss']
+  selector: 'app-forgot-password',
+  templateUrl: './forgot-password.component.html',
+  styleUrls: ['./forgot-password.component.scss']
 })
-export class EmailVerificationComponent implements OnInit {
-  emailVerificationForm: FormGroup;
+export class ForgotPasswordComponent implements OnInit {
+
+  forgotPasswordForm: FormGroup;
   submitted = false;
   @Output() emailSent:EventEmitter<Boolean> = new EventEmitter();
 
@@ -28,19 +29,19 @@ export class EmailVerificationComponent implements OnInit {
     if (this.auth.isAuthenticated()) {
       this.router.navigateByUrl('/dashboard/all');
     }
-    this.emailVerificationForm = this.formBuilder.group({
+    this.forgotPasswordForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
     });
   }
 
-  get f() { return this.emailVerificationForm.controls; }
+  get f() { return this.forgotPasswordForm.controls; }
 
   onSubmit() {
     this.submitted = true;
-    if (this.emailVerificationForm.invalid) {
+    if (this.forgotPasswordForm.invalid) {
       return;
     }
-    this.userService.requestEmailVerificationToken(this.emailVerificationForm.value.email).subscribe(
+    this.userService.requestPasswordResetEmail(this.forgotPasswordForm.value.email).subscribe(
       (res: any) => {
         if (res.success) {
           this.emailSent.emit(true);

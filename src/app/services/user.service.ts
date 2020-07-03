@@ -31,6 +31,18 @@ export class UserService {
     return this.http.post(`${constants.apiUrl}/user/sendSignupVerificationEmail/`, { email });
   }
 
+  requestPasswordResetEmail(email) {
+    return this.http.post(`${constants.apiUrl}/user/requestPasswordResetEmail/`, { email });
+  }
+
+  verifyPasswordResetToken(passwordResetToken) {
+    return this.http.post(`${constants.apiUrl}/user/verifyPasswordResetToken/`, { passwordResetToken });
+  }
+
+  resetPassword(newPassword, passwordResetToken) {
+    return this.http.post(`${constants.apiUrl}/user/resetPassword/`, { newPassword, passwordResetToken });
+  }
+
   getLoggedInUser() {
     return JSON.parse(localStorage.getItem('user'));
   }

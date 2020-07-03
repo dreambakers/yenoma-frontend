@@ -48,6 +48,7 @@ import { SecurityComponent } from './settings/security/security.component';
 import { InactivityComponent } from './dialogs/inactivity/inactivity.component';
 import { PasswordResetComponent } from './landing/password-reset/password-reset.component';
 import { EmailVerificationComponent } from './landing/email-verification/email-verification.component';
+import { ForgotPasswordComponent } from './landing/forgot-password/forgot-password.component';
 
 import { DigitOnlyModule } from '@uiowa/digit-only';
 import { UserIdleModule } from 'angular-user-idle';
@@ -114,6 +115,7 @@ import { MatRippleModule } from '@angular/material/core';
     SecurityComponent,
     PasswordResetComponent,
     EmailVerificationComponent,
+    ForgotPasswordComponent,
   ],
   imports: [
     BrowserAnimationsModule,
