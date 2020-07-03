@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
   submitted = false;
-  @Output() accountVerification = new EventEmitter();
+  @Output() loginEvent = new EventEmitter();
   @Output() forgotPasswordClicked = new EventEmitter();
 
   constructor(
@@ -38,12 +38,12 @@ export class LoginComponent implements OnInit {
           this.userService.verifySignup(verificationToken).subscribe(
             (res: any) => {
               if (res.success) {
-                this.accountVerification.emit({ verified: true });
+                this.loginEvent.emit({ verified: true });
               } else {
-                this.accountVerification.emit({ verified: false });
+                this.loginEvent.emit({ verified: false });
               }
             }, err => {
-              this.accountVerification.emit({ verified: false });
+              this.loginEvent.emit({ verified: false });
             }
           )
         }
@@ -77,7 +77,7 @@ export class LoginComponent implements OnInit {
         this.userService.setLoggedInUser(user);
         this.router.navigateByUrl('/dashboard/all');
       } else if (response.body.notVerified) {
-        this.accountVerification.emit({ verified: false, signedUp: true });
+        this.loginEvent.emit({ verified: false, signedUp: true });
       } else {
         this.utils.openSnackBar('errors.e010_loggingIn', 'labels.retry');
       }

@@ -16,7 +16,7 @@ export class PasswordResetComponent implements OnInit {
   changePasswordForm: FormGroup;
   submitted = false;
   passwordResetToken;
-  @Output() passwordResetEvents = new EventEmitter();
+  @Output() passwordResetEvent = new EventEmitter();
 
   @ViewChild('f') form: NgForm;
 
@@ -41,11 +41,11 @@ export class PasswordResetComponent implements OnInit {
       this.userService.verifyPasswordResetToken(this.passwordResetToken).pipe(take(1)).subscribe(
         (res: any) => {
           if (!res.success) {
-            this.passwordResetEvents.emit({ notValid: true });
+            this.passwordResetEvent.emit({ notValid: true });
           }
         },
         err => {
-          this.passwordResetEvents.emit({ notValid: true });
+          this.passwordResetEvent.emit({ notValid: true });
         }
       );
     });
@@ -66,7 +66,7 @@ export class PasswordResetComponent implements OnInit {
     ).subscribe(
       (res: any) => {
         if (res.success) {
-          this.passwordResetEvents.emit({ success: true });
+          this.passwordResetEvent.emit({ success: true });
         } else {
           this.utils.openSnackBar('errors.e015_changingPassword', 'labels.retry');
         }

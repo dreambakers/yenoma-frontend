@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthenticationService } from '../../services/authentication.service';
 import { PasswordValidation } from '../../helpers/password-validation';
@@ -15,6 +15,7 @@ export class SignupComponent implements OnInit {
 
   signupForm: FormGroup;
   submitted = false;
+  @Output() signupEvent = new EventEmitter();
 
   constructor(private formBuilder: FormBuilder,
     private auth: AuthenticationService,
@@ -53,11 +54,8 @@ export class SignupComponent implements OnInit {
     this.auth.authenticateUser(user, true).subscribe(
       (res: any) => {
         if (res.body.success) {
-          this.router.navigate([''], {
-            queryParams: {
-              signupSuccessful: true
-            },
-          });
+          this.router.navigate(['']);
+          this.signupEvent.emit({ signupSuccess: true });
         } else {
           this.utils.openSnackBar('errors.e009_signingUp', 'labels.retry');
         }

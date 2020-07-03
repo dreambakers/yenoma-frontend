@@ -23,10 +23,15 @@
         <app-login
             *ngIf="activeLink !== '/signup'"
             class="flex-fill"
-            (accountVerification)="onAccountVerficationEvent($event)"
+            (loginEvent)="onLoginEvent($event)"
             (forgotPasswordClicked)="onForgotPasswordClicked()">
         </app-login>
-        <app-signup *ngIf="activeLink === '/signup'" class="flex-fill"></app-signup>
+
+        <app-signup
+            (signupEvent)="onSignupEvent($event)"
+            *ngIf="activeLink === '/signup'"
+            class="flex-fill">
+        </app-signup>
     </mat-tab>
 
     <mat-tab label="{{ translate.instant('labels.respond') }}">
@@ -36,7 +41,7 @@
     </mat-tab>
 
     <mat-tab *ngIf="optionalTab === 'resetPassword'" label="{{ translate.instant('labels.resetPassword') }}">
-        <app-password-reset (passwordResetEvents)="onPasswordResetEvent($event)"></app-password-reset>
+        <app-password-reset (passwordResetEvent)="onPasswordResetEvent($event)"></app-password-reset>
     </mat-tab>
 
     <mat-tab *ngIf="optionalTab === 'emailVerification'" label="{{ translate.instant('labels.registrationVerification') }}">

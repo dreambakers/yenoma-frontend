@@ -23,19 +23,16 @@ export class LandingComponent implements OnInit {
   ngOnInit() {
     this.route.queryParams.pipe(take(1)).subscribe(params => {
       const sessionExpired = params['sessionExpired'];
-      const signupSuccessful = params['signupSuccessful'];
       const passwordResetToken = params['passwordResetToken'];
       if (sessionExpired && sessionExpired === 'true') {
         this.alert = 'session-expired';
-      } else if (signupSuccessful && signupSuccessful === 'true') {
-        this.alert = 'verification';
       } else if (passwordResetToken) {
         this.optionalTab = 'resetPassword';
       }
     });
   }
 
-  onAccountVerficationEvent(event) {
+  onLoginEvent(event) {
     this.router.navigate(['login']);
     if (event.verified) {
       return this.alert = 'verification-success';
@@ -45,7 +42,7 @@ export class LandingComponent implements OnInit {
   }
 
   onEmailVerificationLinkClicked() {
-    this.alert = 'verification-failure';
+    this.alert = '';
     this.optionalTab = 'emailVerification';
   }
 
@@ -68,6 +65,12 @@ export class LandingComponent implements OnInit {
       this.alert = 'password-changed';
     } else {
       this.alert = 'password-link-failure';
+    }
+  }
+
+  onSignupEvent(event) {
+    if (event.signupSuccess) {
+      this.alert = 'verification';
     }
   }
 
