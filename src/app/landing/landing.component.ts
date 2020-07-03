@@ -10,16 +10,9 @@ import { take } from 'rxjs/operators';
   styleUrls: ['./landing.component.scss']
 })
 export class LandingComponent implements OnInit {
-
-  showSessionExpiredBanner = false;
-  showVerificationBanner = false;
-  showVerificationSuccessBanner = false;
-  showVerificationFailureBanner = false;
-  showPasswordLinkFailureBanner = false;
-  showPasswordChangedBanner = false;
   signedUp = false;
-
   optionalTab = '';
+  alert = '';
 
   constructor(
     private router: Router,
@@ -33,9 +26,9 @@ export class LandingComponent implements OnInit {
       const signupSuccessful = params['signupSuccessful'];
       const passwordResetToken = params['passwordResetToken'];
       if (sessionExpired && sessionExpired === 'true') {
-        this.showSessionExpiredBanner = true;
+        this.alert = 'session-expired';
       } else if (signupSuccessful && signupSuccessful === 'true') {
-        this.showVerificationBanner = true;
+        this.alert = 'verification';
       } else if (passwordResetToken) {
         this.optionalTab = 'resetPassword';
       }
@@ -45,20 +38,23 @@ export class LandingComponent implements OnInit {
   onAccountVerficationEvent(event) {
     this.router.navigate(['login']);
     if (event.verified) {
-      return this.showVerificationSuccessBanner = true;
+      return this.alert = 'verification-success';
     }
-    this.showVerificationFailureBanner = true;
+    this.alert = 'verification-failure';
     this.signedUp = !!event.signedUp;
   }
 
   onEmailVerificationLinkClicked() {
-    this.showVerificationFailureBanner = false;
+    this.alert = 'verification-failure';
     this.optionalTab = 'emailVerification';
   }
 
-  onEmailSent() {
+  onEmailSent(emailType = 'signupVerification') {
     this.optionalTab = '';
-    this.showVerificationBanner = true;
+    if (emailType === 'passwordReset') {
+      return this.alert = 'password-reset-email-sent';
+    }
+    this.alert = 'verification';
   }
 
   onForgotPasswordClicked() {
@@ -66,12 +62,17 @@ export class LandingComponent implements OnInit {
   }
 
   onPasswordResetEvent(event) {
+    this.router.navigate(['login']);
     this.optionalTab = '';
     if (event.success) {
-      this.showPasswordChangedBanner = true;
+      this.alert = 'password-changed';
     } else {
-      this.showPasswordLinkFailureBanner = true;
+      this.alert = 'password-link-failure';
     }
+  }
+
+  alertIs(bannerName) {
+    return this.alert === bannerName;
   }
 
   get activeLink() {

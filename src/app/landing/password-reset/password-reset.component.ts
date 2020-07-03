@@ -66,7 +66,6 @@ export class PasswordResetComponent implements OnInit {
     ).subscribe(
       (res: any) => {
         if (res.success) {
-          this.utils.openSnackBar('messages.passwordChanged');
           this.passwordResetEvents.emit({ success: true });
         } else {
           this.utils.openSnackBar('errors.e015_changingPassword', 'labels.retry');
