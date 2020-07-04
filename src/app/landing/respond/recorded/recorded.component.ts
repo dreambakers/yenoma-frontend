@@ -5,6 +5,7 @@ import { PollService } from 'src/app/services/poll.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Utility } from 'src/app/shared/utils/utility';
 import { NgNavigatorShareService } from 'ng-navigator-share';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-recorded',
@@ -26,6 +27,7 @@ export class RecordedComponent implements OnInit {
     private pollService: PollService,
     private translate: TranslateService,
     private ngNavigatorShareService: NgNavigatorShareService,
+    private sanitizer:DomSanitizer
   ) { }
 
   ngOnInit(): void {
@@ -80,4 +82,11 @@ export class RecordedComponent implements OnInit {
     })
   }
 
+  sanitize(url:string){
+    return this.sanitizer.bypassSecurityTrustUrl(url);
+  }
+
+  getUrlForWhatsApp() {
+    return `whatsapp://send?text=` + this.getSuveryUrl();
+  }
 }

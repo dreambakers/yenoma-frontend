@@ -59,7 +59,7 @@
       class="btn-floating btn-lg btn-whatsapp"
       type="button"
       role="button"
-      href="whatsapp://send?text={{ getSuveryUrl() }}"
+      [href]="sanitize(getUrlForWhatsApp())"
       data-action="share/whatsapp/share">
         <i class="fab fa-whatsapp"></i>
     </a>
