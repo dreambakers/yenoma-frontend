@@ -49,6 +49,7 @@ import { InactivityComponent } from './dialogs/inactivity/inactivity.component';
 import { PasswordResetComponent } from './landing/password-reset/password-reset.component';
 import { EmailVerificationComponent } from './landing/email-verification/email-verification.component';
 import { ForgotPasswordComponent } from './landing/forgot-password/forgot-password.component';
+import { SnackbarComponent } from './shared/snackbar/snackbar.component';
 
 import { DigitOnlyModule } from '@uiowa/digit-only';
 import { UserIdleModule } from 'angular-user-idle';
@@ -116,6 +117,7 @@ import { MatRippleModule } from '@angular/material/core';
     PasswordResetComponent,
     EmailVerificationComponent,
     ForgotPasswordComponent,
+    SnackbarComponent,
   ],
   imports: [
     BrowserAnimationsModule,

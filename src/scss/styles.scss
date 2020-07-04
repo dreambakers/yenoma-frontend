@@ -277,6 +277,7 @@ button.mat-menu-item{ outline:none; }
 }
 
 .mat-snack-bar-container {
+    max-width: unset !important;
     margin-bottom: 60px !important;
 }
 
