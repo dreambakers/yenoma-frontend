@@ -22,8 +22,7 @@
         <p class="m-0">{{ 'metadata.isoLanguageName' | translate }}</p>
         <p class="m-0">{{ 'metadata.twoletterCode' | translate }}</p>
         <p>{{ getLanguageDate() }}</p>
-        <p class="text-justify">
-            {{ 'globalMessages.aboutText' | translate }}
+        <p class="text-justify" [innerHTML]="'globalMessages.aboutText' | translate">
         </p>
     </div>
 </div>
