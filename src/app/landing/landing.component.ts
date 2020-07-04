@@ -55,6 +55,7 @@ export class LandingComponent implements OnInit {
   }
 
   onForgotPasswordClicked() {
+    this.alert = '';
     this.optionalTab = 'forgotPassword';
   }
 

@@ -290,7 +290,7 @@
     "sharePollTitle": "View survey",
     "surveySharingMessage": "Anyone with the link can view the survey.",
     "userAlreadyExists": "A user with the same email already exists",
-    "usernameRequirement": "Username must be at least 5 characters and can only contain alphabets",
+    "usernameRequirement": "Username must be at least 5 characters and can only contain alphabets and numbers",
     "userEmailAlreadyExists": "A user with the same email already exists",
     "usernameAlreadyExists": "A user with the same username already exists",
     "profileUpdated": "Profile updated successfully",

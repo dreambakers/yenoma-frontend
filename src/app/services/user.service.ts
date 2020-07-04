@@ -43,6 +43,10 @@ export class UserService {
     return this.http.post(`${constants.apiUrl}/user/resetPassword/`, { newPassword, passwordResetToken });
   }
 
+  getSubscription() {
+    return this.http.get(`${constants.apiUrl}/user/subscription/`);
+  }
+
   getLoggedInUser() {
     return JSON.parse(localStorage.getItem('user'));
   }

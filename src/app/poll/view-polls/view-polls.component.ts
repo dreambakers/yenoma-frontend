@@ -47,6 +47,7 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
     start: 'asc',
     disableClear: true
   }
+  subscription; // user's subscription
 
   constructor(private pollService: PollService,
     private utils: UtilService,
@@ -76,6 +77,13 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
       err => {
         if (err.status !== 401) {
           this.utils.openSnackBar('errors.e016_gettingPolls');
+        }
+      }
+    );
+    this.userService.getSubscription().subscribe(
+      (res: any) => {
+        if (res.success) {
+          this.subscription = res.subscription;
         }
       }
     );
@@ -328,6 +336,7 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
   }
 
   downloadResponses(poll) {
+    if (!this.subscription.isPro) { return; }
     const addNameOrTimeColumn = (data) => {
       if (poll.allowNames) {
         data += '"";';
