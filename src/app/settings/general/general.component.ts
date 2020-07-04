@@ -47,11 +47,11 @@ export class GeneralComponent implements OnInit {
         if (res.success) {
           this.utils.openSnackBar('messages.profileUpdated');
         } else {
-          this.utils.openSnackBar('errors.e017_updatingProfile', 'labels.retry');
+          this.utils.openSnackBar('errors.e018_updatingProfile', 'labels.retry');
         }
       },
       err => {
-        this.utils.openSnackBar('errors.e017_updatingProfile', 'labels.retry');
+        this.utils.openSnackBar('errors.e018_updatingProfile', 'labels.retry');
       }
     );
   }
