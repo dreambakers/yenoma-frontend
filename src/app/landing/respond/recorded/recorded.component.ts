@@ -85,8 +85,4 @@ export class RecordedComponent implements OnInit {
   sanitize(url:string){
     return this.sanitizer.bypassSecurityTrustUrl(url);
   }
-
-  getUrlForWhatsApp() {
-    return `whatsapp://send?text=` + this.getSuveryUrl();
-  }
 }

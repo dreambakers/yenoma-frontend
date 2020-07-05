@@ -4,6 +4,9 @@ import { UserService } from '../services/user.service';
 import { UtilService } from '../services/util.service';
 import { EmitterService } from '../services/emitter.service';
 import { constants } from '../app.constants';
+import { takeUntil } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-settings',
@@ -15,15 +18,24 @@ export class SettingsComponent implements OnInit {
   user;
   loading = false;
   constants = constants;
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(
     private userService: UserService,
     private utils: UtilService,
-    private emitterService: EmitterService
+    private emitterService: EmitterService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
+    this.emitterService.emit(constants.emitterKeys.updateNavbarProps, { home: true });
     this.loading = true;
+    this.emitterService.emitter.pipe(takeUntil(this.destroy$)).subscribe((emitted) => {
+      switch(emitted.event) {
+        case constants.emitterKeys.home:
+          return this.router.navigate(['dashboard/all']);
+      }
+    });
     this.userService.getProfile().subscribe(
       (res: any) => {
         if (res.success) {
@@ -50,6 +62,11 @@ export class SettingsComponent implements OnInit {
 
   get currentBreakpoint() {
     return DataService.currentBreakpoint;
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.emitterService.emit(this.constants.emitterKeys.resetNavbar);
   }
 
 }
