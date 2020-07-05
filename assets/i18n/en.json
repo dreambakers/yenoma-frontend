@@ -14,7 +14,10 @@
     "questionerHint": "",
     "responderWarning": "",
     "responderHint": "",
-    "aboutText": "EN Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus enim, recusandae ipsam fuga rerum blanditiis maxime corrupti corporis sit ducimus doloribus? Sit, in suscipit ut fugit consectetur explicabo recusandae. Quaerat. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus enim, recusandae ipsam fuga rerum blanditiis maxime corrupti corporis sit ducimus doloribus? Sit, in suscipit ut fugit consectetur explicabo recusandae. Quaerat."
+    "aboutText": "EN <strong>Lorem ipsum</strong> <u>dolor sit amet</u>, <em>consectetur</em> <mark>adipisicing</mark> elit. Possimus enim, recusandae ipsam fuga rerum blanditiis maxime corrupti corporis sit ducimus doloribus? Sit, in suscipit ut fugit consectetur explicabo recusandae. Quaerat. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus enim, recusandae ipsam fuga rerum blanditiis maxime corrupti corporis sit ducimus doloribus? Sit, in suscipit ut <en>fugit</en> consectetur explicabo recusandae. Quaerat. <br> Source: <br> https://getbootstrap.com/docs/4.0/content/typography/",
+    "cookiePolicy": "EN <strong>Lorem ipsum</strong> <u>dolor sit amet</u>, <em>consectetur</em> <mark>adipisicing</mark> elit. Possimus enim, recusandae ipsam fuga rerum blanditiis maxime corrupti corporis sit ducimus doloribus? Sit, in suscipit ut fugit consectetur explicabo recusandae. Quaerat. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus enim, recusandae ipsam fuga rerum blanditiis maxime corrupti corporis sit ducimus doloribus? Sit, in suscipit ut <en>fugit</en> consectetur explicabo recusandae. Quaerat. <br> Source: <br> https://getbootstrap.com/docs/4.0/content/typography/",
+    "imprint": "EN <strong>Lorem ipsum</strong> <u>dolor sit amet</u>, <em>consectetur</em> <mark>adipisicing</mark> elit. Possimus enim, recusandae ipsam fuga rerum blanditiis maxime corrupti corporis sit ducimus doloribus? Sit, in suscipit ut fugit consectetur explicabo recusandae. Quaerat. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus enim, recusandae ipsam fuga rerum blanditiis maxime corrupti corporis sit ducimus doloribus? Sit, in suscipit ut <en>fugit</en> consectetur explicabo recusandae. Quaerat. <br> Source: <br> https://getbootstrap.com/docs/4.0/content/typography/",
+    "termsAndConditions": "EN <strong>Lorem ipsum</strong> <u>dolor sit amet</u>, <em>consectetur</em> <mark>adipisicing</mark> elit. Possimus enim, recusandae ipsam fuga rerum blanditiis maxime corrupti corporis sit ducimus doloribus? Sit, in suscipit ut fugit consectetur explicabo recusandae. Quaerat. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus enim, recusandae ipsam fuga rerum blanditiis maxime corrupti corporis sit ducimus doloribus? Sit, in suscipit ut <en>fugit</en> consectetur explicabo recusandae. Quaerat. <br> Source: <br> https://getbootstrap.com/docs/4.0/content/typography/"
   },
   "answers": {
     "false": "Unchecked",
@@ -35,7 +38,8 @@
     "smiley": "Smiley",
     "text": "Text",
     "value": "Value",
-    "yesNoMaybe": "Yes No Maybe"
+    "yesNoMaybe": "Yes No Maybe",
+    "email": "Email address"
   },
   "errors": {
     "e001_creatingPoll": "An error occurred while creating the survey (#001)",
@@ -53,7 +57,10 @@
     "e013_gettingResponse": "An error occurred while getting the response for the survey (#013)",
     "e014_duplicatingPoll": "An error occurred while duplicating the survey (#014)",
     "e015_changingPassword": "An error occurred while changing the password (#015)",
-    "e016_gettingPolls": "An error occurred while getting the surveys (#016)"
+    "e016_gettingPolls": "An error occurred while getting the surveys (#016)",
+    "e017_gettingProfile": "An error occurred while getting the user profile (#017)",
+    "e018_updatingProfile": "An error occurred while updating the user profile (#018)",
+    "e019_sendingEmail": "An error occurred while sending the verification e-mail (#019)"
   },
   "hints": {
     "activeComment": "Enter active comment (shown when survey is active)",
@@ -218,7 +225,22 @@
     "view": "View",
     "vote": "Vote",
     "yes": "Yes",
-    "mobileResponsesCount": "{{RC}} responders"
+    "mobileResponsesCount": "{{RC}} responders",
+    "shareLink": "Share link",
+    "cookiePolicy": "Cookie Policy",
+    "imprint": "Imprint",
+    "termsAndConditions": "Terms and Conditions",
+    "saveChanges": "Save Changes",
+    "level": "Level",
+    "username": "Username",
+    "country": "Country",
+    "settings": "Settings",
+    "registrationVerification": "Registration Verification",
+    "sendEmail": "Send e-email",
+    "requestNewVerificationEmail": "Request new verification email",
+    "forgotPassword": "Forgot Password",
+    "resetPassword": "Reset Password",
+    "requestNewPasswordResetEmail": "Request new password reset email"
   },
   "messages": {
     "areYouSure": "Are you sure?",
@@ -267,7 +289,18 @@
     "sharePoll": "View survey created on YNM application",
     "sharePollTitle": "View survey",
     "surveySharingMessage": "Anyone with the link can view the survey.",
-    "userAlreadyExists": "A user with the same email already exists"
+    "userAlreadyExists": "A user with the same email already exists",
+    "usernameRequirement": "Username must be at least 5 characters and can only contain alphabets and numbers",
+    "userEmailAlreadyExists": "A user with the same email already exists",
+    "usernameAlreadyExists": "A user with the same username already exists",
+    "profileUpdated": "Profile updated successfully",
+    "checkVerificationEmail": "Please check your email to verify your account before logging in.",
+    "accountVerified": "Account verified. Please login to proceed.",
+    "verificationLinkNotValid" : "The verification link is not valid. Please visit the following link to request a new confirmation email.",
+    "accountNotVerified" : "This account is not verified. Please check your email or visit the following link to request a new confirmation email.",
+    "passwordChangedLogin" : "The password has been updated successfully, you can now use the new password to login to your account.",
+    "passwordResetLinkNotValid" : "The password reset link is not valid. Please visit the following link to request new password reset instructions.",
+    "passwordResetEmailSent": "An email has been sent to you which contains instructions to reset your password."
   },
   "placeholders": {
     "activeComment": "Active comment",
@@ -283,7 +316,8 @@
     "question": "What is your favorite food?",
     "textAnswer": "Your answer (500 chars max.)",
     "title": "A survey about food",
-    "typeYourAnswer": "Type your answer"
+    "typeYourAnswer": "Type your answer",
+    "username": "Username"
   },
   "pollActions": {
     "delete": "Delete",
