@@ -1,8 +1,8 @@
 import { environment } from '../environments/environment';
 
 export const constants = {
-    version: '0.16',
-    apiUrl: environment.production ? 'https://db-polling.herokuapp.com' : 'http://localhost:3000',
+    version: '0.17',
+    apiUrl: environment.production ? 'https://db-polling.herokuapp.com' : 'https://localhost:3000',
     answerTypes: {
         binary: 'binary',
         rating: 'rating',
@@ -37,6 +37,9 @@ export const constants = {
         languageChanged: "languageChanged",
         screeenSizeChanged: "screeenSizeChanged",
         aboutClicked: "aboutClicked",
+        cookiePolicyClicked: "cookiePolicyClicked",
+        imprintClicked: "imprintClicked",
+        termsAndConditionsClicked: "termsAndConditionsClicked",
         changePasswordClicked: "changePasswordClicked",
         logoutInitiated: "logoutInitiated",
         languageChangeClicked: "languageChangeClicked",

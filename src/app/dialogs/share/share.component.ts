@@ -4,6 +4,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import QRCode from 'qrcode'
 import { UtilService } from 'src/app/services/util.service';
+import { NgNavigatorShareService } from 'ng-navigator-share';
+import { Utility } from 'src/app/shared/utils/utility';
 
 @Component({
   selector: 'app-share',
@@ -16,17 +18,20 @@ export class ShareComponent implements OnInit {
   poll;
   url;
   qrUrl;
+  canShare;
 
   constructor(
     public dialogRef: MatDialogRef<ShareComponent>,
     private translate: TranslateService,
     private utils: UtilService,
+    private ngNavigatorShareService: NgNavigatorShareService,
     @Inject(MAT_DIALOG_DATA) data) {
       this.poll = data.poll;
     }
 
   ngOnInit() {
-    this.url = window.location.origin + `/p?id=${this.poll.shortId}`;
+    this.canShare = this.ngNavigatorShareService.canShare();
+    this.url = Utility.getPollUrl(this.poll);
     this.generateQrCode();
   }
 
@@ -71,6 +76,14 @@ export class ShareComponent implements OnInit {
     selBox.select();
     document.execCommand('copy');
     document.body.removeChild(selBox);
+  }
+
+  shareLink() {
+    this.ngNavigatorShareService.share({
+      title: this.translate.instant('messages.sharePollTitle'),
+      text: this.translate.instant('messages.sharePoll'),
+      url: this.url,
+    })
   }
 
 }

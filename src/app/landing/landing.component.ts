@@ -10,20 +10,73 @@ import { take } from 'rxjs/operators';
   styleUrls: ['./landing.component.scss']
 })
 export class LandingComponent implements OnInit {
+  signedUp = false;
+  optionalTab = '';
+  alert = '';
 
-  showSessionExpiredBanner = false;
-
-  constructor(private router: Router,
-              public translate: TranslateService,
-              private route: ActivatedRoute) { }
+  constructor(
+    private router: Router,
+    public translate: TranslateService,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit() {
     this.route.queryParams.pipe(take(1)).subscribe(params => {
       const sessionExpired = params['sessionExpired'];
+      const passwordResetToken = params['passwordResetToken'];
       if (sessionExpired && sessionExpired === 'true') {
-        this.showSessionExpiredBanner = true;
+        this.alert = 'session-expired';
+      } else if (passwordResetToken) {
+        this.optionalTab = 'resetPassword';
       }
     });
+  }
+
+  onLoginEvent(event) {
+    this.router.navigate(['login']);
+    if (event.verified) {
+      return this.alert = 'verification-success';
+    }
+    this.alert = 'verification-failure';
+    this.signedUp = !!event.signedUp;
+  }
+
+  onEmailVerificationLinkClicked() {
+    this.alert = '';
+    this.optionalTab = 'emailVerification';
+  }
+
+  onEmailSent(emailType = 'signupVerification') {
+    this.optionalTab = '';
+    if (emailType === 'passwordReset') {
+      return this.alert = 'password-reset-email-sent';
+    }
+    this.alert = 'verification';
+  }
+
+  onForgotPasswordClicked() {
+    this.alert = '';
+    this.optionalTab = 'forgotPassword';
+  }
+
+  onPasswordResetEvent(event) {
+    this.router.navigate(['login']);
+    this.optionalTab = '';
+    if (event.success) {
+      this.alert = 'password-changed';
+    } else {
+      this.alert = 'password-link-failure';
+    }
+  }
+
+  onSignupEvent(event) {
+    if (event.signupSuccess) {
+      this.alert = 'verification';
+    }
+  }
+
+  alertIs(bannerName) {
+    return this.alert === bannerName;
   }
 
   get activeLink() {
@@ -31,12 +84,12 @@ export class LandingComponent implements OnInit {
   }
 
   get isViewingResponse() {
-    return this.activeLink.includes('/p?');
+    return this.activeLink.includes('/p/');
   }
 
   get selectedIndex() {
     const isLoginSignup = this.router.url.includes('login') || this.router.url.includes('signup');
-    return isLoginSignup ? 0 : 1;
+    return isLoginSignup ? (this.optionalTab ? 2: 0) : 1;
   }
 
 }

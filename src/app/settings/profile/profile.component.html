@@ -1,0 +1,66 @@
+<form class="mt-3 tab-content d-flex flex-column" [class.increased-height]="currentBreakpoint === 'sm'"  [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+  <div class="d-flex flex-column flex-sm-row align-items-sm-center">
+    <mat-label [class.w-50]="currentBreakpoint !== 'sm'">
+      {{ 'labels.level' | translate }}
+    </mat-label>
+
+    <mat-form-field appearance="outline" class="w-100 mat-field-no-margin input-no-label">
+      <input matInput disabled [value]="user.subscription.level">
+    </mat-form-field>
+  </div>
+
+  <div class="form-group">
+    <div class="d-flex flex-column flex-sm-row align-items-sm-center mt-4">
+      <mat-label [class.w-50]="currentBreakpoint !== 'sm'">
+        {{ 'labels.emailAddress' | translate }}
+      </mat-label>
+
+      <mat-form-field appearance="outline" class="w-100 mat-field-no-margin input-no-label">
+        <input matInput formControlName="email" [ngClass]="{ 'mat-form-field-invalid': submitted && f.email.errors }">
+      </mat-form-field>
+    </div>
+
+    <div *ngIf="submitted && f.email.errors" class="invalid-feedback d-flex justify-content-sm-end">
+      <div *ngIf="f.email.errors.required">
+        {{ 'labels.emailAddress' | translate }}
+        {{ 'labels.isRequired' | translate }}
+      </div>
+      <div *ngIf="f.email.errors.email">{{ 'messages.emailNotValid' | translate }}</div>
+      <div *ngIf="f.email.errors.emailExists">
+        {{ 'messages.userEmailAlreadyExists' | translate }}
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="d-flex flex-column flex-sm-row align-items-sm-center mt-2">
+      <mat-label [class.w-50]="currentBreakpoint !== 'sm'">
+        {{ 'labels.username' | translate }}
+      </mat-label>
+
+      <mat-form-field appearance="outline" class="w-100 mat-field-no-margin input-no-label">
+        <input matInput formControlName="username"
+          [ngClass]="{ 'mat-form-field-invalid': submitted && f.username.errors }">
+      </mat-form-field>
+    </div>
+
+    <div *ngIf="submitted && f.username.errors" class="invalid-feedback d-flex justify-content-sm-end">
+      <div *ngIf="f.username.errors.required">
+        {{ 'labels.username' | translate }}
+        {{ 'labels.isRequired' | translate }}
+      </div>
+      <div *ngIf="f.username.errors.minlength || f.username.errors.pattern">
+        {{ 'messages.usernameRequirement' | translate }}
+      </div>
+      <div *ngIf="f.username.errors.usernameExists">
+        {{ 'messages.usernameAlreadyExists' | translate }}
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-auto">
+    <button mat-raised-button color="primary" type="submit">
+        {{ "labels.saveChanges" | translate }}
+    </button>
+  </div>
+</form>

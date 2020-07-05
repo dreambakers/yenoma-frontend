@@ -37,6 +37,12 @@ export class SidebarComponent implements OnInit {
           return this.changePassword();
         case constants.emitterKeys.aboutClicked:
           return this.about();
+        case constants.emitterKeys.cookiePolicyClicked:
+            return this.cookiePolicy();
+        case constants.emitterKeys.imprintClicked:
+            return this.imprint();
+        case constants.emitterKeys.termsAndConditionsClicked:
+            return this.termsAndConditions();
         case constants.emitterKeys.languageChangeClicked:
           return this.language();
         case constants.emitterKeys.scrollPositionUpdated:
@@ -59,6 +65,18 @@ export class SidebarComponent implements OnInit {
 
   about() {
     this.dialogService.about();
+  }
+
+  cookiePolicy() {
+    this.dialogService.cookiePolicy();
+  }
+
+  imprint() {
+    this.dialogService.imprint();
+  }
+
+  termsAndConditions() {
+    this.dialogService.termsAndConditions();
   }
 
   language() {

@@ -12,6 +12,7 @@ import { RespondComponent } from './landing/respond/respond.component';
 import { ViewStatsComponent } from './poll/view-stats/view-stats.component';
 import { ResponsesComponent } from './poll/responses/responses.component';
 import { ErrorComponent } from './error/error.component';
+import { SettingsComponent } from './settings/settings.component';
 
 const routes: Routes = [
 
@@ -29,7 +30,7 @@ const routes: Routes = [
         path: 'view', redirectTo: 'p'
       },
       {
-        path: 'p', component: ViewPollComponent
+        path: 'p/:id', component: ViewPollComponent
       },
       {
         path: 'login', component: LoginComponent
@@ -37,6 +38,12 @@ const routes: Routes = [
       {
         path: 'response-recorded', component: RespondComponent
       },
+      {
+        path: 'verify', redirectTo: 'login'
+      },
+      {
+        path: 'password-reset', redirectTo: 'login'
+      }
     ]
   },
   {
@@ -48,6 +55,7 @@ const routes: Routes = [
       { path: 'view', component: ViewPollComponent },
       { path: 'stats', component: ViewStatsComponent },
       { path: 'responses', component: ResponsesComponent },
+      { path: 'settings', component: SettingsComponent },
     ]
   },
   {

@@ -15,6 +15,38 @@ export class UserService {
     return this.http.post(`${constants.apiUrl}/user/changePassword/`, { oldPassword, newPassword });
   }
 
+  updateProfile(profile) {
+    return this.http.post(`${constants.apiUrl}/user/updateProfile/`, profile);
+  }
+
+  getProfile() {
+    return this.http.get(`${constants.apiUrl}/user/getProfile/`);
+  }
+
+  verifySignup(verificationToken) {
+    return this.http.post(`${constants.apiUrl}/user/verifySignup/`, { verificationToken });
+  }
+
+  requestEmailVerificationToken(email) {
+    return this.http.post(`${constants.apiUrl}/user/sendSignupVerificationEmail/`, { email });
+  }
+
+  requestPasswordResetEmail(email) {
+    return this.http.post(`${constants.apiUrl}/user/requestPasswordResetEmail/`, { email });
+  }
+
+  verifyPasswordResetToken(passwordResetToken) {
+    return this.http.post(`${constants.apiUrl}/user/verifyPasswordResetToken/`, { passwordResetToken });
+  }
+
+  resetPassword(newPassword, passwordResetToken) {
+    return this.http.post(`${constants.apiUrl}/user/resetPassword/`, { newPassword, passwordResetToken });
+  }
+
+  getSubscription() {
+    return this.http.get(`${constants.apiUrl}/user/subscription/`);
+  }
+
   getLoggedInUser() {
     return JSON.parse(localStorage.getItem('user'));
   }

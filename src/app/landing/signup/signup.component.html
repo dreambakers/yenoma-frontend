@@ -4,8 +4,8 @@
       <div class="card card-signin flex-row my-1">
 
         <div class="card-img-left d-none d-md-flex flex-column align-items-center justify-content-center">
-          <mat-icon style="font-size: 5.5rem; height: 15%;" class="w-100 text-center">poll</mat-icon>
-          <h4>
+          <img src="../../../assets/images/logo_cs.svg" class="mb-3">
+          <h4 class="m-0">
             {{ 'labels.appName' | translate }}
           </h4>
         </div>
@@ -16,6 +16,28 @@
           </h5>
 
           <form class="form-signin" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+
+            <div class="form-group">
+
+              <label>{{ 'labels.username' | translate }}</label>
+
+              <input type="text" formControlName="username" class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && f.username.errors }"
+                placeholder="{{ 'placeholders.username' | translate }}" required>
+
+              <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+                <div *ngIf="f.username.errors.required">
+                  {{ 'labels.username' | translate }}
+                  {{ 'labels.isRequired' | translate }}
+                </div>
+                <div *ngIf="f.username.errors.minlength || f.username.errors.pattern">
+                  {{ 'messages.usernameRequirement' | translate }}
+                </div>
+                <div *ngIf="f.username.errors.usernameExists">
+                  {{ 'messages.usernameAlreadyExists' | translate }}
+                </div>
+              </div>
+            </div>
 
             <div class="form-group">
 
@@ -31,6 +53,9 @@
                   {{ 'labels.isRequired' | translate }}
                 </div>
                 <div *ngIf="f.email.errors.email">{{ 'messages.emailNotValid' | translate }}</div>
+                <div *ngIf="f.email.errors.emailExists">
+                  {{ 'messages.userEmailAlreadyExists' | translate }}
+                </div>
               </div>
 
             </div>

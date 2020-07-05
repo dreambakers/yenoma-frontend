@@ -14,7 +14,7 @@
 
   <div class="collapse navbar-collapse" id="navbarToggle">
     <a class="d-none d-lg-block item navbar-brand m-0" routerLink='/dashboard/all'>
-      <mat-icon style="vertical-align: middle;">poll</mat-icon>
+      <img src="../../assets/images/logo_ws.svg" height="18px" class="mr-2">
       <span class="ml-1" style="vertical-align: middle;">{{ 'labels.appName' | translate }}</span>
     </a>
 
@@ -40,17 +40,34 @@
             <span class="font-weight-bold">{{ user.email }}</span>
           </div>
           <mat-divider></mat-divider>
-          <button mat-menu-item (click)="changePassword()">
+          <button mat-menu-item (click)="settings()">
+            <i class="fas fa-cogs mr-2"></i>
+            {{ 'labels.settings' | translate }}
+          </button>
+          <mat-divider></mat-divider>
+          <!-- <button mat-menu-item (click)="changePassword()">
             <i class="fas fa-key mr-2"></i>
             {{ 'labels.changePassword' | translate }}
           </button>
           <button mat-menu-item (click)="language()">
             <i class="fas fa-globe mr-2"></i>
             {{ 'labels.language' | translate }}
-          </button>
+          </button> -->
           <button mat-menu-item (click)="about()">
             <i class="fas fa-info-circle mr-2"></i>
             {{ 'labels.about' | translate }}
+          </button>
+          <button mat-menu-item (click)="termsAndConditions()">
+            <i class="fas fa-info-circle mr-2"></i>
+            {{ 'labels.termsAndConditions' | translate }}
+          </button>
+          <button mat-menu-item (click)="cookiePolicy()">
+            <i class="fas fa-info-circle mr-2"></i>
+            {{ 'labels.cookiePolicy' | translate }}
+          </button>
+          <button mat-menu-item (click)="imprint()">
+            <i class="fas fa-info-circle mr-2"></i>
+            {{ 'labels.imprint' | translate }}
           </button>
           <mat-divider></mat-divider>
           <button mat-menu-item (click)="logout()">

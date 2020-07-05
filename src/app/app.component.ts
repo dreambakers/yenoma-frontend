@@ -12,7 +12,6 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'Polling';
   selectedLanguage;
   constants = constants;
   destroy$: Subject<boolean> = new Subject<boolean>();
@@ -23,7 +22,7 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    DataService.isMobile = document.body.clientWidth <= DataService.mobileBreakpoint;
+    DataService.width = document.body.clientWidth;
     this.selectedLanguage = localStorage.getItem('selectedLanguage') || 'en';
     this.translate.use(this.selectedLanguage);
     this.emitterService.emitter.pipe(takeUntil(this.destroy$)).subscribe((emitted) => {
@@ -42,7 +41,7 @@ export class AppComponent implements OnInit {
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
-    DataService.isMobile = event.target.innerWidth <= DataService.mobileBreakpoint;
+    DataService.width = document.body.clientWidth;
     this.emitterService.emit(this.constants.emitterKeys.screeenSizeChanged, event.target.innerWidth);
   }
 

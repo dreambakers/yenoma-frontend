@@ -65,7 +65,7 @@ export class ViewPollComponent implements OnInit {
       this.preview = true;
       !this.hasResponded && this.setAnswers();
     } else {
-      this.route.queryParams.pipe(take(1)).subscribe(params => {
+      this.route.firstChild.params.subscribe(params => {
         this.pollId = params['id'];
         if (this.pollId) {
           this.getPoll(this.pollId);

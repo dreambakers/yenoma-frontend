@@ -12,7 +12,11 @@ export class AlertComponent implements OnInit {
   @Input() messageKey;
   @Input() message;
   @Input() class;
+  @Input() emailAlert;
+  @Input() passwordAlert;
+  @Input() signedUp;
   @Output() onDismiss:EventEmitter<Boolean> = new EventEmitter();
+  @Output() linkClicked:EventEmitter<Boolean> = new EventEmitter();
 
   dismissed = false;
 
@@ -24,6 +28,10 @@ export class AlertComponent implements OnInit {
   dismiss() {
     this.dismissed = true;
     this.onDismiss.emit(true);
+  }
+
+  onLinkClick() {
+    this.linkClicked.emit(true);
   }
 
 }

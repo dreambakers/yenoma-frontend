@@ -1,5 +1,5 @@
 const { gitDescribeSync } = require('git-describe');
-const { version } = require('./package.json');
+const { version } = require('../package.json');
 const { resolve, relative } = require('path');
 const { writeFileSync } = require('fs-extra');
 const moment = require('moment');
@@ -13,7 +13,7 @@ gitInfo.version = version;
 const dateTime = moment(new Date()).format('YYMMDDHHmm');
 gitInfo.buildDate = parseInt(dateTime, 10).toString(36); // convert to base 36
 
-const file = resolve(__dirname, 'src', 'environments', 'version.ts');
+const file = resolve(__dirname, '../', 'src', 'environments', 'version.ts');
 writeFileSync(file,
 `// IMPORTANT: THIS FILE IS AUTO GENERATED! DO NOT MANUALLY EDIT OR CHECKIN!
 /* tslint:disable */

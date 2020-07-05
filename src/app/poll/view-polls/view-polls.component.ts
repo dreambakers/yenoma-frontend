@@ -47,13 +47,13 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
     start: 'asc',
     disableClear: true
   }
+  subscription; // user's subscription
 
   constructor(private pollService: PollService,
     private utils: UtilService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     public translate: TranslateService,
-    private ngNavigatorShareService: NgNavigatorShareService,
     private emitterService: EmitterService,
     private dialogService: DialogService,
     private userService: UserService,
@@ -77,6 +77,13 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
       err => {
         if (err.status !== 401) {
           this.utils.openSnackBar('errors.e016_gettingPolls');
+        }
+      }
+    );
+    this.userService.getSubscription().subscribe(
+      (res: any) => {
+        if (res.success) {
+          this.subscription = res.subscription;
         }
       }
     );
@@ -188,7 +195,6 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
           this.pollService.terminatePoll(pollId).subscribe(
             (res: any) => {
               if (res.success) {
-                console.log(res)
                 let pollIndex = this.polls.findIndex(poll => poll._id === pollId);
                 this.polls[pollIndex] = JSON.parse(JSON.stringify(res.poll));
                 this.dataSource.data = this.polls;
@@ -284,15 +290,7 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
   }
 
   sharePoll(poll) {
-    const pollUrl = window.location.origin + `/p?id=${poll.shortId}`;
-    this.ngNavigatorShareService.share({
-      title: this.translate.instant('messages.sharePollTitle'),
-      text: this.translate.instant('messages.sharePoll'),
-      url: pollUrl,
-    })
-    .catch((error) => {
-      this.dialogService.share(poll);
-    });
+    this.dialogService.share(poll);
   }
 
   togglePreview(poll = null) {
@@ -338,6 +336,7 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
   }
 
   downloadResponses(poll) {
+    if (!this.subscription.isPro) { return; }
     const addNameOrTimeColumn = (data) => {
       if (poll.allowNames) {
         data += '"";';

@@ -7,6 +7,32 @@
         {{ message }}
     </ng-template>
 
+    <div *ngIf="emailAlert">
+        <p *ngIf="!signedUp; else notVerified" class="m-0">
+            {{ 'messages.verificationLinkNotValid' | translate }}
+        </p>
+
+        <ng-template #notVerified>
+            <p class="m-0">
+                {{ 'messages.accountNotVerified' | translate }}
+            </p>
+        </ng-template>
+
+        <p class="m-0 cursor-pointer" (click)="onLinkClick()">
+            <u>{{ 'labels.requestNewVerificationEmail' | translate }}</u>
+        </p>
+    </div>
+
+    <div *ngIf="passwordAlert">
+        <p class="m-0">
+            {{ 'messages.passwordResetLinkNotValid' | translate }}
+        </p>
+
+        <p class="m-0 cursor-pointer" (click)="onLinkClick()">
+            <u>{{ 'labels.requestNewPasswordResetEmail' | translate }}</u>
+        </p>
+    </div>
+
     <button type="button" class="close" (click)="dismiss()" *ngIf="dismissible">
         <span>&times;</span>
     </button>

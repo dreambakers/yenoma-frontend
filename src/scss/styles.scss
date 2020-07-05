@@ -11,28 +11,14 @@ body {
     background: $color-background;
 }
 
+.text-ellipsis {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
 .cursor-pointer {
     cursor: pointer !important;
-}
-
-.mat-tab-group{
-    height: 100%;
-}
-
-.mat-tab-body-wrapper {
-    flex-grow: 1;
-}
-
-.mat-tab-body {
-    display: flex !important;
-    flex-direction: column;
-}
-
-.mat-tab-body-content {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    justify-content: center;
 }
 
 .w-90 {
@@ -63,6 +49,101 @@ body {
     width: 5% !important;
 }
 
+#content {
+    max-width: 100%;
+    &.hasMobileNav {
+        /* Height of the footer element */
+        padding-bottom: 50px;
+    }
+}
+
+#mobileNavbar {
+    z-index: 1;
+    height: 50px;
+}
+
+#footer {
+    width: 100%;
+    height: 50px;
+    .mat-form-field-wrapper {
+        padding-bottom: 0 !important;
+    }
+    .mat-form-field-infix {
+        margin-right: 1.2rem;
+        padding: .5em 0;
+        border-top: 0;
+        width: 5rem;
+    }
+}
+
+#managePoll {
+    .mat-expansion-panel-header {
+        .mat-content {
+          display: none;
+        }
+    }
+}
+
+#dashboard {
+    padding-top: 56px;
+}
+
+#confirmationDialogActions {
+    .mat-button {
+        background-color: $color-primary-light !important;
+        &:hover {
+            background-color: #9FA8DA !important;
+        }
+        &:focus {
+            color: white;
+            background-color: $color-primary !important;
+            &:hover {
+              background-color: #303F9F !important;
+            }
+        }
+    }
+}
+
+#settingsComponent {
+    .mat-tab-body-content {
+        justify-content: start !important;
+    }
+
+    .mat-form-field-disabled {
+        .mat-form-field-wrapper {
+            border-radius: 5px;
+            background-color: rgba($secondary, .1);
+        }
+    }
+}
+
+button {
+    &:focus {
+        outline: none;
+        border: none;
+    }
+}
+
+.mat-tab-group{
+    height: 100%;
+}
+
+.mat-tab-body-wrapper {
+    flex-grow: 1;
+}
+
+.mat-tab-body {
+    display: flex !important;
+    flex-direction: column;
+}
+
+.mat-tab-body-content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: center;
+}
+
 .mat-form-field-appearance-outline.mat-form-field-disabled .mat-form-field-outline {
     color: rgba(108, 117, 125, 0.50);
 }
@@ -91,32 +172,11 @@ button.mat-menu-item{ outline:none; }
     font-weight: bold;
 }
 
-.text-ellipsis {
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-}
-
-#managePoll {
-    .mat-expansion-panel-header {
-        .mat-content {
-          display: none;
-        }
-    }
-}
-
 .nav-link {
     outline: none;
 }
 
 .mat-button-toggle-button {
-    &:focus {
-        outline: none;
-        border: none;
-    }
-}
-
-button {
     &:focus {
         outline: none;
         border: none;
@@ -138,6 +198,15 @@ button {
         .mat-form-field-label-wrapper {
             top: 0;
             padding: 0;
+        }
+    }
+
+    &.input-no-label {
+        .mat-form-field-infix {
+            border: 0;
+        }
+        .mat-input-element {
+            margin-top: 0.25em;
         }
     }
 }
@@ -164,7 +233,7 @@ button {
                 display: block;
                 height: 115px;
                 position: relative;
-                background-color: #fff;
+                background-color: $white;
                 padding: 10px 0;
             }
 
@@ -203,43 +272,12 @@ button {
     }
 }
 
-#dashboard {
-    padding-top: 56px;
-}
-
 .mat-drawer-container {
     height: 100%;
 }
 
-#content {
-    max-width: 100%;
-    &.hasMobileNav {
-        /* Height of the footer element */
-        padding-bottom: 50px;
-    }
-}
-
-#mobileNavbar {
-    z-index: 1;
-    height: 50px;
-}
-
-#footer {
-    width: 100%;
-    height: 50px;
-    .mat-form-field-wrapper {
-        padding-bottom: 0 !important;
-    }
-    .mat-form-field-infix {
-        margin-right: 1.2rem;
-        padding: .5em 0;
-        border-top: 0;
-        width: 5rem;
-    }
-}
-
-
 .mat-snack-bar-container {
+    max-width: unset !important;
     margin-bottom: 60px !important;
 }
 
@@ -255,6 +293,10 @@ button {
         color: $color-primary;
         border-color: $color-primary-light;
     }
+}
+
+.mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid .mat-form-field-outline-thick {
+    color: $danger;
 }
 
 .mat-checkbox-ripple .mat-ripple-element,.mat-checkbox-checked.mat-accent .mat-checkbox-background {
@@ -312,23 +354,6 @@ button {
     background-color: $color-primary-very-light !important;
 }
 
-
-#confirmationDialogActions {
-    .mat-button {
-        background-color: $color-primary-light !important;
-        &:hover {
-            background-color: #9FA8DA !important;
-        }
-        &:focus {
-            color: white;
-            background-color: $color-primary !important;
-            &:hover {
-              background-color: #303F9F !important;
-            }
-        }
-    }
-}
-
 .mat-hint {
     font-size: 0.750rem;
 }
@@ -358,6 +383,7 @@ button {
     align-items: center;
     text-align: center;
 }
+
 .separator::before, .separator::after {
     content: '';
     flex: 1;
@@ -379,7 +405,7 @@ button {
 }
 
 .mat-tab-label-container {
-    background-color: #fff;
+    background-color: $white;
 }
 
 .mat-ep-no-padding {
@@ -393,5 +419,23 @@ button {
 }
 
 .mat-ripple{
-    z-index:50; // 50 for example
+    z-index:50;
+}
+
+.responsive-dialog-content {
+    max-height: 450px;
+    max-width: 500px;
+}
+
+@media screen and (max-height:450px) and (orientation:landscape) {
+    /* Landscape styles */
+    .responsive-dialog-content {
+        max-height: 150px !important;
+    }
+}
+
+.mat-select-custom {
+    .mat-select-value {
+        padding: 0.7rem;
+    }
 }
