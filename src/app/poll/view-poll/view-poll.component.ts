@@ -129,13 +129,12 @@ export class ViewPollComponent implements OnInit {
     this.poll.questions.forEach(question => {
       const questionToPush = {
         _id: question._id || null,
-        text: question.text,
         answerType: question.answerType,
         answers: []
       };
 
       if (question.options.length) {
-        questionToPush.answers = question.options.map(option => ({ option, answer: getDefaultAnswer(question.answerType) }))
+        questionToPush.answers = question.options.map(option => ({ answer: getDefaultAnswer(question.answerType) }))
       } else {
         questionToPush['answer'] = getDefaultAnswer(question.answerType);
       }
@@ -421,9 +420,9 @@ export class ViewPollComponent implements OnInit {
 
   getSelectedRadioDropdownValue(questionIndex) {
     const question = this.response.questions[questionIndex];
-    const selectedOption = question.answers.find(answerObj => answerObj.answer);
-    if (selectedOption) {
-      return selectedOption.option;
+    const selectedOptionIndex = question.answers.findIndex(answerObj => answerObj.answer);
+    if (selectedOptionIndex !== -1) {
+      return this.poll.questions[questionIndex].options[selectedOptionIndex];
     }
   }
 
