@@ -77,11 +77,11 @@ export class ManagePollComponent implements OnInit, OnDestroy {
                 });
               }
             } else {
-              this.utils.openSnackBar('errors.e003_gettingPoll');
+              this.utils.openSnackBar('errors.e003_gettingSurvey');
             }
           },
           (err) => {
-            this.utils.openSnackBar('errors.e003_gettingPoll');
+            this.utils.openSnackBar('errors.e003_gettingSurvey');
           }
         )
       });
@@ -112,7 +112,7 @@ export class ManagePollComponent implements OnInit, OnDestroy {
           return this.toggleRearrangement();
       }
     });
-    const key = this.isEditing ? 'labels.managePoll' : 'labels.createPoll';
+    const key = this.isEditing ? 'labels.manageSurvey' : 'labels.createSurvey';
     this.emitterService.emit(constants.emitterKeys.changeNavbarTitle, { key });
     this.emitterService.emit(this.constants.emitterKeys.updateNavbarLabels, { add: 'labels.addQuestionMobile' });
   }
@@ -172,24 +172,24 @@ export class ManagePollComponent implements OnInit, OnDestroy {
     this.pollService.updatePoll(this.poll).subscribe(
       (res: any) => {
         if (res.success) {
-          this.utils.openSnackBar('messages.pollUpdated', 'labels.success');
+          this.utils.openSnackBar('messages.surveyUpdated', 'labels.success');
           this.pollCopy = JSON.stringify(this.poll);
         } else {
-          this.utils.openSnackBar('errors.e002_updatingPoll');
+          this.utils.openSnackBar('errors.e002_updatingSurvey');
         }
       },
       err => {
-        this.utils.openSnackBar('errors.e002_updatingPoll');
+        this.utils.openSnackBar('errors.e002_updatingSurvey');
       }
     );
   }
 
   createPoll() {
     this.pollService.addPoll(this.poll).subscribe((res: any) => {
-      this.utils.openSnackBar('messages.pollCreated', 'labels.success');
+      this.utils.openSnackBar('messages.surveyCreated', 'labels.success');
       this.router.navigate(['/dashboard/manage'], { queryParams: { id: res.poll._id } });
     }, err => {
-      this.utils.openSnackBar('errors.e001_creatingPoll');
+      this.utils.openSnackBar('errors.e001_creatingSurvey');
     });
   }
 
@@ -216,7 +216,7 @@ export class ManagePollComponent implements OnInit, OnDestroy {
     if (this.isEditing && !this.dirty) {  // don't show confirmation in case poll wasn't udpated
       return this.router.navigate(['/dashboard/all']);
     }
-    const key = this.isEditing ? 'cancelPollEdit' : 'cancelPollCreation';
+    const key = this.isEditing ? 'cancelSurveyEdit' : 'cancelSurveyCreation';
     this.dialogService.confirm('messages.areYouSure', `messages.${key}`).subscribe(
       res => {
         if (res) {
@@ -255,11 +255,11 @@ export class ManagePollComponent implements OnInit, OnDestroy {
     this.preview = !this.preview;
     if (this.preview) {
       this.emitterService.emit(constants.emitterKeys.changeNavbarTitle, {
-        key: 'labels.pollPreview',
+        key: 'labels.surveyPreview',
       });
     } else {
       this.emitterService.emit(constants.emitterKeys.changeNavbarTitle, {
-        key: 'labels.managePoll',
+        key: 'labels.manageSurvey',
       });
     }
     this.updateMobileNavbar();

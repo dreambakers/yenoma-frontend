@@ -3,7 +3,7 @@
     <div class="mb-3 d-flex justify-content-between" *ngIf="!isMobile">
         <h3>
             <span *ngIf="!preview">
-                {{ (isEditing ? 'labels.managePoll' : 'labels.createNewPoll') | translate }}
+                {{ (isEditing ? 'labels.manageSurvey' : 'labels.createNewSurvey') | translate }}
                 <span class="font-italic text-muted" *ngIf="shouldDisable">
                     ({{ 'labels.readOnly' | translate }})
                 </span>
@@ -13,7 +13,7 @@
 
     <div *ngIf="!preview">
         <div>
-            <app-alert messageKey="messages.cannotEditPollHasResponses"
+            <app-alert messageKey="messages.cannotEditSurveyHasResponses"
                        type="danger"
                        *ngIf="responses && responses.length"
                        class="mb-2">
@@ -40,7 +40,7 @@
                         <mat-label>{{ 'labels.title' | translate }}</mat-label>
                         <input matInput placeholder="{{ 'placeholders.title' | translate }}"
                                [(ngModel)]="poll.title" [disabled]="shouldDisable" autocomplete="off">
-                        <mat-hint *ngIf="!shouldDisable && showBasicHints">{{ 'hints.pollTitle' | translate }}</mat-hint>
+                        <mat-hint *ngIf="!shouldDisable && showBasicHints">{{ 'hints.surveyTitle' | translate }}</mat-hint>
                     </mat-form-field>
                 </mat-card>
                 <mat-accordion>
@@ -67,7 +67,7 @@
                                     [(ngModel)]="poll.description" [disabled]="shouldDisable">
                             </textarea>
                             <mat-hint *ngIf="!shouldDisable && showBasicHints">
-                                {{ 'hints.pollDescription' | translate }}
+                                {{ 'hints.surveyDescription' | translate }}
                             </mat-hint>
                         </mat-form-field>
 
@@ -157,13 +157,13 @@
                         </div>
                         <mat-form-field appearance="outline" class="w-100 mt-2" *ngIf="showPassword || poll.password">
                             <mat-label>{{ 'labels.password' | translate }}</mat-label>
-                            <input matInput placeholder="{{ 'placeholders.pollPassword' | translate }}"
+                            <input matInput placeholder="{{ 'placeholders.surveyPassword' | translate }}"
                                 [disabled]="shouldDisable" [(ngModel)]="poll.password" [type]="hide ? 'password' : 'text'">
                             <mat-icon matSuffix (click)="hide = !hide" class="cursor-pointer">
                                 {{hide ? 'visibility_off' : 'visibility'}}
                             </mat-icon>
                             <mat-hint *ngIf="showBasicHints">
-                                {{ 'hints.typePollPassword' | translate }}
+                                {{ 'hints.typeSurveyPassword' | translate }}
                         </mat-hint>
                         </mat-form-field>
                     </mat-expansion-panel>
@@ -516,7 +516,7 @@
         <button mat-fab color="primary"
                 (click)="togglePreview()"
                 matTooltip="{{ preview ? translate.instant('tooltips.stopPreviewing')
-                                       : translate.instant('pollActions.preview') }}"
+                                       : translate.instant('surveyActions.preview') }}"
                 matTooltipPosition="above">
             <mat-icon>
                 {{ !preview ? 'visibility' : 'visibility_off' }}

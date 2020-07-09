@@ -58,16 +58,16 @@ export class ViewStatsComponent implements OnInit {
               });
             }
             this.emitterService.emit(constants.emitterKeys.changeNavbarTitle, {
-              key: 'labels.pollStats',
+              key: 'labels.surveyStats',
               extra: ` (${this.responses.length})`
             });
             this.emitterService.emit(constants.emitterKeys.updateNavbarProps, { home: true });
           } else {
-            this.utils.openSnackBar('errors.e003_gettingPoll');
+            this.utils.openSnackBar('errors.e003_gettingSurvey');
           }
         },
         (err) => {
-          this.utils.openSnackBar('errors.e003_gettingPoll');
+          this.utils.openSnackBar('errors.e003_gettingSurvey');
         }
       )
     });

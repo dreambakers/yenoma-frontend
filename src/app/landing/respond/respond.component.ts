@@ -61,11 +61,11 @@ export class RespondComponent implements OnInit {
         if (response.poll) {
           this.router.navigate(['p', id]);
         } else {
-          this.utils.openSnackBar('messages.noPollFoundAgainstId', 'labels.retry');
+          this.utils.openSnackBar('messages.noSurveyFoundAgainstId', 'labels.retry');
         }
       },
       errorResponse => {
-        this.utils.openSnackBar('errors.e003_gettingPoll');
+        this.utils.openSnackBar('errors.e003_gettingSurvey');
       }
     );
   }

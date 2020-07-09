@@ -79,11 +79,11 @@ export class ResponsesComponent implements OnInit {
             this.poll = res.poll;  // poll
             this.poll.allowComments && this.displayedColumns.splice(1, 0, "comments");
           } else {
-            this.utils.openSnackBar('errors.e003_gettingPoll');
+            this.utils.openSnackBar('errors.e003_gettingSurvey');
           }
         },
         (err) => {
-          this.utils.openSnackBar('errors.e003_gettingPoll');
+          this.utils.openSnackBar('errors.e003_gettingSurvey');
         }
       );
 
@@ -150,7 +150,7 @@ export class ResponsesComponent implements OnInit {
       this.emitterService.emit(constants.emitterKeys.changeNavbarTitle, { key: messageKey, extra: null });
     } else {
       this.emitterService.emit(constants.emitterKeys.changeNavbarTitle, {
-        key: 'pollActions.responseDetails',
+        key: 'surveyActions.responseDetails',
         extra: ` (${this.responses.length})`
       });
     }

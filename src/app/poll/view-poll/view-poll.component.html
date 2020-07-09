@@ -23,7 +23,7 @@
     </app-alert>
 
     <app-alert
-      messageKey="{{ poll.status === constants.statusTypes.deleted ? 'messages.pollDeleted' : 'messages.cannotRespondPollTerminated'}}"
+      messageKey="{{ poll.status === constants.statusTypes.deleted ? 'messages.surveyDeleted' : 'messages.cannotRespondSurveyTerminated'}}"
       type="danger"
       *ngIf="!isOpen"
       class="mb-3">
@@ -333,7 +333,7 @@
 
     <mat-form-field appearance="outline" class=" mt-5">
       <mat-label>{{ 'labels.password' | translate }}</mat-label>
-      <input matInput placeholder="{{ 'placeholders.pollPassword' | translate }}" [(ngModel)]="password"
+      <input matInput placeholder="{{ 'placeholders.surveyPassword' | translate }}" [(ngModel)]="password"
         [type]="hide ? 'password' : 'text'" (keyup.enter)="goClicked()">
       <mat-icon matSuffix (click)="hide = !hide" class="cursor-pointer">
         {{hide ? 'visibility_off' : 'visibility'}}

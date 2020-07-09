@@ -33,7 +33,7 @@ export class FooterComponent implements OnInit, OnDestroy {
   labels = {
     home: 'labels.home',
     arrange: 'labels.arrange',
-    add: 'labels.addPoll',
+    add: 'labels.addSurvey',
     create: 'labels.create',
     preview: 'labels.preview'
   };

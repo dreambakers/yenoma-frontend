@@ -76,7 +76,7 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
       },
       err => {
         if (err.status !== 401) {
-          this.utils.openSnackBar('errors.e016_gettingPolls');
+          this.utils.openSnackBar('errors.e016_gettingSurveys');
         }
       }
     );
@@ -112,7 +112,7 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
 
   updatePaginatorLabels() {
     if (!this.isMobile && this.dataSource) {
-      this.paginator._intl.itemsPerPageLabel = this.translate.instant('labels.pollsPerPage');
+      this.paginator._intl.itemsPerPageLabel = this.translate.instant('labels.surveysPerPage');
       this.paginator._intl.getRangeLabel = (page: number, pageSize: number, length: number) => {
         if (length == 0 || pageSize == 0) {
           return `0 ${this.translate.instant('labels.of')} ${length}`;
@@ -158,14 +158,14 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
       });
     } else {
       this.emitterService.emit(constants.emitterKeys.changeNavbarTitle, {
-        key: 'labels.myPolls',
+        key: 'labels.mySurveys',
         extra: ` (${this.polls.length})`
       });
     }
   }
 
   deletePoll(pollId) {
-    this.dialogService.confirm('messages.areYouSure', 'messages.pollDeletionConfirmation').subscribe(
+    this.dialogService.confirm('messages.areYouSure', 'messages.surveyDeletionConfirmation').subscribe(
       res => {
         if (res) {
           this.pollService.deletePoll(pollId).subscribe(
@@ -173,14 +173,14 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
               if (res.success) {
                 this.polls = this.polls.filter(poll => poll._id !== pollId);
                 this.dataSource.data = this.polls;
-                this.utils.openSnackBar('messages.pollDeletedSuccessfully');
+                this.utils.openSnackBar('messages.surveyDeletedSuccessfully');
                 this.updateNavTitle();
               } else {
-                this.utils.openSnackBar('errors.e006_deletingPoll');
+                this.utils.openSnackBar('errors.e006_deletingSurvey');
               }
             },
             err => {
-              this.utils.openSnackBar('errors.e006_deletingPoll');
+              this.utils.openSnackBar('errors.e006_deletingSurvey');
             }
           );
         }
@@ -189,7 +189,7 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
   }
 
   terminatePoll(pollId) {
-    this.dialogService.confirm('messages.areYouSure', 'messages.pollTerminationConfirmation').subscribe(
+    this.dialogService.confirm('messages.areYouSure', 'messages.surveyTerminationConfirmation').subscribe(
       res => {
         if (res) {
           this.pollService.terminatePoll(pollId).subscribe(
@@ -198,13 +198,13 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
                 let pollIndex = this.polls.findIndex(poll => poll._id === pollId);
                 this.polls[pollIndex] = JSON.parse(JSON.stringify(res.poll));
                 this.dataSource.data = this.polls;
-                this.utils.openSnackBar('messages.pollTerminated');
+                this.utils.openSnackBar('messages.surveyTerminated');
               } else {
-                this.utils.openSnackBar('errors.e007_terminatingPoll');
+                this.utils.openSnackBar('errors.e007_terminatingSurvey');
               }
             },
             err => {
-              this.utils.openSnackBar('errors.e007_terminatingPoll');
+              this.utils.openSnackBar('errors.e007_terminatingSurvey');
             }
           );
         }
@@ -213,7 +213,7 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
   }
 
   restorePoll(pollId) {
-    this.dialogService.confirm('messages.areYouSure', 'messages.pollRestoreConfirmation').subscribe(
+    this.dialogService.confirm('messages.areYouSure', 'messages.surveyRestoreConfirmation').subscribe(
       res => {
         if (res) {
           this.pollService.restore(pollId).subscribe(
@@ -222,13 +222,13 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
                 let pollIndex = this.polls.findIndex(poll => poll._id === pollId);
                 this.polls[pollIndex] = JSON.parse(JSON.stringify(res.poll));
                 this.dataSource.data = this.polls;
-                this.utils.openSnackBar('messages.pollRestored');
+                this.utils.openSnackBar('messages.surveyRestored');
               } else {
-                this.utils.openSnackBar('errors.e008_restoringPoll');
+                this.utils.openSnackBar('errors.e008_restoringSurvey');
               }
             },
             err => {
-              this.utils.openSnackBar('errors.e008_restoringPoll');
+              this.utils.openSnackBar('errors.e008_restoringSurvey');
             }
           );
         }
@@ -277,14 +277,14 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
         if (res.success) {
           this.polls.push(res.poll);
           this.dataSource.data = this.polls;
-          this.utils.openSnackBar('messages.pollDuplicated');
+          this.utils.openSnackBar('messages.surveyDuplicated');
           this.updateNavTitle();
         } else {
-          this.utils.openSnackBar('errors.e014_duplicatingPoll');
+          this.utils.openSnackBar('errors.e014_duplicatingSurvey');
         }
       },
       err => {
-        this.utils.openSnackBar('errors.e014_duplicatingPoll');
+        this.utils.openSnackBar('errors.e014_duplicatingSurvey');
       }
     );
   }
@@ -306,7 +306,7 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
       return;
     }
     this.scrollService.saveCurrent();
-    this.updateNavTitle('labels.pollPreview');
+    this.updateNavTitle('labels.surveyPreview');
     this.updateNavbarProps({ preview: true, arrange: false, add: false });
     this.emitterService.emit(this.constants.emitterKeys.highlightKeys, { preview: true });
     this.poll = poll;

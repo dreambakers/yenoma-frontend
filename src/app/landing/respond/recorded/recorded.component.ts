@@ -55,7 +55,7 @@ export class RecordedComponent implements OnInit {
   }
 
   getSharingText(encode = true) {
-    const text = this.translate.instant('messages.sharePoll');
+    const text = this.translate.instant('messages.shareSurvey');
     if (encode) {
       return encodeURI(text);
     }
@@ -76,8 +76,8 @@ export class RecordedComponent implements OnInit {
 
   navigatorShare() {
     this.ngNavigatorShareService.share({
-      title: this.translate.instant('messages.sharePollTitle'),
-      text: this.translate.instant('messages.sharePoll'),
+      title: this.translate.instant('messages.shareSurveyTitle'),
+      text: this.translate.instant('messages.shareSurvey'),
       url: this.getSuveryUrl(false),
     })
   }

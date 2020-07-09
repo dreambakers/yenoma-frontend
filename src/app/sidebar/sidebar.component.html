@@ -11,12 +11,12 @@
       <mat-nav-list>
         <a class="nav-link cursor-pointer" routerLink='dashboard/all' (click)="toggleSidebar()" [routerLinkActive]="['active']" matRipple>
           <i class="fas fa-list mr-2"></i>
-          {{ 'labels.myPolls' | translate }}
+          {{ 'labels.mySurveys' | translate }}
         </a>
 
         <a class="nav-link cursor-pointer" routerLink='dashboard/create' (click)="toggleSidebar()" [routerLinkActive]="['active']" matRipple>
           <i class="fas fa-plus-circle mr-2"></i>
-          {{ 'labels.createNewPoll' | translate }}
+          {{ 'labels.createNewSurvey' | translate }}
         </a>
 
         <mat-divider></mat-divider>

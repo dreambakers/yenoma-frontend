@@ -97,7 +97,7 @@ export class ViewPollComponent implements OnInit {
           } else if (res.incorrectPassword) {
             this.utils.openSnackBar('messages.incorrectPassword', 'labels.retry');
           } else {
-            this.utils.openSnackBar('errors.e003_gettingPoll');
+            this.utils.openSnackBar('errors.e003_gettingSurvey');
             this.navigateToRespond();
           }
         }
@@ -106,7 +106,7 @@ export class ViewPollComponent implements OnInit {
         );
       },
       (err) => {
-        this.utils.openSnackBar('errors.e003_gettingPoll');
+        this.utils.openSnackBar('errors.e003_gettingSurvey');
         this.navigateToRespond();
       }
     );
