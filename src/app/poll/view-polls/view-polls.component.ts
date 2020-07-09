@@ -141,7 +141,7 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
     if (!updatedProps) {
       updatedProps = {
         home: false,
-        arrange: this.polls.length > 0,
+        arrange: this.polls.length >= 2,
         add: true,
         create: false,
         preview: false
@@ -175,6 +175,7 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
                 this.dataSource.data = this.polls;
                 this.utils.openSnackBar('messages.surveyDeletedSuccessfully');
                 this.updateNavTitle();
+                this.updateNavbarProps();
               } else {
                 this.utils.openSnackBar('errors.e006_deletingSurvey');
               }

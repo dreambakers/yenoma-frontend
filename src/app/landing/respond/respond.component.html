@@ -27,7 +27,8 @@
                                 <label>{{ 'labels.surveyId' | translate }}</label>
 
                                 <input type="email" class="form-control" formControlName="pollId"
-                                    [ngClass]="{ 'is-invalid': submitted && f.pollId.errors }" placeholder="Poll ID"
+                                    [ngClass]="{ 'is-invalid': submitted && f.pollId.errors }"
+                                    placeholder="{{ 'placeholders.surveyId'| translate }}"
                                     required>
 
                                 <div *ngIf="submitted && f.pollId.errors" class="invalid-feedback">

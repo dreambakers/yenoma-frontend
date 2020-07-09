@@ -242,7 +242,10 @@
     "username": "Username",
     "view": "View",
     "vote": "Vote",
-    "yes": "Yes"
+    "yes": "Yes",
+    "profile": "Profile",
+    "security": "Security",
+    "locale": "Locale"
   },
   "messages": {
     "accountNotVerified": "This account is not verified. Please check your email or visit the following link to request a new confirmation email.",
@@ -319,7 +322,8 @@
     "textAnswer": "Your answer (500 chars max.)",
     "title": "A survey about food",
     "typeYourAnswer": "Type your answer",
-    "username": "Username"
+    "username": "Username",
+    "surveyId": "Survey ID"
   },
   "surveyActions": {
     "delete": "Delete",
