@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-alert',
@@ -32,6 +33,10 @@ export class AlertComponent implements OnInit {
 
   onLinkClick() {
     this.linkClicked.emit(true);
+  }
+
+  get isMobile() {
+    return DataService.isMobile;
   }
 
 }

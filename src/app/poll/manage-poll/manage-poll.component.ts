@@ -15,6 +15,7 @@ import { takeUntil } from 'rxjs/operators';
 import { MobileNavbarProps } from 'src/app/footer/footer.component';
 import { DialogService } from 'src/app/services/dialog.service';
 import { ScrollService } from 'src/app/services/scroll.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-manage-poll',
@@ -28,6 +29,7 @@ export class ManagePollComponent implements OnInit, OnDestroy {
     for: ''
   };
 
+  user;
   poll: Poll;
   pollCopy;
   responses;
@@ -39,7 +41,6 @@ export class ManagePollComponent implements OnInit, OnDestroy {
   submitted = false;
   showPassword = false;
   showBasicHints = false;
-  showQuestionHints = false;
   rearrangeQuestions = false;
   constants = constants;
   mobileNavbarProps: MobileNavbarProps;
@@ -54,10 +55,12 @@ export class ManagePollComponent implements OnInit, OnDestroy {
     public translate: TranslateService,
     private emitterService: EmitterService,
     private dialogService: DialogService,
-    private scrollService: ScrollService
+    private scrollService: ScrollService,
+    private userService: UserService
   ) { }
 
   ngOnInit() {
+    this.user = this.userService.getLoggedInUser();
     this.isEditing = this.route.snapshot.routeConfig.path === 'manage';
     if (this.isEditing) {
       this.emitterService.emit(this.constants.emitterKeys.updateNavbarLabels, { create: 'labels.update' });
@@ -348,7 +351,8 @@ export class ManagePollComponent implements OnInit, OnDestroy {
   }
 
   get isValid() {
-    const valid = this.poll.title && (this.showPassword ? this.poll.password : true) &&
+    const valid = !this.user.readonly &&
+                  this.poll.title && (this.showPassword ? this.poll.password : true) &&
                   this.poll.questions.filter(question => question.limits).every(question => question.limits.maxChecks >= question.limits.minChecks) &&
                   this.poll.questions.every(question => question.text && question.options.every(option => option.length)) &&
                   this.poll.questions.filter(question => this.minimumOptionsRequired(question)).every(question => question.options.length >= 2) &&
