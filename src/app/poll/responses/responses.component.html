@@ -69,7 +69,7 @@
   </mat-card>
 
   <div class="text-center mt-5" *ngIf="!isMobile">
-    <button class="btn btn-primary mr-2" (click)="backClicked()">
+    <button mat-raised-button color="primary" class="mr-2" (click)="backClicked()">
       {{ 'labels.back' | translate }}
     </button>
   </div>
@@ -81,7 +81,7 @@
   </app-view-poll>
 
   <div class="text-center p-5" *ngIf="!isMobile">
-    <button (click)="toggleViewResponse()" class="btn btn-primary">
+    <button (click)="toggleViewResponse()" mat-raised-button color="primary">
       {{ 'labels.back' | translate }}
     </button>
   </div>

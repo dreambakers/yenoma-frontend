@@ -30,12 +30,12 @@
     width: 100%;
   }
 
-  .form-signin .btn {
+  .form-signin .mat-raised-button {
     font-size: 80%;
-    border-radius: 5rem;
+    border-radius: 5rem !important;
     letter-spacing: .1rem;
     font-weight: bold;
-    padding: 1rem;
+    padding: 0.5rem;
     transition: all 0.2s;
   }
 
