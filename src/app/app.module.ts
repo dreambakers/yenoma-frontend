@@ -18,7 +18,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ViewPollComponent } from './poll/view-poll/view-poll.component';
 import { ViewPollsComponent } from './poll/view-polls/view-polls.component';
-import { StarRatingComponent } from './star-rating/star-rating.component';
+import { StarRatingComponent } from './shared/star-rating/star-rating.component';
 import { LoginComponent } from './landing/login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SignupComponent } from './landing/signup/signup.component';

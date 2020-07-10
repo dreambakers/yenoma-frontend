@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PollService } from 'src/app/services/poll.service';
-import { StarRatingColor } from 'src/app/star-rating/star-rating.component';
+import { StarRatingColor } from 'src/app/shared/star-rating/star-rating.component';
 import { Response } from '../response.model';
 import { ResponseService } from 'src/app/services/response.service';
 import { UtilService } from 'src/app/services/util.service';
