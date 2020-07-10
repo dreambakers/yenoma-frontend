@@ -23,7 +23,7 @@ export class Stats {
     const insertAnswer = (answerIndex, answer, question) => {
       let key = answer;
       if ([constants.answerTypes.text, constants.answerTypes.email].includes(question.type)) {
-        key = answer ? 'filled' : 'unfilled';
+        key = answer ? 100 : 0;
       }
       if (answerIndex in question && key in question[answerIndex]) {
         return question[answerIndex][key] += 1;
@@ -79,35 +79,14 @@ export class Stats {
   getWeightFunctionForAnswer(questionType): Function {
     switch (questionType) {
 
-      case constants.answerTypes.binary:
-        return this.getWeightForBinary;
-
-      case constants.answerTypes.checkbox:
-      case constants.answerTypes.radioButton:
-        return this.getWeightForCheckboxOrRadio;
-
-      case constants.answerTypes.radioButton:
-        return this.getWeightForCheckboxOrRadio;
-
-      case constants.answerTypes.yesNoMaybe:
-        return this.getWeightForYNM;
-
-      case constants.answerTypes.smiley:
-        return this.getWeightForSmiley;
-
-      case constants.answerTypes.slider:
-      case constants.answerTypes.value:
-        return this.getWeightFromValue;
-
       case constants.answerTypes.dropdown:
         return this.getWeightForDropdown;
 
-      case constants.answerTypes.text:
-      case constants.answerTypes.email:
-        return this.getWeightForText;
+      case constants.answerTypes.rating:
+        return this.getWeightForRating;
 
       default:
-        return this.getWeightForRating;
+        return this.getWeightFromAnswer;
     }
   }
 
@@ -130,27 +109,7 @@ export class Stats {
     }
   }
 
-  getWeightForBinary(answer): Number {
-    return answer === 'yes' ? 100 : 0;
-  }
-
-  getWeightForCheckboxOrRadio(checked): Number {
-    return checked === 'true' ? 100 : 0;
-  }
-
-  getWeightFromValue(value): Number {
-    return +value;
-  }
-
-  getWeightForYNM(answer): Number {
-    return answer === 'yes' ? 100 : (answer === 'maybe' ? 50 : 0);
-  }
-
-  getWeightForSmiley(answer): Number {
-    return answer === 'happy' ? 100 : (answer === 'medium' ? 50 : 0);
-  }
-
-  getWeightForText(answer): Number {
-    return answer ? 100 : 0;
+  getWeightFromAnswer(answer): Number {
+    return answer;
   }
 }

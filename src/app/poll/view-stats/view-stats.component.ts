@@ -126,7 +126,7 @@ export class ViewStatsComponent implements OnInit {
     if (this.answerMap[i].type !== constants.answerTypes.text) {
       return this.answerMap[i][j]['response'];
     } else {
-      return this.getResponsePercentage('filled', i, j);
+      return this.getResponsePercentage(100, i, j);
     }
   }
 
@@ -142,8 +142,49 @@ export class ViewStatsComponent implements OnInit {
     return this.translate.instant(`answerTypes.${question.answerType}`);
   }
 
-  getAnswerLabel(answerKey) {
-    const label = this.translate.instant(`answers.${answerKey}`);
+  getAnswerLabel(answerKey, answerType) {
+    let labelKey;
+
+    switch(answerKey){
+      case 100:
+        switch(answerType) {
+          case constants.answerTypes.binary:
+          case constants.answerTypes.yesNoMaybe:
+            labelKey = 'yes';
+            break;
+          case constants.answerTypes.radioButton:
+          case constants.answerTypes.checkbox:
+            labelKey = 'checked';
+            break;
+          case constants.answerTypes.text:
+          case constants.answerTypes.email:
+            labelKey = 'filled';
+            break;
+        }
+        break;
+
+      case 50:
+        labelKey = 'maybe';
+        break;
+
+      case 0:
+        switch(answerType) {
+          case constants.answerTypes.binary:
+          case constants.answerTypes.yesNoMaybe:
+            labelKey = 'no';
+            break;
+          case constants.answerTypes.radioButton:
+          case constants.answerTypes.checkbox:
+            labelKey = 'unchecked';
+            break;
+          case constants.answerTypes.text:
+          case constants.answerTypes.email:
+            labelKey = 'unfilled';
+            break;
+        }
+        break;
+    }
+    const label = this.translate.instant(`answers.${labelKey}`);
     return label.includes('answers.') ? answerKey : label;
   }
 

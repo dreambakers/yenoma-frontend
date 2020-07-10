@@ -117,7 +117,6 @@ export class ViewPollComponent implements OnInit {
       switch (answerType) {
         case constants.answerTypes.checkbox:
         case constants.answerTypes.radioButton:
-          return false;
         case constants.answerTypes.radioButton:
         case constants.answerTypes.slider:
         case constants.answerTypes.dropdown:
@@ -201,10 +200,11 @@ export class ViewPollComponent implements OnInit {
   onCheckboxChanged(event, questionIndex, answerIndex = null) {
     const question = this.response.questions[questionIndex];
     question.answerType = constants.answerTypes.checkbox;
+    const value = event.checked ? 100 : 0;
     if (answerIndex !== null) {
-      question.answers[answerIndex].answer = event.checked;
+      question.answers[answerIndex].answer = value;
     } else {
-      question['answer'] = event.checked;
+      question['answer'] = value;
     }
   }
 
@@ -214,13 +214,13 @@ export class ViewPollComponent implements OnInit {
     if (answerIndex !== null) {
       question.answers.forEach((answerObject, index) => {
         if (index !== answerIndex) {
-          answerObject.answer = false;
+          answerObject.answer = 0;
         } else {
-          answerObject.answer = true;
+          answerObject.answer = 100;
         }
       })
     } else {
-      question['answer'] = true;
+      question['answer'] = 100;
     }
   }
 
@@ -312,16 +312,16 @@ export class ViewPollComponent implements OnInit {
     return +question.decimalPlaces > 0;
   }
 
-  testRegexForValueAnswer(value, question) {
-    if (this.allowDecimals(question)) {
-      return new RegExp(`^-?[0-9]+(?:\\.[0-9]{${+question.decimalPlaces}})?$`).test(value);
-    } else {
-      return new RegExp(`^-?[0-9]+$`).test(value);
-    }
-  }
-
   valueInputValid(value, question) {
-    const regexPassed = this.testRegexForValueAnswer(value, question);
+    const testRegexForValueAnswer = (value, question) => {
+      if (this.allowDecimals(question)) {
+        return new RegExp(`^-?[0-9]+(?:\\.[0-9]{${+question.decimalPlaces}})?$`).test(value);
+      } else {
+        return new RegExp(`^-?[0-9]+$`).test(value);
+      }
+    }
+
+    const regexPassed = testRegexForValueAnswer(value, question);
     const isValid = +value >= +question.minValue && +value <= +question.maxValue && regexPassed;
     return isValid;
   }

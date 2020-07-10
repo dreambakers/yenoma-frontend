@@ -152,10 +152,10 @@
           <div *ngSwitchCase="constants.answerTypes.binary">
             <mat-button-toggle-group #group="matButtonToggleGroup" [(ngModel)]="answerObj.answer"
               [disabled]="shouldDisable">
-              <mat-button-toggle value="yes">
+              <mat-button-toggle value="100">
                 {{ 'answers.yes' | translate }}
               </mat-button-toggle>
-              <mat-button-toggle value="no">
+              <mat-button-toggle value="0">
                 {{ 'answers.no' | translate }}
               </mat-button-toggle>
             </mat-button-toggle-group>
@@ -164,7 +164,7 @@
           <div *ngSwitchCase="constants.answerTypes.radioButton">
             <mat-radio-group name="{{i}}" [disabled]="shouldDisable">
               <mat-radio-button
-                [checked]="answerObj.answer"
+                [checked]="!!answerObj.answer"
                 value=""
                 (change)="onRadioButtonChanged(i, j)"
                 class="mat-radio-mb-0 radio-button-no-content">
@@ -181,13 +181,13 @@
           <div *ngSwitchCase="constants.answerTypes.yesNoMaybe">
             <mat-button-toggle-group #group="matButtonToggleGroup" [(ngModel)]="answerObj.answer"
               [disabled]="shouldDisable">
-              <mat-button-toggle value="yes">
+              <mat-button-toggle value="100">
                 {{ 'answers.yes' | translate }}
               </mat-button-toggle>
-              <mat-button-toggle value="no">
+              <mat-button-toggle value="0">
                 {{ 'answers.no' | translate }}
               </mat-button-toggle>
-              <mat-button-toggle value="maybe">
+              <mat-button-toggle value="50">
                 {{ 'answers.maybe' | translate }}
               </mat-button-toggle>
             </mat-button-toggle-group>
@@ -196,13 +196,13 @@
           <div *ngSwitchCase="constants.answerTypes.smiley">
             <mat-button-toggle-group #group="matButtonToggleGroup" [(ngModel)]="answerObj.answer"
               [disabled]="shouldDisable" id="smiley">
-              <mat-button-toggle value="sad">
+              <mat-button-toggle value="0">
                 <i class="far fa-frown" style="color: #f44336"></i>
               </mat-button-toggle>
-              <mat-button-toggle value="medium">
+              <mat-button-toggle value="50">
                 <i class="far fa-meh" style="color: #ffc107"></i>
               </mat-button-toggle>
-              <mat-button-toggle value="happy">
+              <mat-button-toggle value="100">
                 <i class="far fa-smile" style="color: #4caf50"></i>
               </mat-button-toggle>
             </mat-button-toggle-group>

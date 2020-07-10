@@ -21,11 +21,11 @@
     "termsAndConditions": "EN <strong>Lorem ipsum</strong> <u>dolor sit amet</u>, <em>consectetur</em> <mark>adipisicing</mark> elit. Possimus enim, recusandae ipsam fuga rerum blanditiis maxime corrupti corporis sit ducimus doloribus? Sit, in suscipit ut fugit consectetur explicabo recusandae. Quaerat. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus enim, recusandae ipsam fuga rerum blanditiis maxime corrupti corporis sit ducimus doloribus? Sit, in suscipit ut <en>fugit</en> consectetur explicabo recusandae. Quaerat. <br> Source: <br> https://getbootstrap.com/docs/4.0/content/typography/"
   },
   "answers": {
-    "false": "Unchecked",
+    "unchecked": "Unchecked",
     "filled": "Filled",
     "maybe": "Maybe",
     "no": "No",
-    "true": "Checked",
+    "checked": "Checked",
     "unfilled": "Unfilled",
     "yes": "Yes"
   },

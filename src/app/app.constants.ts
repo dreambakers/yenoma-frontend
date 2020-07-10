@@ -50,15 +50,15 @@ export const constants = {
     },
 
     options: {
-        binary: ['yes', 'no'],
-        yesNoMaybe: ['yes', 'maybe', 'no'],
+        binary: [100, 0],
+        yesNoMaybe: [100, 50, 0],
         rating: [5,4,3,2,1],
         dropdown: [10,9,8,7,6,5,4,3,2,1,0],
-        smiley: ['happy','medium', 'sad',],
-        text: ['unfilled', 'filled'],
-        radioButton: ['true', 'false'],
-        checkbox: ['true', 'false'],
-        email: ['unfilled', 'filled'],
+        smiley: [100, 50, 0,],
+        radioButton: [100, 0],
+        checkbox: [100, 0],
+        text: [0, 100],
+        email: [0, 100],
     },
 
     dialogWidth: {
