@@ -45,6 +45,8 @@ export class SidebarComponent implements OnInit {
             return this.termsAndConditions();
         case constants.emitterKeys.languageChangeClicked:
           return this.language();
+        case constants.emitterKeys.feedbackClicked:
+          return this.feedback();
         case constants.emitterKeys.scrollPositionUpdated:
           return this.scrollPosition = emitted.data;
       }
@@ -81,6 +83,10 @@ export class SidebarComponent implements OnInit {
 
   language() {
     this.dialogService.language();
+  }
+
+  feedback() {
+    this.dialogService.feedback();
   }
 
   toggleSidebar() {

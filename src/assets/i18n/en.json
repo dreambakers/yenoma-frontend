@@ -61,7 +61,8 @@
     "e016_gettingSurveys": "An error occurred while getting the surveys (#016)",
     "e017_gettingProfile": "An error occurred while getting the user profile (#017)",
     "e018_updatingProfile": "An error occurred while updating the user profile (#018)",
-    "e019_sendingEmail": "An error occurred while sending the verification e-mail (#019)"
+    "e019_sendingEmail": "An error occurred while sending the verification e-mail (#019)",
+    "e020_sendingFeedback": "An error occurred while sending the feedback (#020)"
   },
   "hints": {
     "activeComment": "Enter active comment (shown when survey is active)",
@@ -245,7 +246,9 @@
     "yes": "Yes",
     "profile": "Profile",
     "security": "Security",
-    "locale": "Locale"
+    "locale": "Locale",
+    "feedback": "Feedback",
+    "sendFeedback": "Send feedback"
   },
   "messages": {
     "accountNotVerified": "This account is not verified. Please check your email or visit the following link to request a new confirmation email.",
@@ -305,7 +308,9 @@
     "userEmailAlreadyExists": "A user with the same email already exists",
     "usernameAlreadyExists": "A user with the same username already exists",
     "usernameRequirement": "Username must be at least 5 characters and can only contain alphabets and numbers",
-    "verificationLinkNotValid": "The verification link is not valid. Please visit the following link to request a new confirmation email."
+    "verificationLinkNotValid": "The verification link is not valid. Please visit the following link to request a new confirmation email.",
+    "feedbackSent": "The feedback was successfully sent to the yenoma team",
+    "feedbackDescriptionRequired": "Feedback description is required"
   },
   "placeholders": {
     "activeComment": "Active comment",
@@ -323,7 +328,8 @@
     "title": "A survey about food",
     "typeYourAnswer": "Type your answer",
     "username": "Username",
-    "surveyId": "Survey ID"
+    "surveyId": "Survey ID",
+    "feedbackDescription": "Description"
   },
   "surveyActions": {
     "delete": "Delete",
@@ -336,6 +342,12 @@
     "share": "Share",
     "showStats": "Statistics",
     "terminate": "Terminate"
+  },
+  "feedbackOptions": {
+    "featureRequest": "Feature Request",
+    "translationCorrection": "Translation correction",
+    "bugReport": "Bug report",
+    "others": "Others"
   },
   "tooltips": {
     "minTwoOptions": "This answer type requires a minimum of 2 options",

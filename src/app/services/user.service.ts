@@ -47,6 +47,10 @@ export class UserService {
     return this.http.get(`${constants.apiUrl}/user/subscription/`);
   }
 
+  sendFeedback(feedback) {
+    return this.http.post(`${constants.apiUrl}/user/feedback/`, { feedback });
+  }
+
   getLoggedInUser() {
     return JSON.parse(localStorage.getItem('user'));
   }

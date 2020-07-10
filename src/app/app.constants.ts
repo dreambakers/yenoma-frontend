@@ -40,6 +40,7 @@ export const constants = {
         cookiePolicyClicked: "cookiePolicyClicked",
         imprintClicked: "imprintClicked",
         termsAndConditionsClicked: "termsAndConditionsClicked",
+        feedbackClicked: "feedbackClicked",
         changePasswordClicked: "changePasswordClicked",
         logoutInitiated: "logoutInitiated",
         languageChangeClicked: "languageChangeClicked",

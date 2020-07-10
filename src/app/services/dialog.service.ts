@@ -14,6 +14,7 @@ import { InactivityComponent } from '../dialogs/inactivity/inactivity.component'
 import { CookiePolicyComponent } from '../dialogs/cookie-policy/cookie-policy.component';
 import { ImprintComponent } from '../dialogs/imprint/imprint.component';
 import { TermsAndConditionsComponent } from '../dialogs/terms-and-conditions/terms-and-conditions.component';
+import { FeedbackComponent } from '../dialogs/feedback/feedback.component';
 
 @Injectable({
   providedIn: 'root'
@@ -97,6 +98,13 @@ export class DialogService {
 
   inactivity(): Observable<any> {
     const dialogRef = this.dialog.open(InactivityComponent, {
+      width: '350px',
+    });
+    return dialogRef.afterClosed();
+  }
+
+  feedback(): Observable<any> {
+    const dialogRef = this.dialog.open(FeedbackComponent, {
       width: '350px',
     });
     return dialogRef.afterClosed();
