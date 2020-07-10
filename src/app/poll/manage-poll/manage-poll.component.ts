@@ -304,15 +304,15 @@ export class ManagePollComponent implements OnInit, OnDestroy {
       delete question.limits;
     } else {
       question.limits = {
-        minChecks: 2,
+        minChecks: 1,
         maxChecks: question.options.length
       }
     }
   }
 
   getMinimumChecksDropdownValues(question) {
-    let options = [2];
-    for (let i = 3; i <= question.options.length; i ++) {
+    let options = [1];
+    for (let i = 2; i <= question.options.length; i ++) {
       options.push(i);
     }
     return options;

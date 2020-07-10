@@ -439,3 +439,13 @@ button.mat-menu-item{ outline:none; }
         padding: 0.7rem;
     }
 }
+
+.mat-success {
+    background-color: $success;
+    color: $white;
+}
+
+.mat-danger {
+    background-color: $danger;
+    color: $white;
+}

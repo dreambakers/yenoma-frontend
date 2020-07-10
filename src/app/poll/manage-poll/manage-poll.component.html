@@ -350,7 +350,7 @@
                         </div>
 
                         <div class="d-flex flex-column mb-2"
-                            *ngIf="question.answerType === constants.answerTypes.checkbox && question.options.length > 2">
+                            *ngIf="question.answerType === constants.answerTypes.checkbox && question.options.length > 1">
 
                             <div
                                 class="d-flex flex-column align-items-start mb-2"
@@ -458,7 +458,7 @@
                                 <i class="fas fa-plus-circle text-primary cursor-pointer add-option-button-mobile"
                                     (click)="addOption(question)" *ngIf="isMobile; else desktopButton"></i>
                                 <ng-template #desktopButton>
-                                    <button class="btn btn-primary" [class.mb-1]="question.showHints" (click)="addOption(question)">
+                                    <button mat-raised-button color="primary" [class.mb-1]="question.showHints" (click)="addOption(question)">
                                         {{ getAddOptionLabel(question) | translate }}
                                     </button>
                                 </ng-template>
@@ -483,28 +483,30 @@
 
         <div class="mt-5" [hidden]="isMobile">
             <div class="d-flex flex-row justify-content-center">
-                <button class="btn btn-primary mb-5" (click)="addQuestion()" *ngIf="!shouldDisable">
+                <button mat-raised-button color="primary" class="mb-5" (click)="addQuestion()" *ngIf="!shouldDisable">
                     {{ 'labels.addQuestionDesktop' | translate }}
                 </button>
             </div>
 
             <div class="d-flex flex-row justify-content-center">
-                <button class="btn btn-danger mb-5 mr-2" type="submit" (click)="onCancelClicked()">
+                <button mat-raised-button color="danger" class="mb-5 mr-2" type="submit" (click)="onCancelClicked()">
                     {{ 'labels.cancel' | translate }}
                 </button>
 
-                <button *ngIf="!isEditing" class="btn btn-success mb-5" type="submit" (click)="createPoll()"
+                <button *ngIf="!isEditing" mat-raised-button color="success" class="mb-5" type="submit" (click)="createPoll()"
                         [disabled]="!isValid">
                     {{ 'labels.create' | translate }}
                 </button>
 
-                <div *ngIf="isEditing" class="btn btn-success mb-5" (click)="isValid && dirty && updatePoll()"
-                     [class.disabled]="!isValid || !dirty"
-                     matTooltip="{{ !isValid ?
-                                    'Please fill all the required fields' :
-                                    (!dirty ? 'Change some fields to update the poll' : '' ) }}">
+                <button
+                    *ngIf="isEditing"
+                    mat-raised-button
+                    color="success"
+                    class="mb-5"
+                    (click)="updatePoll()"
+                    [disabled]="!isValid || !dirty">
                     {{ 'labels.update' | translate }}
-                </div>
+                </button>
             </div>
         </div>
     </div>
