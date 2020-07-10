@@ -9,6 +9,7 @@ import { DataService } from 'src/app/services/data.service';
 export class AlertComponent implements OnInit {
 
   @Input() dismissible: Boolean = true;
+  @Input() container: Boolean = false;
   @Input() type = 'info';
   @Input() messageKey;
   @Input() message;

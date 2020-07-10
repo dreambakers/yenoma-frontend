@@ -1,22 +1,51 @@
 <mat-tab-group mat-align-tabs="center" [selectedIndex]="selectedIndex" *ngIf="!isViewingResponse; else pollView">
 
     <mat-tab label="{{ translate.instant('labels.login') }}/{{ translate.instant('labels.register') }}">
-        <app-alert messageKey="messages.sessionExpired" type="danger" *ngIf="alertIs('session-expired')"></app-alert>
-        <app-alert messageKey="messages.checkVerificationEmail" *ngIf="alertIs('verification')"></app-alert>
-        <app-alert messageKey="messages.accountVerified" *ngIf="alertIs('verification-success')"></app-alert>
-        <app-alert messageKey="messages.passwordChangedLogin" *ngIf="alertIs('password-changed')"></app-alert>
-        <app-alert messageKey="messages.passwordResetEmailSent" *ngIf="alertIs('password-reset-email-sent')"></app-alert>
+        <app-alert
+            messageKey="messages.sessionExpired"
+            type="danger"
+            container="true"
+            *ngIf="alertIs('session-expired')">
+        </app-alert>
+
+        <app-alert
+            messageKey="messages.checkVerificationEmail"
+            container="true"
+            *ngIf="alertIs('verification')">
+        </app-alert>
+
+        <app-alert
+            messageKey="messages.accountVerified"
+            container="true"
+            *ngIf="alertIs('verification-success')">
+        </app-alert>
+
+        <app-alert
+            messageKey="messages.passwordChangedLogin"
+            container="true"
+            *ngIf="alertIs('password-changed')">
+        </app-alert>
+
+        <app-alert
+            messageKey="messages.passwordResetEmailSent"
+            container="true"
+            *ngIf="alertIs('password-reset-email-sent')" >
+        </app-alert>
+
         <app-alert
             type="danger"
             [emailAlert]="'true'"
             [signedUp]="signedUp"
-            *ngIf="alertIs('verification-failure')"
-            (linkClicked)="onEmailVerificationLinkClicked()">
+            container="true"
+            (linkClicked)="onEmailVerificationLinkClicked()"
+            *ngIf="alertIs('verification-failure')">
         </app-alert>
+
         <app-alert
             type="danger"
             [passwordAlert]="'true'"
             (linkClicked)="onForgotPasswordClicked()"
+            container="true"
             *ngIf="alertIs('password-link-failure')">
         </app-alert>
 

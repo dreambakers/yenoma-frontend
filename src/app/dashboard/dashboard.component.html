@@ -3,6 +3,7 @@
 
     <ng-container *ngFor="let alert of globalAlerts">
         <app-alert
+            container="true"
             *ngIf="showGlobalAlert(alert.key)"
             [messageKey]="alert.messageKey"
             [type]="alert.type"

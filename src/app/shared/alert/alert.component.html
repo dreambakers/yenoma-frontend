@@ -1,5 +1,5 @@
 <div class="alert alert-{{type}} alert-dismissible mat-elevation-z1 {{class}}" *ngIf="!dismissed">
-  <div class="{{ !isMobile ? 'container text-center' : '' }}">
+  <div class="{{ (container && !isMobile) ? 'container text-center' : '' }}">
     <span *ngIf="messageKey; else showMessage">
       {{ messageKey | translate }}
     </span>
