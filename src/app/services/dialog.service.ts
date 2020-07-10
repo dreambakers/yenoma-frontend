@@ -3,11 +3,9 @@ import { Observable } from 'rxjs';
 import { ConfirmDialogModel, ConfirmDialogComponent } from '../dialogs/confirm-dialog/confirm-dialog.component';
 import { DataService } from './data.service';
 import { SortDialogModel, SortDialogComponent } from '../dialogs/sort/sort-dialog.component';
-import { ChangePasswordComponent } from '../dialogs/change-password/change-password.component';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { AboutComponent } from '../dialogs/about/about.component';
-import { LanguageComponent } from '../dialogs/language/language.component';
 import { constants } from '../app.constants';
 import { ShareComponent } from '../dialogs/share/share.component';
 import { InactivityComponent } from '../dialogs/inactivity/inactivity.component';
@@ -46,13 +44,6 @@ export class DialogService {
     return dialogRef.afterClosed();
   }
 
-  changePassword(): Observable<any> {
-    const dialogRef = this.dialog.open(ChangePasswordComponent, {
-      minWidth: !DataService.isMobile ? this.constants.dialogWidth.desktop : this.constants.dialogWidth.mobile,
-    });
-    return dialogRef.afterClosed();
-  }
-
   about(): Observable<any> {
     const dialogRef = this.dialog.open(AboutComponent, {
       minWidth: !DataService.isMobile ? this.constants.dialogWidth.desktop : this.constants.dialogWidth.mobile,
@@ -76,13 +67,6 @@ export class DialogService {
 
   termsAndConditions(): Observable<any> {
     const dialogRef = this.dialog.open(TermsAndConditionsComponent, {
-      minWidth: !DataService.isMobile ? this.constants.dialogWidth.desktop : this.constants.dialogWidth.mobile,
-    });
-    return dialogRef.afterClosed();
-  }
-
-  language(): Observable<any> {
-    const dialogRef = this.dialog.open(LanguageComponent, {
       minWidth: !DataService.isMobile ? this.constants.dialogWidth.desktop : this.constants.dialogWidth.mobile,
     });
     return dialogRef.afterClosed();

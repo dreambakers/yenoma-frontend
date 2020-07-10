@@ -41,9 +41,7 @@ export const constants = {
         imprintClicked: "imprintClicked",
         termsAndConditionsClicked: "termsAndConditionsClicked",
         feedbackClicked: "feedbackClicked",
-        changePasswordClicked: "changePasswordClicked",
         logoutInitiated: "logoutInitiated",
-        languageChangeClicked: "languageChangeClicked",
         scrollPositionUpdated: "scrollPositionUpdated",
         idleTimeoutCount: "idleTimeoutCount",
         idleTimedOut: "idleTimedOut"

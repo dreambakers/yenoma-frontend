@@ -33,8 +33,6 @@ export class SidebarComponent implements OnInit {
       switch(emitted.event) {
         case constants.emitterKeys.toggleSidebar:
           return this.sideNav.toggle();
-        case constants.emitterKeys.changePasswordClicked:
-          return this.changePassword();
         case constants.emitterKeys.aboutClicked:
           return this.about();
         case constants.emitterKeys.cookiePolicyClicked:
@@ -43,8 +41,6 @@ export class SidebarComponent implements OnInit {
             return this.imprint();
         case constants.emitterKeys.termsAndConditionsClicked:
             return this.termsAndConditions();
-        case constants.emitterKeys.languageChangeClicked:
-          return this.language();
         case constants.emitterKeys.feedbackClicked:
           return this.feedback();
         case constants.emitterKeys.scrollPositionUpdated:
@@ -61,10 +57,6 @@ export class SidebarComponent implements OnInit {
     this.emitterService.emit(this.constants.emitterKeys.logoutClicked);
   }
 
-  changePassword() {
-    this.dialogService.changePassword();
-  }
-
   about() {
     this.dialogService.about();
   }
@@ -79,10 +71,6 @@ export class SidebarComponent implements OnInit {
 
   termsAndConditions() {
     this.dialogService.termsAndConditions();
-  }
-
-  language() {
-    this.dialogService.language();
   }
 
   feedback() {
