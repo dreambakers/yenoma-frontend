@@ -77,14 +77,19 @@
             {{ i + 1 }}
           </span>
         </div>
-        <h5 class="m-0 text-break question-text">
-          <span *ngIf="question.text; else placeholderQuestion">
-            {{question.text}}
-          </span>
-          <ng-template #placeholderQuestion>
-            <span class="text-muted">({{ 'labels.questionNumber' | translate: { QN: i + 1} }})</span>
-          </ng-template>
-        </h5>
+        <div class="d-flex flex-column">
+          <h5 class="m-0 text-break question-text">
+            <span *ngIf="question.text; else placeholderQuestion">
+              {{question.text}}
+            </span>
+            <ng-template #placeholderQuestion>
+              <span class="text-muted">({{ 'labels.questionNumber' | translate: { QN: i + 1} }})</span>
+            </ng-template>
+          </h5>
+          <h6 class="m-0 text-break additional-text" *ngIf="question.additionalText">
+            {{question.additionalText}}
+          </h6>
+        </div>
       </div>
 
       <ul class="list-group">

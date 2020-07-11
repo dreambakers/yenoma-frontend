@@ -345,6 +345,17 @@ export class ManagePollComponent implements OnInit, OnDestroy {
     }
   }
 
+  toggleAdditionalText(question) {
+    if ('additionalText' in question) {
+      return delete question.additionalText;
+    }
+    question.additionalText = '';
+  }
+
+  keyIn(key, object) {
+    return key in object;
+  }
+
   ngOnDestroy(): void {
     this.emitterService.emit(this.constants.emitterKeys.resetNavbar);
     this.destroy$.next(true);

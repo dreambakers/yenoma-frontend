@@ -90,7 +90,8 @@
     "typeOption": "Type option {{OPN}}",
     "typeSurveyPassword": "Type survey password",
     "typeQuestion": "Type question {{QN}}",
-    "useDropdown": "Use a dropdown instead of a list"
+    "useDropdown": "Use a dropdown instead of a list",
+    "additionalText": "Add additional text below question"
   },
   "labels": {
     "about": "About",
@@ -248,7 +249,8 @@
     "security": "Security",
     "locale": "Locale",
     "feedback": "Feedback",
-    "sendFeedback": "Send feedback"
+    "sendFeedback": "Send feedback",
+    "additionalText": "Additional text"
   },
   "messages": {
     "accountNotVerified": "This account is not verified. Please check your email or visit the following link to request a new confirmation email.",
@@ -329,7 +331,8 @@
     "typeYourAnswer": "Type your answer",
     "username": "Username",
     "surveyId": "Survey ID",
-    "feedbackDescription": "Description"
+    "feedbackDescription": "Description",
+    "additionalText": "Addtional text"
   },
   "surveyActions": {
     "delete": "Delete",

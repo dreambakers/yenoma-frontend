@@ -389,8 +389,8 @@
                     </div>
                 </div>
 
-                <div class="d-flex align-items-center justify-content-between">
-                    <mat-form-field appearance="outline" class="w-100 {{ question.showHints ? '' : 'mat-field-no-margin' }}" *ngIf="!rearrangeQuestions">
+                <div class="d-flex flex-column align-items-center justify-content-between">
+                    <mat-form-field appearance="outline" class="w-100 {{ question.showHints ? '' : 'mat-field-no-margin' }} mb-4" *ngIf="!rearrangeQuestions">
                         <mat-label>
                             {{ 'labels.questionNumber' | translate: { QN: i + 1} }}
                         </mat-label>
@@ -398,6 +398,37 @@
                                [(ngModel)]="question.text" [disabled]="shouldDisable" autocomplete="off">
                         <mat-hint *ngIf="poll.status === constants.statusTypes.open && question.showHints">
                             {{ 'hints.typeQuestion' | translate: { QN: i + 1} }}
+                        </mat-hint>
+                    </mat-form-field>
+
+                    <div class="d-flex flex-column align-items-start mb-2 w-100" *ngIf="!rearrangeQuestions">
+                        <mat-checkbox
+                            class="mr-3 checkbox-reduced-height"
+                            (change)="toggleAdditionalText(question)"
+                            [disabled]="shouldDisable"
+                            [checked]="keyIn('additionalText', question)">
+                            {{ 'labels.additionalText' | translate }}
+                        </mat-checkbox>
+                        <mat-hint class="ml-l" *ngIf="question.showHints">
+                            {{ 'hints.additionalText' | translate }}
+                        </mat-hint>
+                    </div>
+
+                    <mat-form-field
+                        appearance="outline"
+                        class="w-100 {{ question.showHints ? '' : 'mat-field-no-margin' }}"
+                        *ngIf="!rearrangeQuestions && keyIn('additionalText', question)">
+                        <mat-label>
+                            {{ 'labels.additionalText' | translate }}
+                        </mat-label>
+                        <textarea
+                            matInput
+                            [(ngModel)]="question.additionalText"
+                            [disabled]="shouldDisable"
+                            autocomplete="off">
+                        </textarea>
+                        <mat-hint *ngIf="poll.status === constants.statusTypes.open && question.showHints">
+                            {{ 'hints.additionalText' | translate: { QN: i + 1} }}
                         </mat-hint>
                     </mat-form-field>
                 </div>
