@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { constants } from '../app.constants';
 import { UserService } from './user.service';
 import { EmitterService } from './emitter.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,8 @@ export class AuthenticationService {
     private http: HttpClient,
     private router: Router,
     private userService: UserService,
-    private emitterService: EmitterService
+    private emitterService: EmitterService,
+    private translate: TranslateService
   ) { }
 
   authenticateUser(user: { email, password, username }, signUp = false, remember = false) {
@@ -27,7 +29,7 @@ export class AuthenticationService {
       requestUrl += '/login'
     }
 
-    return this.http.post(requestUrl, { ...user }, {observe: 'response'});
+    return this.http.post(requestUrl, { ...user, language: this.translate.currentLang }, {observe: 'response'});
   }
 
   logout(sessionExpired = false) {
