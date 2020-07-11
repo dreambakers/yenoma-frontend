@@ -1,91 +1,94 @@
-<mat-tab-group mat-align-tabs="center" [selectedIndex]="selectedIndex" *ngIf="!isViewingResponse; else pollView">
+<div class="d-flex flex-column justify-content-between h-100">
+    <div [class.desktop-height]="!isMobile" class="flex-fill">
+        <mat-tab-group mat-align-tabs="center" [selectedIndex]="selectedIndex" *ngIf="!isViewingResponse; else pollView">
+            <mat-tab label="{{ translate.instant('labels.login') }}/{{ translate.instant('labels.register') }}">
+                <app-alert
+                    messageKey="messages.sessionExpired"
+                    type="danger"
+                    container="true"
+                    *ngIf="alertIs('session-expired')">
+                </app-alert>
 
-    <mat-tab label="{{ translate.instant('labels.login') }}/{{ translate.instant('labels.register') }}">
-        <app-alert
-            messageKey="messages.sessionExpired"
-            type="danger"
-            container="true"
-            *ngIf="alertIs('session-expired')">
-        </app-alert>
+                <app-alert
+                    messageKey="messages.checkVerificationEmail"
+                    container="true"
+                    *ngIf="alertIs('verification')">
+                </app-alert>
 
-        <app-alert
-            messageKey="messages.checkVerificationEmail"
-            container="true"
-            *ngIf="alertIs('verification')">
-        </app-alert>
+                <app-alert
+                    messageKey="messages.accountVerified"
+                    container="true"
+                    *ngIf="alertIs('verification-success')">
+                </app-alert>
 
-        <app-alert
-            messageKey="messages.accountVerified"
-            container="true"
-            *ngIf="alertIs('verification-success')">
-        </app-alert>
+                <app-alert
+                    messageKey="messages.passwordChangedLogin"
+                    container="true"
+                    *ngIf="alertIs('password-changed')">
+                </app-alert>
 
-        <app-alert
-            messageKey="messages.passwordChangedLogin"
-            container="true"
-            *ngIf="alertIs('password-changed')">
-        </app-alert>
+                <app-alert
+                    messageKey="messages.passwordResetEmailSent"
+                    container="true"
+                    *ngIf="alertIs('password-reset-email-sent')" >
+                </app-alert>
 
-        <app-alert
-            messageKey="messages.passwordResetEmailSent"
-            container="true"
-            *ngIf="alertIs('password-reset-email-sent')" >
-        </app-alert>
+                <app-alert
+                    type="danger"
+                    [emailAlert]="'true'"
+                    [signedUp]="signedUp"
+                    container="true"
+                    (linkClicked)="onEmailVerificationLinkClicked()"
+                    *ngIf="alertIs('verification-failure')">
+                </app-alert>
 
-        <app-alert
-            type="danger"
-            [emailAlert]="'true'"
-            [signedUp]="signedUp"
-            container="true"
-            (linkClicked)="onEmailVerificationLinkClicked()"
-            *ngIf="alertIs('verification-failure')">
-        </app-alert>
+                <app-alert
+                    type="danger"
+                    [passwordAlert]="'true'"
+                    (linkClicked)="onForgotPasswordClicked()"
+                    container="true"
+                    *ngIf="alertIs('password-link-failure')">
+                </app-alert>
 
-        <app-alert
-            type="danger"
-            [passwordAlert]="'true'"
-            (linkClicked)="onForgotPasswordClicked()"
-            container="true"
-            *ngIf="alertIs('password-link-failure')">
-        </app-alert>
+                <app-login
+                    *ngIf="activeLink !== '/signup'"
+                    class="flex-fill"
+                    (loginEvent)="onLoginEvent($event)"
+                    (forgotPasswordClicked)="onForgotPasswordClicked()">
+                </app-login>
 
-        <app-login
-            *ngIf="activeLink !== '/signup'"
-            class="flex-fill"
-            (loginEvent)="onLoginEvent($event)"
-            (forgotPasswordClicked)="onForgotPasswordClicked()">
-        </app-login>
+                <app-signup
+                    (signupEvent)="onSignupEvent($event)"
+                    *ngIf="activeLink === '/signup'"
+                    class="flex-fill">
+                </app-signup>
+            </mat-tab>
 
-        <app-signup
-            (signupEvent)="onSignupEvent($event)"
-            *ngIf="activeLink === '/signup'"
-            class="flex-fill">
-        </app-signup>
-    </mat-tab>
+            <mat-tab label="{{ translate.instant('labels.respond') }}">
+                <div class="container">
+                    <app-respond></app-respond>
+                </div>
+            </mat-tab>
 
-    <mat-tab label="{{ translate.instant('labels.respond') }}">
-        <div class="container">
-            <app-respond></app-respond>
-        </div>
-    </mat-tab>
+            <mat-tab *ngIf="optionalTab === 'resetPassword'" label="{{ translate.instant('labels.resetPassword') }}">
+                <app-password-reset (passwordResetEvent)="onPasswordResetEvent($event)"></app-password-reset>
+            </mat-tab>
 
-    <mat-tab *ngIf="optionalTab === 'resetPassword'" label="{{ translate.instant('labels.resetPassword') }}">
-        <app-password-reset (passwordResetEvent)="onPasswordResetEvent($event)"></app-password-reset>
-    </mat-tab>
+            <mat-tab *ngIf="optionalTab === 'emailVerification'" label="{{ translate.instant('labels.registrationVerification') }}">
+                <app-email-verification (emailSent)="onEmailSent()"></app-email-verification>
+            </mat-tab>
 
-    <mat-tab *ngIf="optionalTab === 'emailVerification'" label="{{ translate.instant('labels.registrationVerification') }}">
-        <app-email-verification (emailSent)="onEmailSent()"></app-email-verification>
-    </mat-tab>
+            <mat-tab *ngIf="optionalTab === 'forgotPassword'" label="{{ translate.instant('labels.forgotPassword') }}">
+                <app-forgot-password (emailSent)="onEmailSent('passwordReset')"></app-forgot-password>
+            </mat-tab>
+        </mat-tab-group>
 
-    <mat-tab *ngIf="optionalTab === 'forgotPassword'" label="{{ translate.instant('labels.forgotPassword') }}">
-        <app-forgot-password (emailSent)="onEmailSent('passwordReset')"></app-forgot-password>
-    </mat-tab>
-</mat-tab-group>
-
-<ng-template #pollView>
-    <div class="container">
-        <app-view-poll></app-view-poll>
+        <ng-template #pollView>
+            <div class="container">
+                <app-view-poll></app-view-poll>
+            </div>
+        </ng-template>
     </div>
-</ng-template>
 
-<app-footer></app-footer>
+    <app-footer></app-footer>
+</div>
