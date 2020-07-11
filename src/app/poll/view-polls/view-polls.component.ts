@@ -15,7 +15,6 @@ import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 
 import { NgNavigatorShareService } from 'ng-navigator-share';
 import { EmitterService } from 'src/app/services/emitter.service';
-import { MobileNavbarProps } from 'src/app/footer/footer.component';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { DialogService } from 'src/app/services/dialog.service';
@@ -24,6 +23,7 @@ import { ResponseService } from 'src/app/services/response.service';
 import { Stats } from 'src/app/shared/utils/calculate-stats';
 import { NewFile } from 'src/app/shared/utils/download-file';
 import { ScrollService } from 'src/app/services/scroll.service';
+import { MobileNavbarProps } from 'src/app/mobile-nav/mobile-nav.component';
 
 @Component({
   selector: 'app-view-polls',
@@ -62,6 +62,7 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
     ) { }
 
   ngOnInit() {
+    this.scrollService.top();
     this.currentSort = { ...this.currentSort, ...this.userService.getPreference('viewPollsSorting') };
     this.pollService.getPolls().subscribe(
       (res: any) => {

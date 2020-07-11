@@ -82,18 +82,17 @@ export class SidebarComponent implements OnInit {
     return true;
   }
 
-  ngOnDestroy(): void {
-    this.destroy$.next(true);
-    this.destroy$.unsubscribe();
+  onScroll(event) {
+    this.scrollService.updateCurrent(event.srcElement.scrollTop);
   }
-
 
   get hasMobileNav() {
     return this.authenticationService.isAuthenticated() && DataService.isMobile;
   }
 
-  onScroll(event) {
-    this.scrollService.updateCurrent(event.srcElement.scrollTop);
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 
 }

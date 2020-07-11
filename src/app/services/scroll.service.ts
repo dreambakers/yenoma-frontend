@@ -9,12 +9,16 @@ export class ScrollService {
 
   position;
   checkpointPosition;
+  block = false;
 
   constructor(private emitterService: EmitterService) {
   }
 
   updateCurrent(newPosition) {
     this.position = newPosition;
+    if (!this.block) {
+      this.emitterService.emit(constants.emitterKeys.scrollPositionUpdated, this.position);
+    }
   }
 
   saveCurrent() {
@@ -36,8 +40,15 @@ export class ScrollService {
   }
 
   toElement(element) {
+    this.block = true;
     setTimeout(() => {
       document.querySelector(element).scrollIntoView({ behavior: 'smooth', block: 'center' });
+      setTimeout(
+        () => {
+          this.block = false;
+          this.emitterService.emit(constants.emitterKeys.scrollPositionUpdated, this.position);
+        }, 500 // account for scroll into view animation time
+      );
     }, 0);
   }
 }

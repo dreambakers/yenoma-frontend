@@ -59,6 +59,8 @@ export class ManagePollComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+    this.scrollService.top();
+    this.user = this.userService.getLoggedInUser();
     this.user = this.userService.getLoggedInUser();
     this.isEditing = this.route.snapshot.routeConfig.path === 'manage';
     if (this.isEditing) {
