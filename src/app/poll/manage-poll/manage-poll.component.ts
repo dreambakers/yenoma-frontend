@@ -12,10 +12,10 @@ import { DataService } from 'src/app/services/data.service';
 import { EmitterService } from 'src/app/services/emitter.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { MobileNavbarProps } from 'src/app/footer/footer.component';
 import { DialogService } from 'src/app/services/dialog.service';
 import { ScrollService } from 'src/app/services/scroll.service';
 import { UserService } from 'src/app/services/user.service';
+import { MobileNavbarProps } from 'src/app/mobile-nav/mobile-nav.component';
 
 @Component({
   selector: 'app-manage-poll',
@@ -45,7 +45,6 @@ export class ManagePollComponent implements OnInit, OnDestroy {
   constants = constants;
   mobileNavbarProps: MobileNavbarProps;
   destroy$: Subject<boolean> = new Subject<boolean>();
-  remainingScroll = 33;
 
   constructor(
     private router: Router,

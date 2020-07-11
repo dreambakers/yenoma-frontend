@@ -26,7 +26,7 @@ export class SidebarComponent implements OnInit {
     private authenticationService: AuthenticationService,
     private scrollService: ScrollService,
     private changeDetector : ChangeDetectorRef
-    ) {}
+  ) {}
 
   ngOnInit(): void {
     this.emitterService.emitter.pipe(takeUntil(this.destroy$)).subscribe((emitted) => {
@@ -87,9 +87,6 @@ export class SidebarComponent implements OnInit {
     this.destroy$.unsubscribe();
   }
 
-  get showFooter() {
-    return !this.authenticationService.isAuthenticated() || DataService.isMobile;
-  }
 
   get hasMobileNav() {
     return this.authenticationService.isAuthenticated() && DataService.isMobile;

@@ -78,6 +78,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatRippleModule } from '@angular/material/core';
+import { MobileNavComponent } from './mobile-nav/mobile-nav.component';
 
 @NgModule({
   declarations: [
@@ -116,6 +117,7 @@ import { MatRippleModule } from '@angular/material/core';
     ForgotPasswordComponent,
     SnackbarComponent,
     FeedbackComponent,
+    MobileNavComponent,
   ],
   imports: [
     BrowserAnimationsModule,

@@ -11,7 +11,12 @@
         </app-alert>
     </ng-container>
 
-    <div [class.container]="!isMobile">
+    <div [class.container]="!isMobile" [class.padding-for-footer]="!isMobile">
         <router-outlet></router-outlet>
     </div>
+
+    <app-mobile-nav *ngIf="isMobile; else footer"></app-mobile-nav>
+    <ng-template #footer>
+        <app-footer></app-footer>
+    </ng-template>
 </div>
