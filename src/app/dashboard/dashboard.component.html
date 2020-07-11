@@ -15,8 +15,6 @@
         <router-outlet></router-outlet>
     </div>
 
-    <app-mobile-nav *ngIf="isMobile; else footer"></app-mobile-nav>
-    <ng-template #footer>
-        <app-footer></app-footer>
-    </ng-template>
+    <app-mobile-nav [hidden]="!isMobile"></app-mobile-nav>
+    <app-footer *ngIf="!isMobile"></app-footer>
 </div>
