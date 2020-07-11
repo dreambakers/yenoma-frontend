@@ -1,4 +1,4 @@
-<div id="dashboard">
+<div id="dashboard" class="h-100">
     <app-navbar></app-navbar>
 
     <ng-container *ngFor="let alert of globalAlerts">
@@ -11,7 +11,7 @@
         </app-alert>
     </ng-container>
 
-    <div [class.container]="!isMobile" [class.padding-for-footer]="!isMobile">
+    <div [class.container]="!isMobile" class="h-100">
         <router-outlet></router-outlet>
     </div>
 
