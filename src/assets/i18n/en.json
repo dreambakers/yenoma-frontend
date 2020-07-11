@@ -250,7 +250,9 @@
     "locale": "Locale",
     "feedback": "Feedback",
     "sendFeedback": "Send feedback",
-    "additionalText": "Additional text"
+    "additionalText": "Additional text",
+    "upgradeRequired": "Upgrade Required",
+    "upgrade": "Upgrade"
   },
   "messages": {
     "accountNotVerified": "This account is not verified. Please check your email or visit the following link to request a new confirmation email.",
@@ -312,7 +314,8 @@
     "usernameRequirement": "Username must be at least 5 characters and can only contain alphabets and numbers",
     "verificationLinkNotValid": "The verification link is not valid. Please visit the following link to request a new confirmation email.",
     "feedbackSent": "The feedback was successfully sent to the yenoma team",
-    "feedbackDescriptionRequired": "Feedback description is required"
+    "feedbackDescriptionRequired": "Feedback description is required",
+    "upgradeToUse": "This feature is only available on pro accounts. Please upgrade your account to access this feature."
   },
   "placeholders": {
     "activeComment": "Active comment",

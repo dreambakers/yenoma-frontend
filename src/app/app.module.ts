@@ -49,6 +49,8 @@ import { EmailVerificationComponent } from './landing/email-verification/email-v
 import { ForgotPasswordComponent } from './landing/forgot-password/forgot-password.component';
 import { SnackbarComponent } from './shared/snackbar/snackbar.component';
 import { FeedbackComponent } from './dialogs/feedback/feedback.component';
+import { MobileNavComponent } from './mobile-nav/mobile-nav.component';
+import { UpgradeComponent } from './dialogs/upgrade/upgrade.component';
 
 import { DigitOnlyModule } from '@uiowa/digit-only';
 import { UserIdleModule } from 'angular-user-idle';
@@ -78,7 +80,6 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatRippleModule } from '@angular/material/core';
-import { MobileNavComponent } from './mobile-nav/mobile-nav.component';
 
 @NgModule({
   declarations: [
@@ -118,6 +119,7 @@ import { MobileNavComponent } from './mobile-nav/mobile-nav.component';
     SnackbarComponent,
     FeedbackComponent,
     MobileNavComponent,
+    UpgradeComponent,
   ],
   imports: [
     BrowserAnimationsModule,

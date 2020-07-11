@@ -1,0 +1,16 @@
+<h1 mat-dialog-title>
+    {{ 'labels.upgradeRequired'| translate }}
+</h1>
+
+<div mat-dialog-content>
+    <p>{{'messages.upgradeToUse' | translate}}</p>
+</div>
+
+<div mat-dialog-actions id="confirmationDialogActions">
+    <button mat-button (click)="onDismiss()">
+        {{ 'labels.cancel' | translate }}
+    </button>
+    <button mat-button (click)="onConfirm()">
+        {{ 'labels.upgrade' | translate }}
+    </button>
+</div>

@@ -13,6 +13,7 @@ import { CookiePolicyComponent } from '../dialogs/cookie-policy/cookie-policy.co
 import { ImprintComponent } from '../dialogs/imprint/imprint.component';
 import { TermsAndConditionsComponent } from '../dialogs/terms-and-conditions/terms-and-conditions.component';
 import { FeedbackComponent } from '../dialogs/feedback/feedback.component';
+import { UpgradeComponent } from '../dialogs/upgrade/upgrade.component';
 
 @Injectable({
   providedIn: 'root'
@@ -89,6 +90,13 @@ export class DialogService {
 
   feedback(): Observable<any> {
     const dialogRef = this.dialog.open(FeedbackComponent, {
+      width: '350px',
+    });
+    return dialogRef.afterClosed();
+  }
+
+  upgrade(): Observable<any> {
+    const dialogRef = this.dialog.open(UpgradeComponent, {
       width: '350px',
     });
     return dialogRef.afterClosed();

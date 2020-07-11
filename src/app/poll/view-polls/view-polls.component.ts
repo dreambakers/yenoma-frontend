@@ -338,7 +338,9 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
   }
 
   downloadResponses(poll) {
-    if (!this.subscription.isPro) { return; }
+    if (!this.subscription.isPro) {
+      return this.dialogService.upgrade().subscribe();
+    }
     const addNameOrTimeColumn = (data) => {
       if (poll.allowNames) {
         data += '"";';
