@@ -256,14 +256,14 @@
           <div *ngSwitchCase="constants.answerTypes.dropdown">
             <mat-form-field appearance="none" class="dropdown-container mat-field-no-margin dropdown option-dropdown">
               <mat-select
-                [value]="answerObj.answer / 10"
+                [value]="answerObj.answer"
                 (selectionChange)="dropdownOptionChanged($event, i, j)"
                 [disabled]="shouldDisable"
                 class="border p-3">
                   <mat-option
                     *ngFor="let option of constants.options.dropdown"
                     [value]="option">
-                    {{ option }}
+                    {{ option / 10 }}
                   </mat-option>
               </mat-select>
             </mat-form-field>

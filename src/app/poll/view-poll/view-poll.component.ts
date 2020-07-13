@@ -271,9 +271,9 @@ export class ViewPollComponent implements OnInit {
     const question = this.response.questions[questionIndex];
     question.answerType = constants.answerTypes.dropdown;
     if (answerIndex !== null) {
-      question.answers[answerIndex].answer = event.value * 10;
+      question.answers[answerIndex].answer = event.value;
     } else {
-      question['answer'] = event.value * 10;
+      question['answer'] = event.value;
     }
   }
 
