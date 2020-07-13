@@ -12,7 +12,7 @@
                     <app-profile [user]="user"></app-profile>
                 </mat-tab>
                 <mat-tab label="{{ 'labels.security' | translate }}">
-                    <app-security></app-security>
+                    <app-security [user]="user"></app-security>
                 </mat-tab>
                 <mat-tab label="{{ 'labels.locale' | translate }}">
                     <app-general [user]="user"></app-general>

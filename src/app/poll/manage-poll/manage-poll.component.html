@@ -421,12 +421,11 @@
                         <mat-label>
                             {{ 'labels.additionalText' | translate }}
                         </mat-label>
-                        <textarea
+                        <input
                             matInput
                             [(ngModel)]="question.additionalText"
                             [disabled]="shouldDisable"
                             autocomplete="off">
-                        </textarea>
                         <mat-hint *ngIf="poll.status === constants.statusTypes.open && question.showHints">
                             {{ 'hints.additionalText' | translate: { QN: i + 1} }}
                         </mat-hint>

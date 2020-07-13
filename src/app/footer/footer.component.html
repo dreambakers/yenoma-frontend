@@ -1,6 +1,6 @@
 <div id="footer" class="mat-elevation-z1 bg-white">
-  <div *ngIf="!isMobile">
-    <div class="container" >
+  <!-- <div *ngIf="!isMobile">
+    <div class="container">
       <div class="d-flex align-items-start justify-content-between p-5">
         <div class="d-flex flex-column text-uppercase font-weight-bold section">
           <div class="heading">Product and Services</div>
@@ -14,13 +14,6 @@
           <div class="item">Aerospace & Aeronautics</div>
           <div class="item">Architecture</div>
           <div class="item">Art & Fashion</div>
-          <!-- <div class="item">Automotive</div>
-          <div class="item">CAD/PLM</div>
-          <div class="item">Consumer Goods</div>
-          <div class="item">Eyewear</div>
-          <div class="item">Healthcare</div>
-          <div class="item">Machinery & Equipment</div>
-          <div class="item">3D Print Factories & Contract Manufacturers</div> -->
         </div>
 
         <div class="d-flex flex-column text-uppercase font-weight-bold section">
@@ -37,18 +30,42 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 
-  <mat-divider></mat-divider>
+  <!-- <mat-divider></mat-divider> -->
 
   <div class="container" style="font-size: 0.9rem;">
-    <div class="d-flex flex-row justify-content-between align-items-center language-list py-2 {{ isMobile ? 'px-2' : 'px-5' }}">
+    <div
+      class="d-flex flex-row py-2 {{ isMobile ? 'px-2' : 'px-5' }}"
+      [ngClass]="{
+        'justify-content-center': !isMobile && isLoggedIn,
+        'justify-content-between': !isMobile && !isLoggedIn,
+        'justify-content-end': isMobile
+      }">
 
-      <div class="">
-        © Copyright Yenoma 2020
+      <div *ngIf="!isMobile" class="d-flex flex-row align-items-center">
+        <div class="px-2 border-right">
+          {{ 'globalMessages.copyrightMsg' | translate }}
+        </div>
+
+        <div class="px-2 border-right cursor-pointer" (click)="about()">
+          {{ 'labels.about' | translate }}
+        </div>
+
+        <div class="px-2 border-right cursor-pointer" (click)="termsAndConditions()">
+          {{ 'labels.termsAndConditions' | translate }}
+        </div>
+
+        <div class="px-2 border-right cursor-pointer" (click)="cookiePolicy()">
+          {{ 'labels.cookiePolicy' | translate }}
+        </div>
+
+        <div class="px-2 cursor-pointer" (click)="imprint()">
+          {{ 'labels.imprint' | translate }}
+        </div>
       </div>
 
-      <mat-form-field appearance="none" class="dropdown-container">
+      <mat-form-field appearance="none" class="dropdown-container language-list" *ngIf="!isLoggedIn">
           <mat-select [value]="selectedLanguage" (selectionChange)="languageChanged($event)">
             <mat-option *ngFor="let language of languages" [value]="language.value">
               {{ language.display }}

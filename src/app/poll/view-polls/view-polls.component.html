@@ -83,8 +83,12 @@
           </button>
 
           <mat-menu #menu="matMenu" xPosition="before" backdropClass="{{ isMobile ? 'actions-menu-mobile' : 'actions-menu-desktop'}}">
-            <button mat-menu-item (click)="deletePoll(poll._id)">
-              <i class="fas fa-trash-alt text-danger mr-2"></i> {{ 'surveyActions.delete' | translate }}
+            <button mat-menu-item (click)="deletePoll(poll._id)" [disabled]="user.readonly">
+              <i
+                class="fas fa-trash-alt mr-2"
+                [ngClass]="user.readonly ? 'text-muted-custom' : 'text-danger'" >
+              </i>
+              {{ 'surveyActions.delete' | translate }}
             </button>
 
             <button mat-menu-item (click)="terminatePoll(poll._id)" *ngIf="poll.status !== constants.statusTypes.terminated">
@@ -99,9 +103,9 @@
               <i class="fas fa-chart-bar mr-2"></i> {{ 'surveyActions.showStats' | translate }}
             </button>
 
-            <button mat-menu-item (click)="downloadResponses(poll)" *ngIf="poll.responses">
-              <i class="fas fa-download text-{{subscription?.isPro ? 'primary' : 'muted'}} mr-2"></i>
-              <span [class.text-muted]="!subscription?.isPro">
+            <button mat-menu-item (click)="downloadResponses(poll)" *ngIf="poll.responses" >
+              <i class="fas fa-download text-{{subscription?.isPro ? 'primary' : 'muted-custom'}} mr-2"></i>
+              <span [class.text-muted-custom]="!subscription?.isPro">
                 {{ 'surveyActions.download' | translate }}
               </span>
             </button>
@@ -118,8 +122,12 @@
               <i class="fas fa-edit text-primary mr-2"></i> {{ 'surveyActions.edit' | translate }}
             </button>
 
-            <button mat-menu-item (click)="duplicatePoll(poll._id)">
-              <i class="fas fa-clone text-primary mr-2"></i> {{ 'surveyActions.duplicate' | translate }}
+            <button mat-menu-item (click)="duplicatePoll(poll._id)" [disabled]="user.readonly">
+              <i
+                class="fas fa-clone mr-2"
+                [ngClass]="user.readonly ? 'text-muted-custom' : 'text-primary'" >
+              </i>
+              {{ 'surveyActions.duplicate' | translate }}
             </button>
 
             <button mat-menu-item (click)="sharePoll(poll)">

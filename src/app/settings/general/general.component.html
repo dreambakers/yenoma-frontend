@@ -266,7 +266,7 @@
   </div>
 
   <div class="mt-auto">
-    <button mat-raised-button color="primary" (click)="updateProfile()">
+    <button mat-raised-button color="primary" (click)="updateProfile()" [disabled]="user.readonly">
         {{ "labels.saveChanges" | translate }}
       </button>
   </div>

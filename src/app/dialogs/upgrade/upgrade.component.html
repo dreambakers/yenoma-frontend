@@ -6,11 +6,8 @@
     <p>{{'messages.upgradeToUse' | translate}}</p>
 </div>
 
-<div mat-dialog-actions id="confirmationDialogActions">
-    <button mat-button (click)="onDismiss()">
+<div mat-dialog-actions class="d-flex justify-content-center">
+    <button mat-raised-button color="primary" (click)="onDismiss()">
         {{ 'labels.cancel' | translate }}
-    </button>
-    <button mat-button (click)="onConfirm()">
-        {{ 'labels.upgrade' | translate }}
     </button>
 </div>

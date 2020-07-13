@@ -48,6 +48,7 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
     disableClear: true
   }
   subscription; // user's subscription
+  user;
 
   constructor(private pollService: PollService,
     private utils: UtilService,
@@ -62,6 +63,7 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
     ) { }
 
   ngOnInit() {
+    this.user = this.userService.getLoggedInUser();
     this.scrollService.top();
     this.currentSort = { ...this.currentSort, ...this.userService.getPreference('viewPollsSorting') };
     this.pollService.getPolls().subscribe(
@@ -279,6 +281,7 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
         if (res.success) {
           this.polls.push(res.poll);
           this.dataSource.data = this.polls;
+          this.updateNavbarProps();
           this.utils.openSnackBar('messages.surveyDuplicated');
           this.updateNavTitle();
         } else {

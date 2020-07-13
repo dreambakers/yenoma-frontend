@@ -13,7 +13,7 @@
           {{ 'labels.feedback' | translate }}
         </mat-label>
 
-        <mat-select [value]="selectedOption" class="border mt-3">
+        <mat-select [(ngModel)]="selectedOption" class="border mt-3">
           <mat-option *ngFor="let option of feedbackOptions | keyvalue" [value]="option.value">
             {{ option.value }}
           </mat-option>

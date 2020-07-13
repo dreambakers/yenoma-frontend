@@ -59,7 +59,7 @@
   </div>
 
   <div class="mt-auto">
-    <button mat-raised-button color="primary" type="submit">
+    <button mat-raised-button color="primary" type="submit" [disabled]="user.readonly">
         {{ "labels.saveChanges" | translate }}
     </button>
   </div>

@@ -7,6 +7,7 @@ import { takeUntil } from 'rxjs/operators';
 import { constants } from '../app.constants';
 import { Router } from '@angular/router';
 import { LanguageService } from '../services/language.service';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-footer',
@@ -23,7 +24,9 @@ export class FooterComponent implements OnInit, OnDestroy {
     private translate: TranslateService,
     private emitterService: EmitterService,
     private router: Router,
-    private languageService: LanguageService) { }
+    private languageService: LanguageService,
+    private authenticationService: AuthenticationService
+  ) { }
 
   ngOnInit() {
     this.selectedLanguage = localStorage.getItem('selectedLanguage') || 'en';
@@ -61,6 +64,10 @@ export class FooterComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
+  }
+
+  get isLoggedIn() {
+    return this.authenticationService.isAuthenticated();
   }
 
   get isMobile() {

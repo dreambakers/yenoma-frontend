@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { FormGroup, NgForm, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { UserService } from 'src/app/services/user.service';
@@ -13,6 +13,7 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class SecurityComponent implements OnInit {
 
+  @Input() user;
   changePasswordForm: FormGroup;
   submitted = false;
   incorrectPassword = true;
