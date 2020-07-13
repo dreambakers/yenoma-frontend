@@ -78,34 +78,8 @@ export class Stats {
 
   getWeightFunctionForAnswer(questionType): Function {
     switch (questionType) {
-
-      case constants.answerTypes.dropdown:
-        return this.getWeightForDropdown;
-
-      case constants.answerTypes.rating:
-        return this.getWeightForRating;
-
       default:
         return this.getWeightFromAnswer;
-    }
-  }
-
-  getWeightForDropdown(value): Number {
-    return +value * 10;
-  }
-
-  getWeightForRating(rating): Number {
-    switch (+rating) {
-      case 5:
-        return 100;
-      case 4:
-        return 75;
-      case 3:
-        return 50;
-      case 2:
-        return 25;
-      default:
-        return 0;
     }
   }
 

@@ -187,13 +187,46 @@ export class ViewPollComponent implements OnInit {
     }
   }
 
+  getRatingFromAnswer(answer) {
+    switch (answer) {
+      case 100:
+        return 5;
+      case 75:
+        return 4;
+      case 50:
+        return 3;
+      case 25:
+        return 2;
+      case 0:
+        return 1;
+    }
+  }
+
   onRatingChanged(rating, questionIndex, answerIndex = null) {
     const question = this.response.questions[questionIndex];
     question.answerType = constants.answerTypes.rating;
+    let answer;
+    switch (+rating) {
+      case 5:
+        answer = 100;
+        break;
+      case 4:
+        answer = 75;
+        break;
+      case 3:
+        answer = 50;
+        break;
+      case 2:
+        answer = 25;
+        break;
+      case 1:
+        answer = 0;
+        break;
+    }
     if (answerIndex !== null) {
-      question.answers[answerIndex].answer = rating.toString();
+      question.answers[answerIndex].answer = answer;
     } else {
-      question['answer'] = rating.toString();
+      question['answer'] = answer;
     }
   }
 
@@ -238,9 +271,9 @@ export class ViewPollComponent implements OnInit {
     const question = this.response.questions[questionIndex];
     question.answerType = constants.answerTypes.dropdown;
     if (answerIndex !== null) {
-      question.answers[answerIndex].answer = event.value;
+      question.answers[answerIndex].answer = event.value * 10;
     } else {
-      question['answer'] = event.value;
+      question['answer'] = event.value * 10;
     }
   }
 
@@ -396,7 +429,7 @@ export class ViewPollComponent implements OnInit {
 
       default:
         if (responseQuestion.answers.length) {
-          return responseQuestion.answers.every(answerObj => answerObj.answer);
+          return responseQuestion.answers.every(answerObj => answerObj.answer || answerObj.answer === 0);
         } else {
           return responseQuestion.answer;
         }

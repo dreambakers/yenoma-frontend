@@ -144,48 +144,64 @@ export class ViewStatsComponent implements OnInit {
 
   getAnswerLabel(answerKey, answerType) {
     let labelKey;
+    if (answerType === constants.answerTypes.rating) {
+      switch (answerKey) {
+        case 100:
+          return 5;
+        case 75:
+          return 4;
+        case 50:
+          return 3;
+        case 25:
+          return 2;
+        case 0:
+          return 1;
+      }
+    } else if (answerType === constants.answerTypes.dropdown) {
+      return answerKey / 10;
+    } else {
+      switch(answerKey){
+        case 100:
+          switch(answerType) {
+            case constants.answerTypes.binary:
+            case constants.answerTypes.yesNoMaybe:
+              labelKey = 'yes';
+              break;
+            case constants.answerTypes.radioButton:
+            case constants.answerTypes.checkbox:
+              labelKey = 'checked';
+              break;
+            case constants.answerTypes.text:
+            case constants.answerTypes.email:
+              labelKey = 'filled';
+              break;
+          }
+          break;
 
-    switch(answerKey){
-      case 100:
-        switch(answerType) {
-          case constants.answerTypes.binary:
-          case constants.answerTypes.yesNoMaybe:
-            labelKey = 'yes';
-            break;
-          case constants.answerTypes.radioButton:
-          case constants.answerTypes.checkbox:
-            labelKey = 'checked';
-            break;
-          case constants.answerTypes.text:
-          case constants.answerTypes.email:
-            labelKey = 'filled';
-            break;
-        }
-        break;
+        case 50:
+          labelKey = 'maybe';
+          break;
 
-      case 50:
-        labelKey = 'maybe';
-        break;
-
-      case 0:
-        switch(answerType) {
-          case constants.answerTypes.binary:
-          case constants.answerTypes.yesNoMaybe:
-            labelKey = 'no';
-            break;
-          case constants.answerTypes.radioButton:
-          case constants.answerTypes.checkbox:
-            labelKey = 'unchecked';
-            break;
-          case constants.answerTypes.text:
-          case constants.answerTypes.email:
-            labelKey = 'unfilled';
-            break;
-        }
-        break;
+        case 0:
+          switch(answerType) {
+            case constants.answerTypes.binary:
+            case constants.answerTypes.yesNoMaybe:
+              labelKey = 'no';
+              break;
+            case constants.answerTypes.radioButton:
+            case constants.answerTypes.checkbox:
+              labelKey = 'unchecked';
+              break;
+            case constants.answerTypes.text:
+            case constants.answerTypes.email:
+              labelKey = 'unfilled';
+              break;
+          }
+          break;
+      }
+      const label = this.translate.instant(`answers.${labelKey}`);
+      return label.includes('answers.') ? answerKey : label;
     }
-    const label = this.translate.instant(`answers.${labelKey}`);
-    return label.includes('answers.') ? answerKey : label;
   }
 
   canExpand(question) {

@@ -88,7 +88,7 @@
 
                             <tr>
                                 <th *ngIf="question.hasOptions">{{ 'labels.option' | translate }}</th>
-                                <th *ngFor="let option of getOptions(question)">{{ option }}</th>
+                                <th *ngFor="let option of getOptions(question)">{{ option / 10 }}</th>
                                 <th>{{ 'labels.score' | translate }}</th>
                                 <th class="result-column">{{ 'labels.result' | translate }}</th>
                             </tr>

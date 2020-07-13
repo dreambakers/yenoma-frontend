@@ -50,8 +50,8 @@ export const constants = {
     options: {
         binary: [100, 0],
         yesNoMaybe: [100, 50, 0],
-        rating: [5,4,3,2,1],
-        dropdown: [10,9,8,7,6,5,4,3,2,1,0],
+        rating: [100,75,50,25,0],
+        dropdown: [100,90,80,70,60,50,40,30,20,10,0],
         smiley: [100, 50, 0,],
         radioButton: [100, 0],
         checkbox: [100, 0],
