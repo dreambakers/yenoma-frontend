@@ -360,5 +360,9 @@
     "minTwoOptions": "This answer type requires a minimum of 2 options",
     "stopPreviewing": "Stop previewing",
     "valueInfo": "Decimal places, min and max values are required. The min value should be less than the max value"
+  },
+  "subscriptions": {
+    "pro": "Pro",
+    "standard": "Standard"
   }
 }

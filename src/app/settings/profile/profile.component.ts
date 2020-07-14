@@ -4,6 +4,7 @@ import { UserService } from 'src/app/services/user.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UtilService } from 'src/app/services/util.service';
 import { DataService } from 'src/app/services/data.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-profile',
@@ -18,11 +19,13 @@ export class ProfileComponent implements OnInit {
 
   profileForm: FormGroup;
   submitted = false;
+  isPro = false;
 
   constructor(
     private formBuilder: FormBuilder,
     private utils: UtilService,
-    private userService: UserService
+    private userService: UserService,
+    private translate: TranslateService
   ) { }
 
   ngOnInit() {
@@ -30,6 +33,18 @@ export class ProfileComponent implements OnInit {
       username: [this.user?.username, [Validators.required, Validators.pattern('^[a-zA-Z0-9]+$'), Validators.minLength(5)]],
       email: [this.user?.email, [Validators.required, Validators.email]],
     });
+    this.userService.getSubscription().subscribe(
+      (res: any) => {
+        if (res.success) {
+          this.isPro = res.subscription.isPro;
+        }
+      }
+    );
+  }
+
+  getSubscriptionLevel() {
+    const key = this.isPro ? 'subscriptions.pro' : 'subscriptions.standard';
+    return this.translate.instant(key);
   }
 
   get f() { return this.profileForm.controls; }
