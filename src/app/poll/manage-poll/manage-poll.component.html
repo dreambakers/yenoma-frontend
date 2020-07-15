@@ -3,7 +3,7 @@
     <div class="mb-3 d-flex justify-content-between" *ngIf="!isMobile">
         <h3>
             <span *ngIf="!preview">
-                {{ (isEditing ? 'labels.managePoll' : 'labels.createNewPoll') | translate }}
+                {{ (isEditing ? 'labels.manageSurvey' : 'labels.createNewSurvey') | translate }}
                 <span class="font-italic text-muted" *ngIf="shouldDisable">
                     ({{ 'labels.readOnly' | translate }})
                 </span>
@@ -13,7 +13,7 @@
 
     <div *ngIf="!preview">
         <div>
-            <app-alert messageKey="messages.cannotEditPollHasResponses"
+            <app-alert messageKey="messages.cannotEditSurveyHasResponses"
                        type="danger"
                        *ngIf="responses && responses.length"
                        class="mb-2">
@@ -40,13 +40,12 @@
                         <mat-label>{{ 'labels.title' | translate }}</mat-label>
                         <input matInput placeholder="{{ 'placeholders.title' | translate }}"
                                [(ngModel)]="poll.title" [disabled]="shouldDisable" autocomplete="off">
-                        <mat-hint *ngIf="!shouldDisable && showBasicHints">{{ 'hints.pollTitle' | translate }}</mat-hint>
+                        <mat-hint *ngIf="!shouldDisable && showBasicHints">{{ 'hints.surveyTitle' | translate }}</mat-hint>
                     </mat-form-field>
                 </mat-card>
                 <mat-accordion>
                     <mat-expansion-panel class="mat-elevation-z0 mat-ep-no-padding px-3" [class.pb-3]="!showBasicHints || mep.expanded" #mep>
                         <mat-expansion-panel-header
-                            *ngIf="!rearrangeQuestions"
                             class="justify-content-center bg-white mt-2"
                             [class.py-3]="!showBasicHints"
                             [collapsedHeight]="'15px'"
@@ -54,7 +53,7 @@
                         </mat-expansion-panel-header>
 
                         <div class="text-center text-muted bg-white cursor-pointer expansion-label mb-2"
-                             *ngIf="!rearrangeQuestions && showBasicHints"
+                             *ngIf="showBasicHints"
                              (click)="mep.expanded = false">
                             <mat-hint>
                                 {{ 'labels.collapse' | translate }}
@@ -67,7 +66,7 @@
                                     [(ngModel)]="poll.description" [disabled]="shouldDisable">
                             </textarea>
                             <mat-hint *ngIf="!shouldDisable && showBasicHints">
-                                {{ 'hints.pollDescription' | translate }}
+                                {{ 'hints.surveyDescription' | translate }}
                             </mat-hint>
                         </mat-form-field>
 
@@ -157,18 +156,18 @@
                         </div>
                         <mat-form-field appearance="outline" class="w-100 mt-2" *ngIf="showPassword || poll.password">
                             <mat-label>{{ 'labels.password' | translate }}</mat-label>
-                            <input matInput placeholder="{{ 'placeholders.pollPassword' | translate }}"
+                            <input matInput placeholder="{{ 'placeholders.surveyPassword' | translate }}"
                                 [disabled]="shouldDisable" [(ngModel)]="poll.password" [type]="hide ? 'password' : 'text'">
                             <mat-icon matSuffix (click)="hide = !hide" class="cursor-pointer">
                                 {{hide ? 'visibility_off' : 'visibility'}}
                             </mat-icon>
                             <mat-hint *ngIf="showBasicHints">
-                                {{ 'hints.typePollPassword' | translate }}
+                                {{ 'hints.typeSurveyPassword' | translate }}
                         </mat-hint>
                         </mat-form-field>
                     </mat-expansion-panel>
                     <div class="text-center text-muted bg-white cursor-pointer expansion-label pb-3"
-                         *ngIf="!rearrangeQuestions && showBasicHints && !mep.expanded"
+                         *ngIf="showBasicHints && !mep.expanded"
                          (click)="mep.expanded = true">
                          <mat-hint>
                             {{ 'labels.expand' | translate }}
@@ -350,7 +349,7 @@
                         </div>
 
                         <div class="d-flex flex-column mb-2"
-                            *ngIf="question.answerType === constants.answerTypes.checkbox && question.options.length > 2">
+                            *ngIf="question.answerType === constants.answerTypes.checkbox && question.options.length > 1">
 
                             <div
                                 class="d-flex flex-column align-items-start mb-2"
@@ -390,8 +389,8 @@
                     </div>
                 </div>
 
-                <div class="d-flex align-items-center justify-content-between">
-                    <mat-form-field appearance="outline" class="w-100 {{ question.showHints ? '' : 'mat-field-no-margin' }}" *ngIf="!rearrangeQuestions">
+                <div class="d-flex flex-column align-items-center justify-content-between">
+                    <mat-form-field appearance="outline" class="w-100 {{ question.showHints ? '' : 'mat-field-no-margin' }} mb-4" *ngIf="!rearrangeQuestions">
                         <mat-label>
                             {{ 'labels.questionNumber' | translate: { QN: i + 1} }}
                         </mat-label>
@@ -399,6 +398,36 @@
                                [(ngModel)]="question.text" [disabled]="shouldDisable" autocomplete="off">
                         <mat-hint *ngIf="poll.status === constants.statusTypes.open && question.showHints">
                             {{ 'hints.typeQuestion' | translate: { QN: i + 1} }}
+                        </mat-hint>
+                    </mat-form-field>
+
+                    <div class="d-flex flex-column align-items-start mb-2 w-100" *ngIf="!rearrangeQuestions">
+                        <mat-checkbox
+                            class="mr-3 checkbox-reduced-height"
+                            (change)="toggleAdditionalText(question)"
+                            [disabled]="shouldDisable"
+                            [checked]="keyIn('additionalText', question)">
+                            {{ 'labels.additionalText' | translate }}
+                        </mat-checkbox>
+                        <mat-hint class="ml-l" *ngIf="question.showHints">
+                            {{ 'hints.additionalText' | translate }}
+                        </mat-hint>
+                    </div>
+
+                    <mat-form-field
+                        appearance="outline"
+                        class="w-100 {{ question.showHints ? '' : 'mat-field-no-margin' }}"
+                        *ngIf="!rearrangeQuestions && keyIn('additionalText', question)">
+                        <mat-label>
+                            {{ 'labels.additionalText' | translate }}
+                        </mat-label>
+                        <input
+                            matInput
+                            [(ngModel)]="question.additionalText"
+                            [disabled]="shouldDisable"
+                            autocomplete="off">
+                        <mat-hint *ngIf="poll.status === constants.statusTypes.open && question.showHints">
+                            {{ 'hints.additionalText' | translate: { QN: i + 1} }}
                         </mat-hint>
                     </mat-form-field>
                 </div>
@@ -458,7 +487,7 @@
                                 <i class="fas fa-plus-circle text-primary cursor-pointer add-option-button-mobile"
                                     (click)="addOption(question)" *ngIf="isMobile; else desktopButton"></i>
                                 <ng-template #desktopButton>
-                                    <button class="btn btn-primary" [class.mb-1]="question.showHints" (click)="addOption(question)">
+                                    <button mat-raised-button color="primary" [class.mb-1]="question.showHints" (click)="addOption(question)">
                                         {{ getAddOptionLabel(question) | translate }}
                                     </button>
                                 </ng-template>
@@ -483,28 +512,30 @@
 
         <div class="mt-5" [hidden]="isMobile">
             <div class="d-flex flex-row justify-content-center">
-                <button class="btn btn-primary mb-5" (click)="addQuestion()" *ngIf="!shouldDisable">
+                <button mat-raised-button color="primary" class="mb-5" (click)="addQuestion()" *ngIf="!shouldDisable">
                     {{ 'labels.addQuestionDesktop' | translate }}
                 </button>
             </div>
 
             <div class="d-flex flex-row justify-content-center">
-                <button class="btn btn-danger mb-5 mr-2" type="submit" (click)="onCancelClicked()">
+                <button mat-raised-button color="danger" class="mb-5 mr-2" type="submit" (click)="onCancelClicked()">
                     {{ 'labels.cancel' | translate }}
                 </button>
 
-                <button *ngIf="!isEditing" class="btn btn-success mb-5" type="submit" (click)="createPoll()"
+                <button *ngIf="!isEditing" mat-raised-button color="success" class="mb-5" type="submit" (click)="createPoll()"
                         [disabled]="!isValid">
                     {{ 'labels.create' | translate }}
                 </button>
 
-                <div *ngIf="isEditing" class="btn btn-success mb-5" (click)="isValid && dirty && updatePoll()"
-                     [class.disabled]="!isValid || !dirty"
-                     matTooltip="{{ !isValid ?
-                                    'Please fill all the required fields' :
-                                    (!dirty ? 'Change some fields to update the poll' : '' ) }}">
+                <button
+                    *ngIf="isEditing"
+                    mat-raised-button
+                    color="success"
+                    class="mb-5"
+                    (click)="updatePoll()"
+                    [disabled]="!isValid || !dirty">
                     {{ 'labels.update' | translate }}
-                </div>
+                </button>
             </div>
         </div>
     </div>
@@ -516,7 +547,7 @@
         <button mat-fab color="primary"
                 (click)="togglePreview()"
                 matTooltip="{{ preview ? translate.instant('tooltips.stopPreviewing')
-                                       : translate.instant('pollActions.preview') }}"
+                                       : translate.instant('surveyActions.preview') }}"
                 matTooltipPosition="above">
             <mat-icon>
                 {{ !preview ? 'visibility' : 'visibility_off' }}

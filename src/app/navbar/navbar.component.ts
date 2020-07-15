@@ -76,14 +76,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.destroy$.unsubscribe();
   }
 
-  changePassword() {
-    this.emitterService.emit(this.constants.emitterKeys.changePasswordClicked);
-  }
-
-  language() {
-    this.emitterService.emit(this.constants.emitterKeys.languageChangeClicked);
-  }
-
   about() {
     this.emitterService.emit(this.constants.emitterKeys.aboutClicked);
   }
@@ -98,6 +90,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   termsAndConditions() {
     this.emitterService.emit(this.constants.emitterKeys.termsAndConditionsClicked);
+  }
+
+  feedback() {
+    this.emitterService.emit(this.constants.emitterKeys.feedbackClicked);
   }
 
   settings() {

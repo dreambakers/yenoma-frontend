@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PollService } from 'src/app/services/poll.service';
-import { StarRatingColor } from 'src/app/star-rating/star-rating.component';
+import { StarRatingColor } from 'src/app/shared/star-rating/star-rating.component';
 import { Response } from '../response.model';
 import { ResponseService } from 'src/app/services/response.service';
 import { UtilService } from 'src/app/services/util.service';
@@ -97,16 +97,16 @@ export class ViewPollComponent implements OnInit {
           } else if (res.incorrectPassword) {
             this.utils.openSnackBar('messages.incorrectPassword', 'labels.retry');
           } else {
-            this.utils.openSnackBar('errors.e003_gettingPoll');
+            this.utils.openSnackBar('errors.e003_gettingSurvey');
             this.navigateToRespond();
           }
         }
         setTimeout(
-          () => { this.changeDetectorRef.detectChanges() }, 0
+          () => { this.changeDetectorRef.detectChanges() }, 10
         );
       },
       (err) => {
-        this.utils.openSnackBar('errors.e003_gettingPoll');
+        this.utils.openSnackBar('errors.e003_gettingSurvey');
         this.navigateToRespond();
       }
     );
@@ -117,11 +117,12 @@ export class ViewPollComponent implements OnInit {
       switch (answerType) {
         case constants.answerTypes.checkbox:
         case constants.answerTypes.radioButton:
-          return false;
         case constants.answerTypes.radioButton:
         case constants.answerTypes.slider:
         case constants.answerTypes.dropdown:
           return 0;
+        case constants.answerTypes.rating:
+          return -1;
         default:
           return '';
       }
@@ -129,13 +130,12 @@ export class ViewPollComponent implements OnInit {
     this.poll.questions.forEach(question => {
       const questionToPush = {
         _id: question._id || null,
-        text: question.text,
         answerType: question.answerType,
         answers: []
       };
 
       if (question.options.length) {
-        questionToPush.answers = question.options.map(option => ({ option, answer: getDefaultAnswer(question.answerType) }))
+        questionToPush.answers = question.options.map(option => ({ answer: getDefaultAnswer(question.answerType) }))
       } else {
         questionToPush['answer'] = getDefaultAnswer(question.answerType);
       }
@@ -189,23 +189,57 @@ export class ViewPollComponent implements OnInit {
     }
   }
 
+  getRatingFromAnswer(answer) {
+    switch (answer) {
+      case 100:
+        return 5;
+      case 75:
+        return 4;
+      case 50:
+        return 3;
+      case 25:
+        return 2;
+      case 0:
+        return 1;
+    }
+  }
+
   onRatingChanged(rating, questionIndex, answerIndex = null) {
     const question = this.response.questions[questionIndex];
     question.answerType = constants.answerTypes.rating;
+    let answer;
+    switch (+rating) {
+      case 5:
+        answer = 100;
+        break;
+      case 4:
+        answer = 75;
+        break;
+      case 3:
+        answer = 50;
+        break;
+      case 2:
+        answer = 25;
+        break;
+      case 1:
+        answer = 0;
+        break;
+    }
     if (answerIndex !== null) {
-      question.answers[answerIndex].answer = rating.toString();
+      question.answers[answerIndex].answer = answer;
     } else {
-      question['answer'] = rating.toString();
+      question['answer'] = answer;
     }
   }
 
   onCheckboxChanged(event, questionIndex, answerIndex = null) {
     const question = this.response.questions[questionIndex];
     question.answerType = constants.answerTypes.checkbox;
+    const value = event.checked ? 100 : 0;
     if (answerIndex !== null) {
-      question.answers[answerIndex].answer = event.checked;
+      question.answers[answerIndex].answer = value;
     } else {
-      question['answer'] = event.checked;
+      question['answer'] = value;
     }
   }
 
@@ -215,13 +249,13 @@ export class ViewPollComponent implements OnInit {
     if (answerIndex !== null) {
       question.answers.forEach((answerObject, index) => {
         if (index !== answerIndex) {
-          answerObject.answer = false;
+          answerObject.answer = 0;
         } else {
-          answerObject.answer = true;
+          answerObject.answer = 100;
         }
       })
     } else {
-      question['answer'] = true;
+      question['answer'] = 100;
     }
   }
 
@@ -313,16 +347,16 @@ export class ViewPollComponent implements OnInit {
     return +question.decimalPlaces > 0;
   }
 
-  testRegexForValueAnswer(value, question) {
-    if (this.allowDecimals(question)) {
-      return new RegExp(`^-?[0-9]+(?:\\.[0-9]{${+question.decimalPlaces}})?$`).test(value);
-    } else {
-      return new RegExp(`^-?[0-9]+$`).test(value);
-    }
-  }
-
   valueInputValid(value, question) {
-    const regexPassed = this.testRegexForValueAnswer(value, question);
+    const testRegexForValueAnswer = (value, question) => {
+      if (this.allowDecimals(question)) {
+        return new RegExp(`^-?[0-9]+(?:\\.[0-9]{${+question.decimalPlaces}})?$`).test(value);
+      } else {
+        return new RegExp(`^-?[0-9]+$`).test(value);
+      }
+    }
+
+    const regexPassed = testRegexForValueAnswer(value, question);
     const isValid = +value >= +question.minValue && +value <= +question.maxValue && regexPassed;
     return isValid;
   }
@@ -355,8 +389,8 @@ export class ViewPollComponent implements OnInit {
     return this.translate.instant(
       'messages.respondedPreviously',
       {
-        'DT': this.getParsedDateTime(true),
-        'TM': this.getParsedDateTime()
+        'DT': this.getParsedDateTime(),
+        'TM': this.getParsedDateTime(true)
       }
     );
   }
@@ -395,9 +429,16 @@ export class ViewPollComponent implements OnInit {
           return this.valueInputValid(responseQuestion.answer, responseQuestion);
         }
 
+      case constants.answerTypes.rating:
+        if (responseQuestion.answers.length) {
+          return responseQuestion.answers.every(answerObj => answerObj.answer >= 0);
+        } else {
+          return responseQuestion.answer >= 0;
+        }
+
       default:
         if (responseQuestion.answers.length) {
-          return responseQuestion.answers.every(answerObj => answerObj.answer);
+          return responseQuestion.answers.every(answerObj => answerObj.answer || answerObj.answer === 0);
         } else {
           return responseQuestion.answer;
         }
@@ -421,9 +462,9 @@ export class ViewPollComponent implements OnInit {
 
   getSelectedRadioDropdownValue(questionIndex) {
     const question = this.response.questions[questionIndex];
-    const selectedOption = question.answers.find(answerObj => answerObj.answer);
-    if (selectedOption) {
-      return selectedOption.option;
+    const selectedOptionIndex = question.answers.findIndex(answerObj => answerObj.answer);
+    if (selectedOptionIndex !== -1) {
+      return this.poll.questions[questionIndex].options[selectedOptionIndex];
     }
   }
 

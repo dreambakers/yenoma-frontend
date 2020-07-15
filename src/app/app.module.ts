@@ -18,7 +18,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ViewPollComponent } from './poll/view-poll/view-poll.component';
 import { ViewPollsComponent } from './poll/view-polls/view-polls.component';
-import { StarRatingComponent } from './star-rating/star-rating.component';
+import { StarRatingComponent } from './shared/star-rating/star-rating.component';
 import { LoginComponent } from './landing/login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SignupComponent } from './landing/signup/signup.component';
@@ -31,9 +31,7 @@ import { FooterComponent } from './footer/footer.component';
 import { ResponsesComponent } from './poll/responses/responses.component';
 import { ErrorComponent } from './error/error.component';
 import { SortDialogComponent } from './dialogs/sort/sort-dialog.component';
-import { ChangePasswordComponent } from './dialogs/change-password/change-password.component';
 import { AboutComponent } from './dialogs/about/about.component';
-import { LanguageComponent } from './dialogs/language/language.component';
 import { AlertComponent } from './shared/alert/alert.component';
 import { RecordedComponent } from './landing/respond/recorded/recorded.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
@@ -50,6 +48,9 @@ import { PasswordResetComponent } from './landing/password-reset/password-reset.
 import { EmailVerificationComponent } from './landing/email-verification/email-verification.component';
 import { ForgotPasswordComponent } from './landing/forgot-password/forgot-password.component';
 import { SnackbarComponent } from './shared/snackbar/snackbar.component';
+import { FeedbackComponent } from './dialogs/feedback/feedback.component';
+import { MobileNavComponent } from './mobile-nav/mobile-nav.component';
+import { UpgradeComponent } from './dialogs/upgrade/upgrade.component';
 
 import { DigitOnlyModule } from '@uiowa/digit-only';
 import { UserIdleModule } from 'angular-user-idle';
@@ -99,9 +100,7 @@ import { MatRippleModule } from '@angular/material/core';
     ResponsesComponent,
     ErrorComponent,
     SortDialogComponent,
-    ChangePasswordComponent,
     AboutComponent,
-    LanguageComponent,
     AlertComponent,
     RecordedComponent,
     SidebarComponent,
@@ -118,6 +117,9 @@ import { MatRippleModule } from '@angular/material/core';
     EmailVerificationComponent,
     ForgotPasswordComponent,
     SnackbarComponent,
+    FeedbackComponent,
+    MobileNavComponent,
+    UpgradeComponent,
   ],
   imports: [
     BrowserAnimationsModule,

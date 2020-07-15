@@ -58,16 +58,16 @@ export class ViewStatsComponent implements OnInit {
               });
             }
             this.emitterService.emit(constants.emitterKeys.changeNavbarTitle, {
-              key: 'labels.pollStats',
+              key: 'labels.surveyStats',
               extra: ` (${this.responses.length})`
             });
             this.emitterService.emit(constants.emitterKeys.updateNavbarProps, { home: true });
           } else {
-            this.utils.openSnackBar('errors.e003_gettingPoll');
+            this.utils.openSnackBar('errors.e003_gettingSurvey');
           }
         },
         (err) => {
-          this.utils.openSnackBar('errors.e003_gettingPoll');
+          this.utils.openSnackBar('errors.e003_gettingSurvey');
         }
       )
     });
@@ -126,7 +126,7 @@ export class ViewStatsComponent implements OnInit {
     if (this.answerMap[i].type !== constants.answerTypes.text) {
       return this.answerMap[i][j]['response'];
     } else {
-      return this.getResponsePercentage('filled', i, j);
+      return this.getResponsePercentage(100, i, j);
     }
   }
 
@@ -142,9 +142,66 @@ export class ViewStatsComponent implements OnInit {
     return this.translate.instant(`answerTypes.${question.answerType}`);
   }
 
-  getAnswerLabel(answerKey) {
-    const label = this.translate.instant(`answers.${answerKey}`);
-    return label.includes('answers.') ? answerKey : label;
+  getAnswerLabel(answerKey, answerType) {
+    let labelKey;
+    if (answerType === constants.answerTypes.rating) {
+      switch (answerKey) {
+        case 100:
+          return 5;
+        case 75:
+          return 4;
+        case 50:
+          return 3;
+        case 25:
+          return 2;
+        case 0:
+          return 1;
+      }
+    } else if (answerType === constants.answerTypes.dropdown) {
+      return answerKey / 10;
+    } else {
+      switch(answerKey){
+        case 100:
+          switch(answerType) {
+            case constants.answerTypes.binary:
+            case constants.answerTypes.yesNoMaybe:
+              labelKey = 'yes';
+              break;
+            case constants.answerTypes.radioButton:
+            case constants.answerTypes.checkbox:
+              labelKey = 'checked';
+              break;
+            case constants.answerTypes.text:
+            case constants.answerTypes.email:
+              labelKey = 'filled';
+              break;
+          }
+          break;
+
+        case 50:
+          labelKey = 'maybe';
+          break;
+
+        case 0:
+          switch(answerType) {
+            case constants.answerTypes.binary:
+            case constants.answerTypes.yesNoMaybe:
+              labelKey = 'no';
+              break;
+            case constants.answerTypes.radioButton:
+            case constants.answerTypes.checkbox:
+              labelKey = 'unchecked';
+              break;
+            case constants.answerTypes.text:
+            case constants.answerTypes.email:
+              labelKey = 'unfilled';
+              break;
+          }
+          break;
+      }
+      const label = this.translate.instant(`answers.${labelKey}`);
+      return label.includes('answers.') ? answerKey : label;
+    }
   }
 
   canExpand(question) {

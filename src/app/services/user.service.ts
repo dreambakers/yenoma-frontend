@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { constants } from '../app.constants';
 import { HttpClient } from '@angular/common/http';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,8 @@ import { HttpClient } from '@angular/common/http';
 export class UserService {
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private translate: TranslateService
   ) { }
 
   changePassword(oldPassword, newPassword) {
@@ -28,11 +30,11 @@ export class UserService {
   }
 
   requestEmailVerificationToken(email) {
-    return this.http.post(`${constants.apiUrl}/user/sendSignupVerificationEmail/`, { email });
+    return this.http.post(`${constants.apiUrl}/user/sendSignupVerificationEmail/`, { email, language: this.translate.currentLang });
   }
 
   requestPasswordResetEmail(email) {
-    return this.http.post(`${constants.apiUrl}/user/requestPasswordResetEmail/`, { email });
+    return this.http.post(`${constants.apiUrl}/user/requestPasswordResetEmail/`, { email, language: this.translate.currentLang });
   }
 
   verifyPasswordResetToken(passwordResetToken) {
@@ -45,6 +47,10 @@ export class UserService {
 
   getSubscription() {
     return this.http.get(`${constants.apiUrl}/user/subscription/`);
+  }
+
+  sendFeedback(feedback) {
+    return this.http.post(`${constants.apiUrl}/user/feedback/`, { feedback });
   }
 
   getLoggedInUser() {

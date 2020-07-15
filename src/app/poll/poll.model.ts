@@ -11,6 +11,7 @@ interface Question {
     allowOtherAnswer?: boolean;
     radioToDropdown?: boolean;
     collapsed?: boolean;
+    additionalText?: String;
 }
 
 export class Poll {

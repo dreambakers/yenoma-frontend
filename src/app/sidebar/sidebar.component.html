@@ -11,12 +11,12 @@
       <mat-nav-list>
         <a class="nav-link cursor-pointer" routerLink='dashboard/all' (click)="toggleSidebar()" [routerLinkActive]="['active']" matRipple>
           <i class="fas fa-list mr-2"></i>
-          {{ 'labels.myPolls' | translate }}
+          {{ 'labels.mySurveys' | translate }}
         </a>
 
         <a class="nav-link cursor-pointer" routerLink='dashboard/create' (click)="toggleSidebar()" [routerLinkActive]="['active']" matRipple>
           <i class="fas fa-plus-circle mr-2"></i>
-          {{ 'labels.createNewPoll' | translate }}
+          {{ 'labels.createNewSurvey' | translate }}
         </a>
 
         <mat-divider></mat-divider>
@@ -27,16 +27,6 @@
         </a>
 
         <mat-divider></mat-divider>
-
-        <!-- <a class="nav-link cursor-pointer" (click)="toggleSidebar() && changePassword()" matRipple>
-          <i class="fas fa-key mr-2"></i>
-          {{ 'labels.changePassword' | translate }}
-        </a>
-
-        <a class="nav-link cursor-pointer" (click)="toggleSidebar() && language()" matRipple>
-          <i class="fas fa-globe mr-2"></i>
-          {{ 'labels.language' | translate }}
-        </a> -->
 
         <a class="nav-link cursor-pointer" (click)="toggleSidebar() && about()" matRipple>
           <i class="fas fa-info-circle mr-2"></i>
@@ -60,6 +50,13 @@
 
         <mat-divider></mat-divider>
 
+        <a class="nav-link cursor-pointer" (click)="toggleSidebar() && feedback()" matRipple>
+          <i class="fas fa-comments mr-2"></i>
+          {{ 'labels.feedback' | translate }}
+        </a>
+
+        <mat-divider></mat-divider>
+
         <a class="nav-link cursor-pointer" (click)="toggleSidebar() && logout()" matRipple>
           <i class="fas fa-sign-out-alt mr-2"></i>
           {{ 'labels.logout' | translate }}
@@ -73,7 +70,6 @@
         <div class="flex-fill" [class.hasMobileNav]="hasMobileNav" id="content">
           <router-outlet></router-outlet>
         </div>
-        <app-footer [hidden]="!showFooter"></app-footer>
       </div>
     </mat-sidenav-content>
   </mat-sidenav-container>

@@ -1,8 +1,9 @@
-<div id="dashboard">
+<div id="dashboard" class="h-100">
     <app-navbar></app-navbar>
 
     <ng-container *ngFor="let alert of globalAlerts">
         <app-alert
+            container="true"
             *ngIf="showGlobalAlert(alert.key)"
             [messageKey]="alert.messageKey"
             [type]="alert.type"
@@ -10,7 +11,10 @@
         </app-alert>
     </ng-container>
 
-    <div [class.container]="!isMobile">
+    <div [class.container]="!isMobile" class="h-100">
         <router-outlet></router-outlet>
     </div>
+
+    <app-mobile-nav [hidden]="!isMobile"></app-mobile-nav>
+    <app-footer *ngIf="!isMobile"></app-footer>
 </div>

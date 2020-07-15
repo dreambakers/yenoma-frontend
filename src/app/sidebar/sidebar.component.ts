@@ -26,15 +26,13 @@ export class SidebarComponent implements OnInit {
     private authenticationService: AuthenticationService,
     private scrollService: ScrollService,
     private changeDetector : ChangeDetectorRef
-    ) {}
+  ) {}
 
   ngOnInit(): void {
     this.emitterService.emitter.pipe(takeUntil(this.destroy$)).subscribe((emitted) => {
       switch(emitted.event) {
         case constants.emitterKeys.toggleSidebar:
           return this.sideNav.toggle();
-        case constants.emitterKeys.changePasswordClicked:
-          return this.changePassword();
         case constants.emitterKeys.aboutClicked:
           return this.about();
         case constants.emitterKeys.cookiePolicyClicked:
@@ -43,8 +41,8 @@ export class SidebarComponent implements OnInit {
             return this.imprint();
         case constants.emitterKeys.termsAndConditionsClicked:
             return this.termsAndConditions();
-        case constants.emitterKeys.languageChangeClicked:
-          return this.language();
+        case constants.emitterKeys.feedbackClicked:
+          return this.feedback();
         case constants.emitterKeys.scrollPositionUpdated:
           return this.scrollPosition = emitted.data;
       }
@@ -57,10 +55,6 @@ export class SidebarComponent implements OnInit {
 
   logout() {
     this.emitterService.emit(this.constants.emitterKeys.logoutClicked);
-  }
-
-  changePassword() {
-    this.dialogService.changePassword();
   }
 
   about() {
@@ -79,8 +73,8 @@ export class SidebarComponent implements OnInit {
     this.dialogService.termsAndConditions();
   }
 
-  language() {
-    this.dialogService.language();
+  feedback() {
+    this.dialogService.feedback();
   }
 
   toggleSidebar() {
@@ -88,21 +82,17 @@ export class SidebarComponent implements OnInit {
     return true;
   }
 
-  ngOnDestroy(): void {
-    this.destroy$.next(true);
-    this.destroy$.unsubscribe();
-  }
-
-  get showFooter() {
-    return !this.authenticationService.isAuthenticated() || DataService.isMobile;
+  onScroll(event) {
+    this.scrollService.updateCurrent(event.srcElement.scrollTop);
   }
 
   get hasMobileNav() {
     return this.authenticationService.isAuthenticated() && DataService.isMobile;
   }
 
-  onScroll(event) {
-    this.scrollService.updateCurrent(event.srcElement.scrollTop);
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 
 }

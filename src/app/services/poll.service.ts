@@ -11,39 +11,39 @@ export class PollService {
   constructor(private http: HttpClient, private userService: UserService) { }
 
   addPoll(poll) {
-    return this.http.post(`${constants.apiUrl}/poll/`, { poll });
+    return this.http.post(`${constants.apiUrl}/survey/`, { poll });
   }
 
   getPoll(pollId, password = null) {
-    return this.http.post(`${constants.apiUrl}/poll/getPoll/${pollId}`, { password });
+    return this.http.post(`${constants.apiUrl}/survey/getSurvey/${pollId}`, { password });
   }
 
   managePoll(pollId) {
-    return this.http.get(`${constants.apiUrl}/poll/manage/${pollId}`);
+    return this.http.get(`${constants.apiUrl}/survey/manage/${pollId}`);
   }
 
   getPolls() {
-    return this.http.get(`${constants.apiUrl}/poll/all`);
+    return this.http.get(`${constants.apiUrl}/survey/all`);
   }
 
   updatePoll(poll) {
-    return this.http.post(`${constants.apiUrl}/poll/update`, { poll });
+    return this.http.post(`${constants.apiUrl}/survey/update`, { poll });
   }
 
   deletePoll(pollId) {
-    return this.http.post(`${constants.apiUrl}/poll/delete/${pollId}`, {});
+    return this.http.post(`${constants.apiUrl}/survey/delete/${pollId}`, {});
   }
 
   terminatePoll(pollId) {
-    return this.http.post(`${constants.apiUrl}/poll/terminate/${pollId}`, {});
+    return this.http.post(`${constants.apiUrl}/survey/terminate/${pollId}`, {});
   }
 
   restore(pollId) {
-    return this.http.post(`${constants.apiUrl}/poll/restore/${pollId}`, {});
+    return this.http.post(`${constants.apiUrl}/survey/restore/${pollId}`, {});
   }
 
   duplicate(pollId) {
-    return this.http.post(`${constants.apiUrl}/poll/duplicate/${pollId}`, {});
+    return this.http.post(`${constants.apiUrl}/survey/duplicate/${pollId}`, {});
   }
 
 }

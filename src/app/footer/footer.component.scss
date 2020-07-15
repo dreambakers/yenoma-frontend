@@ -1,22 +1,23 @@
 @import '../../scss/variables.scss';
 
-#mobileNavbar {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    i {
-        color: $color-disabled;
-        font-size: 1.4rem;
-        &.active {
+.section {
+    font-size: 0.8rem;
+    .item {
+        cursor: pointer;
+        &:hover {
             color: $color-primary;
         }
     }
-    span {
-        font-size: 0.8rem;
+    .heading {
+        text-transform: uppercase;
+        font-size: 1rem;
+        margin-bottom: 15px;
     }
+}
 
-    .highlight {
-        background-color: $color-primary-light;
+.copyright-link {
+    color: unset;
+    &:hover {
+        text-decoration: none;
     }
 }

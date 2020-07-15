@@ -2,7 +2,7 @@
 
     <div class="d-flex flex-column mb-2">
         <div class="w-75 mb-3" *ngIf="!isMobile">
-            <h3>{{ 'labels.pollStats' | translate }}</h3>
+            <h3>{{ 'labels.surveyStats' | translate }}</h3>
         </div>
 
         <div class="d-flex flex-column justify-content-end mb-5 text-right" *ngIf="!isMobile">
@@ -88,7 +88,7 @@
 
                             <tr>
                                 <th *ngIf="question.hasOptions">{{ 'labels.option' | translate }}</th>
-                                <th *ngFor="let option of getOptions(question)">{{ option }}</th>
+                                <th *ngFor="let option of getOptions(question)">{{ option / 10 }}</th>
                                 <th>{{ 'labels.score' | translate }}</th>
                                 <th class="result-column">{{ 'labels.result' | translate }}</th>
                             </tr>
@@ -198,9 +198,9 @@
                         <tbody>
                             <tr *ngFor="let option of question.options; let j = index">
                                 <td *ngIf="question.hasOptions">{{ option }}</td>
-                                <td>{{ getTableValue(i, j, 'no') }}</td>
-                                <td>{{ getTableValue(i, j, 'maybe') }}</td>
-                                <td>{{ getTableValue(i, j, 'yes') }}</td>
+                                <td>{{ getTableValue(i, j, 0) }}</td>
+                                <td>{{ getTableValue(i, j, 50) }}</td>
+                                <td>{{ getTableValue(i, j, 100) }}</td>
                                 <td>{{ answerMap[i][j]['response'] }}</td>
                                 <td>
                                     <div class="progress">
@@ -227,13 +227,13 @@
                             <tr>
                                 <th *ngIf="question.hasOptions">{{ 'labels.option' | translate }}</th>
                                 <th>
-                                    <i class="far fa-frown"></i>
+                                    <i class="far fa-smile"></i>
                                 </th>
                                 <th>
                                     <i class="far fa-meh"></i>
                                 </th>
                                 <th>
-                                    <i class="far fa-smile"></i>
+                                    <i class="far fa-frown"></i>
                                 </th>
                                 <th>{{ 'labels.score' | translate }}</th>
                                 <th class="result-column">{{ 'labels.result' | translate }}</th>
@@ -340,7 +340,7 @@
                                         {{ option }}
                                     </span>
                                 </td>
-                                <td>{{ answerMap[i][j]['yes'] || answerMap[i][j]['true'] || 0 }}</td>
+                                <td>{{ answerMap[i][j][100] || 0 }}</td>
                                 <td>{{ answerMap[i][j]['response'] }}</td>
                                 <td>
                                     <div class="progress">
@@ -402,37 +402,36 @@
 
                                     <ng-template #radioCheckBox>
                                         <div [ngSwitch]="key">
-                                            <div *ngSwitchCase="'true'" class="text-ellipsis">
-                                                {{ getAnswerLabel(key) }}
+                                            <div *ngSwitchCase="100" class="text-ellipsis">
+                                                {{ getAnswerLabel(key, question.answerType) }}
                                             </div>
 
-                                            <div *ngSwitchCase="'false'" class="text-ellipsis">
-                                                {{ getAnswerLabel(key) }}
+                                            <div *ngSwitchCase="0" class="text-ellipsis">
+                                                {{ getAnswerLabel(key, question.answerType) }}
                                             </div>
                                         </div>
                                     </ng-template>
 
                                     <div *ngSwitchCase="constants.answerTypes.smiley">
                                         <div [ngSwitch]="key">
-                                            <div *ngSwitchCase="'sad'">
+                                            <div *ngSwitchCase="0">
                                                 <i class="far fa-frown"></i>
                                             </div>
 
-                                            <div *ngSwitchCase="'medium'">
+                                            <div *ngSwitchCase="50">
                                                 <i class="far fa-meh"></i>
                                             </div>
 
-                                            <div *ngSwitchCase="'happy'">
+                                            <div *ngSwitchCase="100">
                                                 <i class="far fa-smile"></i>
                                             </div>
                                         </div>
                                     </div>
                                     <div *ngSwitchDefault class="text-capitalize text-ellipsis">
-                                        {{ getAnswerLabel(key) }}
+                                        {{ getAnswerLabel(key, question.answerType) }}
                                     </div>
                                 </div>
                                 <div class="text-right p-2 border-right option-count">
-                                    <!-- 99999 -->
                                     {{ getResponseCount(key, i, j) }}
                                 </div>
                             </div>
@@ -454,7 +453,7 @@
     </div>
 
     <div class="d-flex justify-content-center" *ngIf="!isMobile">
-        <button class="btn btn-primary" (click)="onBackClicked()">
+        <button mat-raised-button color="primary" (click)="onBackClicked()">
             {{ 'labels.back' | translate }}
         </button>
     </div>

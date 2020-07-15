@@ -5,7 +5,7 @@
     </mat-label>
 
     <mat-form-field appearance="outline" class="w-100 mat-field-no-margin input-no-label">
-      <input matInput disabled [value]="user.subscription.level">
+      <input matInput disabled [value]="getSubscriptionLevel()">
     </mat-form-field>
   </div>
 
@@ -59,7 +59,7 @@
   </div>
 
   <div class="mt-auto">
-    <button mat-raised-button color="primary" type="submit">
+    <button mat-raised-button color="primary" type="submit" [disabled]="user.readonly">
         {{ "labels.saveChanges" | translate }}
     </button>
   </div>

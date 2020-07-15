@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { take } from 'rxjs/operators';
+import { DataService } from '../services/data.service';
 
 
 @Component({
@@ -90,6 +91,10 @@ export class LandingComponent implements OnInit {
   get selectedIndex() {
     const isLoginSignup = this.router.url.includes('login') || this.router.url.includes('signup');
     return isLoginSignup ? (this.optionalTab ? 2: 0) : 1;
+  }
+
+  get isMobile() {
+    return DataService.isMobile;
   }
 
 }

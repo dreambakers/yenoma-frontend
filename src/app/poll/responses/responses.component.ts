@@ -11,11 +11,11 @@ import * as moment from 'moment';
 import { ResponseService } from 'src/app/services/response.service';
 import { DataService } from 'src/app/services/data.service';
 import { EmitterService } from 'src/app/services/emitter.service';
-import { MobileNavbarProps } from 'src/app/footer/footer.component';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { DialogService } from 'src/app/services/dialog.service';
 import { UserService } from 'src/app/services/user.service';
+import { MobileNavbarProps } from 'src/app/mobile-nav/mobile-nav.component';
 
 @Component({
   selector: 'app-responses',
@@ -24,6 +24,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 
 export class ResponsesComponent implements OnInit {
+  user;
   poll;
   response;
   preview = false;
@@ -52,6 +53,7 @@ export class ResponsesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.user = this.userService.getLoggedInUser();
     this.currentSort = { ...this.currentSort, ...this.userService.getPreference('responsesSorting') };
     this.activatedRoute.queryParams.subscribe(params => {
       const pollId = params['id'];
@@ -79,11 +81,11 @@ export class ResponsesComponent implements OnInit {
             this.poll = res.poll;  // poll
             this.poll.allowComments && this.displayedColumns.splice(1, 0, "comments");
           } else {
-            this.utils.openSnackBar('errors.e003_gettingPoll');
+            this.utils.openSnackBar('errors.e003_gettingSurvey');
           }
         },
         (err) => {
-          this.utils.openSnackBar('errors.e003_gettingPoll');
+          this.utils.openSnackBar('errors.e003_gettingSurvey');
         }
       );
 
@@ -150,7 +152,7 @@ export class ResponsesComponent implements OnInit {
       this.emitterService.emit(constants.emitterKeys.changeNavbarTitle, { key: messageKey, extra: null });
     } else {
       this.emitterService.emit(constants.emitterKeys.changeNavbarTitle, {
-        key: 'pollActions.responseDetails',
+        key: 'surveyActions.responseDetails',
         extra: ` (${this.responses.length})`
       });
     }

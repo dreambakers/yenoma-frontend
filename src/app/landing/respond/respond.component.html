@@ -24,21 +24,22 @@
                             class="d-flex flex-column align-items-center justify-content-center form-signin">
 
                             <div class="form-group w-100">
-                                <label>{{ 'labels.pollId' | translate }}</label>
+                                <label>{{ 'labels.surveyId' | translate }}</label>
 
                                 <input type="email" class="form-control" formControlName="pollId"
-                                    [ngClass]="{ 'is-invalid': submitted && f.pollId.errors }" placeholder="Poll ID"
+                                    [ngClass]="{ 'is-invalid': submitted && f.pollId.errors }"
+                                    placeholder="{{ 'placeholders.surveyId'| translate }}"
                                     required>
 
                                 <div *ngIf="submitted && f.pollId.errors" class="invalid-feedback">
-                                    <div *ngIf="f.pollId.errors.required">{{ 'messages.pollIdRequired' | translate }}</div>
-                                    <div *ngIf="f.pollId.errors.pattern">{{ 'messages.provideValidPollId' | translate }}</div>
+                                    <div *ngIf="f.pollId.errors.required">{{ 'messages.surveyIdRequired' | translate }}</div>
+                                    <div *ngIf="f.pollId.errors.pattern">{{ 'messages.provideValidSurveyId' | translate }}</div>
                                 </div>
                             </div>
 
                             <hr>
-                            <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">
-                                {{ 'labels.goToPoll' | translate }}
+                            <button mat-raised-button color="primary" class="w-100 text-uppercase" type="submit">
+                                {{ 'labels.goToSurvey' | translate }}
                             </button>
                         </form>
 

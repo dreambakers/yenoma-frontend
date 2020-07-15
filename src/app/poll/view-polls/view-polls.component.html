@@ -1,7 +1,7 @@
 <div [class.p-5]="!isMobile" *ngIf="!preview">
 
   <h3 *ngIf="!isMobile" class="mb-3">
-    {{ 'labels.myPollsCount' | translate: { PC: polls.length } }}
+    {{ 'labels.mySurveysCount' | translate: { PC: polls.length } }}
   </h3>
 
   <div class="mat-elevation-z8 mat-table-container" [class.mt-3]="!isMobile" [class.desktop-table]="!isMobile">
@@ -83,47 +83,62 @@
           </button>
 
           <mat-menu #menu="matMenu" xPosition="before" backdropClass="{{ isMobile ? 'actions-menu-mobile' : 'actions-menu-desktop'}}">
-            <button mat-menu-item (click)="deletePoll(poll._id)">
-              <i class="fas fa-trash-alt text-danger mr-2"></i> {{ 'pollActions.delete' | translate }}
+            <button mat-menu-item (click)="deletePoll(poll._id)" [disabled]="user.readonly">
+              <i
+                class="fas fa-trash-alt mr-2"
+                [ngClass]="user.readonly ? 'text-muted-custom' : 'text-danger'" >
+              </i>
+              {{ 'surveyActions.delete' | translate }}
             </button>
 
-            <button mat-menu-item (click)="terminatePoll(poll._id)" *ngIf="poll.status !== constants.statusTypes.terminated">
-              <i class="fas fa-toggle-off text-warning mr-2"></i> {{ 'pollActions.terminate' | translate }}
+            <button mat-menu-item
+              [disabled]="user.readonly"
+              (click)="terminatePoll(poll._id)"
+              *ngIf="poll.status !== constants.statusTypes.terminated">
+                <i
+                  class="fas fa-toggle-off mr-2"
+                  [ngClass]="user.readonly ? 'text-muted-custom' : 'text-warning'">
+                </i>
+                {{ 'surveyActions.terminate' | translate }}
             </button>
 
             <button mat-menu-item (click)="restorePoll(poll._id)" *ngIf="poll.status === constants.statusTypes.terminated">
-              <i class="fas fa-toggle-on text-success mr-2"></i> {{ 'pollActions.restore' | translate }}
+              <i class="fas fa-toggle-on text-success mr-2"></i> {{ 'surveyActions.restore' | translate }}
             </button>
 
             <button mat-menu-item (click)="viewStats(poll._id)" *ngIf="poll.responses">
-              <i class="fas fa-chart-bar mr-2"></i> {{ 'pollActions.showStats' | translate }}
+              <i class="fas fa-chart-bar mr-2"></i> {{ 'surveyActions.showStats' | translate }}
             </button>
 
-            <button mat-menu-item (click)="subscription?.isPro && downloadResponses(poll)" *ngIf="poll.responses">
-              <i class="fas fa-download text-{{subscription?.isPro ? 'primary' : 'muted'}} mr-2"></i>
-              <span [class.text-muted]="!subscription?.isPro">
-                {{ 'pollActions.download' | translate }}
+            <button mat-menu-item (click)="downloadResponses(poll)" *ngIf="poll.responses" >
+              <i class="fas fa-download text-{{subscription?.isPro ? 'primary' : 'muted-custom'}} mr-2"></i>
+              <span [class.text-muted-custom]="!subscription?.isPro">
+                {{ 'surveyActions.download' | translate }}
               </span>
             </button>
 
             <button mat-menu-item (click)="togglePreview(poll)">
-              <i class="fas fa-eye mr-2"></i> {{ 'pollActions.preview' | translate }}
+              <i class="fas fa-eye mr-2"></i> {{ 'surveyActions.preview' | translate }}
             </button>
 
             <button mat-menu-item (click)="viewPollResponses(poll._id)" *ngIf="poll.responses">
-              <i class="fas fa-users mr-2"></i> {{ 'pollActions.responseDetails' | translate }}
+              <i class="fas fa-users mr-2"></i> {{ 'surveyActions.responseDetails' | translate }}
             </button>
 
             <button mat-menu-item (click)="managePoll(poll._id)">
-              <i class="fas fa-edit text-primary mr-2"></i> {{ 'pollActions.edit' | translate }}
+              <i class="fas fa-edit text-primary mr-2"></i> {{ 'surveyActions.edit' | translate }}
             </button>
 
-            <button mat-menu-item (click)="duplicatePoll(poll._id)">
-              <i class="fas fa-clone text-primary mr-2"></i> {{ 'pollActions.duplicate' | translate }}
+            <button mat-menu-item (click)="duplicatePoll(poll._id)" [disabled]="user.readonly">
+              <i
+                class="fas fa-clone mr-2"
+                [ngClass]="user.readonly ? 'text-muted-custom' : 'text-primary'" >
+              </i>
+              {{ 'surveyActions.duplicate' | translate }}
             </button>
 
             <button mat-menu-item (click)="sharePoll(poll)">
-              <i class="fas fa-share-alt text-success mr-2"></i> {{ 'pollActions.share' | translate }}
+              <i class="fas fa-share-alt text-success mr-2"></i> {{ 'surveyActions.share' | translate }}
             </button>
           </mat-menu>
         </mat-cell>
@@ -141,7 +156,7 @@
   </app-view-poll>
 
   <div class="text-center p-5" *ngIf="!isMobile">
-    <button (click)="togglePreview()" class="btn btn-primary">
+    <button (click)="togglePreview()" mat-raised-button color="primary">
         {{ 'labels.back' | translate }}
     </button>
   </div>

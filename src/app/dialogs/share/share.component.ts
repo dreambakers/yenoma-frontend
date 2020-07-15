@@ -47,13 +47,13 @@ export class ShareComponent implements OnInit {
       this.qrUrl = url;
     })
     .catch(err => {
-      this.utils.openSnackBar('messages.pollLinkCopied');
+      this.utils.openSnackBar('messages.surveyLinkCopied');
     })
   }
 
   copyLink() {
     this.copyMessage(this.url);
-    this.utils.openSnackBar('messages.pollLinkCopied');
+    this.utils.openSnackBar('messages.surveyLinkCopied');
   }
 
   download() {
@@ -80,8 +80,8 @@ export class ShareComponent implements OnInit {
 
   shareLink() {
     this.ngNavigatorShareService.share({
-      title: this.translate.instant('messages.sharePollTitle'),
-      text: this.translate.instant('messages.sharePoll'),
+      title: this.translate.instant('messages.shareSurveyTitle'),
+      text: this.translate.instant('messages.shareSurvey'),
       url: this.url,
     })
   }

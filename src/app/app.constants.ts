@@ -1,7 +1,7 @@
 import { environment } from '../environments/environment';
 
 export const constants = {
-    version: '0.17',
+    version: '0.18',
     apiUrl: environment.production ? 'https://db-polling.herokuapp.com' : 'https://localhost:3000',
     answerTypes: {
         binary: 'binary',
@@ -40,24 +40,23 @@ export const constants = {
         cookiePolicyClicked: "cookiePolicyClicked",
         imprintClicked: "imprintClicked",
         termsAndConditionsClicked: "termsAndConditionsClicked",
-        changePasswordClicked: "changePasswordClicked",
+        feedbackClicked: "feedbackClicked",
         logoutInitiated: "logoutInitiated",
-        languageChangeClicked: "languageChangeClicked",
         scrollPositionUpdated: "scrollPositionUpdated",
         idleTimeoutCount: "idleTimeoutCount",
         idleTimedOut: "idleTimedOut"
     },
 
     options: {
-        binary: ['yes', 'no'],
-        yesNoMaybe: ['yes', 'maybe', 'no'],
-        rating: [5,4,3,2,1],
-        dropdown: [10,9,8,7,6,5,4,3,2,1,0],
-        smiley: ['happy','medium', 'sad',],
-        text: ['unfilled', 'filled'],
-        radioButton: ['true', 'false'],
-        checkbox: ['true', 'false'],
-        email: ['unfilled', 'filled'],
+        binary: [100, 0],
+        yesNoMaybe: [100, 50, 0],
+        rating: [100,75,50,25,0],
+        dropdown: [100,90,80,70,60,50,40,30,20,10,0],
+        smiley: [100, 50, 0,],
+        radioButton: [100, 0],
+        checkbox: [100, 0],
+        text: [0, 100],
+        email: [0, 100],
     },
 
     dialogWidth: {

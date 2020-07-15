@@ -12,9 +12,10 @@ import { DataService } from 'src/app/services/data.service';
 import { EmitterService } from 'src/app/services/emitter.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { MobileNavbarProps } from 'src/app/footer/footer.component';
 import { DialogService } from 'src/app/services/dialog.service';
 import { ScrollService } from 'src/app/services/scroll.service';
+import { UserService } from 'src/app/services/user.service';
+import { MobileNavbarProps } from 'src/app/mobile-nav/mobile-nav.component';
 
 @Component({
   selector: 'app-manage-poll',
@@ -28,6 +29,7 @@ export class ManagePollComponent implements OnInit, OnDestroy {
     for: ''
   };
 
+  user;
   poll: Poll;
   pollCopy;
   responses;
@@ -39,12 +41,10 @@ export class ManagePollComponent implements OnInit, OnDestroy {
   submitted = false;
   showPassword = false;
   showBasicHints = false;
-  showQuestionHints = false;
   rearrangeQuestions = false;
   constants = constants;
   mobileNavbarProps: MobileNavbarProps;
   destroy$: Subject<boolean> = new Subject<boolean>();
-  remainingScroll = 33;
 
   constructor(
     private router: Router,
@@ -54,10 +54,14 @@ export class ManagePollComponent implements OnInit, OnDestroy {
     public translate: TranslateService,
     private emitterService: EmitterService,
     private dialogService: DialogService,
-    private scrollService: ScrollService
+    private scrollService: ScrollService,
+    private userService: UserService
   ) { }
 
   ngOnInit() {
+    this.scrollService.top();
+    this.user = this.userService.getLoggedInUser();
+    this.user = this.userService.getLoggedInUser();
     this.isEditing = this.route.snapshot.routeConfig.path === 'manage';
     if (this.isEditing) {
       this.emitterService.emit(this.constants.emitterKeys.updateNavbarLabels, { create: 'labels.update' });
@@ -77,11 +81,11 @@ export class ManagePollComponent implements OnInit, OnDestroy {
                 });
               }
             } else {
-              this.utils.openSnackBar('errors.e003_gettingPoll');
+              this.utils.openSnackBar('errors.e003_gettingSurvey');
             }
           },
           (err) => {
-            this.utils.openSnackBar('errors.e003_gettingPoll');
+            this.utils.openSnackBar('errors.e003_gettingSurvey');
           }
         )
       });
@@ -112,7 +116,7 @@ export class ManagePollComponent implements OnInit, OnDestroy {
           return this.toggleRearrangement();
       }
     });
-    const key = this.isEditing ? 'labels.managePoll' : 'labels.createPoll';
+    const key = this.isEditing ? 'labels.manageSurvey' : 'labels.createSurvey';
     this.emitterService.emit(constants.emitterKeys.changeNavbarTitle, { key });
     this.emitterService.emit(this.constants.emitterKeys.updateNavbarLabels, { add: 'labels.addQuestionMobile' });
   }
@@ -172,24 +176,24 @@ export class ManagePollComponent implements OnInit, OnDestroy {
     this.pollService.updatePoll(this.poll).subscribe(
       (res: any) => {
         if (res.success) {
-          this.utils.openSnackBar('messages.pollUpdated', 'labels.success');
+          this.utils.openSnackBar('messages.surveyUpdated', 'labels.success');
           this.pollCopy = JSON.stringify(this.poll);
         } else {
-          this.utils.openSnackBar('errors.e002_updatingPoll');
+          this.utils.openSnackBar('errors.e002_updatingSurvey');
         }
       },
       err => {
-        this.utils.openSnackBar('errors.e002_updatingPoll');
+        this.utils.openSnackBar('errors.e002_updatingSurvey');
       }
     );
   }
 
   createPoll() {
     this.pollService.addPoll(this.poll).subscribe((res: any) => {
-      this.utils.openSnackBar('messages.pollCreated', 'labels.success');
+      this.utils.openSnackBar('messages.surveyCreated', 'labels.success');
       this.router.navigate(['/dashboard/manage'], { queryParams: { id: res.poll._id } });
     }, err => {
-      this.utils.openSnackBar('errors.e001_creatingPoll');
+      this.utils.openSnackBar('errors.e001_creatingSurvey');
     });
   }
 
@@ -216,7 +220,7 @@ export class ManagePollComponent implements OnInit, OnDestroy {
     if (this.isEditing && !this.dirty) {  // don't show confirmation in case poll wasn't udpated
       return this.router.navigate(['/dashboard/all']);
     }
-    const key = this.isEditing ? 'cancelPollEdit' : 'cancelPollCreation';
+    const key = this.isEditing ? 'cancelSurveyEdit' : 'cancelSurveyCreation';
     this.dialogService.confirm('messages.areYouSure', `messages.${key}`).subscribe(
       res => {
         if (res) {
@@ -255,11 +259,11 @@ export class ManagePollComponent implements OnInit, OnDestroy {
     this.preview = !this.preview;
     if (this.preview) {
       this.emitterService.emit(constants.emitterKeys.changeNavbarTitle, {
-        key: 'labels.pollPreview',
+        key: 'labels.surveyPreview',
       });
     } else {
       this.emitterService.emit(constants.emitterKeys.changeNavbarTitle, {
-        key: 'labels.managePoll',
+        key: 'labels.manageSurvey',
       });
     }
     this.updateMobileNavbar();
@@ -301,15 +305,15 @@ export class ManagePollComponent implements OnInit, OnDestroy {
       delete question.limits;
     } else {
       question.limits = {
-        minChecks: 2,
+        minChecks: 1,
         maxChecks: question.options.length
       }
     }
   }
 
   getMinimumChecksDropdownValues(question) {
-    let options = [2];
-    for (let i = 3; i <= question.options.length; i ++) {
+    let options = [1];
+    for (let i = 2; i <= question.options.length; i ++) {
       options.push(i);
     }
     return options;
@@ -341,6 +345,17 @@ export class ManagePollComponent implements OnInit, OnDestroy {
     }
   }
 
+  toggleAdditionalText(question) {
+    if ('additionalText' in question) {
+      return delete question.additionalText;
+    }
+    question.additionalText = '';
+  }
+
+  keyIn(key, object) {
+    return key in object;
+  }
+
   ngOnDestroy(): void {
     this.emitterService.emit(this.constants.emitterKeys.resetNavbar);
     this.destroy$.next(true);
@@ -348,7 +363,8 @@ export class ManagePollComponent implements OnInit, OnDestroy {
   }
 
   get isValid() {
-    const valid = this.poll.title && (this.showPassword ? this.poll.password : true) &&
+    const valid = !this.user.readonly &&
+                  this.poll.title && (this.showPassword ? this.poll.password : true) &&
                   this.poll.questions.filter(question => question.limits).every(question => question.limits.maxChecks >= question.limits.minChecks) &&
                   this.poll.questions.every(question => question.text && question.options.every(option => option.length)) &&
                   this.poll.questions.filter(question => this.minimumOptionsRequired(question)).every(question => question.options.length >= 2) &&
