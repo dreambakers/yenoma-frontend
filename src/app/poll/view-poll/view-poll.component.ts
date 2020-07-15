@@ -102,7 +102,7 @@ export class ViewPollComponent implements OnInit {
           }
         }
         setTimeout(
-          () => { this.changeDetectorRef.detectChanges() }, 0
+          () => { this.changeDetectorRef.detectChanges() }, 10
         );
       },
       (err) => {
@@ -121,6 +121,8 @@ export class ViewPollComponent implements OnInit {
         case constants.answerTypes.slider:
         case constants.answerTypes.dropdown:
           return 0;
+        case constants.answerTypes.rating:
+          return -1;
         default:
           return '';
       }
@@ -425,6 +427,13 @@ export class ViewPollComponent implements OnInit {
           return responseQuestion.answers.every(answerObj => this.valueInputValid(answerObj.answer, responseQuestion));
         } else {
           return this.valueInputValid(responseQuestion.answer, responseQuestion);
+        }
+
+      case constants.answerTypes.rating:
+        if (responseQuestion.answers.length) {
+          return responseQuestion.answers.every(answerObj => answerObj.answer >= 0);
+        } else {
+          return responseQuestion.answer >= 0;
         }
 
       default:
