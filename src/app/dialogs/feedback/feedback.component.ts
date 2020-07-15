@@ -25,7 +25,7 @@ export class FeedbackComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = this.userService.getLoggedInUser();
-    this.languageService.getLanguageFile().subscribe(
+    this.languageService.getLanguageFile('en').subscribe(
       (res: any) => {
         this.feedbackOptions = res.feedbackOptions;
         this.selectedOption = this.feedbackOptions[Object.keys(this.feedbackOptions)[0]];

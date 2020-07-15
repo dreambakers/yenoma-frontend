@@ -16,8 +16,8 @@ export class LanguageService {
     return this.http.get("assets/i18n/metadata.json");
   }
 
-  getLanguageFile() {
-    return this.http.get(`assets/i18n/${this.translate.currentLang}.json`);
+  getLanguageFile(language = this.translate.currentLang) {
+    return this.http.get(`assets/i18n/${language}.json`);
   }
 
 }
