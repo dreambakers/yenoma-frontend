@@ -14,3 +14,10 @@
         margin-bottom: 15px;
     }
 }
+
+.copyright-link {
+    color: unset;
+    &:hover {
+        text-decoration: none;
+    }
+}

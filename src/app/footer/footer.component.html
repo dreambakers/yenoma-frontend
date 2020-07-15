@@ -39,14 +39,13 @@
       class="d-flex flex-row py-2 {{ isMobile ? 'px-2' : 'px-5' }}"
       [ngClass]="{
         'justify-content-center': !isMobile && isLoggedIn,
-        'justify-content-between': !isMobile && !isLoggedIn,
-        'justify-content-end': isMobile
+        'justify-content-between': !isLoggedIn
       }">
 
-      <div *ngIf="!isMobile" class="d-flex flex-row align-items-center">
-        <div class="px-2 border-right">
+      <div class="d-flex flex-row align-items-center">
+        <a href="http://yenoma.com" target="_blank" class="px-2 border-right copyright-link" *ngIf="!isMobile">
           {{ 'globalMessages.copyrightMsg' | translate }}
-        </div>
+        </a>
 
         <div class="px-2 border-right cursor-pointer" (click)="about()">
           {{ 'labels.about' | translate }}
