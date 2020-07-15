@@ -91,8 +91,15 @@
               {{ 'surveyActions.delete' | translate }}
             </button>
 
-            <button mat-menu-item (click)="terminatePoll(poll._id)" *ngIf="poll.status !== constants.statusTypes.terminated">
-              <i class="fas fa-toggle-off text-warning mr-2"></i> {{ 'surveyActions.terminate' | translate }}
+            <button mat-menu-item
+              [disabled]="user.readonly"
+              (click)="terminatePoll(poll._id)"
+              *ngIf="poll.status !== constants.statusTypes.terminated">
+                <i
+                  class="fas fa-toggle-off mr-2"
+                  [ngClass]="user.readonly ? 'text-muted-custom' : 'text-warning'">
+                </i>
+                {{ 'surveyActions.terminate' | translate }}
             </button>
 
             <button mat-menu-item (click)="restorePoll(poll._id)" *ngIf="poll.status === constants.statusTypes.terminated">

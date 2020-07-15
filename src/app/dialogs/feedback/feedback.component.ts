@@ -14,6 +14,7 @@ export class FeedbackComponent implements OnInit {
   feedbackOptions;
   description;
   submitted = false;
+  user;
 
   constructor(
     public dialogRef: MatDialogRef<FeedbackComponent>,
@@ -23,6 +24,7 @@ export class FeedbackComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.user = this.userService.getLoggedInUser();
     this.languageService.getLanguageFile().subscribe(
       (res: any) => {
         this.feedbackOptions = res.feedbackOptions;

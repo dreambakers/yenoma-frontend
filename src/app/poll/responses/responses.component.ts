@@ -24,6 +24,7 @@ import { MobileNavbarProps } from 'src/app/mobile-nav/mobile-nav.component';
 })
 
 export class ResponsesComponent implements OnInit {
+  user;
   poll;
   response;
   preview = false;
@@ -52,6 +53,7 @@ export class ResponsesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.user = this.userService.getLoggedInUser();
     this.currentSort = { ...this.currentSort, ...this.userService.getPreference('responsesSorting') };
     this.activatedRoute.queryParams.subscribe(params => {
       const pollId = params['id'];

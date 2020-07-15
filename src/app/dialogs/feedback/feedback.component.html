@@ -46,7 +46,7 @@
     <button mat-button (click)="onDismiss()">
         {{ 'labels.cancel' | translate }}
     </button>
-    <button mat-button (click)="sendFeedback()">
+    <button mat-button (click)="sendFeedback()" [disabled]="user.readonly">
         {{ 'labels.sendFeedback' | translate }}
     </button>
 </div>
