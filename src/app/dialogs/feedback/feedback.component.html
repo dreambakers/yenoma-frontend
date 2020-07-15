@@ -15,7 +15,7 @@
 
         <mat-select [(ngModel)]="selectedOption" class="border mt-3">
           <mat-option *ngFor="let option of feedbackOptions | keyvalue" [value]="option.value">
-            {{ option.value }}
+            {{  'feedbackOptions.' + option.key | translate }}
           </mat-option>
         </mat-select>
       </div>
