@@ -389,8 +389,8 @@ export class ViewPollComponent implements OnInit {
     return this.translate.instant(
       'messages.respondedPreviously',
       {
-        'DT': this.getParsedDateTime(true),
-        'TM': this.getParsedDateTime()
+        'DT': this.getParsedDateTime(),
+        'TM': this.getParsedDateTime(true)
       }
     );
   }
