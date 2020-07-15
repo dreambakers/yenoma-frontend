@@ -5,6 +5,6 @@
         { "display": "Français", "value": "fr" },
         { "display": "Español", "value": "es" },
         { "display": "Italiano", "value": "it" },
-        { "display": "Português", "value": "pt" }
+        { "display": "(Debug)", "value": "db" }
     ]
 }
