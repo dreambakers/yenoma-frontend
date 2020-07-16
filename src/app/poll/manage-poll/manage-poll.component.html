@@ -367,13 +367,16 @@
                             </div>
 
                             <div class="d-flex flex-column flex-md-row justify-content-start" *ngIf="question.limits">
-                                <mat-form-field appearance="outline">
+                                <mat-form-field appearance="outline" class="mb-2">
                                     <mat-label>{{ 'labels.minChecks' | translate }}</mat-label>
                                     <mat-select [(ngModel)]="question.limits.minChecks" [disabled]="shouldDisable">
                                         <mat-option *ngFor="let option of getMinimumChecksDropdownValues(question)" [value]="option">
                                             {{option}}
                                         </mat-option>
                                     </mat-select>
+                                    <mat-hint *ngIf="question.showHints">
+                                        {{ 'hints.minChecks' | translate }}
+                                    </mat-hint>
                                 </mat-form-field>
                                 <div class="mx-1 d-none d-sm-block"></div>
                                 <mat-form-field appearance="outline">
@@ -383,6 +386,9 @@
                                             {{option}}
                                         </mat-option>
                                     </mat-select>
+                                    <mat-hint *ngIf="question.showHints">
+                                        {{ 'hints.maxChecks' | translate }}
+                                    </mat-hint>
                                 </mat-form-field>
                             </div>
                         </div>
