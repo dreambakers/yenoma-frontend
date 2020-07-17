@@ -348,8 +348,8 @@
     "username": "Username"
   },
   "subscriptions": {
-    "pro": "Pro",
-    "standard": "Basic"
+    "pro": "Pro ({{ED}})",
+    "standard": "Basic ({{ED}})"
   },
   "surveyActions": {
     "delete": "Delete",

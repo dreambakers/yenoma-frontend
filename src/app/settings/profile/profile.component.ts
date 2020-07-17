@@ -5,6 +5,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UtilService } from 'src/app/services/util.service';
 import { DataService } from 'src/app/services/data.service';
 import { TranslateService } from '@ngx-translate/core';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-profile',
@@ -44,10 +45,18 @@ export class ProfileComponent implements OnInit {
 
   getSubscriptionLevel() {
     const key = this.isPro ? 'subscriptions.pro' : 'subscriptions.standard';
-    return this.translate.instant(key);
+    return this.translate.instant(key, { ED: this.getParsedDate(this.user.subscription.expires) });
   }
 
   get f() { return this.profileForm.controls; }
+
+  getParsedDate(date) {
+    if (date) {
+      return moment(date).format('YYYY-MM-DD');
+    } else {
+      return '-';
+    }
+  }
 
   onSubmit() {
     this.submitted = true;
