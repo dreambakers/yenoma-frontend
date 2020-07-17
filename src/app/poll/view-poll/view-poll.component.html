@@ -46,9 +46,7 @@
 
     <div class="p-3" *ngIf="poll.description || (((isOpen && poll.activeComment) || (isTerminated && poll.inactiveComment)) && !commentDismissed)">
       <div *ngIf="poll.description">
-        <p class="m-0 text-break">
-          {{poll.description}}
-        </p>
+        <p class="m-0 white-space-pre-wrap">{{poll.description}}</p>
       </div>
 
       <div *ngIf="isOpen && poll.activeComment && !commentDismissed" [class.mt-3]="poll.description">
