@@ -80,6 +80,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatRippleModule } from '@angular/material/core';
+import { NewOrderComponent } from './settings/new-order/new-order.component';
 
 @NgModule({
   declarations: [
@@ -120,6 +121,7 @@ import { MatRippleModule } from '@angular/material/core';
     FeedbackComponent,
     MobileNavComponent,
     UpgradeComponent,
+    NewOrderComponent,
   ],
   imports: [
     BrowserAnimationsModule,

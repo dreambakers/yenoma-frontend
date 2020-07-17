@@ -184,18 +184,15 @@
         </div>
 
         <div cdkDropList (cdkDropListDropped)="dropQuestion($event)" [class.mt-5]="shouldDisable">
-            <mat-card *ngFor="let question of poll.questions; let i = index"
-                      class="border mb-1"
-                      cdkDrag
-                      [cdkDragDisabled]="!rearrangeQuestions"
-                      [ngClass]="{ 'p-0': rearrangeQuestions,
-                                   'mb-5 p-3': !rearrangeQuestions,
-                                   'border-danger': isQuestionInvalid(question)
-                                }"
+            <mat-card
+                *ngFor="let question of poll.questions; let i = index"
+                cdkDrag
+                [cdkDragDisabled]="!rearrangeQuestions"
+                class="border p-0 mb-{{ rearrangeQuestions ? '1' : '5' }}"
+                [class.border-danger]="isQuestionInvalid(question)"
+                id="question{{i}}">
 
-                      id="question{{i}}"
-                >
-                <div class="d-flex align-items-center p-3" *ngIf="rearrangeQuestions">
+                <div class="d-flex align-items-center p-2" *ngIf="rearrangeQuestions">
                     <i class="p-2 mr-3 fas fa-sort dragDiv" cdkDragHandle></i>
                     <p [class.font-italic]="!question.text" class="w-100 m-0 text-ellipsis">
                         {{
@@ -206,19 +203,35 @@
                         (click)="removeQuestion(i)"></i>
                 </div>
 
-                <mat-form-field appearance="outline" class="w-100 {{ question.showHints ? '' : 'mat-field-no-margin' }} mb-4" *ngIf="!rearrangeQuestions">
-                    <mat-label>
-                        {{ 'labels.questionNumber' | translate: { QN: i + 1} }}
-                    </mat-label>
-                    <input matInput placeholder="{{ 'placeholders.question' | translate }}"
-                            [(ngModel)]="question.text" [disabled]="shouldDisable" autocomplete="off">
-                    <mat-hint *ngIf="poll.status === constants.statusTypes.open && question.showHints">
-                        {{ 'hints.typeQuestion' | translate: { QN: i + 1} }}
-                    </mat-hint>
-                </mat-form-field>
+                <div class="p-0 px-3 pt-3" *ngIf="!rearrangeQuestions">
+                    <app-alert
+                        *ngIf="isQuestionInvalid(question) && question.showHints && questionInfoRequired(question)"
+                        [dismissible]="false"
+                        type="danger"
+                        [messageKey]="getInfoTooltipKey(question)"
+                        class="mb-2">
+                    </app-alert>
 
-                <mat-accordion>
-                    <mat-expansion-panel class="mat-elevation-z0 p-0 mat-ep-no-padding" #optionsPanel [expanded]="!question.collapsed">
+                    <mat-form-field
+                        appearance="outline"
+                        class="w-100 {{ question.showHints ? '' : 'mat-field-no-margin' }}">
+                        <mat-label>
+                            {{ 'labels.questionNumber' | translate: { QN: i + 1} }}
+                        </mat-label>
+                        <input matInput placeholder="{{ 'placeholders.question' | translate }}"
+                                [(ngModel)]="question.text" [disabled]="shouldDisable" autocomplete="off">
+                        <mat-hint *ngIf="poll.status === constants.statusTypes.open && question.showHints">
+                            {{ 'hints.typeQuestion' | translate: { QN: i + 1} }}
+                        </mat-hint>
+                    </mat-form-field>
+                </div>
+
+                <mat-accordion [hidden]='rearrangeQuestions'>
+                    <mat-expansion-panel
+                        class="mat-elevation-z0 mat-ep-no-padding px-3"
+                        [class.pb-3]="!question.showHints || !question.collapsed"
+                        #optionsPanel
+                        [expanded]="!question.collapsed">
                         <mat-expansion-panel-header
                             *ngIf="!rearrangeQuestions"
                             class="justify-content-center bg-white mt-2"
@@ -299,13 +312,6 @@
                             </div>
 
                             <div>
-                                <app-alert
-                                    *ngIf="isQuestionInvalid(question) && question.showHints && questionInfoRequired(question)"
-                                    [dismissible]="false"
-                                    type="danger"
-                                    [messageKey]="getInfoTooltipKey(question)"
-                                    class="mb-2">
-                                </app-alert>
 
                                 <div class="d-flex flex-column flex-md-row justify-content-start mb-1"
                                     *ngIf="question.answerType === constants.answerTypes.value">
@@ -379,7 +385,7 @@
                                     </mat-hint>
                                 </div>
 
-                                <div class="d-flex flex-column mb-2"
+                                <div class="d-flex flex-column"
                                     *ngIf="question.answerType === constants.answerTypes.checkbox && question.options.length > 1">
 
                                     <div
@@ -504,9 +510,10 @@
 
                     </mat-expansion-panel>
 
-                    <div class="text-center text-muted bg-white cursor-pointer expansion-label"
-                         *ngIf="!rearrangeQuestions && question.collapsed && question.showHints"
-                         (click)="question.collapsed = false">
+                    <div
+                        class="text-center text-muted bg-white cursor-pointer expansion-label pb-3"
+                        *ngIf="!rearrangeQuestions && question.collapsed && question.showHints"
+                        (click)="question.collapsed = false">
                         <mat-hint>
                             {{ 'labels.expand' | translate }}
                         </mat-hint>
