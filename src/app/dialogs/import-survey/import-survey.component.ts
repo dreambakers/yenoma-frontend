@@ -41,6 +41,8 @@ export class ImportSurveyComponent implements OnInit {
     newPoll.title = this.translate.instant('importOptions.title');
     newPoll.privateNote = this.translate.instant('importOptions.privateNote');
     newPoll.questions = [];
+    newPoll.status = constants.statusTypes.open;
+    newPoll.automaticNumbering = true;
 
     const lines = this.importText.split('\n');
     let questionIndex = 0;

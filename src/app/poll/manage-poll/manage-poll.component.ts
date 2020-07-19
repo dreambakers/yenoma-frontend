@@ -136,10 +136,6 @@ export class ManagePollComponent implements OnInit, OnDestroy {
     this.emitterService.emit(constants.emitterKeys.updateNavbarProps, this.mobileNavbarProps);
   }
 
-  createNew() {
-    this.router.navigate(['/']);
-  }
-
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.poll.questions, event.previousIndex, event.currentIndex);
   }
@@ -265,7 +261,7 @@ export class ManagePollComponent implements OnInit, OnDestroy {
       });
     } else {
       this.emitterService.emit(constants.emitterKeys.changeNavbarTitle, {
-        key: 'labels.manageSurvey',
+        key: this.isEditing ? 'labels.manageSurvey' : 'labels.createSurvey',
       });
     }
     this.updateMobileNavbar();
