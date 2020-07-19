@@ -51,6 +51,8 @@ import { SnackbarComponent } from './shared/snackbar/snackbar.component';
 import { FeedbackComponent } from './dialogs/feedback/feedback.component';
 import { MobileNavComponent } from './mobile-nav/mobile-nav.component';
 import { UpgradeComponent } from './dialogs/upgrade/upgrade.component';
+import { NewOrderComponent } from './settings/new-order/new-order.component';
+import { ImportSurveyComponent } from './dialogs/import-survey/import-survey.component';
 
 import { DigitOnlyModule } from '@uiowa/digit-only';
 import { UserIdleModule } from 'angular-user-idle';
@@ -80,7 +82,6 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatRippleModule } from '@angular/material/core';
-import { NewOrderComponent } from './settings/new-order/new-order.component';
 
 @NgModule({
   declarations: [
@@ -122,6 +123,7 @@ import { NewOrderComponent } from './settings/new-order/new-order.component';
     MobileNavComponent,
     UpgradeComponent,
     NewOrderComponent,
+    ImportSurveyComponent,
   ],
   imports: [
     BrowserAnimationsModule,

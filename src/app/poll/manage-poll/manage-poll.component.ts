@@ -114,6 +114,8 @@ export class ManagePollComponent implements OnInit, OnDestroy {
           return this.isEditing ? this.updatePoll() : this.createPoll();
         case constants.emitterKeys.arrange:
           return this.toggleRearrangement();
+        case constants.emitterKeys.importSurveyData:
+          return this.poll = emitted.data;
       }
     });
     const key = this.isEditing ? 'labels.manageSurvey' : 'labels.createSurvey';

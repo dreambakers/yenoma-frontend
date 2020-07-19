@@ -41,10 +41,12 @@ export const constants = {
         imprintClicked: "imprintClicked",
         termsAndConditionsClicked: "termsAndConditionsClicked",
         feedbackClicked: "feedbackClicked",
+        importSurveryClicked: "importSurveryClicked",
         logoutInitiated: "logoutInitiated",
         scrollPositionUpdated: "scrollPositionUpdated",
         idleTimeoutCount: "idleTimeoutCount",
-        idleTimedOut: "idleTimedOut"
+        idleTimedOut: "idleTimedOut",
+        importSurveyData: "importSurveyData"
     },
 
     options: {

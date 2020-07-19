@@ -262,7 +262,10 @@
     "username": "Username",
     "view": "View",
     "vote": "Vote",
-    "yes": "Yes"
+    "yes": "Yes",
+    "importSurvey": "Import Survey",
+    "importText": "Import text",
+    "import": "Import"
   },
   "messages": {
     "accountNotVerified": "This account is not verified. Please check your email or visit the following link to request a new confirmation email.",
@@ -325,7 +328,8 @@
     "userEmailAlreadyExists": "A user with the same email already exists",
     "usernameAlreadyExists": "A user with the same username already exists",
     "usernameRequirement": "Username must be at least 5 characters and can only contain alphabets and numbers",
-    "verificationLinkNotValid": "The verification link is not valid. Please visit the following link to request a new confirmation email."
+    "verificationLinkNotValid": "The verification link is not valid. Please visit the following link to request a new confirmation email.",
+    "importTextRequired": "Import text is required"
   },
   "placeholders": {
     "activeComment": "Active comment",
@@ -345,7 +349,8 @@
     "textAnswer": "Your answer (500 chars max.)",
     "title": "A survey about food",
     "typeYourAnswer": "Type your answer",
-    "username": "Username"
+    "username": "Username",
+    "importText": "Question 1 text goes here\n  Option 1 text goes here"
   },
   "subscriptions": {
     "pro": "Pro ({{ED}})",
@@ -367,5 +372,9 @@
     "minTwoOptions": "This answer type requires a minimum of 2 options",
     "stopPreviewing": "Stop previewing",
     "valueInfo": "Decimal places, min and max values are required. The min value should be less than the max value"
+  },
+  "importOptions": {
+    "title": "New survey",
+    "privateNote": "Imported from text file"
   }
 }

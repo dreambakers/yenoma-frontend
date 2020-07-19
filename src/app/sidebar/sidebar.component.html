@@ -19,6 +19,11 @@
           {{ 'labels.createNewSurvey' | translate }}
         </a>
 
+        <a class="nav-link cursor-pointer" (click)="toggleSidebar() && importSurvey()" matRipple>
+          <i class="fas fa-download mr-2"></i>
+          {{ 'labels.importSurvey' | translate }}
+        </a>
+
         <mat-divider></mat-divider>
 
         <a class="nav-link cursor-pointer" routerLink='dashboard/settings' (click)="toggleSidebar()" [routerLinkActive]="['active']" matRipple>

@@ -43,6 +43,8 @@ export class SidebarComponent implements OnInit {
             return this.termsAndConditions();
         case constants.emitterKeys.feedbackClicked:
           return this.feedback();
+        case constants.emitterKeys.importSurveryClicked:
+            return this.importSurvey();
         case constants.emitterKeys.scrollPositionUpdated:
           return this.scrollPosition = emitted.data;
       }
@@ -75,6 +77,10 @@ export class SidebarComponent implements OnInit {
 
   feedback() {
     this.dialogService.feedback();
+  }
+
+  importSurvey() {
+    this.dialogService.importSurvey();
   }
 
   toggleSidebar() {
