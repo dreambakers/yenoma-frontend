@@ -269,7 +269,8 @@
     "username": "Username",
     "view": "View",
     "vote": "Vote",
-    "yes": "Yes"
+    "yes": "Yes",
+    "poweredByYenoma": "Powered by yenoma"
   },
   "messages": {
     "accountNotVerified": "This account is not verified. Please check your email or visit the following link to request a new confirmation email.",

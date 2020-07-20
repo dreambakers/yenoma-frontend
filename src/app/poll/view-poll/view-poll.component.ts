@@ -12,6 +12,7 @@ import * as moment from 'moment';
 import { take } from 'rxjs/operators'
 import { DataService } from 'src/app/services/data.service';
 import { ScrollService } from 'src/app/services/scroll.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-view-poll',
@@ -47,6 +48,7 @@ export class ViewPollComponent implements OnInit {
   commentDismissed = false;
   submitted = false;
   constants = constants;
+  isPro = true;
 
   constructor(
     private router: Router,
@@ -56,7 +58,8 @@ export class ViewPollComponent implements OnInit {
     private utils: UtilService,
     public translate: TranslateService,
     private scrollService: ScrollService,
-    private changeDetectorRef: ChangeDetectorRef
+    private changeDetectorRef: ChangeDetectorRef,
+    private userService: UserService
   ) { }
 
   ngOnInit() {
@@ -64,6 +67,7 @@ export class ViewPollComponent implements OnInit {
       this.scrollService.top();
       this.preview = true;
       !this.hasResponded && this.setAnswers();
+      this.isPro = new Date() < new Date(this.userService.getLoggedInUser().subscription.expires);
     } else {
       this.route.firstChild.params.subscribe(params => {
         this.pollId = params['id'];
@@ -82,6 +86,7 @@ export class ViewPollComponent implements OnInit {
         if (res.success) {
           this.passwordRequired = false;
           this.poll = res.poll;
+          this.isPro = new Date() < new Date(res.poll.createdBy.subscription.expires);
           if (this.getResponseFromLocalStorage(this.poll._id)) {
             this.response = this.getResponseFromLocalStorage(this.poll._id);
             this.verifyResponseValidity();

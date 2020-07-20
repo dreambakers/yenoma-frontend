@@ -309,21 +309,27 @@
       class="mt-2p1">
     </app-alert>
 
-    <div class="text-center my-2p1" *ngIf="!preview">
-      <button mat-raised-button color="danger" class="mr-2" (click)="navigateToRespond()">
-        {{ 'labels.back' | translate }}
-      </button>
+    <div class="d-flex justify-content-center my-2p1" *ngIf="!preview">
+        <button mat-raised-button color="danger" class="mr-2" (click)="navigateToRespond()">
+          {{ 'labels.back' | translate }}
+        </button>
 
-      <button
-        mat-raised-button
-        color="success"
-        (click)="vote()"
-        [disabled]="!dirty"
-        [class.disabled]="!valid"
-        *ngIf="!shouldDisable">
-        {{ (hasResponded && responseValid) ? translate.instant('labels.update') : translate.instant('labels.vote') }}
-      </button>
+        <button
+          mat-raised-button
+          color="success"
+          (click)="vote()"
+          [disabled]="!dirty"
+          [class.disabled]="!valid"
+          *ngIf="!shouldDisable">
+          {{ (hasResponded && responseValid) ? translate.instant('labels.update') : translate.instant('labels.vote') }}
+        </button>
     </div>
+
+    <h5 *ngIf="!isPro" class="text-muted text-center mt-3" style="opacity: 0.5;">
+      {{'labels.poweredByYenoma' | translate }}
+      {{'subscriptions.standard' | translate }}
+    </h5>
+
   </div>
 
   <ng-template #pollNotOpen>
