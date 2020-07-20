@@ -96,6 +96,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.emitterService.emit(this.constants.emitterKeys.feedbackClicked);
   }
 
+  importSurvey() {
+    this.emitterService.emit(this.constants.emitterKeys.importSurveryClicked);
+  }
+
   settings() {
     this.router.navigate(['dashboard/settings']);
   }
