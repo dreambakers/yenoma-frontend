@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "creationDate": "2020-07-16T07:48:03Z",
+    "creationDate": "2020-07-20T06:51:56Z",
     "generator": "Excel Macro",
     "generatorVersion": "2020-07-09",
     "twoletterCode": "en",
@@ -8,7 +8,7 @@
     "nativeLanguageName": "English",
     "translator": "Original",
     "isRightToLeft": "0",
-    "fileVersion": "24"
+    "fileVersion": "26"
   },
   "globalMessages": {
     "questionerWarning": "",
@@ -86,9 +86,11 @@
     "enterComments": "Enter comments",
     "enterName": "Enter name",
     "enterValue": "Enter value between {{MINV}} and {{MAXV}}.",
-    "inactiveComment": "Enter inactive comment (shown when survey is terminated or deleted)",
+    "inactiveComment": "Enter inactive comment (shown when survey is terminated)",
     "limitChecks": "Require a certain amount of answers",
+    "maxChecks": "Maximum number of selected options",
     "maxValue": "Enter maximum value",
+    "minChecks": "Minimum number of selected options",
     "minValue": "Enter minimum value",
     "passwordProtected": "Password protect this survey",
     "privateNote": "Type private note (not visible to respondents)",
@@ -100,9 +102,11 @@
     "typeOption": "Type option {{OPN}}",
     "typeQuestion": "Type question {{QN}}",
     "typeSurveyPassword": "Type survey password",
-    "useDropdown": "Use a dropdown instead of a list",
-    "maxChecks": "Maximum allowed checks",
-    "minChecks": "Minimum allowed checks"
+    "useDropdown": "Use a dropdown instead of a list"
+  },
+  "importOptions": {
+    "privateNote": "Imported from text file",
+    "title": "New survey"
   },
   "labels": {
     "about": "About",
@@ -163,6 +167,9 @@
     "go": "Go",
     "goToSurvey": "Go to Survey",
     "home": "Home",
+    "import": "Import",
+    "importSurvey": "Import Survey",
+    "importText": "Import text",
     "imprint": "Imprint",
     "inactiveComment": "Inactive comment",
     "inactiveStayLoggedIn": "Stay logged in",
@@ -262,10 +269,7 @@
     "username": "Username",
     "view": "View",
     "vote": "Vote",
-    "yes": "Yes",
-    "importSurvey": "Import Survey",
-    "importText": "Import text",
-    "import": "Import"
+    "yes": "Yes"
   },
   "messages": {
     "accountNotVerified": "This account is not verified. Please check your email or visit the following link to request a new confirmation email.",
@@ -282,6 +286,7 @@
     "emailNotValid": "Email must be a valid email address",
     "feedbackDescriptionRequired": "Feedback description is required",
     "feedbackSent": "The feedback was successfully sent to the yenoma team",
+    "importTextRequired": "Import text is required",
     "incorrectPassword": "The provided password is not correct",
     "loggedInAs": "Logged in as",
     "logout": "You will be logged out",
@@ -328,8 +333,7 @@
     "userEmailAlreadyExists": "A user with the same email already exists",
     "usernameAlreadyExists": "A user with the same username already exists",
     "usernameRequirement": "Username must be at least 5 characters and can only contain alphabets and numbers",
-    "verificationLinkNotValid": "The verification link is not valid. Please visit the following link to request a new confirmation email.",
-    "importTextRequired": "Import text is required"
+    "verificationLinkNotValid": "The verification link is not valid. Please visit the following link to request a new confirmation email."
   },
   "placeholders": {
     "activeComment": "Active comment",
@@ -338,6 +342,7 @@
     "description": "Survey description",
     "email": "Email address",
     "feedbackDescription": "Description",
+    "importText": "Question 1 text goes here",
     "inactiveComment": "Inactive comment",
     "name": "John Doe",
     "option": "Pizza",
@@ -349,8 +354,7 @@
     "textAnswer": "Your answer (500 chars max.)",
     "title": "A survey about food",
     "typeYourAnswer": "Type your answer",
-    "username": "Username",
-    "importText": "Question 1 text goes here\n  Option 1 text goes here"
+    "username": "Username"
   },
   "subscriptions": {
     "pro": "Pro ({{ED}})",
@@ -372,9 +376,5 @@
     "minTwoOptions": "This answer type requires a minimum of 2 options",
     "stopPreviewing": "Stop previewing",
     "valueInfo": "Decimal places, min and max values are required. The min value should be less than the max value"
-  },
-  "importOptions": {
-    "title": "New survey",
-    "privateNote": "Imported from text file"
   }
 }
