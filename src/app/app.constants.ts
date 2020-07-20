@@ -57,8 +57,8 @@ export const constants = {
         smiley: [100, 50, 0,],
         radioButton: [100, 0],
         checkbox: [100, 0],
-        text: [0, 100],
-        email: [0, 100],
+        text: [100, 0],
+        email: [100, 0],
     },
 
     dialogWidth: {
