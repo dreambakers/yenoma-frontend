@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
   submitted = false;
+  loading = false;
   @Output() loginEvent = new EventEmitter();
   @Output() forgotPasswordClicked = new EventEmitter();
 
@@ -70,7 +71,9 @@ export class LoginComponent implements OnInit {
       username: this.loginForm.value.username
     }
 
+    this.loading = true;
     this.auth.authenticateUser(user, false, this.loginForm.value.rememberLogin).subscribe((response: any) => {
+      this.loading = false;
       if (response.headers.get('x-auth')) {
         const user = { ...response.body, authToken: response.headers.get('x-auth') };
         this.userService.updatePreference({ stayLoggedIn: this.loginForm.value.rememberLogin });
@@ -82,6 +85,7 @@ export class LoginComponent implements OnInit {
         this.utils.openSnackBar('errors.e010_loggingIn', 'labels.retry');
       }
     }, (errorResponse: any) => {
+      this.loading = false;
       const errorMessageKey = errorResponse.error.notFound ? 'messages.noUserFound' : 'errors.e010_loggingIn';
       this.utils.openSnackBar(errorMessageKey, 'labels.retry');
     });

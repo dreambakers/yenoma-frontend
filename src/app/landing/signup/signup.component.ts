@@ -15,6 +15,7 @@ export class SignupComponent implements OnInit {
 
   signupForm: FormGroup;
   submitted = false;
+  loading = false;
   @Output() signupEvent = new EventEmitter();
 
   constructor(private formBuilder: FormBuilder,
@@ -51,8 +52,10 @@ export class SignupComponent implements OnInit {
       username: this.signupForm.value.username
     }
 
+    this.loading = true;
     this.auth.authenticateUser(user, true).subscribe(
       (res: any) => {
+        this.loading = false;
         if (res.body.success) {
           this.router.navigate(['']);
           this.signupEvent.emit({ signupSuccess: true });
@@ -61,6 +64,7 @@ export class SignupComponent implements OnInit {
         }
       },
       errorResponse => {
+        this.loading = false;
         if (errorResponse.error.alreadyExists) {
           if (errorResponse.error.username) {
             this.signupForm.controls['username'].setErrors({'usernameExists': true});
