@@ -43,7 +43,8 @@
     "smiley": "Smiley",
     "text": "Text",
     "value": "Value",
-    "yesNoMaybe": "Yes No Maybe"
+    "yesNoMaybe": "Yes No Maybe",
+    "list": "List"
   },
   "errors": {
     "e001_creatingSurvey": "An error occurred while creating the survey (#001)",
@@ -102,7 +103,8 @@
     "typeOption": "Type option {{OPN}}",
     "typeQuestion": "Type question {{QN}}",
     "typeSurveyPassword": "Type survey password",
-    "useDropdown": "Use a dropdown instead of a list"
+    "useDropdown": "Use a dropdown instead of a list",
+    "listElements": "Enter list items separated by ';'"
   },
   "importOptions": {
     "privateNote": "Imported from text file",
@@ -270,7 +272,8 @@
     "view": "View",
     "vote": "Vote",
     "yes": "Yes",
-    "poweredByYenoma": "Powered by yenoma"
+    "poweredByYenoma": "Powered by yenoma",
+    "listElements": "List items"
   },
   "messages": {
     "accountNotVerified": "This account is not verified. Please check your email or visit the following link to request a new confirmation email.",
@@ -376,6 +379,7 @@
   "tooltips": {
     "minTwoOptions": "This answer type requires a minimum of 2 options",
     "stopPreviewing": "Stop previewing",
-    "valueInfo": "Decimal places, min and max values are required. The min value should be less than the max value"
+    "valueInfo": "Decimal places, min and max values are required. The min value should be less than the max value",
+    "listInfo": "List element(s) are required for this answer type"
   }
 }

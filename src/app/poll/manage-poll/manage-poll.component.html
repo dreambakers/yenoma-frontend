@@ -189,7 +189,7 @@
                 cdkDrag
                 [cdkDragDisabled]="!rearrangeQuestions"
                 class="border p-0 mb-{{ rearrangeQuestions ? '1' : '5' }}"
-                [class.border-danger]="isQuestionInvalid(question)"
+                [class.border-danger]="!isQuestionValid(question)"
                 id="question{{i}}">
 
                 <div class="d-flex align-items-center p-2" *ngIf="rearrangeQuestions">
@@ -205,7 +205,7 @@
 
                 <div class="p-0 px-3 pt-3" *ngIf="!rearrangeQuestions">
                     <app-alert
-                        *ngIf="isQuestionInvalid(question) && question.showHints && questionInfoRequired(question)"
+                        *ngIf="!isQuestionValid(question) && question.showHints && questionInfoRequired(question)"
                         [dismissible]="false"
                         type="danger"
                         [messageKey]="getInfoTooltipKey(question)"
@@ -300,19 +300,21 @@
                                           <mat-option [value]="constants.answerTypes.email">
                                             {{ 'answerTypes.email' | translate }}
                                           </mat-option>
+                                          <mat-option [value]="constants.answerTypes.list">
+                                            {{ 'answerTypes.list' | translate }}
+                                          </mat-option>
                                         </mat-select>
                                         <mat-hint [hidden]="!question.showHints">
                                             {{ 'hints.answers' | translate }}
                                         </mat-hint>
                                     </mat-form-field>
-                                    <i class="fas fa-question-circle text-{{ isQuestionInvalid(question) ? 'danger' : 'muted' }} cursor-pointer"
+                                    <i class="fas fa-question-circle text-{{!isQuestionValid(question) ? 'danger' : 'muted' }} cursor-pointer"
                                         (click)="question.showHints = !question.showHints"
                                         [class.help-button-active]="question.showHints">
                                     </i>
                             </div>
 
                             <div>
-
                                 <div class="d-flex flex-column flex-md-row justify-content-start mb-1"
                                     *ngIf="question.answerType === constants.answerTypes.value">
                                     <mat-form-field appearance="outline" class="mr-2 mb-2 dropdown-container">
@@ -460,6 +462,27 @@
                                         </mat-hint>
                                     </mat-form-field>
                                 </div>
+
+                                <div
+                                    class="d-flex flex-column align-items-start mb-4"
+                                    *ngIf="question.answerType === constants.answerTypes.list">
+                                    <mat-form-field
+                                        appearance="outline"
+                                        class="w-100 {{ question.showHints ? '' : 'mat-field-no-margin' }} mt-3">
+                                        <mat-label>
+                                            {{ 'labels.listElements' | translate }}
+                                        </mat-label>
+                                        <input
+                                            matInput
+                                            [(ngModel)]="question.listElements"
+                                            [disabled]="shouldDisable"
+                                            autocomplete="off">
+                                        <mat-hint *ngIf="poll.status === constants.statusTypes.open && question.showHints">
+                                            {{ 'hints.listElements' | translate: { QN: i + 1} }}
+                                        </mat-hint>
+                                    </mat-form-field>
+                                </div>
+
                             </div>
                         </div>
 

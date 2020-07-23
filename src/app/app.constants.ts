@@ -14,7 +14,8 @@ export const constants = {
         text: 'text',
         dropdown: 'dropdown',
         value: 'value',
-        email: 'email'
+        email: 'email',
+        list: 'list'
     },
     statusTypes: {
         open: 'open',

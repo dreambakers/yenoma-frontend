@@ -209,11 +209,6 @@ export class ManagePollComponent implements OnInit, OnDestroy {
     this.deleteEditKeys();
   }
 
-  minimumOptionsRequired(question) {
-    return question.answerType === constants.answerTypes.radioButton ||
-           question.answerType === constants.answerTypes.checkbox;
-  }
-
   onCancelClicked(){
     if (this.isEditing && !this.dirty) {  // don't show confirmation in case poll wasn't udpated
       return this.router.navigate(['/dashboard/all']);
@@ -233,23 +228,33 @@ export class ManagePollComponent implements OnInit, OnDestroy {
     this.showPassword = !this.showPassword;
   }
 
-  valueFieldsInvalid(question) {
-    if (question.answerType === constants.answerTypes.value) {
-      return question.minValue === undefined || question.maxValue === undefined || question.decimalPlaces === undefined
-             || +question.maxValue < +question.minValue;
-    }
-    return false;
+  valueFieldsValid(question) {
+    return question.minValue !== undefined ||
+           question.maxValue !== undefined ||
+           question.decimalPlaces !== undefined ||
+           +question.maxValue > +question.minValue;
   }
 
   questionInfoRequired(question) {
-    return this.minimumOptionsRequired(question) || question.answerType === constants.answerTypes.value;
+    return [
+      constants.answerTypes.checkbox,
+      constants.answerTypes.radioButton,
+      constants.answerTypes.value,
+      constants.answerTypes.list
+    ].includes(question.answerType);
   }
 
   getInfoTooltipKey(question) {
-    if (this.minimumOptionsRequired(question)) {
-      return 'tooltips.minTwoOptions';
-    } else {
-      return 'tooltips.valueInfo';
+    switch (question.answerType) {
+      case constants.answerTypes.checkbox:
+      case constants.answerTypes.radioButton:
+        return 'tooltips.minTwoOptions';
+
+      case constants.answerTypes.value:
+        return 'tooltips.valueInfo';
+
+      case constants.answerTypes.list:
+        return 'tooltips.listInfo';
     }
   }
 
@@ -286,8 +291,19 @@ export class ManagePollComponent implements OnInit, OnDestroy {
     // return `${65 - this.remainingScroll}px`
   }
 
-  isQuestionInvalid(question) {
-    return this.valueFieldsInvalid(question) || (this.minimumOptionsRequired(question) && question.options.length < 2);
+  isQuestionValid(question) {
+    switch (question.answerType) {
+      case constants.answerTypes.checkbox:
+      case constants.answerTypes.radioButton:
+        return question.options.length >= 2;
+
+      case constants.answerTypes.value:
+        return this.valueFieldsValid(question);
+
+      case constants.answerTypes.list:
+        return !!question.listElements;
+    }
+    return true;
   }
 
   getAddOptionLabel(question) {
@@ -365,8 +381,9 @@ export class ManagePollComponent implements OnInit, OnDestroy {
                   this.poll.title && (this.showPassword ? this.poll.password : true) &&
                   this.poll.questions.filter(question => question.limits).every(question => question.limits.maxChecks >= question.limits.minChecks) &&
                   this.poll.questions.every(question => question.text && question.options.every(option => option.length)) &&
-                  this.poll.questions.filter(question => this.minimumOptionsRequired(question)).every(question => question.options.length >= 2) &&
-                  this.poll.questions.filter(question => question.answerType === constants.answerTypes.value).every(question => !this.valueFieldsInvalid(question));
+                  this.poll.questions.filter(question => [constants.answerTypes.radioButton, constants.answerTypes.checkbox].includes(question.answerType)).every(question => question.options.length >= 2) &&
+                  this.poll.questions.filter(question => question.answerType === constants.answerTypes.value).every(question => this.valueFieldsValid(question)) &&
+                  this.poll.questions.filter(question => question.answerType === constants.answerTypes.list).every(question => question.listElements);
     this.mobileNavbarProps.create = this.isEditing ? valid && this.dirty : valid;
     this.emitterService.emit(this.constants.emitterKeys.updateNavbarProps, this.mobileNavbarProps);
     return valid;

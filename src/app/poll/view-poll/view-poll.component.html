@@ -267,6 +267,24 @@
             </mat-form-field>
           </div>
 
+          <div *ngSwitchCase="constants.answerTypes.list">
+            <mat-form-field
+              appearance="none"
+              class="dropdown-container mat-field-no-margin dropdown option-dropdown">
+              <mat-select
+                [value]="getListDropdownValues(question)[answerObj.answer]"
+                (selectionChange)="listDropdownOptionChanged($event, i, j)"
+                [disabled]="shouldDisable"
+                class="border p-3">
+                  <mat-option
+                    *ngFor="let option of getListDropdownValues(question)"
+                    [value]="option">
+                    {{ option }}
+                  </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
           <div *ngSwitchCase="constants.answerTypes.value" class="value-container" [class.text-right]="question.options.length">
             <input matInput class="border px-3 text-right" [(ngModel)]="answerObj.answer" [disabled]="shouldDisable"
               [class.invalid]="answerObj.answer && !valueInputValid(answerObj.answer, question)"

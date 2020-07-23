@@ -12,6 +12,7 @@ interface Question {
     radioToDropdown?: boolean;
     collapsed?: boolean;
     additionalText?: String;
+    listElements?: String;
 }
 
 export class Poll {

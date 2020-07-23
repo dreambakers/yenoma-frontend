@@ -125,6 +125,7 @@ export class ViewPollComponent implements OnInit {
         case constants.answerTypes.radioButton:
         case constants.answerTypes.slider:
         case constants.answerTypes.dropdown:
+        case constants.answerTypes.list:
           return 0;
         case constants.answerTypes.rating:
           return -1;
@@ -284,6 +285,17 @@ export class ViewPollComponent implements OnInit {
     }
   }
 
+  listDropdownOptionChanged(event, questionIndex, answerIndex = null) {
+    const elements = this.getListDropdownValues(this.poll.questions[questionIndex]);
+    const question = this.response.questions[questionIndex];
+    question.answerType = constants.answerTypes.list;
+    if (answerIndex !== null) {
+      question.answers[answerIndex].answer = elements.indexOf(event.value);
+    } else {
+      question['answer'] = elements.indexOf(event.value);
+    }
+  }
+
   getOptions(question) {
     if (this.hasResponded) {
       return question.answers;
@@ -412,6 +424,7 @@ export class ViewPollComponent implements OnInit {
       case constants.answerTypes.slider:
       case constants.answerTypes.text:
       case constants.answerTypes.dropdown:
+      case constants.answerTypes.list:
         return true;
 
       case constants.answerTypes.checkbox:
@@ -480,6 +493,10 @@ export class ViewPollComponent implements OnInit {
       const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(String(value).toLowerCase());
     }
+  }
+
+  getListDropdownValues(question) {
+    return [...new Set(question.listElements.split(';').filter(element => element))];
   }
 
   get valid() {
