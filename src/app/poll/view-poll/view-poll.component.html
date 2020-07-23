@@ -270,7 +270,7 @@
           <div *ngSwitchCase="constants.answerTypes.list">
             <mat-form-field
               appearance="none"
-              class="dropdown-container mat-field-no-margin dropdown option-dropdown">
+              class="dropdown-container mat-field-no-margin dropdown list-options-dropdown">
               <mat-select
                 [value]="getListDropdownValues(question)[answerObj.answer]"
                 (selectionChange)="listDropdownOptionChanged($event, i, j)"

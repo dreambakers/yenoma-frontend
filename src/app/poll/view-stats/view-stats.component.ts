@@ -80,6 +80,7 @@ export class ViewStatsComponent implements OnInit {
     });
   }
 
+  // Desktop view table column
   getTableValue(questionIndex, optionIndex, value) {
     switch(this.poll.questions[questionIndex].answerType) {
       case constants.answerTypes.list:
@@ -121,7 +122,9 @@ export class ViewStatsComponent implements OnInit {
     switch(this.answerMap[i].type) {
       case this.constants.answerTypes.list:
         const valueIndex = this.getOptions(this.poll.questions[i]).indexOf(answer);
-        return this.answerMap[i][j][valueIndex] >= 1 ? '100.0' : '0.0';
+        return this.answerMap[i][j][valueIndex] >= 1 ? (
+          ((this.answerMap[i][j][valueIndex] / this.answerMap[i]['responses']) * 100).toFixed(1)
+        ) : '0.0';
 
       default:
         if (this.answerMap[i][j][answer]) {
