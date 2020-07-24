@@ -362,7 +362,8 @@
   },
   "subscriptions": {
     "pro": "Pro ({{ED}})",
-    "standard": "Basic ({{ED}})"
+    "standard": "Basic ({{ED}})",
+    "standardText": "Basic"
   },
   "surveyActions": {
     "delete": "Delete",
