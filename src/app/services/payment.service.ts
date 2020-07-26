@@ -14,6 +14,10 @@ export class PaymentService {
   ) { }
 
   capturePayment(orderId) {
-    return this.http.post(`${constants.apiUrl}/payment/`, { orderId });
+    return this.http.post(`${constants.apiUrl}/payment/capture/`, { orderId });
+  }
+
+  getSubscriptionPeriods() {
+    return this.http.get(`${constants.apiUrl}/payment/getSubscriptionPeriods/`);
   }
 }

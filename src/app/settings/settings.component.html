@@ -7,7 +7,9 @@
             class="w-100 settings-card"
             [class.increased-height]="currentBreakpoint === 'sm'"
             *ngIf="!loading">
-            <mat-tab-group>
+            <mat-tab-group
+                [selectedIndex]="selectedTabIndex"
+                (selectedIndexChange)="setSelectedTabIndex($event)">
                 <mat-tab label="{{ 'labels.profile' | translate }}">
                     <app-profile [user]="user"></app-profile>
                 </mat-tab>
@@ -17,9 +19,9 @@
                 <mat-tab label="{{ 'labels.locale' | translate }}">
                     <app-general [user]="user"></app-general>
                 </mat-tab>
-                <!-- <mat-tab label="{{ 'labels.locale' | translate }}">
+                <mat-tab label="{{ 'labels.newOrder' | translate }}">
                     <app-new-order></app-new-order>
-                </mat-tab> -->
+                </mat-tab>
             </mat-tab-group>
         </mat-card>
     </div>

@@ -1,9 +1,44 @@
-<p>new-order works!</p>
+<section id="newOrder">
+    <div class="p-3">
+        <div class="subscription-description">
+            <p>
+              {{ 'messages.subscriptionDescription' | translate }}
+            </p>
 
-<div *ngIf="!paidFor">
-    <h1>test!!</h1>
-</div>
+            <h4>{{ 'labels.faq' | translate }}</h4>
 
-<div #paypal>
+            <mat-accordion>
+              <mat-expansion-panel class="mat-elevation-z0 p-0" *ngFor="let option of subscriptionFaqIndices; let i = index">
+                <mat-expansion-panel-header class="p-0">
+                  <mat-panel-title>
+                    {{ 'subscriptionFaq.question' + (i + 1) | translate }}
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <p>
+                    {{ 'subscriptionFaq.answer' + (i + 1) | translate }}
+                </p>
+              </mat-expansion-panel>
+            </mat-accordion>
+        </div>
 
-</div>
+        <div class="mt-2">
+            <h4>{{ 'labels.purchase' | translate }}</h4>
+
+            <mat-form-field
+                appearance="none"
+                class="dropdown-container mat-field-no-margin dropdown mt-3">
+                <mat-select
+                    [(ngModel)]="selectedPeriod"
+                    class="border p-3">
+                    <mat-option
+                        *ngFor="let option of subscriptionPeriods"
+                        [value]="option">
+                        ${{ option.price }} - {{ getPeriodLabelKey(option.key) | translate }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div #paypal class="d-flex justify-content-center mt-3" *ngIf="tabSelected"></div>
+</section>

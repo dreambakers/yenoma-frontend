@@ -17,6 +17,7 @@ export class SettingsComponent implements OnInit {
 
   user;
   loading = false;
+  selectedTabIndex = 0;
   constants = constants;
   destroy$: Subject<boolean> = new Subject<boolean>();
 
@@ -54,6 +55,26 @@ export class SettingsComponent implements OnInit {
     this.emitterService.emit(constants.emitterKeys.changeNavbarTitle, {
       key: 'labels.settings',
     });
+  }
+
+  setSelectedTabIndex(event) {
+    this.selectedTabIndex = event;
+    let selectedTab;
+    switch(this.selectedTabIndex) {
+      case 0:
+        selectedTab = 'profile';
+        break;
+      case 1:
+        selectedTab = 'security';
+        break;
+      case 2:
+        selectedTab = 'locale';
+        break;
+      case 3:
+        selectedTab = 'newOrder';
+        break;
+    }
+    this.emitterService.emit(constants.emitterKeys.settingsTabChanged, selectedTab);
   }
 
   get isMobile() {

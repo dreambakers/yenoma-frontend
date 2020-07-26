@@ -273,7 +273,10 @@
     "vote": "Vote",
     "yes": "Yes",
     "poweredByYenoma": "Powered by yenoma",
-    "listElements": "List items"
+    "listElements": "List items",
+    "newOrder": "New order",
+    "faq": "FAQ",
+    "purchase": "Purchase"
   },
   "messages": {
     "accountNotVerified": "This account is not verified. Please check your email or visit the following link to request a new confirmation email.",
@@ -337,7 +340,8 @@
     "userEmailAlreadyExists": "A user with the same email already exists",
     "usernameAlreadyExists": "A user with the same username already exists",
     "usernameRequirement": "Username must be at least 5 characters and can only contain alphabets and numbers",
-    "verificationLinkNotValid": "The verification link is not valid. Please visit the following link to request a new confirmation email."
+    "verificationLinkNotValid": "The verification link is not valid. Please visit the following link to request a new confirmation email.",
+    "subscriptionDescription": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Officia quia excepturi amet ullam iste est eius, labore pariatur dolorem reiciendis quod nam dolorum, expedita illum voluptatibus iure molestias quae consequuntur."
   },
   "placeholders": {
     "activeComment": "Active comment",
@@ -363,7 +367,16 @@
   "subscriptions": {
     "pro": "Pro ({{ED}})",
     "standard": "Basic ({{ED}})",
-    "standardText": "Basic"
+    "standardText": "Basic",
+    "oneYear": "One Year",
+    "oneMonth": "One Month",
+    "threeMonths": "Three Months"
+  },
+  "subscriptionFaq": {
+    "question1": "This is my question 1",
+    "answer1": "This is my answer 1",
+    "question2": "This is my question 2",
+    "answer2": "This is my answer 2"
   },
   "surveyActions": {
     "delete": "Delete",

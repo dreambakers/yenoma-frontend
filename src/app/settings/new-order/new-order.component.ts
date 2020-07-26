@@ -1,5 +1,10 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { PaymentService } from '../../services/payment.service';
+import { constants } from 'src/app/app.constants';
+import { EmitterService } from 'src/app/services/emitter.service';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { LanguageService } from 'src/app/services/language.service';
 
 declare var paypal;
 
@@ -10,31 +15,72 @@ declare var paypal;
 })
 export class NewOrderComponent implements OnInit {
 
-  @ViewChild('paypal', { static: true }) paypalElement: ElementRef;
+  @ViewChild('paypal', { static: false }) paypalElement: ElementRef;
 
+  constants = constants;
+  tabSelected = false;
+  subscriptionPeriods;
+  subscriptionFaqIndices;
+  selectedPeriod;
   product = {
     price: 20,
     description: 'nice lol',
   }
-
-  paidFor = false;
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(
-    private paymentService: PaymentService
+    private paymentService: PaymentService,
+    private emitterService: EmitterService,
+    private languageService: LanguageService
   ) { }
 
   ngOnInit(): void {
+    this.languageService.getLanguageFile('en').subscribe(
+      (res: any) => {
+        const keyLength = Object.keys(res.subscriptionFaq).length;
+        this.subscriptionFaqIndices = Array(keyLength / 2).fill(1).map((x,i)=>i);
+      }
+    );
+    this.paymentService.getSubscriptionPeriods().subscribe(
+      (res: any) => {
+        if (res.success) {
+          this.subscriptionPeriods = res.subscriptionPeriods;
+          this.selectedPeriod = this.subscriptionPeriods[0];
+        }
+      }
+    );
+    this.emitterService.emitter.pipe(takeUntil(this.destroy$)).subscribe((emitted) => {
+      switch(emitted.event) {
+        case constants.emitterKeys.settingsTabChanged:
+          if (emitted.data === 'newOrder') {
+            this.tabSelected = true;
+            return setTimeout(() => { this.renderButtons(); }, 10)
+          }
+          this.tabSelected = false;
+      }
+    });
+  }
+
+  renderButtons() {
     paypal
       .Buttons({
+        style: {
+          layout: 'horizontal',
+          color:  'black',
+          // shape:  'pill',
+          label:  'pay',
+          // height: 40,
+          tagline: 'false'
+        },
 
         createOrder: (data, actions) => {
           return actions.order.create({
             purchase_units: [
               {
-                description: this.product.description,
+                // description: this.product.description,
                 amount: {
                   currency_code: 'USD',
-                  value: this.product.price
+                  value: this.selectedPeriod.price
                 }
               }
             ]
@@ -59,14 +105,6 @@ export class NewOrderComponent implements OnInit {
           )
 
           console.log(data)
-
-
-
-          // const order = await actions.order.capture();
-
-          // console.log('printing from here', order);
-
-          // this.paidFor = true;
         },
 
         onError: (err) => {
@@ -77,6 +115,12 @@ export class NewOrderComponent implements OnInit {
       .render(this.paypalElement.nativeElement)
   }
 
+  getPeriodLabelKey(key) {
+    return `subscriptions.${key}`;
+  }
 
-
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.emitterService.emit(this.constants.emitterKeys.resetNavbar);
+  }
 }

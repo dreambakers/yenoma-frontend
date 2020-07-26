@@ -47,7 +47,8 @@ export const constants = {
         scrollPositionUpdated: "scrollPositionUpdated",
         idleTimeoutCount: "idleTimeoutCount",
         idleTimedOut: "idleTimedOut",
-        importSurveyData: "importSurveyData"
+        importSurveyData: "importSurveyData",
+        settingsTabChanged: "settingsTabChanged"
     },
 
     options: {
