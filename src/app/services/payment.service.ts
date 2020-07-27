@@ -13,8 +13,8 @@ export class PaymentService {
     private http: HttpClient
   ) { }
 
-  capturePayment(orderId) {
-    return this.http.post(`${constants.apiUrl}/payment/capture/`, { orderId });
+  capturePayment(orderId, subscriptionPeriod) {
+    return this.http.post(`${constants.apiUrl}/payment/capture/`, { orderId, subscriptionPeriod });
   }
 
   getSubscriptionPeriods() {

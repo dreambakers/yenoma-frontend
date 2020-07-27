@@ -1,10 +1,11 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
 import { PaymentService } from '../../services/payment.service';
 import { constants } from 'src/app/app.constants';
 import { EmitterService } from 'src/app/services/emitter.service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { LanguageService } from 'src/app/services/language.service';
+import { UtilService } from 'src/app/services/util.service';
 
 declare var paypal;
 
@@ -19,19 +20,16 @@ export class NewOrderComponent implements OnInit {
 
   constants = constants;
   tabSelected = false;
+  selectedPeriod;
   subscriptionPeriods;
   subscriptionFaqIndices;
-  selectedPeriod;
-  product = {
-    price: 20,
-    description: 'nice lol',
-  }
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(
     private paymentService: PaymentService,
     private emitterService: EmitterService,
-    private languageService: LanguageService
+    private languageService: LanguageService,
+    private utils: UtilService
   ) { }
 
   ngOnInit(): void {
@@ -88,23 +86,21 @@ export class NewOrderComponent implements OnInit {
         },
 
         onApprove: async (data, actions) => {
-
           // sb-jqi5d2633543@personal.example.com
           // 'tvo#2WD
-
-          console.log(actions)
-
-
-          this.paymentService.capturePayment(data.orderID).subscribe(
-            res => {
-              console.log(res);
+          this.paymentService.capturePayment(data.orderID, this.selectedPeriod).subscribe(
+            (res: any) => {
+              if (res.success) {
+                this.emitterService.emit(constants.emitterKeys.subscriptionPaymentSuccessful);
+                this.utils.openSnackBar('messages.paymentSuccessful');
+              } else {
+                this.utils.openSnackBar('errors.e021_errorProcessingPayment');
+              }
             },
             err => {
-              console.log(err)
+              this.utils.openSnackBar('errors.e021_errorProcessingPayment');
             }
-          )
-
-          console.log(data)
+          );
         },
 
         onError: (err) => {
@@ -121,6 +117,5 @@ export class NewOrderComponent implements OnInit {
 
   ngOnDestroy(): void {
     this.destroy$.next(true);
-    this.emitterService.emit(this.constants.emitterKeys.resetNavbar);
   }
 }

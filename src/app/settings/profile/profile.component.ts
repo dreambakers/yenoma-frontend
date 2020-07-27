@@ -6,6 +6,9 @@ import { UtilService } from 'src/app/services/util.service';
 import { DataService } from 'src/app/services/data.service';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
+import { takeUntil } from 'rxjs/operators';
+import { EmitterService } from 'src/app/services/emitter.service';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
@@ -18,15 +21,17 @@ export class ProfileComponent implements OnInit {
   selectedLanguage;
   constants = constants;
 
-  profileForm: FormGroup;
+  subscription;
   submitted = false;
-  isPro = false;
+  profileForm: FormGroup;
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(
     private formBuilder: FormBuilder,
     private utils: UtilService,
     private userService: UserService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private emitterService: EmitterService
   ) { }
 
   ngOnInit() {
@@ -34,18 +39,35 @@ export class ProfileComponent implements OnInit {
       username: [this.user?.username, [Validators.required, Validators.pattern('^[a-zA-Z0-9]+$'), Validators.minLength(5)]],
       email: [this.user?.email, [Validators.required, Validators.email]],
     });
+    this.emitterService.emitter.pipe(takeUntil(this.destroy$)).subscribe((emitted) => {
+      switch(emitted.event) {
+        case constants.emitterKeys.subscriptionPaymentSuccessful:
+          this.getSubscription(true);
+      }
+    });
+    this.getSubscription();
+  }
+
+  getSubscription(updateUser = false) {
     this.userService.getSubscription().subscribe(
       (res: any) => {
         if (res.success) {
-          this.isPro = res.subscription.isPro;
+          this.subscription = res.subscription;
+          if (updateUser) {
+            this.user.subscription = this.subscription;
+            this.userService.updateUser(this.user);
+          }
         }
       }
     );
   }
 
   getSubscriptionLevel() {
-    const key = this.isPro ? 'subscriptions.pro' : 'subscriptions.standard';
-    return this.translate.instant(key, { ED: this.getParsedDate(this.user.subscription.expires) });
+    if (this.subscription) {
+      const key = this.subscription.isPro ? 'subscriptions.pro' : 'subscriptions.standard';
+      return this.translate.instant(key, { ED: this.getParsedDate(this.subscription.expires) });
+    }
+    return this.translate.instant('labels.loading');
   }
 
   get f() { return this.profileForm.controls; }
@@ -97,4 +119,7 @@ export class ProfileComponent implements OnInit {
     return DataService.currentBreakpoint;
   }
 
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+  }
 }

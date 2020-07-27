@@ -48,7 +48,8 @@ export const constants = {
         idleTimeoutCount: "idleTimeoutCount",
         idleTimedOut: "idleTimedOut",
         importSurveyData: "importSurveyData",
-        settingsTabChanged: "settingsTabChanged"
+        settingsTabChanged: "settingsTabChanged",
+        subscriptionPaymentSuccessful: "subscriptionPaymentSuccessful",
     },
 
     options: {

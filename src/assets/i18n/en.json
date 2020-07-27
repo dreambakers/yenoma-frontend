@@ -66,7 +66,8 @@
     "e017_gettingProfile": "An error occurred while getting the user profile (#017)",
     "e018_updatingProfile": "An error occurred while updating the user profile (#018)",
     "e019_sendingEmail": "An error occurred while sending the verification e-mail (#019)",
-    "e020_sendingFeedback": "An error occurred while sending the feedback (#020)"
+    "e020_sendingFeedback": "An error occurred while sending the feedback (#020)",
+    "e021_errorProcessingPayment": "An error occurred while processing the payment (#021)"
   },
   "feedbackOptions": {
     "bugReport": "Bug report",
@@ -276,7 +277,8 @@
     "listElements": "List items",
     "newOrder": "New order",
     "faq": "FAQ",
-    "purchase": "Purchase"
+    "purchase": "Purchase",
+    "loading": "Loading..."
   },
   "messages": {
     "accountNotVerified": "This account is not verified. Please check your email or visit the following link to request a new confirmation email.",
@@ -341,7 +343,8 @@
     "usernameAlreadyExists": "A user with the same username already exists",
     "usernameRequirement": "Username must be at least 5 characters and can only contain alphabets and numbers",
     "verificationLinkNotValid": "The verification link is not valid. Please visit the following link to request a new confirmation email.",
-    "subscriptionDescription": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Officia quia excepturi amet ullam iste est eius, labore pariatur dolorem reiciendis quod nam dolorum, expedita illum voluptatibus iure molestias quae consequuntur."
+    "subscriptionDescription": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Officia quia excepturi amet ullam iste est eius, labore pariatur dolorem reiciendis quod nam dolorum, expedita illum voluptatibus iure molestias quae consequuntur.",
+    "paymentSuccessful": "Payment successful"
   },
   "placeholders": {
     "activeComment": "Active comment",
