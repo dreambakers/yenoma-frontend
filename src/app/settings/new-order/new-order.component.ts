@@ -6,6 +6,7 @@ import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { LanguageService } from 'src/app/services/language.service';
 import { UtilService } from 'src/app/services/util.service';
+import { NgxSpinnerService } from "ngx-spinner";
 
 declare var paypal;
 
@@ -29,7 +30,8 @@ export class NewOrderComponent implements OnInit {
     private paymentService: PaymentService,
     private emitterService: EmitterService,
     private languageService: LanguageService,
-    private utils: UtilService
+    private utils: UtilService,
+    private spinner: NgxSpinnerService
   ) { }
 
   ngOnInit(): void {
@@ -88,8 +90,10 @@ export class NewOrderComponent implements OnInit {
         onApprove: async (data, actions) => {
           // sb-jqi5d2633543@personal.example.com
           // 'tvo#2WD
+          this.spinner.show();
           this.paymentService.capturePayment(data.orderID, this.selectedPeriod).subscribe(
             (res: any) => {
+              this.spinner.hide();
               if (res.success) {
                 this.emitterService.emit(constants.emitterKeys.subscriptionPaymentSuccessful);
                 this.utils.openSnackBar('messages.paymentSuccessful');
@@ -98,6 +102,7 @@ export class NewOrderComponent implements OnInit {
               }
             },
             err => {
+              this.spinner.hide();
               this.utils.openSnackBar('errors.e021_errorProcessingPayment');
             }
           );
