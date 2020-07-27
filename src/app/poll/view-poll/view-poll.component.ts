@@ -125,9 +125,9 @@ export class ViewPollComponent implements OnInit {
         case constants.answerTypes.radioButton:
         case constants.answerTypes.slider:
         case constants.answerTypes.dropdown:
-        case constants.answerTypes.list:
           return 0;
         case constants.answerTypes.rating:
+        case constants.answerTypes.list:
           return -1;
         default:
           return '';
@@ -424,7 +424,6 @@ export class ViewPollComponent implements OnInit {
       case constants.answerTypes.slider:
       case constants.answerTypes.text:
       case constants.answerTypes.dropdown:
-      case constants.answerTypes.list:
         return true;
 
       case constants.answerTypes.checkbox:
@@ -448,6 +447,7 @@ export class ViewPollComponent implements OnInit {
         }
 
       case constants.answerTypes.rating:
+      case constants.answerTypes.list:
         if (responseQuestion.answers.length) {
           return responseQuestion.answers.every(answerObj => answerObj.answer >= 0);
         } else {
