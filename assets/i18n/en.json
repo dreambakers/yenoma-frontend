@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "creationDate": "2020-07-16T07:48:03Z",
+    "creationDate": "2020-07-20T06:51:56Z",
     "generator": "Excel Macro",
     "generatorVersion": "2020-07-09",
     "twoletterCode": "en",
@@ -8,7 +8,7 @@
     "nativeLanguageName": "English",
     "translator": "Original",
     "isRightToLeft": "0",
-    "fileVersion": "24"
+    "fileVersion": "26"
   },
   "globalMessages": {
     "questionerWarning": "",
@@ -43,7 +43,8 @@
     "smiley": "Smiley",
     "text": "Text",
     "value": "Value",
-    "yesNoMaybe": "Yes No Maybe"
+    "yesNoMaybe": "Yes No Maybe",
+    "list": "List"
   },
   "errors": {
     "e001_creatingSurvey": "An error occurred while creating the survey (#001)",
@@ -65,7 +66,8 @@
     "e017_gettingProfile": "An error occurred while getting the user profile (#017)",
     "e018_updatingProfile": "An error occurred while updating the user profile (#018)",
     "e019_sendingEmail": "An error occurred while sending the verification e-mail (#019)",
-    "e020_sendingFeedback": "An error occurred while sending the feedback (#020)"
+    "e020_sendingFeedback": "An error occurred while sending the feedback (#020)",
+    "e021_errorProcessingPayment": "An error occurred while processing the payment (#021)"
   },
   "feedbackOptions": {
     "bugReport": "Bug report",
@@ -86,9 +88,11 @@
     "enterComments": "Enter comments",
     "enterName": "Enter name",
     "enterValue": "Enter value between {{MINV}} and {{MAXV}}.",
-    "inactiveComment": "Enter inactive comment (shown when survey is terminated or deleted)",
+    "inactiveComment": "Enter inactive comment (shown when survey is terminated)",
     "limitChecks": "Require a certain amount of answers",
+    "maxChecks": "Maximum number of selected options",
     "maxValue": "Enter maximum value",
+    "minChecks": "Minimum number of selected options",
     "minValue": "Enter minimum value",
     "passwordProtected": "Password protect this survey",
     "privateNote": "Type private note (not visible to respondents)",
@@ -101,8 +105,11 @@
     "typeQuestion": "Type question {{QN}}",
     "typeSurveyPassword": "Type survey password",
     "useDropdown": "Use a dropdown instead of a list",
-    "maxChecks": "Maximum allowed checks",
-    "minChecks": "Minimum allowed checks"
+    "listElements": "Enter list items separated by ';'"
+  },
+  "importOptions": {
+    "privateNote": "Imported from text file",
+    "title": "New survey"
   },
   "labels": {
     "about": "About",
@@ -163,6 +170,9 @@
     "go": "Go",
     "goToSurvey": "Go to Survey",
     "home": "Home",
+    "import": "Import",
+    "importSurvey": "Import Survey",
+    "importText": "Import text",
     "imprint": "Imprint",
     "inactiveComment": "Inactive comment",
     "inactiveStayLoggedIn": "Stay logged in",
@@ -262,7 +272,13 @@
     "username": "Username",
     "view": "View",
     "vote": "Vote",
-    "yes": "Yes"
+    "yes": "Yes",
+    "poweredByYenoma": "Powered by yenoma",
+    "listElements": "List items",
+    "newOrder": "New order",
+    "faq": "FAQ",
+    "purchase": "Purchase",
+    "loading": "Loading..."
   },
   "messages": {
     "accountNotVerified": "This account is not verified. Please check your email or visit the following link to request a new confirmation email.",
@@ -279,6 +295,7 @@
     "emailNotValid": "Email must be a valid email address",
     "feedbackDescriptionRequired": "Feedback description is required",
     "feedbackSent": "The feedback was successfully sent to the yenoma team",
+    "importTextRequired": "Import text is required",
     "incorrectPassword": "The provided password is not correct",
     "loggedInAs": "Logged in as",
     "logout": "You will be logged out",
@@ -325,7 +342,9 @@
     "userEmailAlreadyExists": "A user with the same email already exists",
     "usernameAlreadyExists": "A user with the same username already exists",
     "usernameRequirement": "Username must be at least 5 characters and can only contain alphabets and numbers",
-    "verificationLinkNotValid": "The verification link is not valid. Please visit the following link to request a new confirmation email."
+    "verificationLinkNotValid": "The verification link is not valid. Please visit the following link to request a new confirmation email.",
+    "subscriptionDescription": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Officia quia excepturi amet ullam iste est eius, labore pariatur dolorem reiciendis quod nam dolorum, expedita illum voluptatibus iure molestias quae consequuntur.",
+    "paymentSuccessful": "Payment successful"
   },
   "placeholders": {
     "activeComment": "Active comment",
@@ -334,6 +353,7 @@
     "description": "Survey description",
     "email": "Email address",
     "feedbackDescription": "Description",
+    "importText": "Question 1 text goes here",
     "inactiveComment": "Inactive comment",
     "name": "John Doe",
     "option": "Pizza",
@@ -348,8 +368,18 @@
     "username": "Username"
   },
   "subscriptions": {
-    "pro": "Pro",
-    "standard": "Basic"
+    "pro": "Pro ({{ED}})",
+    "standard": "Basic ({{ED}})",
+    "standardText": "Basic",
+    "oneYear": "One Year",
+    "oneMonth": "One Month",
+    "threeMonths": "Three Months"
+  },
+  "subscriptionFaq": {
+    "question1": "This is my question 1",
+    "answer1": "This is my answer 1",
+    "question2": "This is my question 2",
+    "answer2": "This is my answer 2"
   },
   "surveyActions": {
     "delete": "Delete",
@@ -366,6 +396,7 @@
   "tooltips": {
     "minTwoOptions": "This answer type requires a minimum of 2 options",
     "stopPreviewing": "Stop previewing",
-    "valueInfo": "Decimal places, min and max values are required. The min value should be less than the max value"
+    "valueInfo": "Decimal places, min and max values are required. The min value should be less than the max value",
+    "listInfo": "List element(s) are required for this answer type"
   }
 }

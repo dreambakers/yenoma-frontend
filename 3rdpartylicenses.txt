@@ -340,6 +340,9 @@ OTHER DEALINGS IN THE SOFTWARE.
 ng-navigator-share
 MIT
 
+ngx-spinner
+MIT
+
 qrcode
 MIT
 The MIT License (MIT)
