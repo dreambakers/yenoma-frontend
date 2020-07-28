@@ -14,6 +14,7 @@ import { ImprintComponent } from '../dialogs/imprint/imprint.component';
 import { TermsAndConditionsComponent } from '../dialogs/terms-and-conditions/terms-and-conditions.component';
 import { FeedbackComponent } from '../dialogs/feedback/feedback.component';
 import { UpgradeComponent } from '../dialogs/upgrade/upgrade.component';
+import { ImportSurveyComponent } from '../dialogs/import-survey/import-survey.component';
 
 @Injectable({
   providedIn: 'root'
@@ -97,6 +98,13 @@ export class DialogService {
 
   upgrade(): Observable<any> {
     const dialogRef = this.dialog.open(UpgradeComponent, {
+      width: '350px',
+    });
+    return dialogRef.afterClosed();
+  }
+
+  importSurvey(): Observable<any> {
+    const dialogRef = this.dialog.open(ImportSurveyComponent, {
       width: '350px',
     });
     return dialogRef.afterClosed();

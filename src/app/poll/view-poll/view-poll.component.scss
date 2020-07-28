@@ -53,6 +53,10 @@
   width: 5.313rem;
 }
 
+.list-options-dropdown {
+  width: 8.313rem;
+}
+
 .value-container {
   width: 8.125rem;
   input {
@@ -75,4 +79,13 @@
 .additional-text {
   font-size: 0.875rem;
   color: #808080;
+}
+
+.white-space-pre-wrap {
+  white-space: pre-wrap;
+}
+
+.powered-by-text {
+  opacity: 0.7;
+  font-size: 14px;
 }

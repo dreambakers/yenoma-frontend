@@ -79,6 +79,11 @@ export class UserService {
     localStorage.setItem('preferences', JSON.stringify(currentPreferences));
   }
 
+  updateUser(newUser) {
+    let updatedUser = { ...this.getLoggedInUser(), ...newUser };
+    localStorage.setItem('user', JSON.stringify(updatedUser));
+  }
+
   unsetLoggedInUser() {
     localStorage.removeItem('user');
   }

@@ -102,8 +102,11 @@
               </div>
             </div>
 
-            <button mat-raised-button color="primary" class="w-100 text-uppercase" type="submit">
+            <button mat-raised-button color="primary" class="w-100 text-uppercase" type="submit" [disabled]="submitted && loading">
               {{ 'labels.registerButton' | translate }}
+              <div class="spinner-border" role="status" *ngIf="submitted && loading">
+                <span class="sr-only">Loading...</span>
+              </div>
             </button>
 
             <a class="d-block text-center mt-5 small" [routerLink]="[ '/login' ]">

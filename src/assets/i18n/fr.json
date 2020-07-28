@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "creationDate": "2020-07-14T18:26:51Z",
+    "creationDate": "2020-07-20T06:51:57Z",
     "generator": "Excel Macro",
     "generatorVersion": "2020-07-09",
     "twoletterCode": "fr",
@@ -8,17 +8,17 @@
     "nativeLanguageName": "Français",
     "translator": "GoogleTranslate",
     "isRightToLeft": "0",
-    "fileVersion": "23"
+    "fileVersion": "26"
   },
   "globalMessages": {
     "questionerWarning": "",
     "questionerHint": "",
     "responderWarning": "",
     "responderHint": "",
-    "aboutText": "FR <strong>Lorem ipsum</strong>About",
-    "cookiePolicy": "FR <strong>Lorem ipsum</strong>Cookie",
-    "imprint": "FR <strong>Lorem ipsum</strong>Imprint",
-    "termsAndConditions": "FR <strong>Lorem ipsum</strong>Terms",
+    "aboutText": "FR <strong>Lorem ipsum</strong> <u>dolor sit amet</u>, <em>consectetur</em> <mark>adipisicing</mark> elit. Possimus FRim, recusandae ipsam fuga rerum blanditiis maxime corrupti corporis sit ducimus doloribus? Sit, in suscipit ut fugit consectetur explicabo recusandae. Quaerat. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus FRim, recusandae ipsam fuga rerum blanditiis maxime corrupti corporis sit ducimus doloribus? Sit, in suscipit ut <FR>fugit</FR> consectetur explicabo recusandae. Quaerat. <br> Source: <br> https://getbootstrap.com/docs/4.0/contFRt/typography/",
+    "cookiePolicy": "FR <strong>Lorem ipsum</strong> <u>dolor sit amet</u>, <em>consectetur</em> <mark>adipisicing</mark> elit. Possimus FRim, recusandae ipsam fuga rerum blanditiis maxime corrupti corporis sit ducimus doloribus? Sit, in suscipit ut fugit consectetur explicabo recusandae. Quaerat. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus FRim, recusandae ipsam fuga rerum blanditiis maxime corrupti corporis sit ducimus doloribus? Sit, in suscipit ut <FR>fugit</FR> consectetur explicabo recusandae. Quaerat. <br> Source: <br> https://getbootstrap.com/docs/4.0/contFRt/typography/",
+    "imprint": "FR <strong>Lorem ipsum</strong> <u>dolor sit amet</u>, <em>consectetur</em> <mark>adipisicing</mark> elit. Possimus FRim, recusandae ipsam fuga rerum blanditiis maxime corrupti corporis sit ducimus doloribus? Sit, in suscipit ut fugit consectetur explicabo recusandae. Quaerat. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus FRim, recusandae ipsam fuga rerum blanditiis maxime corrupti corporis sit ducimus doloribus? Sit, in suscipit ut <FR>fugit</FR> consectetur explicabo recusandae. Quaerat. <br> Source: <br> https://getbootstrap.com/docs/4.0/contFRt/typography/",
+    "termsAndConditions": "FR <strong>Lorem ipsum</strong> <u>dolor sit amet</u>, <em>consectetur</em> <mark>adipisicing</mark> elit. Possimus FRim, recusandae ipsam fuga rerum blanditiis maxime corrupti corporis sit ducimus doloribus? Sit, in suscipit ut fugit consectetur explicabo recusandae. Quaerat. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus FRim, recusandae ipsam fuga rerum blanditiis maxime corrupti corporis sit ducimus doloribus? Sit, in suscipit ut <FR>fugit</FR> consectetur explicabo recusandae. Quaerat. <br> Source: <br> https://getbootstrap.com/docs/4.0/contFRt/typography/",
     "copyrightMsg": "© 2020 yenoma.com"
   },
   "answers": {
@@ -88,7 +88,9 @@
     "enterValue": "Saisissez une valeur comprise entre {{MINV}} et {{MAXV}}.",
     "inactiveComment": "Entrez un commentaire inactif (affiché lorsque le sondage est terminé ou supprimé)",
     "limitChecks": "Exiger un certain nombre de réponses",
+    "maxChecks": "Nombre maximum d'options sélectionnées",
     "maxValue": "Entrez la valeur maximale",
+    "minChecks": "Nombre minimum d'options sélectionnées",
     "minValue": "Entrez une valeur minimale",
     "passwordProtected": "Mot de passe protéger cette enquête",
     "privateNote": "Tapez une note privée (non visible par les répondants)",
@@ -101,6 +103,10 @@
     "typeQuestion": "Question type",
     "typeSurveyPassword": "Tapez le mot de passe du sondage",
     "useDropdown": "Utilisez une liste déroulante au lieu d'une liste"
+  },
+  "importOptions": {
+    "privateNote": "Importé depuis un fichier texte",
+    "title": "Nouvelle enquête"
   },
   "labels": {
     "about": "À propos de",
@@ -161,6 +167,9 @@
     "go": "Aller",
     "goToSurvey": "Aller au sondage",
     "home": "Accueil",
+    "import": "Importer",
+    "importSurvey": "Importer l'enquête",
+    "importText": "Importer du texte",
     "imprint": "Imprimer",
     "inactiveComment": "Commentaire inactif",
     "inactiveStayLoggedIn": "Restez connecté",
@@ -277,6 +286,7 @@
     "emailNotValid": "L'e-mail doit être une adresse e-mail valide",
     "feedbackDescriptionRequired": "Une description des commentaires est requise",
     "feedbackSent": "Les commentaires ont été envoyés avec succès à l'équipe yenoma",
+    "importTextRequired": "Le texte d'importation est requis",
     "incorrectPassword": "Le mot de passe fourni n'est pas correct",
     "loggedInAs": "connecté en tant que",
     "logout": "Vous serez déconnecté",
@@ -332,6 +342,7 @@
     "description": "Description du sondage",
     "email": "Adresse électronique",
     "feedbackDescription": "La description",
+    "importText": "Le texte de la question 1 va ici",
     "inactiveComment": "Commentaire inactif",
     "name": "John Doe",
     "option": "Pizza",
@@ -346,8 +357,8 @@
     "username": "Nom d'utilisateur"
   },
   "subscriptions": {
-    "pro": "Pro",
-    "standard": "Basic"
+    "pro": "Pro ({{ED}})",
+    "standard": "Basic ({{ED}})"
   },
   "surveyActions": {
     "delete": "Supprimer le sondage",

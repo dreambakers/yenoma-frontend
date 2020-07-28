@@ -463,7 +463,11 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
           if (question.answers.length) {
 
             for (let k = 0; k < question.answers.length; k ++) {
-              data += `"${weightFunction(question.answers[k].answer.toString())}";`;
+              let answerValue = weightFunction(question.answers[k].answer);
+              // change index to user-friendly form (i.e. 0 -> 1, 1-> 2, ...) in case of list answer
+              if (question.answerType === constants.answerTypes.list) { answerValue += 1 };
+              data += `"${answerValue}";`;
+
               if ([constants.answerTypes.text, constants.answerTypes.email].includes(question.answerType)) {
                 data += `"${question.answers[k].answer}";`
               }
@@ -474,7 +478,11 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
             }
 
           } else {
-            data += `"${weightFunction(question.answer.toString())}";`;
+            let answerValue = weightFunction(question.answer);
+            // change index to user-friendly form (i.e. 0 -> 1, 1-> 2, ...) in case of list answer
+            if (question.answerType === constants.answerTypes.list) { answerValue += 1 };
+            data += `"${answerValue}";`;
+
             if ([constants.answerTypes.text, constants.answerTypes.email].includes(question.answerType)) {
               data += `"${question.answer}";`
             }

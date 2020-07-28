@@ -54,7 +54,12 @@
             </div>
 
             <hr>
-            <button mat-raised-button color="primary" class="w-100 text-uppercase" type="submit">{{ 'labels.loginButton' | translate }}</button>
+            <button mat-raised-button color="primary" class="w-100 text-uppercase" type="submit" [disabled]="submitted && loading">
+              {{ 'labels.loginButton' | translate }}
+              <div class="spinner-border" role="status" *ngIf="submitted && loading">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </button>
 
             <div class="mt-5 d-flex flex-column flex-md-row justify-content-between align-items-center w-100">
               <a class="small" (click)="forgotPassword()" [routerLink]="[ '/login' ]">

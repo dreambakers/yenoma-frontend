@@ -12,6 +12,7 @@ import * as moment from 'moment';
 import { take } from 'rxjs/operators'
 import { DataService } from 'src/app/services/data.service';
 import { ScrollService } from 'src/app/services/scroll.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-view-poll',
@@ -47,6 +48,7 @@ export class ViewPollComponent implements OnInit {
   commentDismissed = false;
   submitted = false;
   constants = constants;
+  isPro = true;
 
   constructor(
     private router: Router,
@@ -56,7 +58,8 @@ export class ViewPollComponent implements OnInit {
     private utils: UtilService,
     public translate: TranslateService,
     private scrollService: ScrollService,
-    private changeDetectorRef: ChangeDetectorRef
+    private changeDetectorRef: ChangeDetectorRef,
+    private userService: UserService
   ) { }
 
   ngOnInit() {
@@ -64,6 +67,7 @@ export class ViewPollComponent implements OnInit {
       this.scrollService.top();
       this.preview = true;
       !this.hasResponded && this.setAnswers();
+      this.isPro = new Date() < new Date(this.userService.getLoggedInUser().subscription.expires);
     } else {
       this.route.firstChild.params.subscribe(params => {
         this.pollId = params['id'];
@@ -82,6 +86,7 @@ export class ViewPollComponent implements OnInit {
         if (res.success) {
           this.passwordRequired = false;
           this.poll = res.poll;
+          this.isPro = new Date() < new Date(res.poll.createdBy.subscription.expires);
           if (this.getResponseFromLocalStorage(this.poll._id)) {
             this.response = this.getResponseFromLocalStorage(this.poll._id);
             this.verifyResponseValidity();
@@ -122,6 +127,7 @@ export class ViewPollComponent implements OnInit {
         case constants.answerTypes.dropdown:
           return 0;
         case constants.answerTypes.rating:
+        case constants.answerTypes.list:
           return -1;
         default:
           return '';
@@ -279,6 +285,17 @@ export class ViewPollComponent implements OnInit {
     }
   }
 
+  listDropdownOptionChanged(event, questionIndex, answerIndex = null) {
+    const elements = this.getListDropdownValues(this.poll.questions[questionIndex]);
+    const question = this.response.questions[questionIndex];
+    question.answerType = constants.answerTypes.list;
+    if (answerIndex !== null) {
+      question.answers[answerIndex].answer = elements.indexOf(event.value);
+    } else {
+      question['answer'] = elements.indexOf(event.value);
+    }
+  }
+
   getOptions(question) {
     if (this.hasResponded) {
       return question.answers;
@@ -430,6 +447,7 @@ export class ViewPollComponent implements OnInit {
         }
 
       case constants.answerTypes.rating:
+      case constants.answerTypes.list:
         if (responseQuestion.answers.length) {
           return responseQuestion.answers.every(answerObj => answerObj.answer >= 0);
         } else {
@@ -475,6 +493,10 @@ export class ViewPollComponent implements OnInit {
       const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(String(value).toLowerCase());
     }
+  }
+
+  getListDropdownValues(question) {
+    return [...new Set(question.listElements.split(';').filter(element => element))];
   }
 
   get valid() {

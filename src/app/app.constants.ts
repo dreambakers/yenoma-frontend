@@ -1,7 +1,7 @@
 import { environment } from '../environments/environment';
 
 export const constants = {
-    version: '0.18',
+    version: '0.19',
     apiUrl: environment.production ? 'https://db-polling.herokuapp.com' : 'https://localhost:3000',
     answerTypes: {
         binary: 'binary',
@@ -14,7 +14,8 @@ export const constants = {
         text: 'text',
         dropdown: 'dropdown',
         value: 'value',
-        email: 'email'
+        email: 'email',
+        list: 'list'
     },
     statusTypes: {
         open: 'open',
@@ -41,10 +42,14 @@ export const constants = {
         imprintClicked: "imprintClicked",
         termsAndConditionsClicked: "termsAndConditionsClicked",
         feedbackClicked: "feedbackClicked",
+        importSurveryClicked: "importSurveryClicked",
         logoutInitiated: "logoutInitiated",
         scrollPositionUpdated: "scrollPositionUpdated",
         idleTimeoutCount: "idleTimeoutCount",
-        idleTimedOut: "idleTimedOut"
+        idleTimedOut: "idleTimedOut",
+        importSurveyData: "importSurveyData",
+        settingsTabChanged: "settingsTabChanged",
+        subscriptionPaymentSuccessful: "subscriptionPaymentSuccessful",
     },
 
     options: {
@@ -55,8 +60,8 @@ export const constants = {
         smiley: [100, 50, 0,],
         radioButton: [100, 0],
         checkbox: [100, 0],
-        text: [0, 100],
-        email: [0, 100],
+        text: [100, 0],
+        email: [100, 0],
     },
 
     dialogWidth: {

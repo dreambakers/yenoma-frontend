@@ -80,12 +80,20 @@ export class ViewStatsComponent implements OnInit {
     });
   }
 
+  // Desktop view table column
   getTableValue(questionIndex, optionIndex, value) {
-    if (this.answerMap[questionIndex][optionIndex][value]) {
-      const valuePercentage = (this.answerMap[questionIndex][optionIndex][value] / this.answerMap[questionIndex]['responses']) * 100;
-      return `${this.answerMap[questionIndex][optionIndex][value]} (${valuePercentage.toFixed(1)}%)`;
-    } else {
-      return '0 (0.0%)'
+    switch(this.poll.questions[questionIndex].answerType) {
+      case constants.answerTypes.list:
+        const valueIndex = this.getOptions(this.poll.questions[questionIndex]).indexOf(value);
+        return this.answerMap[questionIndex][optionIndex][valueIndex] || 0;
+
+      default:
+        if (this.answerMap[questionIndex][optionIndex][value]) {
+          const valuePercentage = (this.answerMap[questionIndex][optionIndex][value] / this.answerMap[questionIndex]['responses']) * 100;
+          return `${this.answerMap[questionIndex][optionIndex][value]} (${valuePercentage.toFixed(1)}%)`;
+        } else {
+          return '0 (0.0%)'
+        }
     }
   }
 
@@ -109,17 +117,34 @@ export class ViewStatsComponent implements OnInit {
     }
   }
 
+  // Mobile view response percentage
   getResponsePercentage(answer, i, j = 0) {
-    if (this.answerMap[i][j][answer]) {
-      const valuePercentage = (this.answerMap[i][j][answer] / this.answerMap[i]['responses']) * 100;
-      return valuePercentage.toFixed(1);
-    } else {
-      return '0.0';
+    switch(this.answerMap[i].type) {
+      case this.constants.answerTypes.list:
+        const valueIndex = this.getOptions(this.poll.questions[i]).indexOf(answer);
+        return this.answerMap[i][j][valueIndex] >= 1 ? (
+          ((this.answerMap[i][j][valueIndex] / this.answerMap[i]['responses']) * 100).toFixed(1)
+        ) : '0.0';
+
+      default:
+        if (this.answerMap[i][j][answer]) {
+          const valuePercentage = (this.answerMap[i][j][answer] / this.answerMap[i]['responses']) * 100;
+          return valuePercentage.toFixed(1);
+        } else {
+          return '0.0';
+        }
     }
   }
 
+  // Mobile view response count
   getResponseCount(answer, i, j = 0) {
-    return this.answerMap[i][j][answer] || 0
+    switch(this.answerMap[i].type) {
+      case this.constants.answerTypes.list:
+        const valueIndex = this.getOptions(this.poll.questions[i]).indexOf(answer);
+        return this.answerMap[i][j][valueIndex] || 0;
+      default:
+        return this.answerMap[i][j][answer] || 0;
+    }
   }
 
   getResponseValue(i, j = 0) {
@@ -135,7 +160,12 @@ export class ViewStatsComponent implements OnInit {
   }
 
   getOptions(question) {
-    return this.constants.options[question.answerType];
+    switch(question.answerType) {
+      case constants.answerTypes.list:
+        return [...new Set(question.listElements.split(';').filter(element => element))];
+      default:
+        return this.constants.options[question.answerType];
+    }
   }
 
   getAnswerTypeLabel(question) {

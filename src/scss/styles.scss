@@ -119,6 +119,15 @@ body {
     }
 }
 
+#newOrder {
+    .mat-expansion-panel-content > .mat-expansion-panel-body {
+        padding: 0 !important;
+    }
+    .mat-expansion-indicator {
+        margin-right: 5px;
+    }
+}
+
 button {
     &:focus {
         outline: none;

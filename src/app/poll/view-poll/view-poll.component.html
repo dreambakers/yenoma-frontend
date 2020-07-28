@@ -46,9 +46,7 @@
 
     <div class="p-3" *ngIf="poll.description || (((isOpen && poll.activeComment) || (isTerminated && poll.inactiveComment)) && !commentDismissed)">
       <div *ngIf="poll.description">
-        <p class="m-0 text-break">
-          {{poll.description}}
-        </p>
+        <p class="m-0 white-space-pre-wrap">{{poll.description}}</p>
       </div>
 
       <div *ngIf="isOpen && poll.activeComment && !commentDismissed" [class.mt-3]="poll.description">
@@ -269,6 +267,24 @@
             </mat-form-field>
           </div>
 
+          <div *ngSwitchCase="constants.answerTypes.list">
+            <mat-form-field
+              appearance="none"
+              class="dropdown-container mat-field-no-margin dropdown list-options-dropdown">
+              <mat-select
+                [value]="getListDropdownValues(question)[answerObj.answer]"
+                (selectionChange)="listDropdownOptionChanged($event, i, j)"
+                [disabled]="shouldDisable"
+                class="border p-3">
+                  <mat-option
+                    *ngFor="let option of getListDropdownValues(question)"
+                    [value]="option">
+                    {{ option }}
+                  </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
           <div *ngSwitchCase="constants.answerTypes.value" class="value-container" [class.text-right]="question.options.length">
             <input matInput class="border px-3 text-right" [(ngModel)]="answerObj.answer" [disabled]="shouldDisable"
               [class.invalid]="answerObj.answer && !valueInputValid(answerObj.answer, question)"
@@ -311,21 +327,27 @@
       class="mt-2p1">
     </app-alert>
 
-    <div class="text-center my-2p1" *ngIf="!preview">
-      <button mat-raised-button color="danger" class="mr-2" (click)="navigateToRespond()">
-        {{ 'labels.back' | translate }}
-      </button>
+    <div class="d-flex justify-content-center my-2p1" *ngIf="!preview">
+        <button mat-raised-button color="danger" class="mr-2" (click)="navigateToRespond()">
+          {{ 'labels.back' | translate }}
+        </button>
 
-      <button
-        mat-raised-button
-        color="success"
-        (click)="vote()"
-        [disabled]="!dirty"
-        [class.disabled]="!valid"
-        *ngIf="!shouldDisable">
-        {{ (hasResponded && responseValid) ? translate.instant('labels.update') : translate.instant('labels.vote') }}
-      </button>
+        <button
+          mat-raised-button
+          color="success"
+          (click)="vote()"
+          [disabled]="!dirty"
+          [class.disabled]="!valid"
+          *ngIf="!shouldDisable">
+          {{ (hasResponded && responseValid) ? translate.instant('labels.update') : translate.instant('labels.vote') }}
+        </button>
     </div>
+
+    <p *ngIf="!isPro" class="font-weight-light text-muted text-center mt-3 powered-by-text">
+      {{'labels.poweredByYenoma' | translate }}
+      {{'subscriptions.standardText' | translate }}
+    </p>
+
   </div>
 
   <ng-template #pollNotOpen>

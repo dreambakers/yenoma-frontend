@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, APP_INITIALIZER, Injector } from '@angular/core';
+import { NgModule, APP_INITIALIZER, Injector, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
@@ -51,9 +51,12 @@ import { SnackbarComponent } from './shared/snackbar/snackbar.component';
 import { FeedbackComponent } from './dialogs/feedback/feedback.component';
 import { MobileNavComponent } from './mobile-nav/mobile-nav.component';
 import { UpgradeComponent } from './dialogs/upgrade/upgrade.component';
+import { NewOrderComponent } from './settings/new-order/new-order.component';
+import { ImportSurveyComponent } from './dialogs/import-survey/import-survey.component';
 
 import { DigitOnlyModule } from '@uiowa/digit-only';
 import { UserIdleModule } from 'angular-user-idle';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 import { MatSortModule } from '@angular/material/sort';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -120,6 +123,8 @@ import { MatRippleModule } from '@angular/material/core';
     FeedbackComponent,
     MobileNavComponent,
     UpgradeComponent,
+    NewOrderComponent,
+    ImportSurveyComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -160,7 +165,8 @@ import { MatRippleModule } from '@angular/material/core';
     MatExpansionModule,
     MatSidenavModule,
     MatRippleModule,
-    UserIdleModule.forRoot(constants.idleTimouts)
+    UserIdleModule.forRoot(constants.idleTimouts),
+    NgxSpinnerModule
   ],
   providers: [
     {
@@ -176,7 +182,8 @@ import { MatRippleModule } from '@angular/material/core';
     }
   ],
   bootstrap: [AppComponent],
-  entryComponents: [ConfirmDialogComponent]
+  entryComponents: [ConfirmDialogComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }
 

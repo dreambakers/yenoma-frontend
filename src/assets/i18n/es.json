@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "creationDate": "2020-07-14T18:26:52Z",
+    "creationDate": "2020-07-20T06:51:58Z",
     "generator": "Excel Macro",
     "generatorVersion": "2020-07-09",
     "twoletterCode": "es",
@@ -8,17 +8,17 @@
     "nativeLanguageName": "Español",
     "translator": "GoogleTranslate",
     "isRightToLeft": "0",
-    "fileVersion": "23"
+    "fileVersion": "26"
   },
   "globalMessages": {
     "questionerWarning": "",
     "questionerHint": "",
     "responderWarning": "",
     "responderHint": "",
-    "aboutText": "ES <strong>Lorem ipsum</strong>About",
-    "cookiePolicy": "ES <strong>Lorem ipsum</strong>Cookie",
-    "imprint": "ES <strong>Lorem ipsum</strong>Imprint",
-    "termsAndConditions": "ES <strong>Lorem ipsum</strong>Terms",
+    "aboutText": "ES <strong>Lorem ipsum</strong> <u>dolor sit amet</u>, <em>consectetur</em> <mark>adipisicing</mark> elit. Possimus ESim, recusandae ipsam fuga rerum blanditiis maxime corrupti corporis sit ducimus doloribus? Sit, in suscipit ut fugit consectetur explicabo recusandae. Quaerat. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus ESim, recusandae ipsam fuga rerum blanditiis maxime corrupti corporis sit ducimus doloribus? Sit, in suscipit ut <ES>fugit</ES> consectetur explicabo recusandae. Quaerat. <br> Source: <br> https://getbootstrap.com/docs/4.0/contESt/typography/",
+    "cookiePolicy": "ES <strong>Lorem ipsum</strong> <u>dolor sit amet</u>, <em>consectetur</em> <mark>adipisicing</mark> elit. Possimus ESim, recusandae ipsam fuga rerum blanditiis maxime corrupti corporis sit ducimus doloribus? Sit, in suscipit ut fugit consectetur explicabo recusandae. Quaerat. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus ESim, recusandae ipsam fuga rerum blanditiis maxime corrupti corporis sit ducimus doloribus? Sit, in suscipit ut <ES>fugit</ES> consectetur explicabo recusandae. Quaerat. <br> Source: <br> https://getbootstrap.com/docs/4.0/contESt/typography/",
+    "imprint": "ES <strong>Lorem ipsum</strong> <u>dolor sit amet</u>, <em>consectetur</em> <mark>adipisicing</mark> elit. Possimus ESim, recusandae ipsam fuga rerum blanditiis maxime corrupti corporis sit ducimus doloribus? Sit, in suscipit ut fugit consectetur explicabo recusandae. Quaerat. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus ESim, recusandae ipsam fuga rerum blanditiis maxime corrupti corporis sit ducimus doloribus? Sit, in suscipit ut <ES>fugit</ES> consectetur explicabo recusandae. Quaerat. <br> Source: <br> https://getbootstrap.com/docs/4.0/contESt/typography/",
+    "termsAndConditions": "ES <strong>Lorem ipsum</strong> <u>dolor sit amet</u>, <em>consectetur</em> <mark>adipisicing</mark> elit. Possimus ESim, recusandae ipsam fuga rerum blanditiis maxime corrupti corporis sit ducimus doloribus? Sit, in suscipit ut fugit consectetur explicabo recusandae. Quaerat. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus ESim, recusandae ipsam fuga rerum blanditiis maxime corrupti corporis sit ducimus doloribus? Sit, in suscipit ut <ES>fugit</ES> consectetur explicabo recusandae. Quaerat. <br> Source: <br> https://getbootstrap.com/docs/4.0/contESt/typography/",
     "copyrightMsg": "© 2020 yenoma.com"
   },
   "answers": {
@@ -88,7 +88,9 @@
     "enterValue": "Ingrese el valor entre {{MINV}} y {{MAXV}}.",
     "inactiveComment": "Ingrese un comentario inactivo (se muestra cuando la encuesta finaliza o se elimina)",
     "limitChecks": "Requiere una cierta cantidad de respuestas",
+    "maxChecks": "Número máximo de opciones seleccionadas.",
     "maxValue": "Ingrese el valor máximo",
+    "minChecks": "Cantidad mínima de opciones seleccionadas",
     "minValue": "Ingrese el valor mínimo",
     "passwordProtected": "Proteger con contraseña esta encuesta",
     "privateNote": "Escriba una nota privada (no visible para los respondedores)",
@@ -101,6 +103,10 @@
     "typeQuestion": "Escriba pregunta",
     "typeSurveyPassword": "Escriba la contraseña de la encuesta",
     "useDropdown": "Use un menú desplegable en lugar de una lista"
+  },
+  "importOptions": {
+    "privateNote": "Importado desde archivo de texto",
+    "title": "Nueva encuesta"
   },
   "labels": {
     "about": "Acerca de",
@@ -161,6 +167,9 @@
     "go": "Vamos",
     "goToSurvey": "Ir a la encuesta",
     "home": "Casa",
+    "import": "Importar",
+    "importSurvey": "Encuesta de importación",
+    "importText": "Importar texto",
     "imprint": "Imprimir",
     "inactiveComment": "Comentario inactivo",
     "inactiveStayLoggedIn": "Manténgase conectado",
@@ -277,6 +286,7 @@
     "emailNotValid": "El correo electrónico debe ser una dirección de correo electrónico válida",
     "feedbackDescriptionRequired": "Se requiere descripción de comentarios",
     "feedbackSent": "Los comentarios se enviaron con éxito al equipo de yenoma.",
+    "importTextRequired": "Importar texto es obligatorio",
     "incorrectPassword": "La contraseña provista no es correcta",
     "loggedInAs": "Conectado como",
     "logout": "Se cerrará sesión",
@@ -332,6 +342,7 @@
     "description": "Descripción de la encuesta",
     "email": "Dirección de correo electrónico",
     "feedbackDescription": "Descripción",
+    "importText": "El texto de la pregunta 1 va aquí",
     "inactiveComment": "Comentario inactivo",
     "name": "John Doe",
     "option": "Pizza",
@@ -346,8 +357,8 @@
     "username": "Nombre de usuario"
   },
   "subscriptions": {
-    "pro": "Pro",
-    "standard": "Basic"
+    "pro": "Pro ({{ED}})",
+    "standard": "Basic ({{ED}})"
   },
   "surveyActions": {
     "delete": "Eliminar",
