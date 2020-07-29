@@ -1,23 +1,21 @@
 <section id="newOrder">
   <div class="tab-content mt-3 px-3 d-flex flex-column" [class.increased-height]="currentBreakpoint === 'sm'">
-    <div class="subscription-description mb-auto">
-      <p
-        class="text-justify overflow-auto m-0"
-        [class.increased-height]="currentBreakpoint === 'sm'"
-        [innerHTML]="'messages.subscriptionDescription' | translate">
-        {{ 'messages.subscriptionDescription' | translate }}
-      </p>
-    </div>
+        <p
+          class="text-justify overflow-auto m-0 subscription-description"
+          [class.increased-height]="currentBreakpoint === 'sm'"
+          [innerHTML]="'messages.subscriptionDescription' | translate">
+          {{ 'messages.subscriptionDescription' | translate }}
+        </p>
 
-    <div class="mt-auto">
-      <mat-form-field appearance="none" class="dropdown-container mat-field-no-margin dropdown mt-3">
-        <mat-select [(ngModel)]="selectedPeriod" class="border p-3">
-          <mat-option *ngFor="let option of subscriptionPeriods" [value]="option">
-            ${{ option.price }} - {{ getPeriodLabelKey(option.key) | translate }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <div #paypal class="d-flex justify-content-center mt-3" *ngIf="tabSelected"></div>
+      <div class="mt-auto">
+        <mat-form-field appearance="none" class="dropdown-container mat-field-no-margin dropdown mt-3">
+          <mat-select [(ngModel)]="selectedPeriod" class="border p-3">
+            <mat-option *ngFor="let option of subscriptionPeriods" [value]="option">
+              ${{ option.price }} - {{ getPeriodLabelKey(option.key) | translate }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div #paypal class="d-flex justify-content-center mt-3" *ngIf="tabSelected"></div>
+      </div>
     </div>
-  </div>
 </section>

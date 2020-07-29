@@ -64,7 +64,7 @@ export class NewOrderComponent implements OnInit {
           color:  'black',
           // shape:  'pill',
           label:  'pay',
-          // height: 40,
+          height: 40,
           tagline: 'false'
         },
 
