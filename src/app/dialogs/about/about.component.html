@@ -19,9 +19,11 @@
         <h6 class="mb-1">
             {{ 'labels.languageFile' | translate }}
         </h6>
-        <p class="m-0">{{ 'metadata.isoLanguageName' | translate }}</p>
-        <p class="m-0">{{ 'metadata.twoletterCode' | translate }}</p>
-        <p>{{ getLanguageDate() }}</p>
+        <p class="m-0">
+            {{ 'metadata.isoLanguageName' | translate }},
+            {{ 'metadata.twoletterCode' | translate }},
+            {{ getLanguageDate() }}
+        </p>
         <p class="text-justify" [innerHTML]="'globalMessages.aboutText' | translate">
         </p>
     </div>
