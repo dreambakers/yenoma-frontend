@@ -10,7 +10,6 @@
     </div>
 
     <div class="mt-auto">
-      <h4>{{ 'labels.purchase' | translate }}</h4>
       <mat-form-field appearance="none" class="dropdown-container mat-field-no-margin dropdown mt-3">
         <mat-select [(ngModel)]="selectedPeriod" class="border p-3">
           <mat-option *ngFor="let option of subscriptionPeriods" [value]="option">
