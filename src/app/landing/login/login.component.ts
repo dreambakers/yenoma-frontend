@@ -6,6 +6,7 @@ import { UtilService } from '../../services/util.service';
 import { UserService } from '../../services/user.service';
 import { take } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
+import { constants } from 'src/app/app.constants';
 
 @Component({
   selector: 'app-login',
@@ -17,6 +18,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   submitted = false;
   loading = false;
+  constants = constants;
   @Output() loginEvent = new EventEmitter();
   @Output() forgotPasswordClicked = new EventEmitter();
 

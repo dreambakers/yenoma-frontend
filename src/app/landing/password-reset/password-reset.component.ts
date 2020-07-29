@@ -5,6 +5,7 @@ import { UtilService } from 'src/app/services/util.service';
 import { PasswordValidation } from 'src/app/helpers/password-validation';
 import { ActivatedRoute } from '@angular/router';
 import { take } from 'rxjs/operators';
+import { constants } from 'src/app/app.constants';
 
 @Component({
   selector: 'app-password-reset',
@@ -16,6 +17,7 @@ export class PasswordResetComponent implements OnInit {
   changePasswordForm: FormGroup;
   submitted = false;
   passwordResetToken;
+  constants = constants;
   @Output() passwordResetEvent = new EventEmitter();
 
   @ViewChild('f') form: NgForm;

@@ -5,6 +5,7 @@ import { PasswordValidation } from '../../helpers/password-validation';
 import { Router } from '@angular/router';
 import { UtilService } from '../../services/util.service';
 import { UserService } from '../../services/user.service';
+import { constants } from 'src/app/app.constants';
 
 @Component({
   selector: 'app-signup',
@@ -15,6 +16,7 @@ export class SignupComponent implements OnInit {
 
   signupForm: FormGroup;
   submitted = false;
+  constants = constants;
   loading = false;
   @Output() signupEvent = new EventEmitter();
 

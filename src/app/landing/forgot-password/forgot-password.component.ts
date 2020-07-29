@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { UtilService } from 'src/app/services/util.service';
 import { UserService } from 'src/app/services/user.service';
 import { TranslateService } from '@ngx-translate/core';
+import { constants } from 'src/app/app.constants';
 
 @Component({
   selector: 'app-forgot-password',
@@ -15,6 +16,7 @@ export class ForgotPasswordComponent implements OnInit {
 
   forgotPasswordForm: FormGroup;
   submitted = false;
+  constants = constants;
   @Output() emailSent:EventEmitter<Boolean> = new EventEmitter();
 
   constructor(

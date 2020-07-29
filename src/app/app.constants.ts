@@ -74,5 +74,6 @@ export const constants = {
         idle: 10200,
         timeout: 10,
         ping: 120
-    }
+    },
+    yenomaUrl: 'http://www.yenoma.com'
 }

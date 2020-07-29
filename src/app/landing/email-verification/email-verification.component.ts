@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { UtilService } from '../../services/util.service';
 import { UserService } from '../../services/user.service';
 import { TranslateService } from '@ngx-translate/core';
+import { constants } from 'src/app/app.constants';
 
 @Component({
   selector: 'app-email-verification',
@@ -14,6 +15,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class EmailVerificationComponent implements OnInit {
   emailVerificationForm: FormGroup;
   submitted = false;
+  constants = constants;
   @Output() emailSent:EventEmitter<Boolean> = new EventEmitter();
 
   constructor(

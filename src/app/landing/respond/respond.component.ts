@@ -5,6 +5,7 @@ import { UtilService } from '../../services/util.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { take } from 'rxjs/operators';
+import { constants } from 'src/app/app.constants';
 
 @Component({
   selector: 'app-respond',
@@ -16,6 +17,7 @@ export class RespondComponent implements OnInit {
   responseForm;
   submitted = false;
   responded = false;
+  constants = constants;
   action;
   pattern = /\s*[1-9a-zA-Z]\s*[1-9a-zA-Z]\s*[1-9a-zA-Z]\s*[1-9a-zA-Z]\s*[1-9a-zA-Z]\s*[1-9a-zA-Z]\s*[1-9a-zA-Z]\s*[1-9a-zA-Z]\s*$/i;
 
