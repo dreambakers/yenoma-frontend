@@ -7,6 +7,7 @@ import { Subject } from 'rxjs';
 import { LanguageService } from 'src/app/services/language.service';
 import { UtilService } from 'src/app/services/util.service';
 import { NgxSpinnerService } from "ngx-spinner";
+import { DataService } from 'src/app/services/data.service';
 
 declare var paypal;
 
@@ -35,12 +36,6 @@ export class NewOrderComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.languageService.getLanguageFile('en').subscribe(
-      (res: any) => {
-        const keyLength = Object.keys(res.subscriptionFaq).length;
-        this.subscriptionFaqIndices = Array(keyLength / 2).fill(1).map((x,i)=>i);
-      }
-    );
     this.paymentService.getSubscriptionPeriods().subscribe(
       (res: any) => {
         if (res.success) {
@@ -118,6 +113,10 @@ export class NewOrderComponent implements OnInit {
 
   getPeriodLabelKey(key) {
     return `subscriptions.${key}`;
+  }
+
+  get currentBreakpoint() {
+    return DataService.currentBreakpoint;
   }
 
   ngOnDestroy(): void {

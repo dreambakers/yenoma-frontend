@@ -1,0 +1,10 @@
+@import '../settings.component.scss';
+
+.subscription-description {
+    p {
+        max-height: 100px;
+        &.increased-height {
+            max-height: 150px;
+        }
+    }
+}
