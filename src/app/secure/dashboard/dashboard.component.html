@@ -1,0 +1,99 @@
+<mat-sidenav-container>
+
+    <mat-sidenav #snav fixedInViewport="true">
+      <div class="w-100 px-3 d-flex justify-content-start align-items-center" style="font-size: 1.3rem; padding: 12px 0">
+        <img src="../../assets/images/logo_bs.svg" height="18px" class="mr-2">
+        <span>{{ 'labels.appName' | translate }}</span>
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <mat-nav-list>
+        <a class="nav-link cursor-pointer" routerLink='all' (click)="toggleSidebar()" [routerLinkActive]="['active']" matRipple>
+          <i class="fas fa-list mr-2"></i>
+          {{ 'labels.mySurveys' | translate }}
+        </a>
+
+        <a class="nav-link cursor-pointer" routerLink='create' (click)="toggleSidebar()" [routerLinkActive]="['active']" matRipple>
+          <i class="fas fa-plus-circle mr-2"></i>
+          {{ 'labels.createNewSurvey' | translate }}
+        </a>
+
+        <a class="nav-link cursor-pointer" (click)="toggleSidebar() && importSurvey()" matRipple>
+          <i class="fas fa-download mr-2"></i>
+          {{ 'labels.importSurvey' | translate }}
+        </a>
+
+        <mat-divider></mat-divider>
+
+        <a class="nav-link cursor-pointer" routerLink='settings' (click)="toggleSidebar()" [routerLinkActive]="['active']" matRipple>
+          <i class="fas fa-cogs mr-2"></i>
+          {{ 'labels.settings' | translate }}
+        </a>
+
+        <mat-divider></mat-divider>
+
+        <a class="nav-link cursor-pointer" (click)="toggleSidebar() && about()" matRipple>
+          <i class="fas fa-info-circle mr-2"></i>
+          {{ 'labels.about' | translate }}
+        </a>
+
+        <a class="nav-link cursor-pointer" (click)="toggleSidebar() && termsAndConditions()" matRipple>
+          <i class="fas fa-info-circle mr-2"></i>
+          {{ 'labels.termsAndConditions' | translate }}
+        </a>
+
+        <a class="nav-link cursor-pointer" (click)="toggleSidebar() && cookiePolicy()" matRipple>
+          <i class="fas fa-info-circle mr-2"></i>
+          {{ 'labels.cookiePolicy' | translate }}
+        </a>
+
+        <a class="nav-link cursor-pointer" (click)="toggleSidebar() && imprint()" matRipple>
+          <i class="fas fa-info-circle mr-2"></i>
+          {{ 'labels.imprint' | translate }}
+        </a>
+
+        <mat-divider></mat-divider>
+
+        <a class="nav-link cursor-pointer" (click)="toggleSidebar() && feedback()" matRipple>
+          <i class="fas fa-comments mr-2"></i>
+          {{ 'labels.feedback' | translate }}
+        </a>
+
+        <mat-divider></mat-divider>
+
+        <a class="nav-link cursor-pointer" (click)="toggleSidebar() && logout()" matRipple>
+          <i class="fas fa-sign-out-alt mr-2"></i>
+          {{ 'labels.logout' | translate }}
+        </a>
+      </mat-nav-list>
+
+    </mat-sidenav>
+
+    <mat-sidenav-content (scroll)="onScroll($event)" [scrollTop]="scrollPosition">
+      <div class="d-flex flex-column w-100 h-100">
+        <div class="flex-fill" [class.hasMobileNav]="hasMobileNav" id="content">
+            <div id="dashboard" class="h-100">
+                <app-navbar></app-navbar>
+
+                <ng-container *ngFor="let alert of globalAlerts">
+                    <app-alert
+                        container="true"
+                        *ngIf="showGlobalAlert(alert.key)"
+                        [messageKey]="alert.messageKey"
+                        [type]="alert.type"
+                        (onDismiss)="globalAlertDismissed(alert.key)">
+                    </app-alert>
+                </ng-container>
+
+                <div [class.container]="!isMobile" class="h-100">
+                    <router-outlet></router-outlet>
+                </div>
+
+                <app-mobile-nav [hidden]="!isMobile"></app-mobile-nav>
+                <app-footer *ngIf="!isMobile"></app-footer>
+            </div>
+        </div>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>

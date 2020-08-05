@@ -1,4 +1,3 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, APP_INITIALIZER, Injector, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -16,157 +15,41 @@ import { LOCATION_INITIALIZED } from '@angular/common';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ViewPollComponent } from './poll/view-poll/view-poll.component';
-import { ViewPollsComponent } from './poll/view-polls/view-polls.component';
 import { StarRatingComponent } from './shared/star-rating/star-rating.component';
-import { LoginComponent } from './landing/login/login.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { SignupComponent } from './landing/signup/signup.component';
-import { RespondComponent } from './landing/respond/respond.component';
 import { ConfirmDialogComponent } from './dialogs/confirm-dialog/confirm-dialog.component';
-import { LandingComponent } from './landing/landing.component';
-import { ManagePollComponent } from './poll/manage-poll/manage-poll.component';
-import { ViewStatsComponent } from './poll/view-stats/view-stats.component';
-import { FooterComponent } from './footer/footer.component';
-import { ResponsesComponent } from './poll/responses/responses.component';
-import { ErrorComponent } from './error/error.component';
-import { SortDialogComponent } from './dialogs/sort/sort-dialog.component';
-import { AboutComponent } from './dialogs/about/about.component';
-import { AlertComponent } from './shared/alert/alert.component';
-import { RecordedComponent } from './landing/respond/recorded/recorded.component';
-import { SidebarComponent } from './sidebar/sidebar.component';
-import { ShareComponent } from './dialogs/share/share.component';
-import { CookiePolicyComponent } from './dialogs/cookie-policy/cookie-policy.component';
-import { ImprintComponent } from './dialogs/imprint/imprint.component';
-import { TermsAndConditionsComponent } from './dialogs/terms-and-conditions/terms-and-conditions.component';
-import { SettingsComponent } from './settings/settings.component';
-import { ProfileComponent } from './settings/profile/profile.component';
-import { GeneralComponent } from './settings/general/general.component';
-import { SecurityComponent } from './settings/security/security.component';
-import { InactivityComponent } from './dialogs/inactivity/inactivity.component';
-import { PasswordResetComponent } from './landing/password-reset/password-reset.component';
-import { EmailVerificationComponent } from './landing/email-verification/email-verification.component';
-import { ForgotPasswordComponent } from './landing/forgot-password/forgot-password.component';
-import { SnackbarComponent } from './shared/snackbar/snackbar.component';
-import { FeedbackComponent } from './dialogs/feedback/feedback.component';
-import { MobileNavComponent } from './mobile-nav/mobile-nav.component';
-import { UpgradeComponent } from './dialogs/upgrade/upgrade.component';
-import { NewOrderComponent } from './settings/new-order/new-order.component';
-import { ImportSurveyComponent } from './dialogs/import-survey/import-survey.component';
 
 import { DigitOnlyModule } from '@uiowa/digit-only';
 import { UserIdleModule } from 'angular-user-idle';
 import { NgxSpinnerModule } from "ngx-spinner";
 
-import { MatSortModule } from '@angular/material/sort';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatRadioModule } from '@angular/material/radio';
-import { NavbarComponent } from './navbar/navbar.component';
-import { MatListModule } from '@angular/material/list';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { DragDropModule } from '@angular/cdk/drag-drop';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatTableModule } from '@angular/material/table';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatSelectModule } from '@angular/material/select';
-import { MatSliderModule } from '@angular/material/slider';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatCardModule } from '@angular/material/card';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatRippleModule } from '@angular/material/core';
+import { SecureModule } from './secure/secure.module';
+import { PublicModule } from './public/public.module';
+import { SharedModule } from './shared/shared.module';
+import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ViewPollComponent,
-    NavbarComponent,
-    ViewPollsComponent,
-    StarRatingComponent,
-    LoginComponent,
-    SignupComponent,
-    DashboardComponent,
-    ManagePollComponent,
-    LandingComponent,
-    RespondComponent,
-    ConfirmDialogComponent,
-    ViewStatsComponent,
-    FooterComponent,
-    ResponsesComponent,
-    ErrorComponent,
-    SortDialogComponent,
-    AboutComponent,
-    AlertComponent,
-    RecordedComponent,
-    SidebarComponent,
-    ShareComponent,
-    InactivityComponent,
-    CookiePolicyComponent,
-    ImprintComponent,
-    TermsAndConditionsComponent,
-    SettingsComponent,
-    ProfileComponent,
-    GeneralComponent,
-    SecurityComponent,
-    PasswordResetComponent,
-    EmailVerificationComponent,
-    ForgotPasswordComponent,
-    SnackbarComponent,
-    FeedbackComponent,
-    MobileNavComponent,
-    UpgradeComponent,
-    NewOrderComponent,
-    ImportSurveyComponent,
   ],
   imports: [
-    BrowserAnimationsModule,
     BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    ReactiveFormsModule,
+    BrowserAnimationsModule,
     HttpClientModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatListModule,
-    MatRadioModule,
-    MatButtonToggleModule,
-    MatIconModule,
-    MatButtonModule,
-    MatTooltipModule,
-    MatSlideToggleModule,
-    MatSnackBarModule,
-    DragDropModule,
-    MatTabsModule,
-    MatDialogModule,
-    MatTableModule,
-    MatSortModule,
-    MatMenuModule,
-    MatSelectModule,
-    MatSliderModule,
-    MatCheckboxModule,
-    MatCardModule,
-    MatPaginatorModule,
+    AppRoutingModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
-      }
+      },
+      isolate: false
     }),
     DigitOnlyModule,
-    MatExpansionModule,
-    MatSidenavModule,
-    MatRippleModule,
     UserIdleModule.forRoot(constants.idleTimouts),
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    PublicModule,
+    SecureModule,
+    SharedModule
   ],
   providers: [
     {

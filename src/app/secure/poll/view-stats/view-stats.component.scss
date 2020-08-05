@@ -1,0 +1,38 @@
+@import '../../../../scss/variables.scss';
+
+.mat-button {
+    min-width: 30px;
+}
+
+table {
+    width: 100%;
+}
+
+mat-icon {
+    font-size: 1.2rem;
+}
+
+.option-count {
+    min-width: 63px;
+    max-width: 63px;
+}
+
+.score {
+    min-width: 60px;
+    max-width: 60px;
+}
+
+.expanded-row {
+    background-color: $color-primary-very-light;
+    .progress {
+        background-color: $color-primary-light !important;
+    }
+    .progress-bar {
+        background-color: $color-primary !important;
+    }
+}
+
+.result-column {
+    min-width: 100px;
+    width: 100px;
+}
