@@ -22,7 +22,6 @@ import { ImportSurveyComponent } from '../dialogs/import-survey/import-survey.co
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SharedModule } from '../shared/shared.module';
 import { ResponsesComponent } from './poll/responses/responses.component';
-import { ViewPollComponent } from './poll/view-poll/view-poll.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +43,6 @@ import { ViewPollComponent } from './poll/view-poll/view-poll.component';
     NewOrderComponent,
     ImportSurveyComponent,
     ResponsesComponent,
-    ViewPollComponent,
   ],
   imports: [
     CommonModule,

@@ -1,8 +1,10 @@
 import { NgModule, ModuleWithProviders, Injector } from '@angular/core';
 import { CommonModule, LOCATION_INITIALIZED } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
 import { MaterialModule } from '../material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AlertComponent } from './alert/alert.component';
@@ -15,7 +17,8 @@ import { CookiePolicyComponent } from '../dialogs/cookie-policy/cookie-policy.co
 import { ImprintComponent } from '../dialogs/imprint/imprint.component';
 import { TermsAndConditionsComponent } from '../dialogs/terms-and-conditions/terms-and-conditions.component';
 import { SnackbarComponent } from './snackbar/snackbar.component';
-import { RouterModule } from '@angular/router';
+import { ViewPollComponent } from './view-poll/view-poll.component';
+
 
 @NgModule({
   declarations: [
@@ -29,6 +32,7 @@ import { RouterModule } from '@angular/router';
     ImprintComponent,
     TermsAndConditionsComponent,
     SnackbarComponent,
+    ViewPollComponent
   ],
   imports: [
     FormsModule,
@@ -61,6 +65,7 @@ import { RouterModule } from '@angular/router';
     ImprintComponent,
     TermsAndConditionsComponent,
     SnackbarComponent,
+    ViewPollComponent,
     RouterModule
   ],
 })

@@ -5,6 +5,7 @@ import { LandingComponent } from './landing/landing.component';
 import { SignupComponent } from './landing/signup/signup.component';
 import { RespondComponent } from './landing/respond/respond.component';
 import { LoginComponent } from './landing/login/login.component';
+import { ViewPollComponent } from '../shared/view-poll/view-poll.component';
 
 const routes: Routes = [
   {
@@ -22,9 +23,9 @@ const routes: Routes = [
       {
         path: 'view', redirectTo: 'p'
       },
-      // {
-      //   path: 'p/:id', component: ViewPollComponent
-      // },
+      {
+        path: 'p/:id', component: ViewPollComponent
+      },
       {
         path: 'login', component: LoginComponent
       },

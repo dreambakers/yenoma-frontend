@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ManagePollComponent } from './poll/manage-poll/manage-poll.component';
 import { ViewPollsComponent } from './poll/view-polls/view-polls.component';
-import { ViewPollComponent } from './poll/view-poll/view-poll.component';
+import { ViewPollComponent } from '../shared/view-poll/view-poll.component';
 import { ViewStatsComponent } from './poll/view-stats/view-stats.component';
 import { ResponsesComponent } from './poll/responses/responses.component';
 import { SettingsComponent } from './settings/settings.component';

@@ -1,18 +1,18 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { PollService } from '../../../services/poll.service';
-import { StarRatingColor } from '../../../shared/star-rating/star-rating.component';
-import { Response } from '../response.model';
-import { ResponseService } from '../../../services/response.service';
-import { UtilService } from '../../../services/util.service';
-import { constants } from '../../../app.constants';
+import { PollService } from '../../services/poll.service';
+import { StarRatingColor } from '../../shared/star-rating/star-rating.component';
+import { Response } from '../../secure/poll/response.model';
+import { ResponseService } from '../../services/response.service';
+import { UtilService } from '../../services/util.service';
+import { constants } from '../../app.constants';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 
 import { take } from 'rxjs/operators'
-import { DataService } from '../../../services/data.service';
-import { ScrollService } from '../../../services/scroll.service';
-import { UserService } from '../../../services/user.service';
+import { DataService } from '../../services/data.service';
+import { ScrollService } from '../../services/scroll.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-view-poll',

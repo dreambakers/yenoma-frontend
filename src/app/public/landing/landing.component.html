@@ -1,5 +1,5 @@
 <div class="d-flex flex-column justify-content-between h-100">
-    <div [class.desktop-height]="!isMobile" class="flex-fill">
+    <div class="flex-fill">
         <mat-tab-group mat-align-tabs="center" [selectedIndex]="selectedIndex" *ngIf="!isViewingResponse; else pollView">
             <mat-tab label="{{ translate.instant('labels.login') }}/{{ translate.instant('labels.register') }}">
                 <app-alert
@@ -85,7 +85,7 @@
 
         <ng-template #pollView>
             <div class="container">
-                <!-- <app-view-poll></app-view-poll> -->
+                <app-view-poll></app-view-poll>
             </div>
         </ng-template>
     </div>
