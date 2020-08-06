@@ -8,7 +8,6 @@ import { ViewStatsComponent } from './poll/view-stats/view-stats.component';
 import { ResponsesComponent } from './poll/responses/responses.component';
 import { SettingsComponent } from './settings/settings.component';
 import { AuthGuardService } from '../services/auth-guard.service';
-import { SecureComponent } from './secure.component';
 
 const routes: Routes = [
   {

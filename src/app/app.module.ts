@@ -1,7 +1,7 @@
 import { NgModule, APP_INITIALIZER, Injector, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {HttpClient, HttpClientModule} from '@angular/common/http';
+import { BrowserModule } from '@angular/platform-browser';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
@@ -15,7 +15,6 @@ import { LOCATION_INITIALIZED } from '@angular/common';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { StarRatingComponent } from './shared/star-rating/star-rating.component';
 import { ConfirmDialogComponent } from './dialogs/confirm-dialog/confirm-dialog.component';
 
 import { DigitOnlyModule } from '@uiowa/digit-only';
@@ -25,7 +24,6 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { SecureModule } from './secure/secure.module';
 import { PublicModule } from './public/public.module';
 import { SharedModule } from './shared/shared.module';
-import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
   declarations: [

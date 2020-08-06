@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { SecureRoutingModule } from './secure-routing.module';
+
 import { NavbarComponent } from './navbar/navbar.component';
 import { ViewPollsComponent } from './poll/view-polls/view-polls.component';
 import { ManagePollComponent } from './poll/manage-poll/manage-poll.component';
@@ -19,11 +20,9 @@ import { UpgradeComponent } from '../dialogs/upgrade/upgrade.component';
 import { NewOrderComponent } from './settings/new-order/new-order.component';
 import { ImportSurveyComponent } from '../dialogs/import-survey/import-survey.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { SecureComponent } from './secure.component';
 import { SharedModule } from '../shared/shared.module';
 import { ResponsesComponent } from './poll/responses/responses.component';
 import { ViewPollComponent } from './poll/view-poll/view-poll.component';
-import { SidebarComponent } from './sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
@@ -44,10 +43,8 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     UpgradeComponent,
     NewOrderComponent,
     ImportSurveyComponent,
-    SecureComponent,
     ResponsesComponent,
     ViewPollComponent,
-    SidebarComponent
   ],
   imports: [
     CommonModule,

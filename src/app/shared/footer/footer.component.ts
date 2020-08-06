@@ -1,13 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { DataService } from '../services/data.service';
-import { EmitterService } from '../services/emitter.service';
+import { DataService } from '../../services/data.service';
+import { EmitterService } from '../../services/emitter.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { constants } from '../app.constants';
+import { constants } from '../../app.constants';
 import { Router } from '@angular/router';
-import { LanguageService } from '../services/language.service';
-import { AuthenticationService } from '../services/authentication.service';
+import { LanguageService } from '../../services/language.service';
+import { AuthenticationService } from '../../services/authentication.service';
 
 @Component({
   selector: 'app-footer',
