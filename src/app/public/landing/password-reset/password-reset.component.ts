@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, EventEmitter, Output } from '@angular/cor
 import { FormGroup, NgForm, FormBuilder, Validators } from '@angular/forms';
 import { UserService } from '../../../services/user.service';
 import { UtilService } from '../../../services/util.service';
-import { PasswordValidation } from '../../../helpers/password-validation';
+import { PasswordValidation } from '../../../shared/utils/password-validation';
 import { ActivatedRoute } from '@angular/router';
 import { take } from 'rxjs/operators';
 import { constants } from '../../../app.constants';

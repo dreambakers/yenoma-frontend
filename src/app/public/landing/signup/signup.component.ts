@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthenticationService } from '../../../services/authentication.service';
-import { PasswordValidation } from '../../../helpers/password-validation';
+import { PasswordValidation } from '../../../shared/utils/password-validation';
 import { Router } from '@angular/router';
 import { UtilService } from '../../../services/util.service';
 import { UserService } from '../../../services/user.service';
