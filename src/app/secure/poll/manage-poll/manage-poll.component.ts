@@ -28,7 +28,7 @@ export class ManagePollComponent implements OnInit, OnDestroy {
     questions: [],
     for: ''
   };
-
+  collapsed = { /* 1 : false */ }; // map of indices of collapsed questions
   user;
   poll: Poll;
   pollCopy;
@@ -74,6 +74,7 @@ export class ManagePollComponent implements OnInit, OnDestroy {
               this.responses = res.responses;
               this.showPassword = !!this.poll.password;
               this.pollCopy = JSON.stringify(this.poll);
+              this.poll.questions.forEach((q, i) => { this.collapsed[i] = true; });
               this.updateMobileNavbar();
               if (this.responses.length) {
                 this.emitterService.emit(constants.emitterKeys.changeNavbarTitle, {
