@@ -8,6 +8,7 @@ import {
 export class DataService {
 
   public static width;
+  public static subscription;
 
   constructor() {}
 

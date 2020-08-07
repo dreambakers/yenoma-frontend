@@ -16,6 +16,7 @@ export class ImportSurveyComponent implements OnInit {
 
   user;
   importText;
+  subscription;
   submitted = false;
   constants = constants;
 
@@ -29,11 +30,18 @@ export class ImportSurveyComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = this.userService.getLoggedInUser();
+    this.userService.getSubscription().subscribe(
+      (res: any) => {
+        if (res.success) {
+          this.subscription = res.subscription;
+        }
+      }
+    );
   }
 
   import() {
     this.submitted = true;
-    if (!this.importText) {
+    if (!this.importText || !this.subscription.isPro) {
       return;
     }
 
