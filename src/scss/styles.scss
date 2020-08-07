@@ -429,6 +429,12 @@ button.mat-menu-item{ outline:none; }
     font-size: 0.9rem !important;
 }
 
+.mat-checkbox-label-wrap {
+    .mat-checkbox-layout {
+        white-space: normal !important;
+    }
+}
+
 .mat-ripple{
     z-index:50;
 }
