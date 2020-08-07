@@ -5,6 +5,7 @@ import { constants } from './app.constants';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
+import { DialogService } from './services/dialog.service';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +19,8 @@ export class AppComponent implements OnInit {
 
   constructor(
     private emitterService: EmitterService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private dialogService: DialogService
   ) {}
 
   ngOnInit(): void {
@@ -29,8 +31,32 @@ export class AppComponent implements OnInit {
       switch(emitted.event) {
         case constants.emitterKeys.languageChanged:
           return this.languageChanged(emitted.data);
+        case constants.emitterKeys.aboutClicked:
+          return this.about();
+        case constants.emitterKeys.cookiePolicyClicked:
+            return this.cookiePolicy();
+        case constants.emitterKeys.imprintClicked:
+            return this.imprint();
+        case constants.emitterKeys.termsAndConditionsClicked:
+            return this.termsAndConditions();
       }
     });
+  }
+
+  about() {
+    this.dialogService.about();
+  }
+
+  cookiePolicy() {
+    this.dialogService.cookiePolicy();
+  }
+
+  imprint() {
+    this.dialogService.imprint();
+  }
+
+  termsAndConditions() {
+    this.dialogService.termsAndConditions();
   }
 
   languageChanged(event) {

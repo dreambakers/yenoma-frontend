@@ -81,14 +81,6 @@ export class DashboardComponent implements OnInit {
           return;
         case constants.emitterKeys.toggleSidebar:
           return this.sideNav.toggle();
-        case constants.emitterKeys.aboutClicked:
-          return this.about();
-        case constants.emitterKeys.cookiePolicyClicked:
-            return this.cookiePolicy();
-        case constants.emitterKeys.imprintClicked:
-            return this.imprint();
-        case constants.emitterKeys.termsAndConditionsClicked:
-            return this.termsAndConditions();
         case constants.emitterKeys.feedbackClicked:
           return this.feedback();
         case constants.emitterKeys.importSurveryClicked:
@@ -122,19 +114,19 @@ export class DashboardComponent implements OnInit {
   }
 
   about() {
-    this.dialogService.about();
+    this.emitterService.emit(constants.emitterKeys.aboutClicked);
   }
 
   cookiePolicy() {
-    this.dialogService.cookiePolicy();
+    this.emitterService.emit(constants.emitterKeys.cookiePolicyClicked);
   }
 
   imprint() {
-    this.dialogService.imprint();
+    this.emitterService.emit(constants.emitterKeys.imprintClicked);
   }
 
   termsAndConditions() {
-    this.dialogService.termsAndConditions();
+    this.emitterService.emit(constants.emitterKeys.termsAndConditionsClicked);
   }
 
   feedback() {
