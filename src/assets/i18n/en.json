@@ -347,7 +347,8 @@
     "paymentSuccessful": "Payment successful",
     "acceptLegal": "T&C and Privacy policy need to be accepted before proceeding",
     "termsRead": "I agree to the Yenoma terms and conditions",
-    "privacyPolicyRead": "I agree to the Yenoma privacy policy"
+    "privacyPolicyRead": "I agree to the Yenoma privacy policy",
+    "importSurveyInstructions": "Import survey instructions come here"
   },
   "placeholders": {
     "activeComment": "Active comment",
