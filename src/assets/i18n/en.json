@@ -344,7 +344,10 @@
     "usernameRequirement": "Username must be at least 5 characters and can only contain alphabets and numbers",
     "verificationLinkNotValid": "The verification link is not valid. Please visit the following link to request a new confirmation email.",
     "subscriptionDescription": "EN <strong>Lorem ipsum</strong> <u>dolor sit amet</u>, <em>consectetur</em> <mark>adipisicing</mark> elit. Possimus enim, recusandae ipsam fuga rerum blanditiis maxime corrupti corporis sit ducimus doloribus? Sit, in suscipit ut fugit consectetur explicabo recusandae. Quaerat. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus enim, recusandae ipsam fuga rerum blanditiis maxime corrupti corporis sit ducimus doloribus? Sit, in suscipit ut <en>fugit</en> consectetur explicabo recusandae. Quaerat. <br> Source: <br> https://getbootstrap.com/docs/4.0/content/typography/",
-    "paymentSuccessful": "Payment successful"
+    "paymentSuccessful": "Payment successful",
+    "acceptLegal": "T&C and Privacy policy need to be accepted before proceeding",
+    "termsRead": "I agree to the Yenoma terms and conditions",
+    "privacyPolicyRead": "I agree to the Yenoma privacy policy"
   },
   "placeholders": {
     "activeComment": "Active comment",

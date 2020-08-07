@@ -107,7 +107,23 @@
               </div>
             </div>
 
-            <button mat-raised-button color="primary" class="w-100 text-uppercase" type="submit" [disabled]="submitted && loading">
+            <mat-checkbox class="example-margin d-block" formControlName="termsAccepted">
+              <a (click)="termsAndConditions()">{{ 'messages.termsRead' | translate }}</a>
+            </mat-checkbox>
+
+            <mat-checkbox class="example-margin" formControlName="ppAccepted">
+              <a (click)="termsAndConditions()">{{ 'messages.privacyPolicyRead' | translate }}</a>
+            </mat-checkbox>
+
+            <div
+              *ngIf="submitted && (f.termsAccepted.errors || f.ppAccepted.errors)"
+              class="invalid-feedback d-block">
+              <div>
+                {{ 'messages.acceptLegal' | translate }}
+              </div>
+            </div>
+
+            <button mat-raised-button color="primary" class="w-100 text-uppercase mt-2" type="submit" [disabled]="submitted && loading">
               {{ 'labels.registerButton' | translate }}
               <div class="spinner-border" role="status" *ngIf="submitted && loading">
                 <span class="sr-only">Loading...</span>
