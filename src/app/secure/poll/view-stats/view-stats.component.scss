@@ -36,3 +36,10 @@ mat-icon {
     min-width: 100px;
     width: 100px;
 }
+
+.dropdown-table-value {
+    font-size: 0.8rem;
+    &.percentage {
+        font-size: 0.6rem;
+    }
+}

@@ -87,6 +87,15 @@ export class ViewStatsComponent implements OnInit {
         const valueIndex = this.getOptions(this.poll.questions[questionIndex]).indexOf(value);
         return this.answerMap[questionIndex][optionIndex][valueIndex] || 0;
 
+      case constants.answerTypes.dropdown:
+        const result = { count: 0, percentage: '0.0%' };
+        if (this.answerMap[questionIndex][optionIndex][value]) {
+          const valuePercentage = (this.answerMap[questionIndex][optionIndex][value] / this.answerMap[questionIndex]['responses']) * 100;
+          result.count = this.answerMap[questionIndex][optionIndex][value];
+          result.percentage = valuePercentage.toFixed(1) + '%';
+        }
+        return result;
+
       default:
         if (this.answerMap[questionIndex][optionIndex][value]) {
           const valuePercentage = (this.answerMap[questionIndex][optionIndex][value] / this.answerMap[questionIndex]['responses']) * 100;
