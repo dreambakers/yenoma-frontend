@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
-import { Poll } from '../../poll/poll.model';
+import { Poll } from '../../secure/poll/poll.model';
 import { TranslateService } from '@ngx-translate/core';
 import { constants } from '../../app.constants';
 import { MatDialogRef } from '@angular/material/dialog';
