@@ -65,7 +65,7 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.user = this.userService.getLoggedInUser();
     this.scrollService.top();
-    this.currentSort = { ...this.currentSort, ...this.userService.getPreference('viewPollsSorting') };
+    this.currentSort = { ...this.currentSort, ...this.userService.getPreference('viewSurveysSorting') };
     this.pollService.getPolls().subscribe(
       (res: any) => {
         if (res.success) {
@@ -521,7 +521,7 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
   }
 
   sortChanged($event: { active: string, direction: string }) {
-    this.userService.updatePreference({ viewPollsSorting: { id: $event.active, start: $event.direction } });
+    this.userService.updatePreference({ viewSurveysSorting: { id: $event.active, start: $event.direction } });
   }
 
   get isMobile() {
