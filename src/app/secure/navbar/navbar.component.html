@@ -44,7 +44,7 @@
             <i class="fas fa-cogs mr-2"></i>
             {{ 'labels.settings' | translate }}
           </button>
-          <button mat-menu-item (click)="importSurvey()" [class.muted-custom]="subscription?.isPro">
+          <button mat-menu-item (click)="importSurvey()" [class.text-muted-custom]="!subscription?.isPro">
             <i class="fas fa-download mr-2"></i>
             {{ 'labels.importSurvey' | translate }}
           </button>

@@ -21,7 +21,7 @@
 
         <a
           class="nav-link cursor-pointer"
-          [class.muted-custom]="subscription?.isPro"
+          [class.text-muted-custom]="!subscription?.isPro"
           (click)="toggleSidebar() && importSurvey()"
           matRipple>
           <i class="fas fa-download mr-2"></i>
