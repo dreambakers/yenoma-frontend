@@ -62,18 +62,22 @@ export class ImportSurveyComponent implements OnInit {
       }
 
       if (line && (line[0] === ' ' || line[0] === '-' || line[0] === '\t') && optionsCount <= 299) {
-        const question = newPoll.questions[questionIndex];
-        if (question) {
-          question.options.push(line.substring(1).trim());
-          optionsCount ++;
-          if (optionsCount >= 2) {
-            question.answerType = constants.answerTypes.radioButton;
+        if (line.substring(1).trim()) {
+          const question = newPoll.questions[questionIndex];
+          if (question) {
+            question.options.push(line.substring(1).trim());
+            optionsCount ++;
+            if (optionsCount >= 2) {
+              question.answerType = constants.answerTypes.radioButton;
+            }
           }
         }
       } else if (line && line[0] === '+') {
-        const question = newPoll.questions[questionIndex];
-        if (question) {
-          question.additionalText = question.additionalText || line.substring(1).trim();
+        if (line.substring(1).trim()) {
+          const question = newPoll.questions[questionIndex];
+          if (question) {
+            question.additionalText = question.additionalText || line.substring(1).trim();
+          }
         }
       } else if (line && line[0] !== ' ') {
         optionsCount = 0;
