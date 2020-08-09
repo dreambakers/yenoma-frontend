@@ -19,6 +19,7 @@ export class ImportSurveyComponent implements OnInit {
   subscription;
   submitted = false;
   constants = constants;
+  showInstructions = false;
 
   constructor(
     private userService: UserService,
@@ -41,6 +42,7 @@ export class ImportSurveyComponent implements OnInit {
 
   import() {
     this.submitted = true;
+    this.showInstructions = false;
     if (!this.importText || !this.subscription.isPro) {
       return;
     }
