@@ -15,16 +15,16 @@
         <div>
             <app-alert messageKey="messages.cannotEditSurveyHasResponses"
                        type="danger"
-                       *ngIf="responses && responses.length"
+                       *ngIf="poll && poll.responses >= 1"
                        class="mb-2">
             </app-alert>
 
-            <div class="d-flex justify-content-end mb-5 text-right" *ngIf="isEditing && responses.length && !isMobile">
+            <div class="d-flex justify-content-end mb-5 text-right" *ngIf="isEditing && poll.responses >= 1 && !isMobile">
                 <p>
                     <span class="font-weight-bold">
                         {{ 'labels.responders' | translate }}:
                     </span>
-                    {{responses.length}}
+                    {{ poll.responses }}
                 </p>
             </div>
 
