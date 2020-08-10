@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { UtilService } from '../../../services/util.service';
 import { UserService } from '../../../services/user.service';
 import { constants } from '../../../app.constants';
+import { EmitterService } from 'src/app/services/emitter.service';
 
 @Component({
   selector: 'app-signup',
@@ -20,11 +21,14 @@ export class SignupComponent implements OnInit {
   loading = false;
   @Output() signupEvent = new EventEmitter();
 
-  constructor(private formBuilder: FormBuilder,
+  constructor(
+    private formBuilder: FormBuilder,
     private auth: AuthenticationService,
     private router: Router,
     private utils: UtilService,
-    private userService: UserService) { }
+    private userService: UserService,
+    private emitterService: EmitterService
+  ) { }
 
   ngOnInit() {
 
@@ -32,7 +36,9 @@ export class SignupComponent implements OnInit {
       username: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9]+$'), Validators.minLength(5)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', [Validators.required]]
+      confirmPassword: ['', [Validators.required]],
+      ppAccepted: [false, [Validators.requiredTrue]],
+      termsAccepted: [false, [Validators.requiredTrue]]
     },
       {
         validator: PasswordValidation.MatchPassword
@@ -40,6 +46,10 @@ export class SignupComponent implements OnInit {
   }
 
   get f() { return this.signupForm.controls; }
+
+  termsAndConditions() {
+    this.emitterService.emit(constants.emitterKeys.termsAndConditionsClicked);
+  }
 
   onSubmit() {
     this.submitted = true;

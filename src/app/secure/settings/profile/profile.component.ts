@@ -53,6 +53,7 @@ export class ProfileComponent implements OnInit {
       (res: any) => {
         if (res.success) {
           this.subscription = res.subscription;
+          DataService.subscription = this.subscription;
           if (updateUser) {
             this.user.subscription = this.subscription;
             this.userService.updateUser(this.user);

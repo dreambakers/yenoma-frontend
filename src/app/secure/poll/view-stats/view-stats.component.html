@@ -1,4 +1,4 @@
-<div [ngClass]="isMobile ? 'p-2' : 'p-5'" *ngIf="poll?.questions">
+<div [ngClass]="isMobile ? 'p-2' : 'p-5'" *ngIf="poll?.questions && responses?.length">
 
     <div class="d-flex flex-column mb-2">
         <div class="w-75 mb-3" *ngIf="!isMobile">
@@ -6,7 +6,7 @@
         </div>
 
         <div class="d-flex flex-column justify-content-end mb-5 text-right" *ngIf="!isMobile">
-            <p *ngIf="responses.length">
+            <p>
                 <span class="font-weight-bold">
                     {{ 'labels.responders' | translate }}:
                 </span>
@@ -98,7 +98,11 @@
                             <tr *ngFor="let option of question.options; let j = index">
                                 <td *ngIf="question.hasOptions">{{ option }}</td>
                                 <td *ngFor="let option of getOptions(question)">
-                                    {{ getTableValue(i, j, option) }}
+                                    <div *ngFor="let item of getTableValue(i, j, option) | keyvalue; let k = index">
+                                        <p class="m-0 dropdown-table-value" [class.percentage]="item.key === 'percentage'">
+                                            {{item.value}}
+                                        </p>
+                                    </div>
                                 </td>
                                 <td>{{ answerMap[i][j]['response'] }}</td>
                                 <td>
@@ -408,8 +412,7 @@
                         <div class="w-50 d-flex flex-row">
                             <div
                                *ngIf="question.answerType !== constants.answerTypes.list"
-                               class="p-2 score text-right"
-                               [class.border-right]="question.answerType !== constants.answerTypes.value">
+                               class="p-2 score text-right border-right">
                                 {{ getResponseValue(i, j) }}
                             </div>
                             <div *ngIf="![constants.answerTypes.value, constants.answerTypes.list].includes(question.answerType)" class="p-2 w-100 d-block">

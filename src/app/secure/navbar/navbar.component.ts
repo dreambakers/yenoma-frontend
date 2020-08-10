@@ -104,4 +104,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.router.navigate(['dashboard/settings']);
   }
 
+  get subscription() {
+    return DataService.subscription;
+  }
+
 }

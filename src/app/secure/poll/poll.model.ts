@@ -32,4 +32,5 @@ export class Poll {
     automaticNumbering?: Boolean;
     thankYouTitle?: string;
     thankYouMessage?: string;
+    responses?: number;
 }

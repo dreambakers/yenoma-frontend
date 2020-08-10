@@ -89,6 +89,13 @@ export class DashboardComponent implements OnInit {
           return this.scrollPosition = emitted.data;
       }
     });
+    this.userService.getSubscription().subscribe(
+      (res: any) => {
+        if (res.success) {
+          DataService.subscription = res.subscription;
+        }
+      }
+    );
   }
 
   ngAfterViewChecked(): void {
@@ -134,6 +141,9 @@ export class DashboardComponent implements OnInit {
   }
 
   importSurvey() {
+    if (!this.subscription.isPro) {
+      return this.dialogService.upgrade();
+    }
     this.dialogService.importSurvey();
   }
 
@@ -152,6 +162,10 @@ export class DashboardComponent implements OnInit {
 
   get isMobile() {
     return DataService.isMobile;
+  }
+
+  get subscription() {
+    return DataService.subscription;
   }
 
   ngOnDestroy(): void {

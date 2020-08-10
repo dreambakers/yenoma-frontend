@@ -22,7 +22,7 @@ body {
 }
 
 .text-muted-custom {
-    color: rgba(0,0,0,.38)
+    color: rgba(0,0,0,.38) !important;
 }
 
 .w-90 {
@@ -427,6 +427,12 @@ button.mat-menu-item{ outline:none; }
 
 .mat-checkbox-label {
     font-size: 0.9rem !important;
+}
+
+.mat-checkbox-label-wrap {
+    .mat-checkbox-layout {
+        white-space: normal !important;
+    }
 }
 
 .mat-ripple{

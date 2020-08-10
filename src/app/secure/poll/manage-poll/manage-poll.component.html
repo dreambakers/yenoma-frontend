@@ -15,16 +15,16 @@
         <div>
             <app-alert messageKey="messages.cannotEditSurveyHasResponses"
                        type="danger"
-                       *ngIf="responses && responses.length"
+                       *ngIf="poll && poll.responses >= 1"
                        class="mb-2">
             </app-alert>
 
-            <div class="d-flex justify-content-end mb-5 text-right" *ngIf="isEditing && responses.length && !isMobile">
+            <div class="d-flex justify-content-end mb-5 text-right" *ngIf="isEditing && poll.responses >= 1 && !isMobile">
                 <p>
                     <span class="font-weight-bold">
                         {{ 'labels.responders' | translate }}:
                     </span>
-                    {{responses.length}}
+                    {{ poll.responses }}
                 </p>
             </div>
 
@@ -229,21 +229,21 @@
                 <mat-accordion [hidden]='rearrangeQuestions'>
                     <mat-expansion-panel
                         class="mat-elevation-z0 mat-ep-no-padding px-3"
-                        [class.pb-3]="!question.showHints || !question.collapsed"
+                        [class.pb-3]="!question.showHints || !collapsed[i]"
                         #optionsPanel
-                        [expanded]="!question.collapsed">
+                        [expanded]="!collapsed[i]">
                         <mat-expansion-panel-header
                             *ngIf="!rearrangeQuestions"
                             class="justify-content-center bg-white mt-2"
                             [class.py-3]="!question.showHints"
                             [collapsedHeight]="'15px'"
                             [expandedHeight]="'15px'"
-                            (click)="question.collapsed = !question.collapsed">
+                            (click)="collapsed[i] = !collapsed[i]">
                         </mat-expansion-panel-header>
 
                         <div class="text-center text-muted bg-white cursor-pointer expansion-label mb-2"
                              *ngIf="!rearrangeQuestions && question.showHints"
-                             (click)="question.collapsed = true">
+                             (click)="collapsed[i] = true">
                             <mat-hint>
                                 {{ 'labels.collapse' | translate }}
                             </mat-hint>
@@ -535,8 +535,8 @@
 
                     <div
                         class="text-center text-muted bg-white cursor-pointer expansion-label pb-3"
-                        *ngIf="!rearrangeQuestions && question.collapsed && question.showHints"
-                        (click)="question.collapsed = false">
+                        *ngIf="!rearrangeQuestions && collapsed[i] && question.showHints"
+                        (click)="collapsed[i] = false">
                         <mat-hint>
                             {{ 'labels.expand' | translate }}
                         </mat-hint>

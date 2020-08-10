@@ -28,11 +28,10 @@ export class ManagePollComponent implements OnInit, OnDestroy {
     questions: [],
     for: ''
   };
-
+  collapsed = { /* 1 : false */ }; // map of indices of collapsed questions
   user;
   poll: Poll;
   pollCopy;
-  responses;
   answerMap: any;
   hide = true;
   preview = false;
@@ -71,13 +70,13 @@ export class ManagePollComponent implements OnInit, OnDestroy {
           (res: any) => {
             if (res.success) {
               this.poll = res.poll;
-              this.responses = res.responses;
               this.showPassword = !!this.poll.password;
               this.pollCopy = JSON.stringify(this.poll);
+              this.poll.questions.forEach((q, i) => { this.collapsed[i] = true; });
               this.updateMobileNavbar();
-              if (this.responses.length) {
+              if (this.poll.responses >= 1) {
                 this.emitterService.emit(constants.emitterKeys.changeNavbarTitle, {
-                  extra: ` (${this.responses.length})`
+                  extra: ` (${this.poll.responses})`
                 });
               }
             } else {
@@ -395,7 +394,7 @@ export class ManagePollComponent implements OnInit, OnDestroy {
 
   get shouldDisable() {
     if (this.isEditing) {
-      return this.responses.length > 0;
+      return this.poll.responses > 0;
     } else {
       return false;
     }

@@ -2,25 +2,33 @@
     {{ 'labels.importSurvey' | translate }}
   </h1>
 
-  <div mat-dialog-content class="border-top">
-    <div class="form-group mt-3">
-        <mat-label>
-          {{ 'labels.importText' | translate }}
-        </mat-label>
+  <div mat-dialog-content class="border-top overflow-hidden">
+    <div class="d-flex justify-content-end">
+      <button mat-icon-button (click)="showInstructions = !showInstructions" class="text-right">
+        <i class="fas fa-question-circle text-{{ showInstructions ? 'primary' : 'muted'}}"></i>
+      </button>
+    </div>
 
-        <mat-form-field appearance="outline" class="w-100 mat-field-no-margin input-no-label">
-          <textarea
-            matInput
-            placeholder="{{ 'placeholders.importText' | translate }}"
-            [(ngModel)]="importText"
-            autocomplete="off"
-            rows="7">
-          </textarea>
-        </mat-form-field>
+    <div class="instructions overflow-auto p-1" [hidden]="!showInstructions">
+      <p class="text-justify" [innerHTML]="'messages.importSurveyInstructions' | translate">
+      </p>
+    </div>
 
-        <div *ngIf="submitted && !importText" class="invalid-feedback d-flex">
-            {{ "messages.importTextRequired" | translate }}
-        </div>
+    <div [hidden]="showInstructions">
+      <mat-form-field appearance="outline" class="w-100 mat-field-no-margin input-no-label">
+        <textarea
+          matInput
+          placeholder="{{ 'placeholders.importText' | translate }}"
+          [(ngModel)]="importText"
+          autocomplete="off"
+          rows="7"
+          cdkFocusInitial>
+        </textarea>
+      </mat-form-field>
+
+      <div *ngIf="submitted && !importText" class="invalid-feedback d-flex">
+          {{ "messages.importTextRequired" | translate }}
+      </div>
     </div>
   </div>
 

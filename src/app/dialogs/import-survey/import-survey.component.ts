@@ -16,8 +16,10 @@ export class ImportSurveyComponent implements OnInit {
 
   user;
   importText;
+  subscription;
   submitted = false;
   constants = constants;
+  showInstructions = false;
 
   constructor(
     private userService: UserService,
@@ -29,11 +31,19 @@ export class ImportSurveyComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = this.userService.getLoggedInUser();
+    this.userService.getSubscription().subscribe(
+      (res: any) => {
+        if (res.success) {
+          this.subscription = res.subscription;
+        }
+      }
+    );
   }
 
   import() {
     this.submitted = true;
-    if (!this.importText) {
+    this.showInstructions = false;
+    if (!this.importText || !this.subscription.isPro) {
       return;
     }
 
@@ -54,14 +64,29 @@ export class ImportSurveyComponent implements OnInit {
       }
 
       if (line && (line[0] === ' ' || line[0] === '-' || line[0] === '\t') && optionsCount <= 299) {
-        newPoll.questions[questionIndex].options.push(line.substring(1).trim());
-        optionsCount ++;
+        if (line.substring(1).trim()) {
+          const question = newPoll.questions[questionIndex];
+          if (question) {
+            question.options.push(line.substring(1).trim());
+            optionsCount ++;
+            if (optionsCount >= 2) {
+              question.answerType = constants.answerTypes.radioButton;
+            }
+          }
+        }
+      } else if (line && line[0] === '+') {
+        if (line.substring(1).trim()) {
+          const question = newPoll.questions[questionIndex];
+          if (question) {
+            question.additionalText = question.additionalText || line.substring(1).trim();
+          }
+        }
       } else if (line && line[0] !== ' ') {
         optionsCount = 0;
         newPoll.questions.length && questionIndex ++;
         newPoll.questions.push({
           text: line,
-          answerType: constants.answerTypes.rating,
+          answerType: constants.answerTypes.yesNoMaybe,
           options: []
         });
       }
@@ -70,7 +95,7 @@ export class ImportSurveyComponent implements OnInit {
     if (!newPoll.questions.length) {
       newPoll.questions.push({
         text: '',
-        answerType: constants.answerTypes.rating,
+        answerType: constants.answerTypes.yesNoMaybe,
         options: []
       });
     }

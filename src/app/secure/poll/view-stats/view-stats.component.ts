@@ -10,6 +10,7 @@ import { Subject } from 'rxjs';
 import { EmitterService } from '../../../services/emitter.service';
 import { takeUntil } from 'rxjs/operators';
 import { Stats } from '../../../shared/utils/calculate-stats';
+import { ResponseService } from 'src/app/services/response.service';
 
 @Component({
   selector: 'app-view-stats',
@@ -34,34 +35,46 @@ export class ViewStatsComponent implements OnInit {
     private utils: UtilService,
     private router: Router,
     private translate: TranslateService,
-    private emitterService: EmitterService
+    private emitterService: EmitterService,
+    private responseService: ResponseService
   ) { }
 
   ngOnInit() {
 
     this.route.queryParams.subscribe(params => {
       const pollId = params['id'];
-      this.pollService.managePoll(pollId).subscribe(
+
+      this.responseService.getResponsesForPoll(pollId).subscribe(
         (res: any) => {
           if (res.success) {
-            this.poll = res.poll;
             this.responses = res.responses;
-            if (res.responses) {
-              this.answerMap = new Stats(this.responses).getAnswerMap();
-              this.poll.questions.forEach(question => {
-                if (!question.options.length) {
-                  question.options.push('');
-                  question['hasOptions'] = false;
-                } else {
-                  question['hasOptions'] = true;
-                }
-              });
-            }
+            this.answerMap = new Stats(this.responses).getAnswerMap();
             this.emitterService.emit(constants.emitterKeys.changeNavbarTitle, {
               key: 'labels.surveyStats',
               extra: ` (${this.responses.length})`
             });
             this.emitterService.emit(constants.emitterKeys.updateNavbarProps, { home: true });
+          } else {
+            this.utils.openSnackBar('errors.e011_gettingResponses');
+          }
+        },
+        (err) => {
+          this.utils.openSnackBar('errors.e011_gettingResponses');
+        }
+      );
+
+      this.pollService.managePoll(pollId).subscribe(
+        (res: any) => {
+          if (res.success) {
+            this.poll = res.poll;
+            this.poll.questions.forEach(question => {
+              if (!question.options.length) {
+                question.options.push('');
+                question['hasOptions'] = false;
+              } else {
+                question['hasOptions'] = true;
+              }
+            });
           } else {
             this.utils.openSnackBar('errors.e003_gettingSurvey');
           }
@@ -69,7 +82,7 @@ export class ViewStatsComponent implements OnInit {
         (err) => {
           this.utils.openSnackBar('errors.e003_gettingSurvey');
         }
-      )
+      );
     });
 
     this.emitterService.emitter.pipe(takeUntil(this.destroy$)).subscribe((emitted) => {
@@ -86,6 +99,15 @@ export class ViewStatsComponent implements OnInit {
       case constants.answerTypes.list:
         const valueIndex = this.getOptions(this.poll.questions[questionIndex]).indexOf(value);
         return this.answerMap[questionIndex][optionIndex][valueIndex] || 0;
+
+      case constants.answerTypes.dropdown:
+        const result = { count: 0, percentage: '0.0%' };
+        if (this.answerMap[questionIndex][optionIndex][value]) {
+          const valuePercentage = (this.answerMap[questionIndex][optionIndex][value] / this.answerMap[questionIndex]['responses']) * 100;
+          result.count = this.answerMap[questionIndex][optionIndex][value];
+          result.percentage = valuePercentage.toFixed(1) + '%';
+        }
+        return result;
 
       default:
         if (this.answerMap[questionIndex][optionIndex][value]) {
