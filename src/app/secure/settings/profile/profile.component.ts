@@ -37,7 +37,6 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.profileForm = this.formBuilder.group({
       username: [this.user?.username, [Validators.required, Validators.pattern('^[a-zA-Z0-9]+$'), Validators.minLength(5)]],
-      email: [this.user?.email, [Validators.required, Validators.email]],
     });
     this.emitterService.emitter.pipe(takeUntil(this.destroy$)).subscribe((emitted) => {
       switch(emitted.event) {
@@ -89,7 +88,6 @@ export class ProfileComponent implements OnInit {
     }
 
     const user = {
-      email: this.profileForm.value.email,
       username: this.profileForm.value.username
     }
 
@@ -105,9 +103,6 @@ export class ProfileComponent implements OnInit {
         if (errorResponse.error.alreadyExists) {
           if (errorResponse.error.username) {
             this.profileForm.controls['username'].setErrors({'usernameExists': true});
-          }
-          if (errorResponse.error.email) {
-            this.profileForm.controls['email'].setErrors({'emailExists': true});
           }
           return;
         }
