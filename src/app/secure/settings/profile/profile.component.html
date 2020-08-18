@@ -16,19 +16,8 @@
       </mat-label>
 
       <mat-form-field appearance="outline" class="w-100 mat-field-no-margin input-no-label">
-        <input matInput formControlName="email" [ngClass]="{ 'mat-form-field-invalid': submitted && f.email.errors }">
+        <input matInput disabled [value]="user?.email">
       </mat-form-field>
-    </div>
-
-    <div *ngIf="submitted && f.email.errors" class="invalid-feedback d-flex justify-content-sm-end">
-      <div *ngIf="f.email.errors.required">
-        {{ 'labels.emailAddress' | translate }}
-        {{ 'labels.isRequired' | translate }}
-      </div>
-      <div *ngIf="f.email.errors.email">{{ 'messages.emailNotValid' | translate }}</div>
-      <div *ngIf="f.email.errors.emailExists">
-        {{ 'messages.userEmailAlreadyExists' | translate }}
-      </div>
     </div>
   </div>
 
