@@ -9,7 +9,7 @@
             <input
                 matInput
                 class="w-100 text-center p-1"
-                [readonly]="true"
+                (keydown)=onKeydownEvent()
                 [value]="url">
         </div>
 
@@ -18,7 +18,7 @@
         </span>
 
         <div class="d-flex flex-row justify-content-{{ canShare ? 'between' : 'center'}} w-100">
-            <button mat-raised-button color="primary" class="mt-2" (click)="copyLink()">
+            <button mat-raised-button color="primary" class="mt-2" (click)="copyLink()" cdkFocusInitial>
                 {{ 'labels.copyLink' | translate }}
             </button>
 

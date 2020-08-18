@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Inject } from '@angular/core';
+import { Component, OnInit, Input, Inject, ViewChild } from '@angular/core';
 import { constants } from 'src/app/app.constants';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
@@ -84,6 +84,10 @@ export class ShareComponent implements OnInit {
       text: this.translate.instant('messages.shareSurvey'),
       url: this.url,
     })
+  }
+
+  onKeydownEvent() {
+    return false;
   }
 
 }
