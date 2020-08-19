@@ -360,21 +360,15 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
       for (let question of poll.questions) {
         if (question.options.length) {
           for (let option of question.options) {
-            data += `"${question.text}";`;
             // For text question type we need two columns, one for the weight and the other for the actual answer
             // This is why whenever we encounter a text answer type, we would need to manually append another column
-            if ([constants.answerTypes.text, constants.answerTypes.email].includes(question.answerType)) {
-              data += `"${question.text}";`;
-            }
+            data += `"${question.text}";`;
           }
           if (question.allowOtherAnswer) {
             data += `"${question.text}";`;
           }
         } else {
           data += `"${question.text}";`;
-          if ([constants.answerTypes.text, constants.answerTypes.email].includes(question.answerType)) {
-            data += `"${question.text}";`;
-          }
         }
       }
       return data + '\n';
@@ -386,9 +380,10 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
       for (let question of poll.questions) {
         if (question.options.length) {
           for (let option of question.options) {
-            data += `"${option}";`;
             if ([constants.answerTypes.text, constants.answerTypes.email].includes(question.answerType)) {
               data += `"${option} [Text]";`;
+            } else {
+              data += `"${option}";`;
             }
           }
           if (question.allowOtherAnswer) {
@@ -396,9 +391,6 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
           }
         } else {
           data += `"";`;
-          if ([constants.answerTypes.text, constants.answerTypes.email].includes(question.answerType)) {
-            data += `"";`;
-          }
         }
       }
       return data + '\n';
@@ -419,18 +411,20 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
         const question = poll.questions[i];
         if (question.options.length) {
           for (let j = 0; j < question.options.length; j ++) {
-            data += `"Q${i + 1}O${j + 1}";`
             if ([constants.answerTypes.text, constants.answerTypes.email].includes(question.answerType)) {
               data += `"Q${i + 1}O${j + 1}T";`
+            } else {
+              data += `"Q${i + 1}O${j + 1}";`
             }
           }
           if (question.allowOtherAnswer) {
             data += `"Q${i + 1}O${question.options.length}T";`
           }
         } else {
-          data += `"Q${i + 1}";`
           if ([constants.answerTypes.text, constants.answerTypes.email].includes(question.answerType)) {
             data += `"Q${i + 1}T";`
+          } else {
+            data += `"Q${i + 1}";`
           }
         }
       }
@@ -466,10 +460,11 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
               let answerValue = weightFunction(question.answers[k].answer);
               // change index to user-friendly form (i.e. 0 -> 1, 1-> 2, ...) in case of list answer
               if (question.answerType === constants.answerTypes.list) { answerValue += 1 };
-              data += `"${answerValue}";`;
 
               if ([constants.answerTypes.text, constants.answerTypes.email].includes(question.answerType)) {
                 data += `"${question.answers[k].answer}";`
+              } else {
+                data += `"${answerValue}";`;
               }
             }
 
@@ -481,10 +476,11 @@ export class ViewPollsComponent implements OnInit, OnDestroy {
             let answerValue = weightFunction(question.answer);
             // change index to user-friendly form (i.e. 0 -> 1, 1-> 2, ...) in case of list answer
             if (question.answerType === constants.answerTypes.list) { answerValue += 1 };
-            data += `"${answerValue}";`;
 
             if ([constants.answerTypes.text, constants.answerTypes.email].includes(question.answerType)) {
               data += `"${question.answer}";`
+            } else {
+              data += `"${answerValue}";`;
             }
           }
         }
