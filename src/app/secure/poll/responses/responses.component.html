@@ -3,7 +3,6 @@
   <div *ngIf="!preview; else showPreview">
     <div *ngIf="!isMobile">
       <h4>{{poll?.title}}</h4>
-      <p>{{poll?.description}}</p>
     </div>
 
     <div class="mat-elevation-z8 mat-table-container" [class.mt-3]="!isMobile" *ngIf="responses?.length" id="responsesTableContainer">

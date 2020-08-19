@@ -5,12 +5,8 @@
 <div mat-dialog-content class="border-top overflow-auto responsive-dialog-content">
 
     <div class="d-flex flex-column justify-content-center align-items-center my-3">
-        <div class="border rounded w-100">
-            <input
-                matInput
-                class="w-100 text-center p-1"
-                (keydown)=onKeydownEvent()
-                [value]="url">
+        <div class="border rounded text-center p-1 w-100 overflow-auto">
+            {{ url }}
         </div>
 
         <span class="mt-2">
@@ -18,7 +14,7 @@
         </span>
 
         <div class="d-flex flex-row justify-content-{{ canShare ? 'between' : 'center'}} w-100">
-            <button mat-raised-button color="primary" class="mt-2" (click)="copyLink()" cdkFocusInitial>
+            <button mat-raised-button color="primary" class="mt-2" (click)="copyLink()">
                 {{ 'labels.copyLink' | translate }}
             </button>
 
