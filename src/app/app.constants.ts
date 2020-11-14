@@ -2,7 +2,7 @@ import { environment } from '../environments/environment';
 
 export const constants = {
     version: '0.20',
-    apiUrl: environment.production ? 'https://db-polling.herokuapp.com' : 'https://localhost:3000',
+    apiUrl: environment.production ? 'https://db-polling.herokuapp.com' : 'http://localhost:3000',
     answerTypes: {
         binary: 'binary',
         rating: 'rating',
@@ -75,5 +75,6 @@ export const constants = {
         timeout: 10,
         ping: 120
     },
-    yenomaUrl: 'http://www.yenoma.com'
+    yenomaUrl: 'http://www.yenoma.com',
+    shortenerUrl: 'http://ynm.de'
 }
