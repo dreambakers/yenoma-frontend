@@ -32,10 +32,17 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.loginForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      rememberLogin: [ false ]
+    });
+
     if (this.auth.isAuthenticated()) {
       this.router.navigateByUrl('/dashboard/all');
     } else {
       this.route.queryParams.pipe(take(1)).subscribe(params => {
+        let testDrive = params['test-drive'];
         const verificationToken = params['verificationToken'];
         if (verificationToken) {
           this.userService.verifySignup(verificationToken).subscribe(
@@ -49,14 +56,20 @@ export class LoginComponent implements OnInit {
               this.loginEvent.emit({ verified: false });
             }
           )
+        } else if (testDrive) {
+          try {
+            testDrive = JSON.parse(testDrive);
+          } catch (e) {
+            return;
+          }
+          if (testDrive) {
+            // TODO: read from DB or constants file
+            this.loginForm.controls['email'].setValue('test@test.com');
+            this.loginForm.controls['password'].setValue('test123');
+          }
         }
       });
     }
-    this.loginForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      rememberLogin: [ false ]
-    });
   }
 
   get f() { return this.loginForm.controls; }
