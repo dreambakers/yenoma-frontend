@@ -63,9 +63,8 @@ export class LoginComponent implements OnInit {
             return;
           }
           if (testDrive) {
-            // TODO: read from DB or constants file
-            this.loginForm.controls['email'].setValue('test@test.com');
-            this.loginForm.controls['password'].setValue('test123');
+            this.loginForm.controls['email'].setValue(constants.testdriveCredentials.email);
+            this.loginForm.controls['password'].setValue(constants.testdriveCredentials.password);
           }
         }
       });

@@ -76,5 +76,9 @@ export const constants = {
         ping: 120
     },
     yenomaUrl: 'http://www.yenoma.com',
-    shortenerUrl: 'http://ynm.de'
+    shortenerUrl: 'http://ynm.de',
+    testdriveCredentials: {
+        email: 'testdrive@yenoma.com',
+        password: 'testdrive'
+    }
 }
