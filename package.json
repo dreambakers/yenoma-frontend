@@ -27,7 +27,7 @@
     "@uiowa/digit-only": "^1.7.0",
     "angular-user-idle": "^2.2.2",
     "bootstrap": "^4.4.1",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "ng-navigator-share": "^1.0.4",
     "ngx-spinner": "^10.0.1",
     "qrcode": "^1.4.4",
